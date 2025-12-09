@@ -313,27 +313,35 @@ async def execute_action(action_name: str, params: Dict[str, Any]):
 async def jog_robot(req: JogRequest):
     if not robot_client:
         raise HTTPException(status_code=503, detail="Robot client not initialized")
-        
-    success = False
-    if req.axis:
-        # Cartesian Jog
-        if hasattr(robot_client, "jog_cartesian"):
-            success = robot_client.jog_cartesian(req.axis, req.distance, req.speed_profile)
+    
+    try:
+        success = False
+        if req.axis:
+            # Cartesian Jog
+            if hasattr(robot_client, "jog_cartesian"):
+                success = robot_client.jog_cartesian(req.axis, req.distance, req.speed_profile)
+            else:
+                raise HTTPException(status_code=501, detail="Cartesian jog not supported")
+        elif req.joint is not None:
+            # Joint Jog
+            if hasattr(robot_client, "jog"):
+                success = robot_client.jog(req.joint, req.distance, req.speed_profile)
+            else:
+                raise HTTPException(status_code=501, detail="Jog not supported")
         else:
-            raise HTTPException(status_code=501, detail="Cartesian jog not supported")
-    elif req.joint is not None:
-        # Joint Jog
-        if hasattr(robot_client, "jog"):
-            success = robot_client.jog(req.joint, req.distance, req.speed_profile)
-        else:
-            raise HTTPException(status_code=501, detail="Jog not supported")
-    else:
-        raise HTTPException(status_code=400, detail="Must specify joint or axis")
+            raise HTTPException(status_code=400, detail="Must specify joint or axis")
 
-    if success:
-        return {"status": "success"}
-    else:
-        raise HTTPException(status_code=500, detail="Jog failed")
+        if success:
+            return {"status": "success"}
+        else:
+            raise HTTPException(status_code=500, detail="Jog failed")
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in jog endpoint: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Jog error: {str(e)}")
 
 @app.get("/description")
 async def get_description():
@@ -440,7 +448,10 @@ async def get_teachpoints():
         return {"teachpoints": result, "device": DEVICE_NAME}
     except Exception as e:
         print(f"Error getting teachpoints: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        import traceback
+        traceback.print_exc()
+        # Return empty list instead of raising error if MongoDB is unavailable
+        return {"teachpoints": [], "device": DEVICE_NAME, "error": str(e)}
 
 @app.post("/teachpoints")
 async def save_teachpoint(req: TeachpointRequest):

@@ -102,9 +102,40 @@ function RobotModel({ joints, cartesian }) {
 
     if (!robot) return null
 
+    // Calculate rail position (J6 in meters)
+    // The rail is 2m long, and J6 range is -1000mm to +1000mm (-1m to +1m)
+    // So the rail extends from -1m to +1m along X axis
+    // J6 value directly maps to X position
+    const railPosition = (joints?.j6 || joints?.rail || 0) // J6 is in meters, range -1 to +1
+    
     return (
         <group>
-            <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
+            {/* Rail visualization - 2m long rail along X axis (horizontal) */}
+            <group position={[0, 0.1, 0]}>
+                {/* Rail base/beam - horizontal along X axis */}
+                <mesh position={[0, 0, 0]}>
+                    <boxGeometry args={[2.0, 0.05, 0.05]} />
+                    <meshStandardMaterial color={0xd0d0d0} metalness={0.3} roughness={0.7} />
+                </mesh>
+                {/* Rail end markers - rotated 90 degrees in horizontal plane (around Y axis) */}
+                <mesh position={[-1.0, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+                    <boxGeometry args={[0.05, 0.08, 0.08]} />
+                    <meshStandardMaterial color={0xff0000} />
+                </mesh>
+                <mesh position={[1.0, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+                    <boxGeometry args={[0.05, 0.08, 0.08]} />
+                    <meshStandardMaterial color={0xff0000} />
+                </mesh>
+                {/* Rail position indicator */}
+                <mesh position={[railPosition, 0.06, 0]}>
+                    <boxGeometry args={[0.1, 0.02, 0.1]} />
+                    <meshStandardMaterial color={0x00ff00} />
+                </mesh>
+            </group>
+            
+            {/* Robot positioned on rail - moves along X axis based on J6 */}
+            <group position={[railPosition, 0, 0]}>
+                <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
             
             {/* Coordinated Overlay */}
             <group ref={overlayRef}>
@@ -151,8 +182,12 @@ function RobotModel({ joints, cartesian }) {
                         <div>J3: {((joints?.j3 || 0) * 180/Math.PI).toFixed(1)}°</div>
                         <div>J4: {((joints?.j4 || 0) * 180/Math.PI).toFixed(1)}°</div>
                         <div>Grp: {((joints?.gripper || 0) * 1000).toFixed(1)} mm</div>
+                        {(joints?.j6 !== undefined || joints?.rail !== undefined) && (
+                            <div>J6/Rail: {((joints?.j6 || joints?.rail || 0) * 1000).toFixed(1)} mm</div>
+                        )}
                     </div>
                 </Html>
+            </group>
             </group>
         </group>
     )

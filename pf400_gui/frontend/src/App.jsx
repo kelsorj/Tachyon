@@ -15,6 +15,7 @@ function App() {
   const [stepGrip, setStepGrip] = useState(0.010)
   const [stepShoulder, setStepShoulder] = useState(0.0175)
   const [stepElbow, setStepElbow] = useState(0.0175)
+  const [stepRail, setStepRail] = useState(0.010) // Rail step in meters (10mm default)
 
   // Teachpoints
   const [teachpoints, setTeachpoints] = useState([])
@@ -191,6 +192,7 @@ function App() {
     else if (type === 'grip') { step = stepGrip; payload.axis = 'gripper' }
     else if (type === 'shoulder') { step = stepShoulder; payload.joint = 2 }
     else if (type === 'elbow') { step = stepElbow; payload.joint = 3 }
+    else if (type === 'rail') { step = stepRail; payload.joint = 6 }
 
     payload.distance = direction * step
     const distMm = (payload.distance * 1000).toFixed(1)
@@ -335,13 +337,22 @@ function App() {
               <button style={btn(colors.right, '#000', 35)} onClick={() => sendJog('shoulder', -1)}>+</button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 8 }}>
               <span style={{ width: 60 }}>Elbow</span>
               <select value={stepElbow} onChange={e => setStepElbow(+e.target.value)} style={{...selectStyle, width: 55}}>
                 {angularOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
               <button style={btn(colors.left, '#fff', 35)} onClick={() => sendJog('elbow', 1)}>-</button>
               <button style={btn(colors.right, '#000', 35)} onClick={() => sendJog('elbow', -1)}>+</button>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <span style={{ width: 60 }}>Rail (J6)</span>
+              <select value={stepRail} onChange={e => setStepRail(+e.target.value)} style={{...selectStyle, width: 55}}>
+                {linearOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+              </select>
+              <button style={btn(colors.left, '#fff', 35)} onClick={() => sendJog('rail', -1)}>◄</button>
+              <button style={btn(colors.right, '#000', 35)} onClick={() => sendJog('rail', 1)}>►</button>
             </div>
           </div>
 
