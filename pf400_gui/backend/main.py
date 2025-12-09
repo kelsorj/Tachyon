@@ -206,19 +206,38 @@ class RealClient:
             return {}
         
     def jog(self, joint, distance, profile):
-        if not self.driver.connected:
-            # Try to reconnect with auto-initialization
-            if not self.driver.connect(auto_initialize=True):
-                return False
-        
-        # Update profile if needed
-        if profile != self.driver.current_profile:
-            self.driver.set_profile(profile)
-        
         try:
-            return self.driver.jog_joint(joint, distance)
+            if not self.driver.connected:
+                # Try to reconnect with auto-initialization
+                if not self.driver.connect(auto_initialize=True):
+                    print("Jog: Robot not connected and reconnection failed")
+                    return False
+            
+            # Update profile if needed
+            if profile != self.driver.current_profile:
+                self.driver.set_profile(profile)
+            
+            # Handle joint 6 (rail) specially for SXL models
+            if joint == 6:
+                if isinstance(self.driver, PF400SXLDriver):
+                    print(f"Jog: Attempting rail jog with distance {distance}m, profile {profile}")
+                    result = self.driver.jog_rail(distance, profile)
+                    if not result:
+                        print(f"Jog: jog_rail returned False for rail, distance {distance}")
+                    return result
+                else:
+                    print(f"Jog: Joint 6 (rail) not supported on this model (driver type: {type(self.driver).__name__})")
+                    return False
+            
+            # Handle joints 1-5
+            result = self.driver.jog_joint(joint, distance)
+            if not result:
+                print(f"Jog: jog_joint returned False for joint {joint}, distance {distance}")
+            return result
         except Exception as e:
             print(f"Error in jog: {e}")
+            import traceback
+            traceback.print_exc()
             # If jog fails, robot might be stuck - try to reinitialize
             try:
                 if self.driver.connected:
@@ -229,18 +248,24 @@ class RealClient:
             return False
         
     def jog_cartesian(self, axis, distance, profile):
-        if not self.driver.connected:
-            # Try to reconnect with auto-initialization
-            if not self.driver.connect(auto_initialize=True):
-                return False
-
-        if profile != self.driver.current_profile:
-            self.driver.set_profile(profile)
-        
         try:
-            return self.driver.jog_cartesian(axis, distance)
+            if not self.driver.connected:
+                # Try to reconnect with auto-initialization
+                if not self.driver.connect(auto_initialize=True):
+                    print("Jog_cartesian: Robot not connected and reconnection failed")
+                    return False
+
+            if profile != self.driver.current_profile:
+                self.driver.set_profile(profile)
+            
+            result = self.driver.jog_cartesian(axis, distance)
+            if not result:
+                print(f"Jog_cartesian: returned False for axis {axis}, distance {distance}")
+            return result
         except Exception as e:
             print(f"Error in jog_cartesian: {e}")
+            import traceback
+            traceback.print_exc()
             # If jog fails, robot might be stuck - try to reinitialize
             try:
                 if self.driver.connected:
@@ -442,9 +467,14 @@ async def get_teachpoints():
         teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME)
         # Convert to list format for frontend
         result = []
-        for tp_id, tp_data in teachpoints.items():
-            tp_entry = {"id": tp_id, **tp_data}
-            result.append(tp_entry)
+        # Handle both dict and list formats (in case MongoDB returns a list)
+        if isinstance(teachpoints, dict):
+            for tp_id, tp_data in teachpoints.items():
+                tp_entry = {"id": tp_id, **tp_data}
+                result.append(tp_entry)
+        elif isinstance(teachpoints, list):
+            # If it's already a list, use it directly
+            result = teachpoints
         return {"teachpoints": result, "device": DEVICE_NAME}
     except Exception as e:
         print(f"Error getting teachpoints: {e}")
