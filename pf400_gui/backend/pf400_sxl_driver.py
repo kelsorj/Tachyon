@@ -160,7 +160,7 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
             return False
         
         # Then move rail (J6) if specified
-        # Use move_rail_raw directly to avoid circular dependency
+        # Use move_rail_raw directly with flag to prevent recursion
         if j6_m is not None:
             position_mm = j6_m * 1000.0
             # Clamp to rail limits
@@ -170,7 +170,8 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
                 position_mm = rail_min_mm
             elif position_mm > rail_max_mm:
                 position_mm = rail_max_mm
-            return self.move_rail_raw(position_mm, profile)
+            # Pass _from_move_to_joints=True to prevent recursion
+            return self.move_rail_raw(position_mm, profile, _from_move_to_joints=True)
         
         return True
     
@@ -229,13 +230,14 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
             profile
         )
     
-    def move_rail_raw(self, position_mm: float, profile: int = 1):
+    def move_rail_raw(self, position_mm: float, profile: int = 1, _from_move_to_joints=False):
         """
         Move rail (J6) to absolute position in mm.
         
         Args:
             position_mm: Rail position in mm (-rail_length_mm/2 to +rail_length_mm/2)
             profile: Motion profile ID
+            _from_move_to_joints: Internal flag to prevent recursion
         """
         # Rail range is -1000mm to +1000mm (centered at 0, total 2000mm)
         # Clamp to rail limits
@@ -249,18 +251,27 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
         
         try:
             if not self.connected:
-                print("move_rail_raw: Robot not connected")
+                import sys
+                sys.stderr.write("move_rail_raw: Robot not connected\n")
+                sys.stderr.flush()
                 return False
                 
             # Set profile first
             self.set_profile(profile)
             
-            # The MoveJ command only accepts 5 joints, not 6 (error -1009)
-            # For rail movement, we need to use move_to_joints which handles it in two steps:
-            # 1. Move the 5 base joints (if needed)
-            # 2. Move the rail separately
+            # If called from move_to_joints, we can't call move_to_joints again (would create loop)
+            # Since MoveJ with 6 joints doesn't work, we need to accept that rail can't move independently
+            if _from_move_to_joints:
+                import sys
+                sys.stderr.write(f"move_rail_raw: Called from move_to_joints, cannot move rail independently (MoveJ 6-joint not supported)\n")
+                sys.stderr.write(f"move_rail_raw: Rail position updated in state only: {position_mm}mm\n")
+                sys.stderr.flush()
+                # Update stored position but return False since we can't actually move it
+                self.rail_position_mm = position_mm
+                return False
             
-            # Get current positions for all joints
+            # Not called from move_to_joints, so we can use move_to_joints
+            # Get current positions and use move_to_joints with current positions + new rail
             current = self.get_joint_positions()
             if not current:
                 import sys
@@ -268,62 +279,34 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
                 sys.stderr.flush()
                 return False
             
-            # Convert position_mm to meters for move_to_joints
+            # Convert position_mm to meters
             j6_m = position_mm / 1000.0
             
             import sys
-            sys.stderr.write(f"move_rail_raw: Moving rail to {position_mm}mm ({j6_m}m) using move_to_joints\n")
+            sys.stderr.write(f"move_rail_raw: Moving rail to {position_mm}mm via move_to_joints with all joints\n")
             sys.stderr.flush()
             
-            # Use move_to_joints which will:
-            # 1. Call parent's move_to_joints with current 5 joint positions (no movement)
-            # 2. Then call move_rail with the new rail position
-            # But wait - that creates a loop! move_rail calls move_rail_raw...
+            # Use move_to_joints with current positions + new rail position
+            # Pass _from_move_to_joints=True to prevent recursion
+            result = self.move_to_joints(
+                current.get("j1", 0),
+                current.get("j2", 0),
+                current.get("j3", 0),
+                current.get("j4", 0),
+                current.get("gripper", 0),
+                j6_m,
+                profile
+            )
             
-            # Actually, we need to break the loop. Let's call the parent's move_to_joints
-            # to ensure we're at the right position, then handle rail separately
-            # But we can't call move_rail from here because it calls move_rail_raw again
+            if result:
+                self.rail_position_mm = position_mm
+                sys.stderr.write(f"move_rail_raw: Success, rail moved to {position_mm}mm\n")
+                sys.stderr.flush()
+            else:
+                sys.stderr.write(f"move_rail_raw: move_to_joints returned False\n")
+                sys.stderr.flush()
             
-            # Solution: Call parent's move_to_joints_raw directly with current positions
-            # to ensure we're positioned, then we need a way to move just the rail
-            # Since MoveJ with 6 joints doesn't work, we might need to accept that
-            # rail movement requires moving all joints together
-            
-            # For now, let's use the parent's move_to_joints to keep current positions
-            # and see if we can find another way to move the rail
-            
-            # Actually, the best approach: use move_to_joints with current joint positions
-            # and the new rail position. This will move the 5 joints to their current positions
-            # (no actual movement) and then try to move the rail.
-            # But we need to break the circular dependency in move_rail -> move_rail_raw
-            
-            # Let's directly call the parent's move_to_joints_raw to set the 5 base joints
-            # Then we'll need to find another way to move the rail
-            
-            # For now, as a workaround: update the stored position and return True
-            # The actual rail movement might need to be done via a different command
-            # that we haven't discovered yet
-            
-            # Actually wait - let me check if move_to_joints in SXL properly handles this
-            # It calls parent move_to_joints (5 joints), then move_rail
-            # But move_rail calls move_rail_raw which we're in now - circular!
-            
-            # Break the cycle: Don't call move_rail from move_rail_raw
-            # Instead, try to find the actual rail command or accept limitation
-            
-            # For rail-only movement, we might need to use a different command
-            # Since we don't know it, let's at least update our internal state
-            # and return False so the user knows it didn't work
-            
-            # Actually, let me try one more thing: maybe the rail is controlled via
-            # a different mechanism or command that we haven't tried yet
-            
-            sys.stderr.write(f"move_rail_raw: Cannot move rail independently. MoveJ with 6 joints not supported (error -1009).\n")
-            sys.stderr.write(f"move_rail_raw: Rail may need to be moved as part of a coordinated 6-joint move, but that format is unknown.\n")
-            sys.stderr.flush()
-            
-            # Don't update position since move failed
-            return False
+            return result
                 
         except Exception as e:
             print(f"Error moving rail: {e}")

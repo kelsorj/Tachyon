@@ -110,23 +110,26 @@ function RobotModel({ joints, cartesian }) {
     
     return (
         <group>
-            {/* Rail visualization - 2m long rail along X axis (horizontal) */}
-            <group position={[0, 0.1, 0]}>
-                {/* Rail base/beam - horizontal along X axis */}
+            {/* Rail visualization - 2m long rail, rotated 90° in horizontal plane (around Y axis) */}
+            {/* Rail top aligns with robot bottom: robot bottom is at y=0.225, rail height is 0.05, so rail center at y=0.2 */}
+            <group position={[0, 0.2, 0]} rotation={[0, Math.PI / 2, 0]}>
+                {/* Rail base/beam - originally along X, after 90° Y rotation it's along Z */}
                 <mesh position={[0, 0, 0]}>
                     <boxGeometry args={[2.0, 0.05, 0.05]} />
                     <meshStandardMaterial color={0xd0d0d0} metalness={0.3} roughness={0.7} />
                 </mesh>
-                {/* Rail end markers - rotated 90 degrees in horizontal plane (around Y axis) */}
-                <mesh position={[-1.0, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
+                {/* Rail end markers - different colors for -1000mm (blue) and +1000mm (red) ends */}
+                {/* -1000mm end (negative end) - Blue */}
+                <mesh position={[-1.0, 0, 0]}>
+                    <boxGeometry args={[0.05, 0.08, 0.08]} />
+                    <meshStandardMaterial color={0x0066ff} />
+                </mesh>
+                {/* +1000mm end (positive end) - Red */}
+                <mesh position={[1.0, 0, 0]}>
                     <boxGeometry args={[0.05, 0.08, 0.08]} />
                     <meshStandardMaterial color={0xff0000} />
                 </mesh>
-                <mesh position={[1.0, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-                    <boxGeometry args={[0.05, 0.08, 0.08]} />
-                    <meshStandardMaterial color={0xff0000} />
-                </mesh>
-                {/* Rail position indicator */}
+                {/* Rail position indicator - moves along the rail (X axis before rotation, Z after) */}
                 <mesh position={[railPosition, 0.06, 0]}>
                     <boxGeometry args={[0.1, 0.02, 0.1]} />
                     <meshStandardMaterial color={0x00ff00} />
@@ -134,6 +137,7 @@ function RobotModel({ joints, cartesian }) {
             </group>
             
             {/* Robot positioned on rail - moves along X axis based on J6 */}
+            {/* Robot bottom is at y=0.225, rail top is at y=0.225 (rail center 0.2 + half height 0.025) */}
             <group position={[railPosition, 0, 0]}>
                 <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
             

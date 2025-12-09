@@ -53,8 +53,10 @@ class RobotScheduler:
     def stop_scheduler(self):
         """Stop the robot scheduler thread"""
         self.stop_event.set()
-        if self.scheduler_thread:
-            self.scheduler_thread.join(timeout=5.0)
+        if self.scheduler_thread and self.scheduler_thread.is_alive():
+            self.scheduler_thread.join(timeout=1.0)
+            if self.scheduler_thread.is_alive():
+                logger.warning("RobotScheduler thread did not stop within timeout")
         logger.info("RobotScheduler stopped")
     
     def add_job(self, active_plate: ActivePlate):

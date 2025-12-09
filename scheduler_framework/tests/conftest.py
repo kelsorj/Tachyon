@@ -165,3 +165,12 @@ def reset_active_plates():
         ActivePlate._active_plates.clear()
         ActivePlate._plate_serial_counter = 0
 
+
+@pytest.fixture(autouse=True)
+def cleanup_schedulers():
+    """Ensure all schedulers are stopped after each test"""
+    yield
+    # Give threads a moment to finish
+    import time
+    time.sleep(0.1)
+

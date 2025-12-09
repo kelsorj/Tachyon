@@ -57,8 +57,10 @@ class PlateScheduler:
     def stop_scheduler(self):
         """Stop the plate scheduler thread"""
         self.stop_event.set()
-        if self.scheduler_thread:
-            self.scheduler_thread.join(timeout=5.0)
+        if self.scheduler_thread and self.scheduler_thread.is_alive():
+            self.scheduler_thread.join(timeout=1.0)
+            if self.scheduler_thread.is_alive():
+                logger.warning("PlateScheduler thread did not stop within timeout")
         logger.info("PlateScheduler stopped")
     
     def enqueue_worklist(self, worklist: Worklist):
