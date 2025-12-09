@@ -1,0 +1,211 @@
+VERSION
+8
+
+COMMSETTINGS
+0
+COM13
+COM2
+115200
+2
+63
+4
+0
+0
+
+COMMDISPLAY
+0
+
+SEND
+0
+AckByte
+E5 30 30 46 46
+0
+5
+
+SEND
+1
+Ack
+F0
+0
+5
+
+SEND
+2
+AckWord
+E6 30 30 30 34 44 32
+0
+5
+
+SEND
+3
+AckString
+E7 30 30 74 68 69 73 20 69 73 20 61 20 74 65 73 74 00
+0
+5
+
+SEND
+4
+AckInvokeRPC
+E8 30 30
+0
+5
+
+SEND
+5
+AckAmuletRequestByte
+E0 30 30 31 32
+0
+5
+
+SEND
+6
+AckAmuletReceiveWord
+E1 30 30 31 32 33 34
+0
+5
+
+SEND
+7
+AckAmuletRequestString
+E2 30 30 68 65 6C 6C 6F 20 66 72 6F 6D 20 74 68 65 20 50 43 21 00
+0
+5
+
+SEND
+8
+AckAmuletRequestLabel
+E3 30 30 43 75 73 74 6F 6D 20 4C 61 62 65 6C 00
+0
+5
+
+SEND
+9
+PCSendByte
+D5 30 30 30 30
+0
+5
+
+SEND
+10
+PCSendWord
+D6 30 30 30 34 44 32
+0
+5
+
+SEND
+11
+PCSendString
+D7 30 30 48 65 6C 6C 6F 20 66 72 6F 6D 20 50 43 21 00
+0
+5
+
+SEND
+12
+PCRequestByte
+D0 30 30
+0
+5
+
+SEND
+13
+PCRequestWord
+D1 30 30
+0
+5
+
+RECEIVE
+0
+AmuletSendByte
+D5 30 30 46 46
+0
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+1
+AmuletSendWord
+D6 30 30 30 34 44 32
+2
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+2
+AmuletSendString
+D7 30 30 74 68 69 73 20 69 73 20 61 20 74 65 73 74 00
+3
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+3
+AmuletInvokeRPC (as Master)
+D8 30 30
+4
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+4
+AmuletRequestByte
+D0 30 30
+5
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+5
+AmuletRequestWord
+D1 30 30
+6
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+6
+AmuletRequestString
+D2 30 30
+7
+1
+COMMENT 
+0
+1
+0
+0
+
+RECEIVE
+7
+AmuletRequestLabel
+D3 30 30
+8
+1
+COMMENT 
+0
+1
+0
+0
+

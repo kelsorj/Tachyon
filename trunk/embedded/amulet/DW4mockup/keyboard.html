@@ -1,0 +1,290 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<div style="position:absolute; width:480px; height:272; top:48px; left:152px; z-index:1;">
+			<img src="images/bionex_logo_translucent.png" width="480" height="272">
+		</div>
+		<!-- edit field, backspace, clear, enter -->
+		<div style="width:480px; height:44; position:absolute; left:5px; top:5px; z-index:1;" class="styleMenu">
+			<applet code="StringField.class" width="320" height="44" name="userstring">
+			<param name="href" value="Amulet:InternalRAM.String(0).value()">
+			<param name="fillColor" value="white">
+			<param name="printf" value="%s">
+			<param name="updateRate" value="1">
+			<param name="border" value="1">
+			<param name="horizontalAlign" value="left">
+			<param name="fontColor" value="black">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="44" align="BOTTOM" name="backspace">
+			<param name="href" value="Amulet:InternalRAM.String(0).backspace(),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/backspace.png">
+			<param name="downImage" value="images/keyboard/backspace_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="44" align="BOTTOM" name="clear">
+			<param name="href" value="Amulet:InternalRAM.String(0).clear(),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/clear.png">
+			<param name="downImage" value="images/keyboard/clear_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="44" align="BOTTOM" name="Q">
+			<param name="href" value="Amulet:NOP()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/enter.png">
+			<param name="downImage" value="images/keyboard/enter_down.png">
+			</applet>
+		</div>
+		<!-- keys -->
+		<div style="position:absolute; width:480px; height:90px; left:5px; top:50; position:absolute; z-index:1;">
+			<!-- QWERTYUIOP -->
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="Q">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('Q'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/q.png">
+			<param name="downImage" value="images/keyboard/q_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="W">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('W'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/w.png">
+			<param name="downImage" value="images/keyboard/w_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="E">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('E'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/e.png">
+			<param name="downImage" value="images/keyboard/e_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="R">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('R'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/r.png">
+			<param name="downImage" value="images/keyboard/r_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="T">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('T'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/t.png">
+			<param name="downImage" value="images/keyboard/t_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="Y">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('Y'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/y.png">
+			<param name="downImage" value="images/keyboard/y_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="U">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('U'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/u.png">
+			<param name="downImage" value="images/keyboard/u_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="I">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('I'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/i.png">
+			<param name="downImage" value="images/keyboard/i_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="O">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('O'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/o.png">
+			<param name="downImage" value="images/keyboard/o_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="P">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('P'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/p.png">
+			<param name="downImage" value="images/keyboard/p_down.png">
+			</applet>
+		</div>
+		<div style="position:absolute; width:465px; height:90px; left:15px; top:95; position:absolute; z-index:1;">
+			<!-- ASDFGHJKL' -->
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="A">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('A'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/a.png">
+			<param name="downImage" value="images/keyboard/a_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="S">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('S'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/s.png">
+			<param name="downImage" value="images/keyboard/s_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="D">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('D'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/d.png">
+			<param name="downImage" value="images/keyboard/d_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="F">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('F'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/f.png">
+			<param name="downImage" value="images/keyboard/f_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="G">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('G'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/g.png">
+			<param name="downImage" value="images/keyboard/g_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="H">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('H'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/h.png">
+			<param name="downImage" value="images/keyboard/h_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="J">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('J'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/j.png">
+			<param name="downImage" value="images/keyboard/j_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="K">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('K'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/k.png">
+			<param name="downImage" value="images/keyboard/k_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="L">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('L'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/l.png">
+			<param name="downImage" value="images/keyboard/l_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="quote">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('\''),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/quote.png">
+			<param name="downImage" value="images/keyboard/quote_down.png">
+			</applet>
+		</div>
+		<div style="position:absolute; width:450px; height:90px; left:25px; top:140; position:absolute; z-index:1;">
+			<!-- ZXCVBNM. -->
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="Z">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('Z'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/z.png">
+			<param name="downImage" value="images/keyboard/z_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="X">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('X'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/x.png">
+			<param name="downImage" value="images/keyboard/x_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="C">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('C'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/c.png">
+			<param name="downImage" value="images/keyboard/c_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="V">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('V'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/v.png">
+			<param name="downImage" value="images/keyboard/v_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="B">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('B'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/b.png">
+			<param name="downImage" value="images/keyboard/b_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="N">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('N'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/n.png">
+			<param name="downImage" value="images/keyboard/n_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="M">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('M'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/m.png">
+			<param name="downImage" value="images/keyboard/m_down.png">
+			</applet>
+
+			<applet code="CustomButton.class" width="44" height="84" align="BOTTOM" name="dot">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar('.'),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/dot.png">
+			<param name="downImage" value="images/keyboard/dot_down.png">
+			</applet>
+		</div>
+		<div style="position:absolute; width:450px; height:44px; left:113px; top:228; position:absolute; z-index:1;">
+			<!-- spacebar -->
+			<applet code="CustomButton.class" width="204" height="44" align="BOTTOM" name="space">
+			<param name="href" value="Amulet:InternalRAM.String(0).appendChar(' '),Amulet:document.userstring.forceUpdate()">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="onButtonPress" value="CUSTOM">
+			<param name="upImage" value="images/keyboard/space.png">
+			<param name="downImage" value="images/keyboard/space_down.png">
+			</applet>
+		</div>
+	</body>
+</html>
+

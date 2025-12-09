@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiveUpstackerDriver", "HiveUpstackerDriver.csproj", "{A1C65D9C-D6AF-41AB-91FA-6E1812B9728C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWorksCommandServer", "..\IWorksCommandServer\IWorksCommandServer.csproj", "{012FFCC3-1FA8-40D4-BA41-64F63532ED51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlRpcGlue", "..\..\..\Shared\XmlRpcGlue\XmlRpcGlue.csproj", "{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1C65D9C-D6AF-41AB-91FA-6E1812B9728C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C65D9C-D6AF-41AB-91FA-6E1812B9728C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C65D9C-D6AF-41AB-91FA-6E1812B9728C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C65D9C-D6AF-41AB-91FA-6E1812B9728C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012FFCC3-1FA8-40D4-BA41-64F63532ED51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012FFCC3-1FA8-40D4-BA41-64F63532ED51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012FFCC3-1FA8-40D4-BA41-64F63532ED51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012FFCC3-1FA8-40D4-BA41-64F63532ED51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

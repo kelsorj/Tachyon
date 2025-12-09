@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="BioNex.Shared.BioNexGuiControls.LED"
+    x:Name="root"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="Auto" Width="Auto">
+    
+    <Grid DataContext="{Binding ElementName=root}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <!-- LED portion -->
+        <Ellipse Grid.Column="0" Margin="3" Height="{Binding LEDSize}" Width="{Binding LEDSize}" Fill="{Binding LEDColor}" StrokeThickness="2" Stroke="DarkGray" />
+        <Ellipse Grid.Column="0" Margin="3" Height="{Binding LEDSize}" Width="{Binding LEDSize}">
+            <Ellipse.Fill>
+                <RadialGradientBrush GradientOrigin="0.5,1.0">
+                    <RadialGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                            <TranslateTransform X="0.02" Y="0.3"/>
+                        </TransformGroup>
+                    </RadialGradientBrush.RelativeTransform>
+                    <GradientStop Offset="1" Color="#00000000"/>
+                    <GradientStop Offset="0.4" Color="#FFFFFFFF"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <!-- label -->
+        <TextBlock Grid.Column="1" Margin="3" VerticalAlignment="Center" Text="{Binding LEDLabel}" />
+    </Grid>
+</UserControl>

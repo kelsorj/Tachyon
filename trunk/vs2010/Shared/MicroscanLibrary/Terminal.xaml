@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="BioNex.Shared.Microscan.Terminal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Outgoing Data to Reader" BorderBrush="Orange" Grid.Row="0">
+            <TextBox Text="{Binding OutgoingData, UpdateSourceTrigger=PropertyChanged}" FontFamily="Courier New" Foreground="Silver" Background="Black" />
+        </GroupBox>
+        <GroupBox Header="Incoming Data from Reader" BorderBrush="Orange" Grid.Row="1" >
+            <DockPanel>
+                <Button Command="{Binding ClearCommand}" DockPanel.Dock="Bottom" Margin="3">Clear</Button>
+                <ScrollViewer DockPanel.Dock="Bottom">
+                    <TextBlock Text="{Binding IncomingData}" FontFamily="Courier New" Foreground="Silver" Background="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </ScrollViewer>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

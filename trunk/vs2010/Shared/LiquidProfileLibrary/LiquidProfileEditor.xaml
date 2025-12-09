@@ -1,0 +1,145 @@
+﻿<Window x:Class="BioNex.Shared.LiquidProfileLibrary.LiquidProfileEditor"
+        x:Name="root"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lpl="clr-namespace:BioNex.Shared.LiquidProfileLibrary" 
+        Title="Liquid-Profile Editor"
+        Height="640" Width="640">
+    <Window.Resources>
+        <lpl:BooleanToVisibilityConverter x:Key="IsCheckedToCollapsed" True="Collapsed" False="Visible"/>
+        <lpl:BooleanToVisibilityConverter x:Key="IsCheckedToVisible" True="Visible" False="Collapsed"/>
+    </Window.Resources>
+    <DockPanel>
+        <GroupBox Header="Liquid profiles" BorderBrush="Orange" Margin="2">
+            <DockPanel Margin="2">
+                <Button DockPanel.Dock="Bottom" Margin="2" Command="{Binding DeleteLiquidProfileCommand}">Delete liquid profile...</Button>
+                <Button DockPanel.Dock="Bottom" Margin="2" Command="{Binding SaveAsLiquidProfileCommand}">Save liquid profile as...</Button>
+                <Button DockPanel.Dock="Bottom" Margin="2" Command="{Binding SaveLiquidProfileCommand}">Save liquid profile</Button>
+                <Button DockPanel.Dock="Bottom" Margin="2" Command="{Binding NewLiquidProfileCommand}">New liquid profile...</Button>
+                <ListBox Name="lbLiquidProfiles" Margin="2" ItemsSource="{Binding LiquidProfiles}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedLiquidProfile}"></ListBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="Liquid Profile Properties" BorderBrush="Orange" Margin="2">
+            <StackPanel Margin="2" DataContext="{Binding ElementName=lbLiquidProfiles, Path=SelectedItem}">
+                <CheckBox Name="mixing_profile" Grid.Row="0" IsChecked="{Binding Path=IsMixingProfile}">Liquid profile is used for mixing</CheckBox>
+                <Grid Margin="2" Visibility="{Binding ElementName=mixing_profile, Path=IsChecked, Converter={StaticResource IsCheckedToCollapsed}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" VerticalAlignment="Center">Pre-aspirate volume</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PreAspirateVolume}"></TextBox>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl</TextBlock>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="2" VerticalAlignment="Center">Rate to aspirate</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=RateToAspirate}"></TextBox>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl/s</TextBlock>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="2" VerticalAlignment="Center">Maximum acceleration during aspirate</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=MaxAccelDuringAspirate}"></TextBox>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Margin="2" VerticalAlignment="Center"><!--µl/s²-->%</TextBlock>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-aspirate delay</TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PostAspirateDelay}"></TextBox>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Margin="2" VerticalAlignment="Center">s</TextBlock>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="2" VerticalAlignment="Center">Rate to dispense</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=RateToDispense}"></TextBox>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl/s</TextBlock>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="2" VerticalAlignment="Center">Maximum acceleration during dispense</TextBlock>
+                    <TextBox Grid.Row="5" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=MaxAccelDuringDispense}"></TextBox>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Margin="2" VerticalAlignment="Center"><!--µl/s²-->%</TextBlock>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-dispense volume</TextBlock>
+                    <TextBox Grid.Row="6" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PostDispenseVolume}"></TextBox>
+                    <TextBlock Grid.Row="6" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl</TextBlock>
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-dispense delay</TextBlock>
+                    <TextBox Grid.Row="7" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PostDispenseDelay}"></TextBox>
+                    <TextBlock Grid.Row="7" Grid.Column="2" Margin="2" VerticalAlignment="Center">s</TextBlock>
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="2" VerticalAlignment="Center">Z move during aspirating</TextBlock>
+                    <TextBox Grid.Row="8" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=ZMoveDuringAspirating}"></TextBox>
+                    <TextBlock Grid.Row="8" Grid.Column="2" Margin="2" VerticalAlignment="Center">mm</TextBlock>
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="2" VerticalAlignment="Center">Z move during dispensing</TextBlock>
+                    <TextBox Grid.Row="9" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=ZMoveDuringDispensing}"></TextBox>
+                    <TextBlock Grid.Row="9" Grid.Column="2" Margin="2" VerticalAlignment="Center">mm</TextBlock>
+
+                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="2" VerticalAlignment="Center">Minimum time to enter liquid</TextBlock>
+                    <TextBox Grid.Row="10" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=TimeToEnterLiquid}"></TextBox>
+                    <TextBlock Grid.Row="10" Grid.Column="2" Margin="2" VerticalAlignment="Center">s</TextBlock>
+
+                    <TextBlock Grid.Row="11" Grid.Column="0" Margin="2" VerticalAlignment="Center">Minimum time to exit liquid</TextBlock>
+                    <TextBox Grid.Row="11" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=TimeToExitLiquid}"></TextBox>
+                    <TextBlock Grid.Row="11" Grid.Column="2" Margin="2" VerticalAlignment="Center">s</TextBlock>
+
+                    <Expander Grid.Row="12" Grid.ColumnSpan="3" Margin="2" Header="Mix Settings">
+
+                        <Grid Margin="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" VerticalAlignment="Center">Pre-aspirate mix liquid profile</TextBlock>
+                            <ComboBox Grid.Row="0" Grid.Column="1" Margin="2" VerticalAlignment="Center" ItemsSource="{Binding MixLiquidProfiles, ElementName=root}" SelectedItem="{Binding PreAspirateMixLiquidProfile}"></ComboBox>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="2" VerticalAlignment="Center">Pre-aspirate mix cycles</TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PreAspirateMixCycles}"></TextBox>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="2" VerticalAlignment="Center">cycles</TextBlock>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="2" VerticalAlignment="Center">Pre-aspirate mix volume</TextBlock>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PreAspirateMixVolume}"></TextBox>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl</TextBlock>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-dispense mix liquid profile</TextBlock>
+                            <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" VerticalAlignment="Center" ItemsSource="{Binding MixLiquidProfiles, ElementName=root}" SelectedItem="{Binding PostDispenseMixLiquidProfile}"></ComboBox>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-dispense mix cycles</TextBlock>
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PostDispenseMixCycles}"></TextBox>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Margin="2" VerticalAlignment="Center">cycles</TextBlock>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Margin="2" VerticalAlignment="Center">Post-dispense mix volume</TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="1" Margin="2" VerticalAlignment="Center" Text="{Binding Path=PostDispenseMixVolume}"></TextBox>
+                            <TextBlock Grid.Row="5" Grid.Column="2" Margin="2" VerticalAlignment="Center">µl</TextBlock>
+                        </Grid>
+
+                    </Expander>
+                </Grid>
+                <lpl:MixingProfile Visibility="{Binding ElementName=mixing_profile, Path=IsChecked, Converter={StaticResource IsCheckedToVisible}}"/>
+            </StackPanel>
+        </GroupBox>
+    </DockPanel>
+</Window>

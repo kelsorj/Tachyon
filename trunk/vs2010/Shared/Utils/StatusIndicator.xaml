@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BioNex.Shared.Utils.StatusIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Name="root"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="640">
+    <Grid DataContext="{Binding ElementName=root}">
+        <!-- border -->
+        <Border Background="{Binding FillColor}" CornerRadius="{Binding OutlineRadius}" BorderBrush="{Binding OutlineColor}" BorderThickness="{Binding OutlineBorderThickness}" />
+        <!-- inner fill -->
+        <Border CornerRadius="{Binding OutlineRadius}" Opacity="0.3">
+            <Border.Background>
+                <RadialGradientBrush RadiusX="0.50271" RadiusY="1.83666" Center="0.5,0.499999" GradientOrigin="0.5,0.499999">
+                    <RadialGradientBrush.GradientStops>
+                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                        <GradientStop Color="#FFC2C0C0" Offset="0.548837"/>
+                        <GradientStop Color="#FF909090" Offset="0.995349"/>
+                    </RadialGradientBrush.GradientStops>
+                    <RadialGradientBrush.RelativeTransform>
+                        <TransformGroup/>
+                    </RadialGradientBrush.RelativeTransform>
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+        <!-- text -->
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding IndicatorText}" FontSize="{Binding IndicatorTextFontSize}" Foreground="{Binding IndicatorTextColor}" />
+    </Grid>
+</UserControl>

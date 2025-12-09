@@ -1,0 +1,8 @@
+C:\code\trunk\vs2010\Shared\Teachpoints\bin\Debug\Teachpoints.dll
+C:\code\trunk\vs2010\Shared\Teachpoints\bin\Debug\Teachpoints.pdb
+C:\code\trunk\vs2010\Shared\Teachpoints\bin\Debug\log4net.dll
+C:\code\trunk\vs2010\Shared\Teachpoints\bin\Debug\log4net.pdb
+C:\code\trunk\vs2010\Shared\Teachpoints\bin\Debug\log4net.xml
+C:\code\trunk\vs2010\Shared\Teachpoints\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\Teachpoints\obj\Debug\Teachpoints.dll
+C:\code\trunk\vs2010\Shared\Teachpoints\obj\Debug\Teachpoints.pdb

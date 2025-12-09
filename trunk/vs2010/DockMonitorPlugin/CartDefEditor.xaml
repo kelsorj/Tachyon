@@ -1,0 +1,51 @@
+﻿<Window x:Class="BioNex.Plugins.Dock.CartDefEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             xmlns:bionexgui="clr-namespace:BioNex.Shared.BioNexGuiControls;assembly=BioNexGuiControls"
+             mc:Ignorable="d" 
+             Title="Cart Definition Manager"
+             Width="480" Height="360">      
+    
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Bottom" Margin="3">
+            Notes:<LineBreak />
+            You must restart Synapsis for changes to take effect.<LineBreak />
+            You will need to generate teachpoint files manually for new carts.<LineBreak />
+            You will need to rename teachpoint files manually if you change the file prefix.<LineBreak />
+            Teachpoint file name format is {dock}_{prefix}_teachpoints.xml
+            
+        </TextBlock>
+        <GroupBox DockPanel.Dock="Left" Header="Cart Barcodes" BorderBrush="Orange">
+            <DockPanel>
+                <Button DockPanel.Dock="Bottom" Command="{Binding RemoveCartDefCommand}">Remove</Button>
+                <Button DockPanel.Dock="Bottom" Command="{Binding AddCartDefCommand}">Add</Button>
+                <ListBox DockPanel.Dock="Top" ItemsSource="{Binding CartBarcodes}" BorderBrush="Transparent" SelectionChanged="CartBarcodeListBox_SelectionChanged" Name="CartBarcodeListBox"/>
+            </DockPanel>                
+        </GroupBox>       
+        <GroupBox DockPanel.Dock="Right" Header="Cart Details" BorderBrush="Orange" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" Margin="3">Human Readable</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding HumanReadableText}"  Margin="3" />
+                <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" Margin="3">File Prefix</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FilePrefixText}" Margin="3" />
+                <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" Margin="3">Number of Racks</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding NumberOfRacksText}" Margin="3" />
+                <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" Margin="3">Number of Slots</TextBlock>
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding NumberOfSlotsText}" Margin="3" />
+            </Grid>
+        </GroupBox>
+    </DockPanel>
+</Window>

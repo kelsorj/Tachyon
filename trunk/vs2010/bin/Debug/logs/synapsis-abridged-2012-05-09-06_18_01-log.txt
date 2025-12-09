@@ -1,0 +1,22 @@
+2012-05-09-06_18_01.288 [4920] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_18_01.317 [4920] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_18_02.508 [4920] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_18_02.550 [4920] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_18_02.562 [4920] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_18_02.846 [4920] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-09-06_18_02.854 [4920] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-09-06_18_02.859 [4920] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-09-06_18_02.865 [4920] DEBUG axis_4 - SetAxisTimeout(300) called.
+2012-05-09-06_18_02.897 [4920] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-06_18_02.899 [4920] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-06_18_02.901 [4920] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-06_18_02.903 [4920] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-06_18_03.615 [4920] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-09-06_18_04.317 [4920] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-09-06_18_04.320 [4920] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-09-06_18_04.325 [4920] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-09-06_18_04.331 [4920] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to read position on 'W'.  Is the device fully powered?
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.ReloadMotorSettings(Boolean simulate)

@@ -1,0 +1,8 @@
+id,name,number_of_wells,row_spacing,column_spacing,min_gripper_offset,max_gripper_offset,min_portrait_gripper_pos,max_portrait_gripper_pos,min_landscape_gripper_pos,max_landscape_gripper_pos,tip_properties_id,gripper_torque,thickness,well_depth
+1,NUNC 96 clear round well flat bottom,96,9,9,8,8,79.5,107.5,121,128,,1,14.47,11.25
+2,Greiner 96 655101 clear round well flat bottom,96,9,9,8,8,79.5,107.5,121,128,,1,14.7,10.99
+3,NUNC 96 clear round well conical bottom,96,9,9,8,8,79.5,107.5,121,128,,1,14.4,9.46
+4,NUNC 384 clear drafted square well,384,4.5,4.5,8,8,79.5,107.5,121,128,,1,14.39,11.59
+5,Greiner 384 781101 clear drafted square well,384,4.5,4.5,8,8,79.5,107.5,121,128,,1,14.35,11.55
+6,96 round bottom deep well,96,9,9,20,20,79.5,107.5,121,128,,1,27.05,24.5
+7,tipbox,96,9,9,20,20,79.5,107.5,121,128,1,1,55.98,0

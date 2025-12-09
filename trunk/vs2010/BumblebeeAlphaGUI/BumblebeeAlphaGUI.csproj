@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A984E8CC-56E4-495A-B0EA-B6634D4CE536}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BumblebeeAlphaGUI</RootNamespace>
+    <AssemblyName>BumblebeeAlphaGUI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bumblebee2DSimulatorControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bumblebee2DSimulatorControl\bin\Debug\Bumblebee2DSimulatorControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Bumblebee2DSimulatorControl.ViewModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bumblebee2DSimulatorControl\bin\Debug\Bumblebee2DSimulatorControl.ViewModel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\thirdparty\log4net\bin\net\2.0\release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Runtime">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.WorkflowServices">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="ButtonInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChannelControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeviceDiagnosticsPanelHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Diagnostics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GanttDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HardwareVisualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="JogMoveControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Setup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TeachpointControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI.xaml.cs">
+      <DependentUpon>GUI.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonInterface.xaml.cs">
+      <DependentUpon>ButtonInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelControl.xaml.cs">
+      <DependentUpon>ChannelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceDiagnosticsPanelHost.xaml.cs">
+      <DependentUpon>DeviceDiagnosticsPanelHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics.xaml.cs">
+      <DependentUpon>Diagnostics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GanttDialog.xaml.cs">
+      <DependentUpon>GanttDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HardwareVisualizer.xaml.cs">
+      <DependentUpon>HardwareVisualizer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="JogMoveControl.xaml.cs">
+      <DependentUpon>JogMoveControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Setup.xaml.cs">
+      <DependentUpon>Setup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StageControl.xaml.cs">
+      <DependentUpon>StageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeachpointControl.xaml.cs">
+      <DependentUpon>TeachpointControl.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\ApplicationPreferences\ApplicationPreferences.csproj">
+      <Project>{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}</Project>
+      <Name>ApplicationPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\ErrorDialog\ErrorDialog.csproj">
+      <Project>{923BA357-4D7B-4080-ABDC-095633012F8E}</Project>
+      <Name>ErrorDialog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\GanttChart\GanttChart.csproj">
+      <Project>{83640F05-7DE3-41A6-8A35-F43910E7A278}</Project>
+      <Name>GanttChart</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\HitpickXMLReader\HitpickXMLReader.csproj">
+      <Project>{DB6D45A3-3E63-40B0-B12C-22AD728BF5B0}</Project>
+      <Name>HitpickXMLReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\LabwareDatabase\LabwareDatabase.csproj">
+      <Project>{A26AF0A4-9532-40CB-9554-A9510467636F}</Project>
+      <Name>LabwareDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\ReportingInterface\ReportingInterface.csproj">
+      <Project>{784F0DA9-6D4D-45DD-AC6C-B0ADDA6376FB}</Project>
+      <Name>ReportingInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Teachpoints\Teachpoints.csproj">
+      <Project>{4FF11887-7EAE-467F-82AE-5E91FF318923}</Project>
+      <Name>Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\TechnosoftLibrary\TechnosoftLibrary.csproj">
+      <Project>{1BEB833E-1D00-4886-BE2C-A150B88BBCA9}</Project>
+      <Name>TechnosoftLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="AlphaHardware\AlphaHardware.csproj">
+      <Project>{56C2A737-97EE-4C3D-863C-28B68DE996A2}</Project>
+      <Name>AlphaHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="BumblebeeAlphaGUI.ViewModel\BumblebeeAlphaGUI.ViewModel.csproj">
+      <Project>{EA5C101B-B3AD-4123-8824-9312C8503E0F}</Project>
+      <Name>BumblebeeAlphaGUI.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="DualDisposableTipScheduler\DualDisposableTipSplitScheduler.csproj">
+      <Project>{52AA23BA-3FD8-4E1B-B16E-B577FB0FCAA1}</Project>
+      <Name>DualDisposableTipSplitScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="DualTipSplitScheduler\DualTipSplitScheduler.csproj">
+      <Project>{27E4D76D-AB4B-4B41-8DE8-88FFA84009F9}</Project>
+      <Name>DualTipSplitScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="SchedulerInterface\SchedulerInterface.csproj">
+      <Project>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</Project>
+      <Name>SchedulerInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BioNex Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\advancedsettings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\kfm_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="configuration.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="logging.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BioNex.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y $(targetfilename) "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\..\..\..\thirdparty\mvvmlighttoolkit\bin\wpf35sp1\galasoft.mvvmlight.dll" "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\..\..\..\thirdparty\nunit\nunit.framework.dll" "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\..\..\..\thirdparty\log4net\bin\net\2.0\$(configurationname)\log4net.dll" "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\..\..\..\thirdparty\mef\bin\system.componentmodel.composition.dll" "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\..\..\..\thirdparty\stateless\bin\debug\stateless.dll" "..\..\..\bin\$(configurationname)\"
+xcopy /i/y "..\..\logging.xml" "..\..\..\bin\$(configurationname)\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

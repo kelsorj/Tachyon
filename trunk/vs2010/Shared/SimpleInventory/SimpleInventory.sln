@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInventory", "SimpleInventory.csproj", "{EA0F3533-ECD9-47AF-9C8D-12859A18951E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryTests", "InventoryTests\InventoryTests.csproj", "{CE52A61C-59CE-45E1-A4E6-259EC06899D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80F37779-0D24-41B8-8786-D3AA70CCA7B5}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		SimpleInventory.vsmdi = SimpleInventory.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryTestApplication", "InventoryTestApplication\InventoryTestApplication.csproj", "{A7A5EA74-1053-486B-BDC8-31EA76C724F3}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = SimpleInventory.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA0F3533-ECD9-47AF-9C8D-12859A18951E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA0F3533-ECD9-47AF-9C8D-12859A18951E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA0F3533-ECD9-47AF-9C8D-12859A18951E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA0F3533-ECD9-47AF-9C8D-12859A18951E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE52A61C-59CE-45E1-A4E6-259EC06899D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE52A61C-59CE-45E1-A4E6-259EC06899D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE52A61C-59CE-45E1-A4E6-259EC06899D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE52A61C-59CE-45E1-A4E6-259EC06899D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7A5EA74-1053-486B-BDC8-31EA76C724F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7A5EA74-1053-486B-BDC8-31EA76C724F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7A5EA74-1053-486B-BDC8-31EA76C724F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7A5EA74-1053-486B-BDC8-31EA76C724F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

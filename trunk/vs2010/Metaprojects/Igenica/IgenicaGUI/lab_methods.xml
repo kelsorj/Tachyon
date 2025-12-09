@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LabMethodConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LabMethods>
+
+    <LabMethod>
+      <Name>FAT labnet to 96 greiner 300 uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>96 Greiner 655101 PS round well</DestinationLabware>
+      <LiquidProfile>300ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>300</VolumeUl>
+      <AspirateDistanceFromBottomMm>2</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>2</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT labnet to 96 greiner 250uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>96 Greiner 655101 PS round well</DestinationLabware>
+      <LiquidProfile>250ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>250</VolumeUl>
+      <AspirateDistanceFromBottomMm>2</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>2</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT labnet to 96 greiner 100 uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>96 Greiner 655101 PS round well</DestinationLabware>
+      <LiquidProfile>100ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>100</VolumeUl>
+      <AspirateDistanceFromBottomMm>4</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1.5</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT Field to 384 greiner 80 uL</Name>
+      <SourceLabware>96 VWR 40002-012 with 1.2ml tubes</SourceLabware>
+      <DestinationLabware>384 Greiner 781101 PS square well</DestinationLabware>
+      <LiquidProfile>80ul Field Plate to Greiner 781101</LiquidProfile>
+      <VolumeUl>80</VolumeUl>
+      <AspirateDistanceFromBottomMm>9</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1.5</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT 384 deep to 384 greiner 80 uL</Name>
+      <SourceLabware>384 Axygen P-384-240SQC deepwell</SourceLabware>
+      <DestinationLabware>384 Greiner 781101 PS square well</DestinationLabware>
+      <LiquidProfile>80ul Deep 384 to Greiner 781101</LiquidProfile>
+      <VolumeUl>80</VolumeUl>
+      <AspirateDistanceFromBottomMm>4</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1.5</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT labnet to 384 greiner 10 uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>384 Greiner 781101 PS square well</DestinationLabware>
+      <LiquidProfile>10 deep source to greiner dest</LiquidProfile>
+      <VolumeUl>10</VolumeUl>
+      <AspirateDistanceFromBottomMm>2</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>2</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+   <LabMethod>
+      <Name>FAT labnet to 384 greiner 20 uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>384 Greiner 781101 PS square well</DestinationLabware>
+      <LiquidProfile>20ul Labnet to Greiner 781101</LiquidProfile>
+      <VolumeUl>20</VolumeUl>
+      <AspirateDistanceFromBottomMm>17</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+   <LabMethod>
+      <Name>FAT labnet to 384 greiner 80 uL</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>384 Greiner 781101 PS square well</DestinationLabware>
+      <LiquidProfile>80ul Labnet to Greiner 781101</LiquidProfile>
+      <VolumeUl>80</VolumeUl>
+      <AspirateDistanceFromBottomMm>12</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT Throughput (A) labnet to labnet</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>96 Axygen P-DW-500-C deepwell round</DestinationLabware>
+      <LiquidProfile>100ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>100</VolumeUl>
+      <AspirateDistanceFromBottomMm>12</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>12</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT Throughput (B) labnet to 384 shallow</Name>
+      <SourceLabware>96 Axygen P-DW-500-C deepwell round</SourceLabware>
+      <DestinationLabware>384 Axygen P-384-120SQC PP square VBtm</DestinationLabware>
+      <LiquidProfile>100ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>100</VolumeUl>
+      <AspirateDistanceFromBottomMm>12</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>1</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+    <LabMethod>
+      <Name>FAT Throughput (C) Field to 384 deep</Name>
+      <SourceLabware>96 VWR 40002-012 with 1.2ml tubes</SourceLabware>
+      <DestinationLabware>384 Axygen P-384-240SQC deepwell</DestinationLabware>
+      <LiquidProfile>100ul Labnet to Greiner 655101</LiquidProfile>
+      <VolumeUl>100</VolumeUl>
+      <AspirateDistanceFromBottomMm>12</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>5</DispenseDistanceFromBottomMm>
+    </LabMethod>
+
+  </LabMethods>
+</LabMethodConfiguration>

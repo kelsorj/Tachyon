@@ -1,0 +1,134 @@
+﻿<Window x:Class="BioNex.BumblebeeAlphaGUI.GUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:BumblebeeAlphaGUI"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="Bumblebee Alpha GUI" Height="650.195" Width="621.615"
+    Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Unloaded="Window_Unloaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Functions">
+                    <MenuItem Header="Setup" Name="menu_setup" Click="menu_setup_Click"></MenuItem>
+                    <!-- MenuItem Header="Initialize hardware"></MenuItem -->
+                    <MenuItem Header="Home all axes" Command="{Binding HomeAllAxesCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/kfm_home.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Home all devices" Command="{Binding HomeAllDevicesCommand}" />
+                    <MenuItem Header="Reset all servo errors" Command="{Binding ResetAllServosCommand}" />
+                    <MenuItem Header="Servo on all motors" Command="{Binding ServoOnAllMotorsCommand}" />
+                    <MenuItem Header="Diagnostics" Click="menu_diagnostics_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Images/advancedsettings.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="System speed">
+                        <StackPanel Orientation="Horizontal">
+                            <Slider Name="slider_speed" Minimum="1" Maximum="100" Width="100" Thumb.DragCompleted="slider_DragCompleted" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                            <Label Content="{Binding ElementName=slider_speed, Path=Value}" />
+                        </StackPanel>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Logging">
+                    <MenuItem Header="Folder">
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Folder:</Label>
+                            <TextBox Width="100"></TextBox>
+                            <Button>Select Folder</Button>
+                            <Button>Done</Button>
+                        </StackPanel>
+                    </MenuItem>
+                    <MenuItem Header="Display Gantt Chart" Name="menu_ganttchart" Click="menu_ganttchart_Click" />
+                </MenuItem>
+                <MenuItem Header="View">
+                    <MenuItem Header="Hardware Visualizer" Click="visualizer_Click" />
+                </MenuItem>
+                <MenuItem Header="Diagnostics" ItemsSource="{Binding AllDevicePluginNames}" Click="Diagnostics_Click" />
+            </Menu>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                <GroupBox Header="Step 1: Select a hitpick file">
+                    <StackPanel Orientation="Vertical">
+                        <Grid Margin="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalAlignment="Right">Filename:</Label>
+                            <TextBox Grid.Column="1" Text="{Binding HitpickFilepath}"></TextBox>
+                            <Button Style="{StaticResource MyButton}" Grid.Column="2" Name="button_select_file" Click="button_select_file_Click">...</Button>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Step 2: Select scheduling method">
+                    <ComboBox ItemsSource="{Binding SchedulerPluginNames}" SelectedIndex="0" Text="{Binding SelectedSchedulerPlugin, Mode=OneWayToSource}" Margin="3"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Step 3: Select tip handling method">
+                    <ComboBox ItemsSource="{Binding TipHandlingMethodNames}" SelectedIndex="0" Text="{Binding SelectedTipHandlingMethod, Mode=OneWayToSource}" Margin="3"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Step 4: Select plate storage / handling device">
+                    <ComboBox ItemsSource="{Binding RobotStoragePluginNames}" SelectedIndex="0" Text="{Binding SelectedDevicePlugin, Mode=OneWayToSource}" Margin="3"></ComboBox>
+                </GroupBox>
+                <GroupBox Header="Step 5: Start processing plates">
+                    <UniformGrid Rows="1">
+                        <Button Style="{StaticResource MyButton}" Command="{Binding StartCommand}" Background="Green">Start</Button>
+                        <Button Style="{StaticResource MyButton}" Command="{Binding AbortCommand}" Background="DarkRed">Abort</Button>
+                        <Button Style="{StaticResource MyButton}" Command="{Binding PauseCommand}" Background="NavajoWhite">Pause</Button>                        
+                        <Button Style="{StaticResource MyButton}" Command="{Binding ResumeCommand}" Background="LightGreen">Resume</Button>                        
+                    </UniformGrid>
+                </GroupBox>
+                <!--
+                <GroupBox Header="EMERGENCY USE ONLY">
+                    <Button Style="{StaticResource MyButton}" Command="{Binding StopAllMotorsCommand}" Height="100" Background="DarkRed">STOP MOTORS NOW!!!</Button>
+                </GroupBox>
+                -->
+            </StackPanel>
+            <TabControl Height="Auto" DockPanel.Dock="Bottom" SelectedIndex="{Binding SelectedTabIndex}" >
+                <TabItem Header="Log">
+                    <RichTextBox Height="Auto" Name="log" Width="Auto" BorderThickness="1" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                        <FlowDocument>
+                            <Paragraph Margin="5" FontSize="10pt" LineHeight="10pt" LineStackingStrategy="BlockLineHeight">
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </TabItem>
+                <TabItem Header="Errors">
+                    <ListBox ItemsSource="{Binding Errors}" Width="Auto"/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <Image Grid.Row="1" Source="Images/BioNex Logo.png" HorizontalAlignment="Left"></Image>
+        <StatusBar Grid.Row="2">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock>Progress:</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar Value="{Binding ProgressBarValue}" Maximum="{Binding ProgressBarMaximum}" Width="400" Height="15"></ProgressBar>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

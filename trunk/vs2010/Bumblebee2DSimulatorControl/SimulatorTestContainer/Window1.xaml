@@ -1,0 +1,9 @@
+﻿<Window x:Class="SimulatorTestContainer.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sim="clr-namespace:BioNex.Bumblebee2DSimulatorControl;assembly=Bumblebee2DSimulatorControl"
+    Title="Bumblebee 2D Simulator Test Container" Height="402" Width="489">
+    <Grid>
+        <sim:Simulation x:Name="sim" Width="Auto" Height="Auto" />
+    </Grid>
+</Window>

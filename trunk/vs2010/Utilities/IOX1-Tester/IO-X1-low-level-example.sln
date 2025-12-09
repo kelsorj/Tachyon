@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO-X1-low-level-example", "IO-X1-low-level-example\IO-X1-low-level-example.csproj", "{141D320C-62A8-4205-9090-F7DA8314F8D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Systec-IO", "..\..\Shared\Systec-IO\Systec-IO.csproj", "{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UcanDotNET", "..\..\Shared\TechnosoftLibrary\UcanDotNET\UcanDotNET.vbproj", "{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Deployment|Any CPU = Deployment|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Deployment|Any CPU.ActiveCfg = Debug|Any CPU
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Deployment|Any CPU.Build.0 = Debug|Any CPU
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141D320C-62A8-4205-9090-F7DA8314F8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Deployment|Any CPU.ActiveCfg = Deployment|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Deployment|Any CPU.Build.0 = Deployment|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B73EDE9-4BDA-4632-AAB9-90268DA65A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Deployment|Any CPU.ActiveCfg = Deployment|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Deployment|Any CPU.Build.0 = Deployment|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

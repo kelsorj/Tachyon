@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="0abcc3e6-7d46-4394-a9e0-6f39810e9862" Name="BioNex HiG Integration Files" Language="1033" Version="1.0.0.0" Manufacturer="BioNex" UpgradeCode="faa38f77-9129-49a5-8ddd-c0ab53834911">
+		<Package InstallerVersion="300" Compressed="yes" InstallPrivileges="elevated" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- directory structure for application -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- this directory is defined for the application shortcut on the desktop -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="BioNex">
+          <Directory Id="INSTALLLOCATION" Name="HiG">
+            <!-- DKM 2012-02-13 autoextracted, no longer needed -->
+            <!-- Directory Id="CONFIG" Name="config" /-->
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <ComponentGroup Id="ProductComponents">
+      <ComponentRef Id="HeavyUtils.dll" />
+      <ComponentRef Id="HiGIntegration.dll" />
+      <ComponentRef Id="HiGIntegrationTestApp.exe" />
+      <ComponentRef Id="IError.dll" />
+      <ComponentRef Id="log4net.dll" />
+      <ComponentRef Id="log4net_LICENSE.txt"/>
+      <ComponentRef Id="log4net_NOTICE.txt"/>
+      <ComponentRef Id="SimpleWizard.dll" />
+      <ComponentRef Id="Stateless.dll" />
+      <ComponentRef Id="TML_lib" />
+      <ComponentRef Id="tmlcomm" />
+      <!-- ComponentRef Id="UcanDotNET.dll" /-->
+      <ComponentRef Id="Utils.dll" />
+      <!-- DKM 2012-02-13 autoextracted, no longer needed -->
+      <!--
+      <ComponentRef Id="Axis113tzip" />
+      <ComponentRef Id="Axis115tzip" />
+      <ComponentRef Id="motor_settings.xml"/>
+      -->
+      <ComponentRef Id="chm"/>
+      <ComponentRef Id="SysTecDriver"/>
+    </ComponentGroup>
+
+    <!-- add all of the file references - exe, dlls, etc. -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="HiGIntegrationTestApp.exe" Guid="9C3ADFF1-F45D-4348-8E51-F82992CE24F0">
+        <!-- main exe -->
+        <File Id="HiGIntegrationTestApp.exe" Source="..\HigIntegrationTestApp\bin\debug\HiGIntegrationTestApp.exe" KeyPath="yes">
+          <Shortcut Id="DesktopExeLink" Directory="DesktopFolder" Name="HiG Integration Test Container" WorkingDirectory="INSTALLDIR" Icon="HiGIntegrationTestApp.exe" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="HeavyUtils.dll">
+        <File Id="HeavyUtils.dll" Source="..\HigIntegrationTestApp\bin\debug\HeavyUtils.dll" />
+      </Component>
+      <Component Id="HiGIntegration.dll">
+        <File Id="HiGIntegration.dll" Source="..\HigIntegrationTestApp\bin\debug\HiGIntegration.dll" />
+      </Component>
+      <Component Id="IError.dll">
+        <File Id="IError.dll" Source="..\HigIntegrationTestApp\bin\debug\IError.dll" />
+      </Component>
+      <Component Id="log4net.dll">
+        <File Id="log4net.dll" Source="..\HigIntegrationTestApp\bin\debug\log4net.dll" />
+      </Component>
+      <Component Id="log4net_LICENSE.txt">
+        <File Id="log4net_LICENSE.txt" Source="..\HigIntegrationTestApp\bin\debug\log4net_LICENSE.txt" />
+      </Component>
+      <Component Id="log4net_NOTICE.txt">
+        <File Id="log4net_NOTICE.txt" Source="..\HigIntegrationTestApp\bin\debug\log4net_NOTICE.txt" />
+      </Component>
+      <Component Id="SimpleWizard.dll">
+        <File Id="SimpleWizard.dll" Source="..\HigIntegrationTestApp\bin\debug\SimpleWizard.dll" />
+      </Component>
+      <Component Id="Stateless.dll">
+        <File Id="Stateless.dll" Source="..\HigIntegrationTestApp\bin\debug\Stateless.dll" />
+      </Component>
+
+      <!-- if we are building an XP installer, then we want to use the single-threaded TML libraries -->
+      <?ifdef WIX_TML_SINGLETHREADED ?>
+        <Component Id="TML_lib">
+          <File Id="TML_lib" Source="..\HigIntegrationTestApp\bin\debug\TML_lib.dll" />
+        </Component>
+        <Component Id="tmlcomm">
+          <File Id="tmlcomm" Source="..\HigIntegrationTestApp\bin\debug\tmlcomm.dll" />
+        </Component>
+      <!-- otherwise, use the multi-threaded TML libraries -->
+      <?else ?>
+        <Component Id="TML_lib">
+          <File Id="TML_lib" Source="..\HigIntegrationTestApp\bin\debug\TML_lib-mt.dll" />
+        </Component>
+        <Component Id="tmlcomm">
+          <File Id="tmlcomm" Source="..\HigIntegrationTestApp\bin\debug\tmlcomm-mt.dll" />
+        </Component>
+      <?endif ?>
+      <!-- end TML-LIB thread handling-->
+      
+      <!--
+      <Component Id="UcanDotNET.dll">
+        <File Id="UcanDotNET.dll" Source="..\HigIntegrationTestApp\bin\debug\UcanDotNet.dll" />
+      </Component>
+      -->
+      <Component Id="Utils.dll">
+        <File Id="Utils.dll" Source="..\HigIntegrationTestApp\bin\debug\Utils.dll" />
+      </Component>
+      <Component Id="chm">
+        <!-- no longer using bin folder because TeamCity locked it down -->
+        <!-- File Id="chm" Source="..\bin\html\index.chm" / -->
+        <File Id="chm" Source="c:\temp\hig\html\index.chm" />
+      </Component>
+      <Component Id="SysTecDriver">
+        <File Id="SysTecDriver" Source="$(var.ProjectDir)\SysTec\systec_setup_4.14.exe" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- DKM 2012-02-13 don't need this anymore, since the files are extracted by the integration assembly at initialization time -->
+    <!--
+    <DirectoryRef Id="CONFIG">
+      <Component Id="Axis113tzip">
+        <File Id="Axis113tzip" Source="..\config\113.t.zip" />
+      </Component>
+      <Component Id="Axis115tzip">
+        <File Id="Axis115tzip" Source="..\config\115.t.zip" />
+      </Component>
+      <Component Id="motor_settings.xml">
+        <File Id="motor_settings.xml" Source="..\config\motor_settings.xml" />
+      </Component>
+    </DirectoryRef>
+    -->
+
+    <Feature Id="ProductFeature" Title="Installer" Level="1">
+      <Feature Id="Main" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="ProductComponents" />
+      </Feature>
+			<!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+
+    <Icon Id="HiGIntegrationTestApp.exe" SourceFile="..\HigIntegrationTestApp\bin\debug\HiGIntegrationTestApp.exe" />
+    <!-- change installer images here.  Search WiX documentation for "banner" -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Bitmaps\higbanner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Bitmaps\higdialog.bmp"/>
+
+    <!-- .NET 4.0 detection / installation: search WiX documentation for ".NET" -->
+    <PropertyRef Id="NETFRAMEWORK40FULL" />
+    <Condition Message ="This application requires .NET Framework 4.0.  Please install the .NET Framework and then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <!-- this section is used for component detection... specifically the SysTec driver, which
+       is located at HKLM\SOFTWARE\SYSTEC-electronic\USB-CANmodul Control\Settings, look for "InstallPath" key -->
+    <!-- this could be incorrect, but I always set Win64 to yes.  This is because SysTec installs their regkeys in the 64 bit
+         registry editor.  On Win64 this registry search occurs in the 64bit registry, and on Win32 (from testing) it sure
+         looks like it falls back to the 32 bit registry as desired. -->
+    <Property Id="SYSTECINSTALLED">
+      <RegistrySearch Id="SysTecInstalledSearch" Win64="yes" Root="HKLM" Key="SOFTWARE\SYSTEC-electronic\USB-CANmodul Control\Settings" Name="InstallPath" Type="raw" />
+    </Property>
+    <!-- the following line ALWAYS makes the checkbox appear on the last dialog -->
+    <!--Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Install device drivers when the installer exits." /-->
+    <!-- the following line is intended to make the checkbox a conditional property -->
+    <!-- http://stackoverflow.com/questions/480258/how-do-i-create-a-conditional-property-in-wix-almost-like-an-if-then -->
+    <SetProperty Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Install device drivers when the installer exits." After="CostFinalize">
+      <![CDATA[NOT SYSTECINSTALLED]]>
+    </SetProperty>
+    <!-- default checkbox to checked -->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+
+    <!-- http://msdn.microsoft.com/en-us/library/aa372048.aspx -->
+    <CustomAction Id="InstallSysTecDrivers" Execute="immediate" FileKey="SysTecDriver" ExeCommand="" Return="asyncNoWait" Impersonate="yes" />
+
+    <UI>
+      <!-- http://www.codeproject.com/Articles/21472/Creating-an-installer-using-Wix-v3-0-Votive-and-Vi -->
+      <UIRef Id="WixUI_InstallDir" />
+      <!-- override the default behavior for WixUI_InstallDir and skip the EULA page -->
+      <!-- http://stackoverflow.com/questions/597025/how-to-build-a-minimal-wix-installer-ui-without-a-license-page -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <!-- for running the SysTec installer after installation is complete -->
+      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="InstallSysTecDrivers">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed and NOT SYSTECINSTALLED</Publish>
+      <!-- need this or you'll get error 2819 when running the installer: http://stackoverflow.com/questions/7349837/wix-installer-guidance -->
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />      
+    </UI>
+
+    <!-- http://wix.sourceforge.net/manual-wix3/run_program_after_install.htm -->
+    <!-- not necessary anymore since I'm using the checkbox to control installation of the SysTec drivers -->
+    <!-- InstallExecuteSequence>
+      <Custom Action="InstallSysTecDrivers" After="InstallFinalize" />
+    </InstallExecuteSequence -->
+  </Product>
+</Wix>

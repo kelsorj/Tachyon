@@ -1,0 +1,15 @@
+﻿<Window x:Class="BioNex.Shared.LiquidProfileLibrary.NewObjectNameWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{Binding TitleString}"
+    Height="150" Width="300">
+    <DockPanel Margin="2">
+        <Label DockPanel.Dock="Top" Margin="2" Content="{Binding LabelString}"/>
+        <TextBox DockPanel.Dock="Top" Margin="2" Text="{Binding NameString}"/>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2">
+            <Button Margin="2" Command="{Binding OKCommand}">OK</Button>
+            <Button Margin="2" Command="{Binding CancelCommand}">Cancel</Button>
+        </StackPanel>
+        <Label/>
+    </DockPanel>
+</Window>

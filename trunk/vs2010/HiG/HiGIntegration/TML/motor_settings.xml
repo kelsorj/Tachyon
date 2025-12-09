@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Units used in file -->
+<!-- velocity: mm/s, deg/s -->
+<!-- acceleration: mm/s^2, deg/s^2 -->
+<!-- jerk: IU -->
+<!-- encoder_lines: actual lines/rev on encoder wheel (not quad)-->
+<!-- gear_ratio: load mm / motor rev, load deg / mot rev-->
+<!-- min_limit: mm, deg -->
+<!-- max_limit: mm, deg -->
+<!-- move_done_window: mm, deg -->
+<!-- settling time: milliseconds -->
+<!-- slow_loop_servo_time_sec: seconds -->
+<MotorSettings>
+  <axes>
+    <axis name="SHIELD">
+      <!-- Shield Door Motor -->
+      <id>113</id>
+      <velocity>250.0</velocity>
+      <acceleration>1000.0</acceleration>
+      <jerk>225</jerk>
+      <encoder_lines>5000</encoder_lines>
+      <!-- 34.107 is gear ratio, divide 360 by this to get effective gear ratio for shield -->
+      <gear_ratio>10.555</gear_ratio>
+      <min_limit>-40.0</min_limit>
+      <max_limit>644.0</max_limit>
+      <move_done_window>0.05</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="SPINDLE">
+      <!-- Bucket Spindle Motor -->	    
+      <id>115</id>
+      <!-- velocity in deg/s (30000 deg/s = 5000 rpm = 3077G) -->
+      <!-- velocity in deg/s (34203 deg/s = 5701 rpm = 4000G) -->
+      <!-- velocity in deg/s (38241 deg/s = 6374 rpm = 5000G) -->
+      <!-- velocity in deg/s (41892 deg/s = 6982 rpm = 6000G) -->
+      <velocity>38241.0</velocity>
+      <!-- accel in deg/s^2 (180 rpm/s = 3 rot/s^2 = 1080 deg/s^2) -->
+      <!-- accel in deg/s^2 (240 rpm/s = 4 rot/s^2 = 1440 deg/s^2) -->
+      <!-- accel in deg/s^2 (384 rpm/s = 5.9 rot/s^2 = 2124 deg/s^2) -->
+      <acceleration>2124.0</acceleration>
+      <jerk>30</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <!-- gear_ratio is degrees/rotation of motor -->
+      <gear_ratio>360</gear_ratio>
+      <!-- min and max limit are in degrees: 2^31*gear_ratio/(encoder_lines*4) -->
+      <min_limit>-47185920</min_limit>
+      <max_limit>47185919.9</max_limit>
+      <move_done_window>0.11</move_done_window>
+      <settling_time>100</settling_time>
+      <slow_loop_servo_time_sec>0.008</slow_loop_servo_time_sec>
+      <default_servo_timeout>15</default_servo_timeout>
+    </axis>
+  </axes>
+</MotorSettings>

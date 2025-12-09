@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F62FB229-8F14-437F-B89D-B1963F660C6D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.BumblebeeAlphaGUI.SingleSplitTransferScheduler</RootNamespace>
+    <AssemblyName>SingleSplitTransferScheduler</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Runtime">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.WorkflowServices">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SingleSplitScheduler.cs">
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleTransferStateMachine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\thirdparty\Stateless\source_and_examples\Stateless\Stateless.csproj">
+      <Project>{A15EEC02-60EC-4705-A58B-A6ECD55A9628}</Project>
+      <Name>Stateless</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\HitpickXMLReader\HitpickXMLReader.csproj">
+      <Project>{DB6D45A3-3E63-40B0-B12C-22AD728BF5B0}</Project>
+      <Name>HitpickXMLReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\LabwareDatabase\LabwareDatabase.csproj">
+      <Project>{A26AF0A4-9532-40CB-9554-A9510467636F}</Project>
+      <Name>LabwareDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Teachpoints\Teachpoints.csproj">
+      <Project>{4FF11887-7EAE-467F-82AE-5E91FF318923}</Project>
+      <Name>Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\TechnosoftLibrary\TechnosoftLibrary.csproj">
+      <Project>{1BEB833E-1D00-4886-BE2C-A150B88BBCA9}</Project>
+      <Name>TechnosoftLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlphaHardware\AlphaHardware.csproj">
+      <Project>{56C2A737-97EE-4C3D-863C-28B68DE996A2}</Project>
+      <Name>AlphaHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeAlpha.Teachpoints\BumblebeeAlpha.Teachpoints.csproj">
+      <Project>{F677C21C-A622-44AF-AAE0-4E7B9915F7D8}</Project>
+      <Name>BumblebeeAlpha.Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchedulerInterface\SchedulerInterface.csproj">
+      <Project>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</Project>
+      <Name>SchedulerInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TipOperations\TipOperations.csproj">
+      <Project>{35EE2474-AB0B-44A2-80CF-9AA21B89A268}</Project>
+      <Name>TipOperations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y $(targetfilename) "..\..\..\..\bin\$(configurationname)\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

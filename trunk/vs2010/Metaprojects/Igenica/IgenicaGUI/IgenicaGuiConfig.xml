@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<IgenicaGuiConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <source_barcode_ranges>
+    <range>
+      <labware_name>384 source</labware_name>
+      <start_barcode>3701000000</start_barcode>
+      <end_barcode>3701000999</end_barcode>
+    </range>
+  </source_barcode_ranges>
+  <destination_barcode_ranges>
+    <range>
+      <labware_name>48 dest</labware_name>
+      <start_barcode>3548000000</start_barcode>
+      <end_barcode>3548000999</end_barcode>
+    </range>
+    <range>
+      <labware_name>96 dest</labware_name>
+      <start_barcode>3585000000</start_barcode>
+      <end_barcode>3585000999</end_barcode>
+    </range>
+  </destination_barcode_ranges>
+</IgenicaGuiConfig>

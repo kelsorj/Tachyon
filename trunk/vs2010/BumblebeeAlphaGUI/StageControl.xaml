@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="BioNex.BumblebeeAlphaGUI.StageControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:BioNex.BumblebeeAlphaGUI"
+    Height="57" Width="669">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Stage X</Label>
+        <!-- Y -->
+        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">Y:</Label>
+        <Button Grid.Row="0" Grid.Column="2" Margin="3">Home</Button>
+        <!-- R -->
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">R:</Label>
+        <Button Grid.Row="1" Grid.Column="2" Margin="3">Home</Button>
+    </Grid>
+</UserControl>

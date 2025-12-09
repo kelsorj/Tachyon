@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="BioNex.PlateMover.JogTeach"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioNex.PlateMover"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             x:Name="root"
+             d:DesignHeight="447" d:DesignWidth="676" Loaded="UserControl_Loaded">
+    
+    <UserControl.Resources>
+        <x:Array x:Key="Increments" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>20.0</sys:Double>
+            <sys:Double>50.0</sys:Double>
+            <sys:Double>100.0</sys:Double>
+            <sys:Double>200.0</sys:Double>
+        </x:Array>
+        <x:Array x:Key="ThetaIncrements" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>15.0</sys:Double>
+            <sys:Double>30.0</sys:Double>
+            <sys:Double>45.0</sys:Double>
+            <sys:Double>60.0</sys:Double>
+            <sys:Double>90.0</sys:Double>
+            <sys:Double>180.0</sys:Double>
+        </x:Array>
+    </UserControl.Resources>
+    
+    <!--Grid DataContext="{Binding ElementName=root}"-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Hardware View" Grid.Row="0" BorderBrush="Orange">
+            <Viewbox>
+                <local:PlateMoverControl R="{Binding StageAngle}" Y="{Binding StagePosition}" RVisibility="{Binding RVisibility}" YVisibility="{Binding YVisibility}" TrackLength="{Binding TrackLength}"></local:PlateMoverControl>
+            </Viewbox>
+        </GroupBox>
+        <GroupBox Header="Jogging" Grid.Row="1" BorderBrush="Orange" MinHeight="100">
+            <UniformGrid Rows="1">
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding JogNegativeCommand}" Visibility="{Binding YVisibility}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Images/jog_left.png" Width="48" />
+                            <TextBlock HorizontalAlignment="Center">Jog -</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <ComboBox Height="28" Width="75" ItemsSource="{StaticResource Increments}" Text="{Binding XIncrement, Mode=TwoWay}" HorizontalContentAlignment="Center" Visibility="{Binding YVisibility}"></ComboBox>
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding JogPositiveCommand}" Visibility="{Binding YVisibility}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Images/jog_right.png" Width="48" />
+                            <TextBlock HorizontalAlignment="Center">Jog +</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding RotateCCWCommand}" Visibility="{Binding RVisibility}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Images/rotate_ccw.png" Width="48" />
+                            <TextBlock HorizontalAlignment="Center">Rotate CCW</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <ComboBox Height="28" Width="75" ItemsSource="{StaticResource ThetaIncrements}" Text="{Binding RIncrement, Mode=TwoWay}" HorizontalContentAlignment="Center" Visibility="{Binding RVisibility}" />
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding RotateCWCommand}" Visibility="{Binding RVisibility}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="Images/rotate_cw.png" Width="48" />
+                            <TextBlock HorizontalAlignment="Center">Rotate CW</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </UniformGrid>
+        </GroupBox>
+        <GroupBox Header="Homing" Grid.Row="2" BorderBrush="Orange" MinHeight="80">
+            <UniformGrid Rows="1">
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding HomeYCommand}" Visibility="{Binding YVisibility}">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images/home.png" Width="32" />
+                        <TextBlock HorizontalAlignment="Center">Home Y Axis</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Width="100" Margin="3" Background="Transparent" BorderBrush="Transparent" Command="{Binding HomeRCommand}" Visibility="{Binding RVisibility}">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images/home.png" Width="32" />
+                        <TextBlock HorizontalAlignment="Center">Home Theta Axis</TextBlock>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
+        </GroupBox>
+        <GroupBox Header="Teaching" Grid.Row="3" BorderBrush="Orange" MinHeight="80">
+            <UniformGrid Rows="2">
+                <Button Margin="3" Command="{Binding TeachHiveLandscapePickupCommand}">Teach Hive Landscape Pickup Here</Button>
+                <Button Margin="3" Command="{Binding TeachHivePortraitPickupCommand}">Teach Hive Portrait Pickup Here</Button>
+                <Button Margin="3" Command="{Binding TeachExternalPickupCommand}">Teach External Pickup Here</Button>
+                <Button Margin="3" Command="{Binding MoveToHiveLandscapePickupCommand}">Move to Hive Landscape Pickup</Button>
+                <Button Margin="3" Command="{Binding MoveToHivePortraitPickupCommand}">Move to Hive Portrait Pickup</Button>
+                <Button Margin="3" Command="{Binding MoveToExternalPickupCommand}">Move to External Pickup</Button>
+            </UniformGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>

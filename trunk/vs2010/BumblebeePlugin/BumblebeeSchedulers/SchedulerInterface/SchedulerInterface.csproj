@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchedulerInterface</RootNamespace>
+    <AssemblyName>SchedulerInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.WPF4, Version=3.0.0.29166, Culture=neutral, PublicKeyToken=30359002188bf5b0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\thirdparty\MvvmLightToolkit\bin\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IScheduler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BumblebeeAlphaGUI\AlphaHardware\BBHardware.csproj">
+      <Project>{8E879387-82E2-407F-B90A-B589FDF210B8}</Project>
+      <Name>BBHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BumblebeeAlphaGUI\BumblebeeAlpha.Configuration\Bumblebee.Configuration.csproj">
+      <Project>{B0A539B6-3931-4839-8BC1-53285920BCE0}</Project>
+      <Name>Bumblebee.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\ThreadsafeMessenger\ThreadsafeMessenger.csproj">
+      <Project>{07561CFE-43B4-45BF-AE9B-4D2C1813B21B}</Project>
+      <Name>ThreadsafeMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BumblebeeDispatcher\BumblebeeDispatcher.csproj">
+      <Project>{F7FCABBC-8061-4C71-B5A3-C7B52BC3A05A}</Project>
+      <Name>BumblebeeDispatcher</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--  <Import Project="$(WORK_FOLDER)\thirdparty\wix30\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+ -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild" Condition=" '$(Configuration)' == 'Deployment' ">
+    <FileUpdate Files="Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$1.$2.$3.$(build_vcs_number_1)" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y "$(targetfilename)" "..\..\..\..\..\bin\$(configurationname)\plugins\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

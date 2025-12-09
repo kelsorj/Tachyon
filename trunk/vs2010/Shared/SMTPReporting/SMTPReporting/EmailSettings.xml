@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<SMTPConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Username>username</Username>
+  <Password>/WM4rhhqOb1nRkEfe8EQDvV35ggpA7MkQc6pOC9iMAY=</Password>
+  <SMTPServer>mail.company.com</SMTPServer>
+  <SMTPPort>1234</SMTPPort>
+  <UseSSL>true</UseSSL>
+  <EnableEmail>true</EnableEmail>
+  <From>John Doe</From>
+  <RecipientList>username@customer.com</RecipientList>
+</SMTPConfiguration>

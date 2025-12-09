@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="BioNex.BumblebeeAlphaGUI.TeachpointControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:BioNex.BumblebeeAlphaGUI">
+    <DockPanel>
+        <Label DockPanel.Dock="Top">Please select the channel and stage that you would like to teach:</Label>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>Channel:</Label>
+            <ComboBox ItemsSource="{Binding ChannelList}" Text="{Binding SelectedChannel, Mode=OneWayToSource}" SelectedIndex="0" Margin="3" Width="40"></ComboBox>
+            <Label>Stage:</Label>
+            <ComboBox ItemsSource="{Binding StageList}" Text="{Binding SelectedStage, Mode=OneWayToSource}" SelectedIndex="0" Margin="3" Width="40"></ComboBox>
+            <ToggleButton Name="button_disable_xy" Command="{Binding DisableXYAxesCommand}" CommandParameter="{Binding ElementName=button_disable_xy, Path=IsChecked}" Margin="3" IsChecked="{Binding DisableXYAxesChecked, Mode=OneWay}">Disable X and Y axes</ToggleButton>
+            <Button Command="{Binding ReloadTeachpointFileCommand}" Margin="3">Reload Teachpoint File</Button>
+        </StackPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <!-- ButtonInterface goes here -->
+            <!-- eventually it will get upgraded to a 3D interface -->
+            <!-- note that this is how I should have done the other controls (not in code-behind) -->
+            <my:ButtonInterface x:Name="button_interface"></my:ButtonInterface>
+        </Grid>
+    </DockPanel>
+</UserControl>

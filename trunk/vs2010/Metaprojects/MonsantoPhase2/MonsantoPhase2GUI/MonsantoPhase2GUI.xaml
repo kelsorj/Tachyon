@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="BioNex.CustomerGUIPlugins.MonsantoPhase2GUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             mc:Ignorable="d" 
+             d:DesignHeight="288" d:DesignWidth="692">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </UserControl.Resources>
+    
+    <!-- ideally, we would have a custom panel here that will allow databinding -->
+    <DockPanel>
+        <GroupBox Header="System Status" DockPanel.Dock="Top" BorderBrush="Orange" BorderThickness="3">
+            <UniformGrid Rows="1" Grid.Row="0">
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding IdleColor}" IndicatorText="Idle" OutlineRadius="8" Margin="5" />
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding HomingColor}" IndicatorText="Homing" OutlineRadius="8" Margin="5" />
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding ProcessingColor}" IndicatorText="Processing" OutlineRadius="8" Margin="5" />
+                <!--
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding UnLoadingColor}" IndicatorText="Unloading Plate" OutlineRadius="8" FillRadius="6" Margin="5" />
+                -->
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding MovingColor}" IndicatorText="Moving Plate" OutlineRadius="8" Margin="5" />
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding ReinventoryingColor}" IndicatorText="Reinventorying" OutlineRadius="8" Margin="5" />
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding DockingColor}" IndicatorText="Docking" OutlineRadius="8" Margin="5" />
+                <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillColor="{Binding UndockingColor}" IndicatorText="Undocking" OutlineRadius="8" Margin="5" />
+            </UniformGrid>
+        </GroupBox>
+        <GroupBox Header="System Functions" DockPanel.Dock="Bottom" BorderBrush="Orange" BorderThickness="3" Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48*" />
+                    <ColumnDefinition Width="632*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--
+                <UniformGrid Rows="1" Grid.Row="0">
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding IdleColor}" IndicatorText="Idle" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding HomingColor}" IndicatorText="Homing" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding LoadingColor}" IndicatorText="Loading Plate" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding UnLoadingColor}" IndicatorText="Unloading Plate" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding MovingColor}" IndicatorText="Moving Plate" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding ReinventoryingColor}" IndicatorText="Reinventorying" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding DockingColor}" IndicatorText="Docking" OutlineRadius="20" FillRadius="18" Margin="5" />
+                    <utils:StatusIndicator FontSize="16" OutlineHeight="50" OutlineWidth="130" OutlineColor="Gray" FillHeight="44" FillWidth="124" FillColor="{Binding UndockingColor}" IndicatorText="Undocking" OutlineRadius="20" FillRadius="18" Margin="5" />
+                </UniformGrid>
+                -->
+                <UniformGrid Rows="1" Grid.ColumnSpan="2">
+                    <Button Command="{Binding HomeAllCommand}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding HomeAllCommandToolTip}" MinHeight="80" FontSize="30" FontWeight="DemiBold" Content="Home All">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="Black" />
+                        </Button.Effect>
+                    </Button>
+                    <!--
+                    <Button Command="{Binding ReinventoryStaticStorageCommand}" ToolTip="{Binding ReinventoryStaticStorageToolTip}" MinHeight="80" FontSize="30" FontWeight="DemiBold" Content="Reinventory Static Storage">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="Black" />
+                        </Button.Effect>
+                    </Button>                    
+                    <Button Command="{Binding DisplayStaticStorageCommand}" MinHeight="80" FontSize="30" FontWeight="DemiBold" Content="Display Static Storage">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="Black" />
+                        </Button.Effect>
+                    </Button>
+                    -->
+                </UniformGrid>
+                <!--
+                <UniformGrid Rows="1" Grid.Row="2">
+                    <Button Command="{Binding CustomerGuiPauseCommand}" Margin="3" MinHeight="80"  FontSize="30">Pause</Button>
+                    <Button Command="{Binding CustomerGuiResumeCommand}" Content="{Binding ResumeButtonText}" Margin="3" MinHeight="80"  FontSize="30"></Button>
+                    --><!-- Button Command="{Binding CustomerGuiAbortCommand}" Margin="3" MinHeight="80"  FontSize="30">Abort</Button--><!--
+                </UniformGrid>
+                -->
+            </Grid>
+        </GroupBox>
+        <!-- dock panels -->
+        <UniformGrid Rows="1" DockPanel.Dock="Top">
+            <GroupBox Header="Dock 1" BorderBrush="Orange" BorderThickness="3">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Margin="5,0,5,0">
+                        <Rectangle Fill="Gray" RadiusX="8" RadiusY="8" />
+                        <Rectangle Fill="{Binding FateDock1Color}" Margin="3" RadiusX="8" RadiusY="8" />
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding FateDock1TextColor}" Text="{Binding FateDock1}" Margin="15"/>
+                    </Grid>
+                    <UniformGrid Rows="1" x:Name="DockPanel1" DockPanel.Dock="Top"  />
+                </DockPanel>                    
+            </GroupBox>
+            <GroupBox Header="Dock 2" BorderBrush="Orange" MinWidth="180" BorderThickness="3">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Margin="5,0,5,0">
+                        <Rectangle Fill="Gray" RadiusX="8" RadiusY="8" />
+                        <Rectangle Fill="{Binding FateDock2Color}" Margin="3" RadiusX="8" RadiusY="8" />
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding FateDock2TextColor}" Text="{Binding FateDock2}" Margin="15"/>
+                    </Grid>
+                    <UniformGrid Rows="1" x:Name="DockPanel2" DockPanel.Dock="Top"  />
+                </DockPanel>
+            </GroupBox>
+        </UniformGrid>
+    </DockPanel>
+</UserControl>

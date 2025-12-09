@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="LiquidLevelSensingGUI.LiquidLevelGUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bnx="clr-namespace:BioNex.LiquidLevelDevice;assembly=LiquidLevelDevice"
+             mc:Ignorable="d" 
+             d:DesignHeight="360" d:DesignWidth="536">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="150"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!-- Header -->
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Liquid Level Sensing Checklist</Label>
+            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Home all devices</Label>
+            <Button Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="50" Command="{Binding HomeAllDevicesCommand}" >Home now</Button>
+            <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Calibrate Sensors</Label>
+            <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="50" Command="{Binding CalibrateSensorsCommand}" >Calibrate</Button>
+            <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">Select Labware</Label>
+            <ComboBox Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="24" Name="LabwareCombo" ></ComboBox>
+            <CheckBox Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="24" IsChecked="{Binding Path=ShowResultsSummary}" >Show results summary view</CheckBox>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" >
+            <bnx:ScanProgressPanel Name="ScanProgress" Margin="3" MinHeight="100" MouseDoubleClick="ScanProgress_MouseDoubleClick" />
+        </Grid>
+    </DockPanel>
+</UserControl>

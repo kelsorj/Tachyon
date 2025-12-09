@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!-- lower nav bar -->
+		<table width="480" height="272" bgColor="White">
+			<tr>
+				<td>Internal Byte 0:</td>
+				<td>
+					<applet code="Slider.class" width="200" height="10">
+					<param name="href" value="Amulet:InternalRAM.byte(0).setValue()" />
+					<param name="hrefChange" value="onChange" />
+					<param name="max" value="255" />
+					<param name="min" value="0" />
+					<param name="maxAt" value="255" />
+					<param name="minAt" value="0" />
+					<param name="updateRate" value="0.1" />
+					</applet>
+				</td>
+				<td>
+					<applet code="NumericField.class" width="200" height="20">
+					<param name="href" value="Amulet:InternalRAM.byte(0).value()" />
+					<param name="max" value="255" />
+					<param name="min" value="0" />
+					<param name="maxFld" value="255" />
+					<param name="minFld" value="0" />
+					<param name="printf" value="%4i" />
+					<param name="updateRate" value="0.1" />
+					</applet>
+				</td>
+			</tr>
+			<tr>
+				<td>Internal Word 0:</td>
+				<td>
+					<applet code="Slider.class" width="200" height="10">
+					<param name="href" value="Amulet:InternalRAM.word(0).setValue()" />
+					<param name="hrefChange" value="onChange" />
+					<param name="max" value="65535" />
+					<param name="min" value="0" />
+					<param name="maxAt" value="65535" />
+					<param name="minAt" value="0" />
+					<param name="updateRate" value="0.1" />
+					</applet>
+				</td>
+				<td>
+					<applet code="NumericField.class" width="200" height="20">
+					<param name="href" value="Amulet:InternalRAM.word(0).value()" />
+					<param name="max" value="65535" />
+					<param name="min" value="0" />
+					<param name="maxFld" value="65535" />
+					<param name="minFld" value="0" />
+					<param name="printf" value="%6i" />
+					<param name="updateRate" value="0.1" />
+					</applet>
+				</td>
+			</tr>
+			<tr>
+				<td>Internal String 0:</td>
+				<td>
+					<applet code="StringField.class" width="200" height="10">
+					<param name="fillColor" value="white" />
+					<param name="fontColor" value="black" />
+					<param name="fontSize" value="10pt" />
+					<param name="href" value="Amulet:InternalRAM.string(0).value()" />
+					<param name="printf" value="%s" />
+					<param name="initialCondition" value="internal string 0" />
+					</applet>
+				</td>
+			</tr>
+			<tr><td>
+				<a href="CompileMe.html">Return to Main Menu</a>
+			</td></tr>
+		</table>
+	</body>
+</html>
+

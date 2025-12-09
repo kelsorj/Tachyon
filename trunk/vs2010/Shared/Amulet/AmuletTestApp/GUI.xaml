@@ -1,0 +1,34 @@
+﻿<Window x:Class="AmuletTestApp.GUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:AmuletTestApp"
+    Title="Amulet GEM Test Application" Height="466" Width="505" Closed="Window_Closed">
+    
+    <Grid>
+        <DockPanel>
+            <GroupBox DockPanel.Dock="Top" Header="Communication Setup">
+                <UniformGrid Columns="3">
+                    <Label Margin="3" HorizontalContentAlignment="right">COM port:</Label>
+                    <ComboBox ItemsSource="{Binding AvailableComPorts}" SelectedItem="{Binding SelectedComPort}" Margin="3"></ComboBox>
+                    <Button Margin="3" Command="{Binding ConnectCommand}">Connect</Button>
+                </UniformGrid>
+            </GroupBox>
+            <GroupBox Header="Functions">
+                <TabControl>
+                    <TabItem Header="Amulet Sends Data to PC via UART">
+                        <local:AmuletToPcUart />
+                    </TabItem>
+                    <TabItem Header="Amulet Requests Data from PC via UART">
+                        <local:AmuletFromPcUart />
+                    </TabItem>
+                    <TabItem Header="PC Sets Data in Amulet RAM">
+                        <local:PcToAmuletRam />
+                    </TabItem>
+                    <TabItem Header="PC Requests Data From Amulet RAM">
+                        <local:PcFromAmuletRam />
+                    </TabItem>
+                </TabControl>
+            </GroupBox>
+        </DockPanel>
+    </Grid>
+</Window>

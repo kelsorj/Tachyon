@@ -1,0 +1,219 @@
+$model(NP-ENF)
+;------------------------------------------------------------------------
+;  C-STARTUP file for the AquaMax 3 Rev. 1 Board. (EB0700AA)		-
+;  model(NP-ENF) = far code/near data/far const.
+;------------------------------------------------------------------------
+;  To Assemble:		asm196 cstart.a96 cmain				-
+; 			-----------------------				-
+;  (The 'cmain' control will allow symbol 'main' to be used)		-
+;------------------------------------------------------------------------
+;  - If FPAL96 is used, enable the calling of 'fpinit'.			-
+;  - If scanf or sscanf is used, enable the calling of 'init_ungetc'.	-
+;------------------------------------------------------------------------
+;  EF	19. Feb. 2002	AquaMax 3 Rev. 1 Board				-
+; 									-
+;------------------------------------------------------------------------
+
+STARTUP MODULE  CMAIN
+$include(NP_SFRS.INC)
+
+tmpreg0         EQU      01CH:WORD
+
+
+;********* CCR0, CCR1, chip configuration: ******************
+;*
+;* Number of wait states = One wait state
+;* Powerdown Mode = Disabled
+;* Bus Mode = Demultiplexed
+;* Write control mode = Standard BHE mode
+;* Bus width = Eight bit bus
+;* Addressing mode = 1 Mbyte
+;* ROM remapping = ROM mapped to 0FFh
+;*
+;********* Chip-Select configuration: ***********************
+;
+;   CCR0_RESERVED      0xC0
+;   ZERO_WAIT_STATES   0x00
+;   ONE_WAIT_STATES    0x10
+;   TWO_WAIT_STATES    0x20
+;   THREE_WAIT_STATES  0x30
+;   DEMUXED_MODE       0x08
+;   MUXED_MODE         0x00
+;   WR_BHE             0x04
+;   WRL_WRH            0x00
+;   BUS_WIDTH_16       0x02
+;   BUS_WIDTH_8        0x00
+;   POW_DN_ENABLE      0x01
+;   POW_DN_DISABLE     0x00
+
+;   CCR1_RESERVED      0xD8
+;   REMAP_ROM          0x04
+;   NO_ROM_REMAP       0x00
+;   MODE64             0x02
+;   MODE1MEG           0x00
+;************************************************************
+
+	CSEG	FAR AT 0FF2018h
+
+ccr0:	dcw	20DCh
+ccr1:	dcw	00D8h
+
+
+
+;************************************************************
+;*  CSTART     (Program Code at restart address:  FF 2080 )
+;************************************************************
+
+	CSEG	FAR AT 0FF2080H
+
+	EXTRN	fpinit:NULL
+	EXTRN	init_ungetc:NULL
+	EXTRN	main:NULL
+
+cstart:
+	PUBLIC	cstart
+
+;--------------------------------------------------
+;------ Load Stack Pointer: -----------------------
+;--------------------------------------------------
+
+	LD	SP,#STACK
+
+;--------------------------------------------------
+;------ Init PORT 1: ------------------------------
+;--------------------------------------------------
+;       mode:	dir:	reg:
+;--------------------------------------------------
+;P1.0 - EPA0	Input	1	; Tacho 0
+;P1.1 - EPA1	Input	1	; Tacho 1
+;P1.2 - EPA2	Input	1	; Tacho 2
+;P1.3 - I/O	Input	1	; M0 (Vogn)     Position Sensor
+;P1.4 - I/O	Input	1	; M1 (AspLift)  Position Sensor
+;P1.5 - I/O	Input	1	; M2 (DispLift) Position Sensor
+;P1.6 - I/O	Input	1	; Plate Sensor
+;P1.7 - I/O	Output	1	; Pressure-Pump
+;--------------------------------------------------
+
+	LDB   wsr, #3Fh			; 64 byte window @ 1FC0h
+
+	LDB   p1_reg_3F, #0FFh		; initialize reg (high or low).
+	LDB   p1_dir_3F, #7Fh		; configure Input/Output.
+	LDB   p1_mode_3F, #00h		; enable the pin-function (all I/O).
+
+
+
+;--------------------------------------------------
+;------ Init PORT 2: ------------------------------
+;--------------------------------------------------
+;       mode:	dir:	reg:
+;--------------------------------------------------
+;P2.0 - TxD	Output	1	; Serial transmit
+;P2.1 - Rxd	Input	1	; Serial receive
+;P2.2 - I/O	Output	1	; ADC1 (Clk)
+;P2.3 - I/O	Input	1	; ADC2 (Data)
+;P2.4 - I/O	Output	1	; ADC3 (ChipSelect\)
+;P2.5 - I/O	Input	1	; I2C SCL, Serial Clock (Display).
+;P2.6 - I/O	Input	1	; I2C SDA, Serial Data  (Display).
+;P2.7 - I/O	Output	0	; (ClockOut) TP1.
+;--------------------------------------------------
+
+	LDB   p2_reg_3F,  #7Fh		; initialize reg (high or low).
+	LDB   p2_dir_3F,  #6Ah		; configure Input/Output.
+	LDB   p2_mode_3F, #03h		; enable the pin-function.
+
+;--------------------------------------------------
+;------ Init PORT 3 and the ChipSelect registers: -
+;--------------------------------------------------
+;       mode:	dir:	reg:
+;--------------------------------------------------
+;P3.0 - CS0	Output	1	; CS0 - Flash EPROM (512k x 8)
+;P3.1 - CS1	Output	1	; CS1 - SRAM (32k x 8)
+;P3.2 - CS2	Output	1	; CS2 - LCD-Display
+;P3.3 - CS3	Output	1	; CS3 - In1 Senors Input-Port.
+;P3.4 - CS4	Output	1	; CS4 - In2 Keypad + HeadCode Input-Port.
+;P3.5 - CS5	Output	1	; CS5 - Out-Ports 1-4
+;P3.6 - I/O	Output	1	; Out_Enable (to Out-Ports)
+;P3.7 - I/O	Output	1	; Beeper Out
+;--------------------------------------------------
+MUXED_BUS      set       0
+DEMUXED_BUS    set       80h
+BW_8           set       0
+BW_16          set       40h
+WS_0           set       0
+WS_1           set       1
+WS_2           set       2
+WS_3           set       3
+;--------------------------------------------------
+
+	LDB   wsr, #3Dh			; 64-byte window @ 1f40h
+	LD    addrmsk0_3D, zero_reg	; Init to large range
+					; Start addr:  End addr:
+	LD    addrcom0_3D, #0800h	; F8 0000h     FF FFFFh
+	LD    addrmsk0_3D, #0800h
+	LD    addrcom1_3D, #0080h	; 00 8000h     00 FFFFh
+	LD    addrmsk1_3D, #0F80h
+	LD    addrcom2_3D, #0020h	; 00 2000h     00 20FFh
+	LD    addrmsk2_3D, #0FFFh
+	LD    addrcom3_3D, #0030h	; 00 3000h     00 30FFh
+	LD    addrmsk3_3D, #0FFFh
+	LD    addrcom4_3D, #0040h	; 00 4000h     00 40FFh
+	LD    addrmsk4_3D, #0FFFh
+	LD    addrcom5_3D, #0050h	; 00 5000h     00 50FFh
+	LD    addrmsk5_3D, #0FFFh
+
+	LDB   buscon0_3D, #DEMUXED_BUS + BW_8 + WS_1
+	LDB   buscon1_3D, #DEMUXED_BUS + BW_8 + WS_0
+	LDB   buscon2_3D, #DEMUXED_BUS + BW_8 + WS_1
+	LDB   buscon3_3D, #DEMUXED_BUS + BW_8 + WS_0
+	LDB   buscon4_3D, #DEMUXED_BUS + BW_8 + WS_0
+	LDB   buscon5_3D, #DEMUXED_BUS + BW_8 + WS_0
+
+	LDB   wsr, #3Fh			; 64 byte window @ 1FC0h
+
+	LDB   p3_reg_3F, #0FFh		; initialize reg (high or low).
+	LDB   p3_dir_3F, #00h		; configure Input/Output.
+	LDB   p3_mode_1F, #3Fh		; enable the pin-function.
+
+
+;--------------------------------------------------
+;------ Init PORT 4: ------------------------------
+;--------------------------------------------------
+;       mode:	dir:	reg:
+;--------------------------------------------------
+;P4.0 - PWM0	Output	0	; Motor 0 speed.
+;P4.1 - PWM1	Output	0	; Motor 1 speed.
+;P4.2 - PWM2	Output	0	; Motor 2 speed.
+;P4.3 - I/O	Output	1	; Pressure_Valve On/Off.
+;--------------------------------------------------
+
+	LDB   p4_reg_3F, #08h		; initialize reg (high or low).
+	LDB   p4_dir_3F, #00h		; configure Input/Output.
+	LDB   p4_mode_3F, #00h		; enable the pin-function.
+
+	LDB   wsr, #00h			; Remove the SFR-window!
+
+;--------------------------------------------------
+;------ Init EPORT: -------------------------------
+;--------------------------------------------------
+;	EPORT defaults to extended adress
+;	upon reset. No init neceserry.
+;--------------------------------------------------
+
+
+;--------------------------------------------------
+;------ Init Library functions: -------------------
+;--------------------------------------------------
+;	ECALL   fpinit
+;	ECALL	init_ungetc
+
+
+;--------------------------------------------------
+;------ Jump to MAIN: -----------------------------
+;--------------------------------------------------
+
+	EJMP    main
+
+
+
+END
+

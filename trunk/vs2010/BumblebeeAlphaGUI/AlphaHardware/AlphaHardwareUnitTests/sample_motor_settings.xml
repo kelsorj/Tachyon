@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MotorSettings>
+  <axes>
+    <!-- X -->
+    <axis name="X1">
+      <id>11</id>
+      <velocity>1707.983</velocity>
+      <acceleration>5336.448</acceleration>
+      <jerk>4</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>69.959</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>530</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.01</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="X2">
+      <id>21</id>
+      <velocity>1707.983</velocity>
+      <acceleration>5336.448</acceleration>
+      <jerk>4</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>69.959</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>530</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.01</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="X3">
+      <id>31</id>
+      <velocity>1707.983</velocity>
+      <acceleration>5336.448</acceleration>
+      <jerk>4</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>69.959</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>530</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.01</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="X4">
+      <id>41</id>
+      <velocity>1707.983</velocity>
+      <acceleration>5336.448</acceleration>
+      <jerk>4</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>69.959</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>530</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.01</slow_loop_servo_time_sec>
+    </axis>
+    <!-- Y -->
+    <axis name="Y1">
+      <id>12</id>
+      <velocity>1023.437</velocity>
+      <acceleration>8000</acceleration>
+      <jerk>40</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>450</max_limit>
+      <move_done_window>0.122</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="Y2">
+      <id>22</id>
+      <velocity>1023.437</velocity>
+      <acceleration>8000</acceleration>
+      <jerk>40</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>450</max_limit>
+      <move_done_window>0.122</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="Y3">
+      <id>32</id>
+      <velocity>1023.437</velocity>
+      <acceleration>8000</acceleration>
+      <jerk>40</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>450</max_limit>
+      <move_done_window>0.122</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <!-- Z -->
+    <axis name="Z1">
+      <id>13</id>
+      <velocity>366.211</velocity>
+      <acceleration>732.422</acceleration>
+      <jerk>9</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>2</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>95</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="Z2">
+      <id>23</id>
+      <velocity>366.211</velocity>
+      <acceleration>732.422</acceleration>
+      <jerk>9</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>2</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>95</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="Z3">
+      <id>33</id>
+      <velocity>366.211</velocity>
+      <acceleration>732.422</acceleration>
+      <jerk>9</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>2</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>95</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="Z4">
+      <id>43</id>
+      <velocity>366.211</velocity>
+      <acceleration>732.422</acceleration>
+      <jerk>9</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>2</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>95</max_limit>
+      <move_done_window>0.1</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <!-- W -->
+    <axis name="W1">
+      <id>14</id>
+      <velocity>8.789</velocity>
+      <acceleration>1025.391</acceleration>
+      <jerk>10</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <move_done_window>0.05</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="W2">
+      <id>24</id>
+      <velocity>8.789</velocity>
+      <acceleration>1025.391</acceleration>
+      <jerk>10</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <move_done_window>0.05</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="W3">
+      <id>34</id>
+      <velocity>8.789</velocity>
+      <acceleration>1025.391</acceleration>
+      <jerk>10</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <move_done_window>0.05</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="W4">
+      <id>44</id>
+      <velocity>8.789</velocity>
+      <acceleration>1025.391</acceleration>
+      <jerk>10</jerk>
+      <encoder_lines>512</encoder_lines>
+      <gear_ratio>2</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <move_done_window>0.05</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <!-- R -->
+    <axis name="R1">
+      <id>15</id>
+      <velocity>1430.42</velocity>
+      <acceleration>14622.803</acceleration>
+      <jerk>50</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <move_done_window>0.11</move_done_window>
+      <settling_time>25</settling_time>
+      <slow_loop_servo_time_sec>0.002001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="R2">
+      <id>25</id>
+      <velocity>1430.42</velocity>
+      <acceleration>14622.803</acceleration>
+      <jerk>50</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <move_done_window>0.11</move_done_window>
+      <settling_time>25</settling_time>
+      <slow_loop_servo_time_sec>0.002001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="R3">
+      <id>35</id>
+      <velocity>1430.42</velocity>
+      <acceleration>14622.803</acceleration>
+      <jerk>50</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <move_done_window>0.11</move_done_window>
+      <settling_time>25</settling_time>
+      <slow_loop_servo_time_sec>0.002001</slow_loop_servo_time_sec>
+    </axis>
+  </axes>
+</MotorSettings>

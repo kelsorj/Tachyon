@@ -1,0 +1,14 @@
+﻿<Window x:Class="PlatePiercePluginTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ptcuc="clr-namespace:BioNex.Shared;assembly=PluginTestContainerUserControl"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <DockPanel>
+        <GroupBox Header="Commands" DockPanel.Dock="Top">
+            <UniformGrid Columns="1">
+                <Button x:Name="Pierce" Click="Pierce_Click">Pierce</Button>
+            </UniformGrid>
+        </GroupBox>
+        <ptcuc:PluginTestContainerUserControl x:Name="uc_wrapper" DockPanel.Dock="Bottom" />
+    </DockPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="BioNex.Bumblebee2DSimulatorControl.Tip"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <Style x:Key="TipEllipseStyle">
+            <Setter Property="Ellipse.Width" Value="8" />
+            <Setter Property="Ellipse.Height" Value="8" />
+            <Setter Property="Ellipse.Stroke" Value="Black" />
+            <Setter Property="Ellipse.StrokeThickness" Value="1" />
+            <Setter Property="Ellipse.Opacity" Value="0.4" />
+            <Setter Property="Ellipse.Fill">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1.5">
+                        <GradientStop Color="Transparent" Offset="1.5" />
+                        <GradientStop Color="Red" Offset="{Binding W}" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Ellipse Style="{StaticResource TipEllipseStyle}"></Ellipse>
+</UserControl>

@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="BioNex.BumblebeeAlphaGUI.JogMoveControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <UserControl.Resources>
+        <utils:StringPlus1Formatter x:Key="IndexFormatConverter" />
+        <DataTemplate x:Key="ChannelHomeControlTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                  Path=TemplatedParent.(ItemsControl.AlternationIndex),
+                                                                  Converter={StaticResource IndexFormatConverter},
+                                                                  ConverterParameter='Channel \{0\}'}"></Label>
+                    <Label Grid.Row="0" Grid.Column="1">X:</Label>
+                    <Label Grid.Row="1" Grid.Column="1">Z:</Label>
+                    <Label Grid.Row="2" Grid.Column="1">W:</Label>
+                    <Button Grid.Row="0" Grid.Column="2"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                              Path=DataContext.HomeXCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                              Path=TemplatedParent.(ItemsControl.AlternationIndex)}">Home</Button>
+                    <Button Grid.Row="1" Grid.Column="2"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                              Path=DataContext.HomeZCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                              Path=TemplatedParent.(ItemsControl.AlternationIndex)}">Home</Button>
+                    <Button Grid.Row="2" Grid.Column="2"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                              Path=DataContext.HomeWCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                              Path=TemplatedParent.(ItemsControl.AlternationIndex)}">Home</Button>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="StageHomeControlTemplate">
+            <Border Margin="3" CornerRadius="3" BorderBrush="Blue" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center"
+                           Content="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                    Path=TemplatedParent.(ItemsControl.AlternationIndex),
+                                    Converter={StaticResource IndexFormatConverter},
+                                    ConverterParameter='Stage \{0\}'}"></Label>
+                    <Label Grid.Row="0" Grid.Column="1">Y:</Label>
+                    <Label Grid.Row="1" Grid.Column="1">R:</Label>
+                    <Button Grid.Row="0" Grid.Column="2"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                     Path=DataContext.HomeYCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                              Path=TemplatedParent.(ItemsControl.AlternationIndex)}">Home</Button>
+                    <Button Grid.Row="1" Grid.Column="2"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}},
+                                     Path=DataContext.HomeRCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                              Path=TemplatedParent.(ItemsControl.AlternationIndex)}">Home</Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Channel Axes" BorderBrush="Gray" BorderThickness="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Margin="3" Command="{Binding ReturnChannelsHomeCommand}">
+                            <Button.Content>
+                                <TextBlock TextWrapping="Wrap">Return Home</TextBlock>
+                            </Button.Content>
+                        </Button>
+                        <!-- list of channels goes in here -->
+                        <!-- I set the AlternationCount to a large number so that AlternationIndex
+                             will provide me with the channel index -->
+                        <ListBox Grid.Column="1" AlternationCount="100" ItemsSource="{Binding ChannelList}" ItemTemplate="{StaticResource ChannelHomeControlTemplate}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Stage Axes" BorderBrush="Gray" BorderThickness="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Margin="3" Command="{Binding ReturnStagesHomeCommand}">
+                            <Button.Content>
+                                <TextBlock TextWrapping="Wrap">Return to Robot Teachpoints</TextBlock>
+                            </Button.Content>
+                        </Button>
+                        <!-- list of stage controls go here -->
+                        <!-- I set the AlternationCount to a large number so that AlternationIndex
+                             will provide me with the channel index -->
+                        <ListBox Grid.Column="1" AlternationCount="100" ItemsSource="{Binding StageList}" ItemTemplate="{StaticResource StageHomeControlTemplate}" />
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="1" Height="100" Background="DarkRed">STOP ALL MOTORS NOW!!!</Button>
+    </Grid>
+</UserControl>

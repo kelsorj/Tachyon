@@ -1,0 +1,25 @@
+﻿<Window x:Class="BioNex.HivePrototypePlugin.CommSelectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="Communications Setup" Height="200" Width="349">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Select Communication Device" Height="Auto">
+            <StackPanel>
+                <Label>Device:</Label>
+                <ComboBox Margin="3" ItemsSource="{Binding Devices}" Text="{Binding CurrentDevice, Mode=TwoWay}" />
+                <Label>Port:</Label>
+                <ComboBox Margin="3" ItemsSource="{Binding Ports}" Text="{Binding CurrentPort, Mode=TwoWay}" />
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button VerticalAlignment="Bottom" Width="80" Margin="3" Click="Button_Click">OK</Button>
+        </StackPanel>
+    </Grid>
+</Window>
+

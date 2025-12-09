@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{93C584B8-4AD3-4B46-BEAC-CD888F6E045F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.IWorksPlugins</RootNamespace>
+    <AssemblyName>HigVWorksDriver</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.IWorksDriver">
+      <HintPath>.\Interop.IWorksDriver.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\stdole.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HiGVWorksDriver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\icon.bmp" />
+    <Content Include="Register for COM interop.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HiGIntegration\HiGIntegration.csproj">
+      <Project>{507C38B6-4B9B-4423-A9D0-4A8429ACD69B}</Project>
+      <Name>HiGIntegration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "c:\program files (x86)\agilent technologies\vworks\plugins\" (
+ echo no VWorks4 folder, must be a developer machine, skipping xcopies
+) else (
+xcopy /i/y $(SolutionName).dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(SolutionName).tlb "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\HiGIntegration.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\HeavyUtils.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\IError.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\log4net.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\Stateless.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\System.Data.SQLite.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\UcanDotNET.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\Utils.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+
+rem TODO need to adjust this based on the tml lib we want to use
+xcopy /i/y $(ProjectDir)..\..\..\..\..\thirdparty\technosoft\tml_lib-mt.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+xcopy /i/y $(ProjectDir)..\..\..\..\..\thirdparty\technosoft\tmlcomm-mt.dll "c:\program files (x86)\agilent technologies\vworks\plugins\"
+)
+
+if not exist "c:\vworks workspace\bin\plugins\" (
+ echo no VWorks4 folder, must be a developer machine, skipping xcopies
+) else (
+xcopy /i/y $(SolutionName).dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(SolutionName).tlb "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\HiGIntegration.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\HeavyUtils.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\IError.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\log4net.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\Stateless.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\System.Data.SQLite.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\UcanDotNET.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\HiGIntegration\bin\$(ConfigurationName)\Utils.dll "c:\vworks workspace\bin\plugins\"
+
+rem TODO need to adjust this based on the tml lib we want to use
+xcopy /i/y $(ProjectDir)..\..\..\..\..\thirdparty\technosoft\tml_lib-mt.dll "c:\vworks workspace\bin\plugins\"
+xcopy /i/y $(ProjectDir)..\..\..\..\..\thirdparty\technosoft\tmlcomm-mt.dll "c:\vworks workspace\bin\plugins\"
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

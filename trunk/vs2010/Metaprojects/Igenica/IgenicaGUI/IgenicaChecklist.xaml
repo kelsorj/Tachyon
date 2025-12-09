@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="BioNex.IgenicaGUI.Checklist"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="Auto" Width="Auto">
+    
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!-- select source labware -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!-- transfer volume per well -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MinWidth="150"/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Protocol Checklist</TextBlock>
+        <!-- Step 1: Select hitpick file -->
+        <!-- CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding HitpickFileSelected}"></CheckBox -->
+        <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">Select hitpick file</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="{Binding SelectedHitpickFile}" ToolTip="{Binding SelectedHitpickFile}"></TextBlock>
+        <Button Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="3" MinHeight="50" Command="{Binding SelectHitpickCommand}">...</Button>
+        <!-- Step 2: Home -->
+        <!-- CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding AllDevicesHomed}"></CheckBox -->
+        <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">Home all devices</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="50" Command="{Binding HomeAllDevicesCommand}" ToolTip="{Binding HomeAllDevicesToolTip}">Home now</Button>
+        <!-- Step 3: Select lab method -->
+        <!-- CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"></CheckBox -->
+        <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Select lab method:</TextBlock>
+        <ComboBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="{Binding LabMethodsEnabled}" ItemsSource="{Binding AvailableLabMethods}" SelectedItem="{Binding SelectedLabMethod, Mode=TwoWay}"></ComboBox>
+        <!-- Step 4: Select source labware -->
+        <!-- CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding SourceLabwareSelected}"></CheckBox -->
+        <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Select source labware:</TextBlock>
+        <ComboBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="{Binding LabMethodsEnabled}" ItemsSource="{Binding AvailableLabware}" SelectedItem="{Binding SelectedSourceLabware, Mode=TwoWay}"></ComboBox>
+        <!-- Step 5: Select destination labware -->
+        <!-- Step 6: Select liquid class -->
+        <!-- CheckBox Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding LiquidProfileSelected}"></CheckBox -->
+        <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Select liquid class:</TextBlock>
+        <ComboBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="{Binding LabMethodsEnabled}" ItemsSource="{Binding AvailableLiquids}" SelectedItem="{Binding SelectedLiquidProfile}"></ComboBox>
+        <!-- Step 7: Reinventory tipboxes -->
+        <!-- CheckBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding TipboxesReinventoried}"></CheckBox -->
+        <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Center">Reinventory tipboxes</TextBlock>
+        <UniformGrid Grid.Row="6" Grid.Column="3" Rows="1">
+            <Button VerticalAlignment="Center" Margin="3" MinHeight="50" Command="{Binding ReinventoryTipboxesCommand}" ToolTip="{Binding ReinventoryTipboxesToolTip}">Reinventory</Button>
+            <Button VerticalAlignment="Center" Margin="3" MinHeight="50" Command="{Binding DisplayTipboxesCommand}" ToolTip="{Binding DisplayTipboxesToolTip}">Display Inventory</Button>
+        </UniformGrid>
+        <!-- Step 9: -->
+        <!-- CheckBox Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding TransferVolumeEntered}"></CheckBox -->
+        <TextBlock Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Transfer volume per well:</TextBlock>
+        <TextBox Grid.Row="7" Grid.Column="2" Margin="3" Text="{Binding TransferVolume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LabMethodsEnabled}" ></TextBox>
+        <TextBlock Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">uL</TextBlock>
+        <!-- Step 10: Enter aspirate distance from well bottom -->
+        <!-- CheckBox Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding AspirateDistanceFromWellBottomEntered}"></CheckBox -->
+        <TextBlock Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Aspirate distance from well bottom:</TextBlock>
+        <TextBox Grid.Row="8" Grid.Column="2" Margin="3" Text="{Binding AspirateDistanceFromWellBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LabMethodsEnabled}"></TextBox>
+        <TextBlock Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">mm</TextBlock>
+        <!-- Step 11: Enter dispense distance from well bottom -->
+        <!-- CheckBox Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding DispenseDistanceFromWellBottomEntered}"></CheckBox -->
+        <TextBlock Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">Dispense distance from well bottom:</TextBlock>
+        <TextBox Grid.Row="9" Grid.Column="2" Margin="3" Text="{Binding DispenseDistanceFromWellBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LabMethodsEnabled}"></TextBox>
+        <TextBlock Grid.Row="9" Grid.Column="3" VerticalAlignment="Center" IsEnabled="{Binding LabMethodsEnabled}">mm</TextBlock>
+    </Grid>
+</UserControl>

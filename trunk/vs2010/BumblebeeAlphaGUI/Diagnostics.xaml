@@ -1,0 +1,22 @@
+﻿<Window x:Class="BioNex.BumblebeeAlphaGUI.Diagnostics"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:my="clr-namespace:BioNex.BumblebeeAlphaGUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Diagnostics" Height="700" Width="707" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" Unloaded="Window_Unloaded">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="3">
+                <Button Style="{StaticResource OKCancelButton}" Name="button_cancel" Click="button_cancel_Click">Close</Button>
+            </StackPanel>
+            <TabControl DockPanel.Dock="Top">
+                <TabItem Header="Teach / Jog">
+                    <my:TeachpointControl x:Name="teachpoint_control"></my:TeachpointControl>
+                </TabItem>
+                <TabItem Header="Homing">
+                    <my:JogMoveControl x:Name="jog_move_control" Height="Auto" Width="Auto" />
+                </TabItem>
+                <!--TabItem Header="Sensors"></TabItem-->
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="388b70f6-0136-4629-ba1c-9779f1b9c839" Name="ugCultureFix" Language="1033" Version="1.0.0.0" Manufacturer="BioNex" UpgradeCode="f2d284e6-6f14-421d-8648-8d5d8988e3fa">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<Media Id="1" Cabinet="media.cab" EmbedCab="yes" />
+
+    <!-- create your target folder structure here -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Installer" />
+			</Directory>
+      <!-- this creates the folder within the start menu for hosting shortcuts -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="ug Culture Fix for Dell Computers" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="ProductComponent" Guid="A7D4496A-F2CB-4DFC-88D8-41986682D67A">
+        <File Id="ProductComponent" Source="..\bin\Debug\UgCultureFixForDell.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuExeLink" Directory="ProgramFilesFolder" Name="ug Culture Fix for Dell Computers" WorkingDirectory="INSTALLDIR" Icon="UgCultureFixForDell.exe" IconIndex="0" Advertise="yes" />
+          <Shortcut Id="DesktopExeLink" Directory="DesktopFolder" Name="ug Culture Fix for Dell Computers" WorkingDirectory="INSTALLDIR" Icon="UgCultureFixForDell.exe" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ProductShortcut" Guid="8B2A8455-7D46-48da-AEF3-164BBD6A3301">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="ug Culture Fix"
+                  Description="Fixes ug Culture errors for Dell computers"
+                  Target="[INSTALLLOCATION]UgCultureFixForDell.exe"
+                  WorkingDirectory="INSTALLLOCATION" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+      <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="ProductShortcut" />
+		</Feature>
+
+    <Icon Id="UgCultureFixForDell.exe" SourceFile="..\bin\Debug\UgCultureFixForDell.exe"/>
+	</Product>
+</Wix>

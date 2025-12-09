@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MotorSettings>
+  <axes>
+    <!-- X -->
+    <axis name="X1">
+      <id>11</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <move_done_window>10</move_done_window>
+      <settling_time>100</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <!-- Z -->
+    <axis name="Z1">
+      <id>13</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <move_done_window>10</move_done_window>
+      <settling_time>100</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+      <flip_axis_direction>true</flip_axis_direction>
+    </axis>
+  </axes>
+</MotorSettings>

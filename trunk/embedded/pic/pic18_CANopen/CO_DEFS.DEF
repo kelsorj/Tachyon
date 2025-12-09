@@ -1,0 +1,70 @@
+
+// Total TQ = 1 + PS1 + PS2 + PROP
+
+// CAN_BITRATE0 : 500 Kbits --> 25MHz clock
+// we need to get bits to be 2us long, so we have 25 TQ to work with in this scheme
+#define	CAN_BITRATE0			1
+#define CAN_BITRATE0_BRGCON1	0xC0	// SJW = 4xTQ, BRP: TQ=2/Fosc = 80ns
+#define CAN_BITRATE0_BRGCON2	0xBF	// PS1 = 8xTQ, PROP = 8xTQ
+#define CAN_BITRATE0_BRGCON3	0x07	// PS2 = 8xTQ
+
+// CAN_BITRATE1 : 500 Kbits --> 16MHz clock
+// we need to get bits to be 2us long, so we have 16 TQ to work with in this scheme
+#define	CAN_BITRATE1			1
+#define CAN_BITRATE1_BRGCON1	0xC0	// SJW = 4xTQ, BRP: TQ=2/Fosc = 125ns
+#define CAN_BITRATE1_BRGCON2	0xA4	// PS1 = 5xTQ, PROP = 5xTQ
+#define CAN_BITRATE1_BRGCON3	0x04	// PS2 = 5xTQ
+
+// CAN_BITRATE2 : 500 Kbits --> with 8MHz clock
+// we need to get bits to be 2us long, so we have 8 TQ to work with in this scheme
+#define	CAN_BITRATE2			1
+#define CAN_BITRATE2_BRGCON1	0x80   // SJW = 3xTQ, BRP: TQ=2/Fosc = 250ns
+#define CAN_BITRATE2_BRGCON2	0x90   // PS1 = 3xTQ, PROP = 1xTQ
+#define CAN_BITRATE2_BRGCON3	0x02   // PS2 = 3xTQ
+
+// CAN_BITRATE3 : 500 Kbits --> with 64MHz clock
+// we need to get bits to be 2us long, so we have 16 TQ to work with in this scheme
+#define	CAN_BITRATE3			1
+#define CAN_BITRATE3_BRGCON1	0xC3	// SJW = 4xTQ, BRP: TQ=(2x4)/Fosc = 125ns
+#define CAN_BITRATE3_BRGCON2	0xE4	// PS1 = 5xTQ, PROP = 5xTQ Bus Sampled 3x
+#define CAN_BITRATE3_BRGCON3	0x04	// PS2 = 5xTQ
+
+
+// CAN_BITRATE4 : 500 Kbits --> with 64MHz clock --> possibly a better scheme for higher bit rates
+// we need to get bits to be 2us long, so we have 16 TQ to work with in this scheme
+#define	CAN_BITRATE4			1
+#define CAN_BITRATE4_BRGCON1	0x83	// SJW = 3xTQ, BRP: TQ=(2x4)/Fosc = 125ns
+#define CAN_BITRATE4_BRGCON2	0xFB	// PS1 = 8xTQ, PROP = 4xTQ Bus Sampled 3x
+#define CAN_BITRATE4_BRGCON3	0x02	// PS2 = 3xTQ
+
+#define	CAN_BITRATE5			1
+#define CAN_BITRATE5_BRGCON1	0x41
+#define CAN_BITRATE5_BRGCON2	0xBA
+#define CAN_BITRATE5_BRGCON3	0x07
+
+#define	CAN_BITRATE6			1
+#define CAN_BITRATE6_BRGCON1	0x41
+#define CAN_BITRATE6_BRGCON2	0xBA
+#define CAN_BITRATE6_BRGCON3	0x07
+
+#define	CAN_BITRATE7			1
+#define CAN_BITRATE7_BRGCON1	0x41
+#define CAN_BITRATE7_BRGCON2	0xBA
+#define CAN_BITRATE7_BRGCON3	0x07
+
+#define	CAN_BITRATE8			1
+#define CAN_BITRATE8_BRGCON1	0x41
+#define CAN_BITRATE8_BRGCON2	0xBA
+#define CAN_BITRATE8_BRGCON3	0x07
+
+#define CAN_MAX_RCV_ENDP	8
+
+#define CO_NUM_OF_PDO	1
+
+#define	CO_SPEED_UP_CODE	1
+
+#define CO_TICK_PERIOD		1 // 1 ms clock ticks
+
+#define	CO_SDO1_MAX_RX_BUF		20
+#define CO_SDO1_MAX_SEG_TIME	500		// Time in milliseconds
+

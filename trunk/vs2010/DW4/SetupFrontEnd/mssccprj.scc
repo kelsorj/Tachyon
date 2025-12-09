@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[SetupFrontEnd.vcproj]
+SCC_Aux_Path = "\\exchange\develop\VSSDB"
+SCC_Project_Name = "$/Private/Mikael/AQ3.root/AQ3/SetupFrontEnd", LUNAAAAA

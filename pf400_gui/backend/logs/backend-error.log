@@ -1,0 +1,1197 @@
+2025-11-26 20:42:47 -08:00: INFO:     Started server process [2772]
+2025-11-26 20:42:47 -08:00: INFO:     Waiting for application startup.
+2025-11-26 20:42:48 -08:00: INFO:     Application startup complete.
+2025-11-26 20:42:48 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-27 13:21:08 -08:00: INFO:     Shutting down
+2025-11-27 13:21:08 -08:00: INFO:     Waiting for application shutdown.
+2025-11-27 13:21:08 -08:00: INFO:     Application shutdown complete.
+2025-11-27 13:21:08 -08:00: INFO:     Finished server process [2772]
+2025-11-27 13:21:08 -08:00: INFO:     Started server process [35849]
+2025-11-27 13:21:08 -08:00: INFO:     Waiting for application startup.
+2025-11-27 13:21:08 -08:00: INFO:     Application startup complete.
+2025-11-27 13:21:08 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 07:45:29 -08:00: INFO:     Shutting down
+2025-11-28 07:45:29 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 07:45:29 -08:00: INFO:     Application shutdown complete.
+2025-11-28 07:45:29 -08:00: INFO:     Finished server process [35849]
+2025-11-28 07:47:17 -08:00: INFO:     Started server process [3379]
+2025-11-28 07:47:17 -08:00: INFO:     Waiting for application startup.
+2025-11-28 07:47:18 -08:00: INFO:     Application startup complete.
+2025-11-28 07:47:18 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 09:18:27 -08:00: INFO:     Shutting down
+2025-11-28 09:18:27 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 09:18:27 -08:00: INFO:     Application shutdown complete.
+2025-11-28 09:18:27 -08:00: INFO:     Finished server process [3379]
+2025-11-28 09:18:28 -08:00: INFO:     Started server process [92919]
+2025-11-28 09:18:28 -08:00: INFO:     Waiting for application startup.
+2025-11-28 09:18:28 -08:00: INFO:     Application startup complete.
+2025-11-28 09:18:28 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 12:06:20 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:20 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:20 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:20 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:20 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:20 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:20 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:20 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:20 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:20 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:20 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:20 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:06:21 -08:00: Traceback (most recent call last):
+2025-11-28 12:06:21 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:06:21 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:06:21 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:42 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:42 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:42 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:42 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:42 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:42 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:42 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:42 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:42 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:42 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:42 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:42 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:42 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:42 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:42 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:42 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:16:43 -08:00: Traceback (most recent call last):
+2025-11-28 12:16:43 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:16:43 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:16:43 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:28 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:28 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:28 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:28 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:51:29 -08:00: Traceback (most recent call last):
+2025-11-28 12:51:29 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:51:29 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:51:29 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:05 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:05 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:05 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:05 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:56:06 -08:00: Traceback (most recent call last):
+2025-11-28 12:56:06 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:56:06 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:56:06 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 12:59:54 -08:00: Traceback (most recent call last):
+2025-11-28 12:59:54 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 12:59:54 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 12:59:54 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:36 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:00:52 -08:00: SyntaxError: Non-UTF-8 code starting with '\xcf' in file /opt/homebrew/bin/python3 on line 1, but no encoding declared; see https://peps.python.org/pep-0263/ for details
+2025-11-28 13:01:01 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:01 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:01 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:01 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:01 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:01 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:01 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:01 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:01 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:01 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:01 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:01 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:01 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:01 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:01 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:01 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:01 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:01 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:01 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:01 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:02 -08:00: Traceback (most recent call last):
+2025-11-28 13:01:02 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-28 13:01:02 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-28 13:01:02 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-28 13:01:30 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:118: DeprecationWarning: 
+2025-11-28 13:01:30 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 13:01:30 -08:00: 
+2025-11-28 13:01:30 -08:00:         Read more about it in the
+2025-11-28 13:01:30 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 13:01:30 -08:00:         
+2025-11-28 13:01:30 -08:00:   @app.on_event("startup")
+2025-11-28 13:01:30 -08:00: INFO:     Started server process [14921]
+2025-11-28 13:01:30 -08:00: INFO:     Waiting for application startup.
+2025-11-28 13:01:32 -08:00: INFO:     Application startup complete.
+2025-11-28 13:01:32 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 13:17:49 -08:00: INFO:     Shutting down
+2025-11-28 13:17:49 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 13:17:49 -08:00: INFO:     Application shutdown complete.
+2025-11-28 13:17:49 -08:00: INFO:     Finished server process [14921]
+2025-11-28 13:17:49 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:146: DeprecationWarning: 
+2025-11-28 13:17:49 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 13:17:49 -08:00: 
+2025-11-28 13:17:49 -08:00:         Read more about it in the
+2025-11-28 13:17:49 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 13:17:49 -08:00:         
+2025-11-28 13:17:49 -08:00:   @app.on_event("startup")
+2025-11-28 13:17:49 -08:00: INFO:     Started server process [32648]
+2025-11-28 13:17:49 -08:00: INFO:     Waiting for application startup.
+2025-11-28 13:17:51 -08:00: INFO:     Application startup complete.
+2025-11-28 13:17:51 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 16:55:10 -08:00: INFO:     Shutting down
+2025-11-28 16:55:10 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 16:55:10 -08:00: INFO:     Application shutdown complete.
+2025-11-28 16:55:10 -08:00: INFO:     Finished server process [32648]
+2025-11-28 17:00:50 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-28 17:00:50 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 17:00:50 -08:00: 
+2025-11-28 17:00:50 -08:00:         Read more about it in the
+2025-11-28 17:00:50 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 17:00:50 -08:00:         
+2025-11-28 17:00:50 -08:00:   @app.on_event("startup")
+2025-11-28 17:00:50 -08:00: INFO:     Started server process [40405]
+2025-11-28 17:00:50 -08:00: INFO:     Waiting for application startup.
+2025-11-28 17:00:52 -08:00: INFO:     Application startup complete.
+2025-11-28 17:00:52 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 22:40:03 -08:00: INFO:     Shutting down
+2025-11-28 22:40:03 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 22:40:03 -08:00: INFO:     Application shutdown complete.
+2025-11-28 22:40:03 -08:00: INFO:     Finished server process [40405]
+2025-11-28 22:40:03 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-28 22:40:03 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 22:40:03 -08:00: 
+2025-11-28 22:40:03 -08:00:         Read more about it in the
+2025-11-28 22:40:03 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 22:40:03 -08:00:         
+2025-11-28 22:40:03 -08:00:   @app.on_event("startup")
+2025-11-28 22:40:03 -08:00: INFO:     Started server process [58332]
+2025-11-28 22:40:03 -08:00: INFO:     Waiting for application startup.
+2025-11-28 22:40:05 -08:00: INFO:     Application startup complete.
+2025-11-28 22:40:05 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 22:48:05 -08:00: INFO:     Shutting down
+2025-11-28 22:48:06 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 22:48:06 -08:00: INFO:     Application shutdown complete.
+2025-11-28 22:48:06 -08:00: INFO:     Finished server process [58332]
+2025-11-28 22:48:06 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-28 22:48:06 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 22:48:06 -08:00: 
+2025-11-28 22:48:06 -08:00:         Read more about it in the
+2025-11-28 22:48:06 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 22:48:06 -08:00:         
+2025-11-28 22:48:06 -08:00:   @app.on_event("startup")
+2025-11-28 22:48:06 -08:00: INFO:     Started server process [66043]
+2025-11-28 22:48:06 -08:00: INFO:     Waiting for application startup.
+2025-11-28 22:48:08 -08:00: INFO:     Application startup complete.
+2025-11-28 22:48:08 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-28 22:56:02 -08:00: INFO:     Shutting down
+2025-11-28 22:56:02 -08:00: INFO:     Waiting for application shutdown.
+2025-11-28 22:56:02 -08:00: INFO:     Application shutdown complete.
+2025-11-28 22:56:02 -08:00: INFO:     Finished server process [66043]
+2025-11-28 22:56:03 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-28 22:56:03 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-28 22:56:03 -08:00: 
+2025-11-28 22:56:03 -08:00:         Read more about it in the
+2025-11-28 22:56:03 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-28 22:56:03 -08:00:         
+2025-11-28 22:56:03 -08:00:   @app.on_event("startup")
+2025-11-28 22:56:03 -08:00: INFO:     Started server process [73717]
+2025-11-28 22:56:03 -08:00: INFO:     Waiting for application startup.
+2025-11-28 22:56:05 -08:00: INFO:     Application startup complete.
+2025-11-28 22:56:05 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 08:09:11 -08:00: INFO:     Shutting down
+2025-11-29 08:09:11 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 08:09:11 -08:00: INFO:     Application shutdown complete.
+2025-11-29 08:09:11 -08:00: INFO:     Finished server process [73717]
+2025-11-29 08:09:11 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 08:09:11 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 08:09:11 -08:00: 
+2025-11-29 08:09:11 -08:00:         Read more about it in the
+2025-11-29 08:09:11 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 08:09:11 -08:00:         
+2025-11-29 08:09:11 -08:00:   @app.on_event("startup")
+2025-11-29 08:09:11 -08:00: INFO:     Started server process [88263]
+2025-11-29 08:09:11 -08:00: INFO:     Waiting for application startup.
+2025-11-29 08:09:13 -08:00: INFO:     Application startup complete.
+2025-11-29 08:09:13 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 08:12:17 -08:00: INFO:     Shutting down
+2025-11-29 08:12:17 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 08:12:17 -08:00: INFO:     Application shutdown complete.
+2025-11-29 08:12:17 -08:00: INFO:     Finished server process [88263]
+2025-11-29 08:12:18 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 08:12:18 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 08:12:18 -08:00: 
+2025-11-29 08:12:18 -08:00:         Read more about it in the
+2025-11-29 08:12:18 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 08:12:18 -08:00:         
+2025-11-29 08:12:18 -08:00:   @app.on_event("startup")
+2025-11-29 08:12:18 -08:00: INFO:     Started server process [91239]
+2025-11-29 08:12:18 -08:00: INFO:     Waiting for application startup.
+2025-11-29 08:12:20 -08:00: INFO:     Application startup complete.
+2025-11-29 08:12:20 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 08:15:20 -08:00: INFO:     Shutting down
+2025-11-29 08:15:20 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 08:15:20 -08:00: INFO:     Application shutdown complete.
+2025-11-29 08:15:20 -08:00: INFO:     Finished server process [91239]
+2025-11-29 08:15:21 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 08:15:21 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 08:15:21 -08:00: 
+2025-11-29 08:15:21 -08:00:         Read more about it in the
+2025-11-29 08:15:21 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 08:15:21 -08:00:         
+2025-11-29 08:15:21 -08:00:   @app.on_event("startup")
+2025-11-29 08:15:21 -08:00: INFO:     Started server process [94141]
+2025-11-29 08:15:21 -08:00: INFO:     Waiting for application startup.
+2025-11-29 08:15:23 -08:00: INFO:     Application startup complete.
+2025-11-29 08:15:23 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 08:21:00 -08:00: INFO:     Shutting down
+2025-11-29 08:21:00 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 08:21:00 -08:00: INFO:     Application shutdown complete.
+2025-11-29 08:21:00 -08:00: INFO:     Finished server process [94141]
+2025-11-29 08:21:00 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 08:21:00 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 08:21:00 -08:00: 
+2025-11-29 08:21:00 -08:00:         Read more about it in the
+2025-11-29 08:21:00 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 08:21:00 -08:00:         
+2025-11-29 08:21:00 -08:00:   @app.on_event("startup")
+2025-11-29 08:21:00 -08:00: INFO:     Started server process [99551]
+2025-11-29 08:21:00 -08:00: INFO:     Waiting for application startup.
+2025-11-29 08:21:02 -08:00: INFO:     Application startup complete.
+2025-11-29 08:21:02 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 08:23:16 -08:00: INFO:     Shutting down
+2025-11-29 08:23:16 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 08:23:16 -08:00: INFO:     Application shutdown complete.
+2025-11-29 08:23:16 -08:00: INFO:     Finished server process [99551]
+2025-11-29 08:23:17 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 08:23:17 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 08:23:17 -08:00: 
+2025-11-29 08:23:17 -08:00:         Read more about it in the
+2025-11-29 08:23:17 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 08:23:17 -08:00:         
+2025-11-29 08:23:17 -08:00:   @app.on_event("startup")
+2025-11-29 08:23:17 -08:00: INFO:     Started server process [2265]
+2025-11-29 08:23:17 -08:00: INFO:     Waiting for application startup.
+2025-11-29 08:23:19 -08:00: INFO:     Application startup complete.
+2025-11-29 08:23:19 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:06:57 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:06:57 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:06:57 -08:00: 
+2025-11-29 15:06:57 -08:00:         Read more about it in the
+2025-11-29 15:06:57 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:06:57 -08:00:         
+2025-11-29 15:06:57 -08:00:   @app.on_event("startup")
+2025-11-29 15:06:57 -08:00: INFO:     Started server process [76919]
+2025-11-29 15:06:57 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:06:59 -08:00: INFO:     Application startup complete.
+2025-11-29 15:06:59 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:11:06 -08:00: INFO:     Shutting down
+2025-11-29 15:11:07 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 15:11:07 -08:00: INFO:     Application shutdown complete.
+2025-11-29 15:11:07 -08:00: INFO:     Finished server process [76919]
+2025-11-29 15:11:07 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:11:07 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:11:07 -08:00: 
+2025-11-29 15:11:07 -08:00:         Read more about it in the
+2025-11-29 15:11:07 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:11:07 -08:00:         
+2025-11-29 15:11:07 -08:00:   @app.on_event("startup")
+2025-11-29 15:11:07 -08:00: INFO:     Started server process [80988]
+2025-11-29 15:11:07 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:11:09 -08:00: INFO:     Application startup complete.
+2025-11-29 15:11:09 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:20:16 -08:00: INFO:     Shutting down
+2025-11-29 15:20:16 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 15:20:16 -08:00: INFO:     Application shutdown complete.
+2025-11-29 15:20:16 -08:00: INFO:     Finished server process [80988]
+2025-11-29 15:20:16 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:20:16 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:20:16 -08:00: 
+2025-11-29 15:20:16 -08:00:         Read more about it in the
+2025-11-29 15:20:16 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:20:16 -08:00:         
+2025-11-29 15:20:16 -08:00:   @app.on_event("startup")
+2025-11-29 15:20:16 -08:00: INFO:     Started server process [89847]
+2025-11-29 15:20:16 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:20:18 -08:00: INFO:     Application startup complete.
+2025-11-29 15:20:18 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:32:21 -08:00: INFO:     Shutting down
+2025-11-29 15:32:21 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:32:21 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:32:21 -08:00: 
+2025-11-29 15:32:21 -08:00:         Read more about it in the
+2025-11-29 15:32:21 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:32:21 -08:00:         
+2025-11-29 15:32:21 -08:00:   @app.on_event("startup")
+2025-11-29 15:32:21 -08:00: INFO:     Started server process [1913]
+2025-11-29 15:32:21 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:32:23 -08:00: INFO:     Application startup complete.
+2025-11-29 15:32:23 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:32:59 -08:00: INFO:     Shutting down
+2025-11-29 15:33:00 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 15:33:00 -08:00: INFO:     Application shutdown complete.
+2025-11-29 15:33:00 -08:00: INFO:     Finished server process [1913]
+2025-11-29 15:33:00 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:33:00 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:33:00 -08:00: 
+2025-11-29 15:33:00 -08:00:         Read more about it in the
+2025-11-29 15:33:00 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:33:00 -08:00:         
+2025-11-29 15:33:00 -08:00:   @app.on_event("startup")
+2025-11-29 15:33:00 -08:00: INFO:     Started server process [2628]
+2025-11-29 15:33:00 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:33:02 -08:00: INFO:     Application startup complete.
+2025-11-29 15:33:02 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:34:06 -08:00: INFO:     Shutting down
+2025-11-29 15:34:06 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 15:34:06 -08:00: INFO:     Application shutdown complete.
+2025-11-29 15:34:06 -08:00: INFO:     Finished server process [2628]
+2025-11-29 15:34:07 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:34:07 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:34:07 -08:00: 
+2025-11-29 15:34:07 -08:00:         Read more about it in the
+2025-11-29 15:34:07 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:34:07 -08:00:         
+2025-11-29 15:34:07 -08:00:   @app.on_event("startup")
+2025-11-29 15:34:07 -08:00: INFO:     Started server process [3784]
+2025-11-29 15:34:07 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:34:09 -08:00: INFO:     Application startup complete.
+2025-11-29 15:34:09 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 15:34:37 -08:00: INFO:     Shutting down
+2025-11-29 15:34:37 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 15:34:37 -08:00: INFO:     Application shutdown complete.
+2025-11-29 15:34:37 -08:00: INFO:     Finished server process [3784]
+2025-11-29 15:34:37 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:160: DeprecationWarning: 
+2025-11-29 15:34:37 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 15:34:37 -08:00: 
+2025-11-29 15:34:37 -08:00:         Read more about it in the
+2025-11-29 15:34:37 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 15:34:37 -08:00:         
+2025-11-29 15:34:37 -08:00:   @app.on_event("startup")
+2025-11-29 15:34:37 -08:00: INFO:     Started server process [4292]
+2025-11-29 15:34:37 -08:00: INFO:     Waiting for application startup.
+2025-11-29 15:34:39 -08:00: INFO:     Application startup complete.
+2025-11-29 15:34:39 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 16:15:57 -08:00: INFO:     Shutting down
+2025-11-29 16:15:59 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:177: DeprecationWarning: 
+2025-11-29 16:15:59 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 16:15:59 -08:00: 
+2025-11-29 16:15:59 -08:00:         Read more about it in the
+2025-11-29 16:15:59 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 16:15:59 -08:00:         
+2025-11-29 16:15:59 -08:00:   @app.on_event("startup")
+2025-11-29 16:15:59 -08:00: INFO:     Started server process [43501]
+2025-11-29 16:15:59 -08:00: INFO:     Waiting for application startup.
+2025-11-29 16:16:01 -08:00: INFO:     Application startup complete.
+2025-11-29 16:16:01 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-29 16:20:04 -08:00: INFO:     Shutting down
+2025-11-29 16:20:05 -08:00: INFO:     Waiting for application shutdown.
+2025-11-29 16:20:05 -08:00: INFO:     Application shutdown complete.
+2025-11-29 16:20:05 -08:00: INFO:     Finished server process [43501]
+2025-11-29 16:20:05 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:177: DeprecationWarning: 
+2025-11-29 16:20:05 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-29 16:20:05 -08:00: 
+2025-11-29 16:20:05 -08:00:         Read more about it in the
+2025-11-29 16:20:05 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-29 16:20:05 -08:00:         
+2025-11-29 16:20:05 -08:00:   @app.on_event("startup")
+2025-11-29 16:20:05 -08:00: INFO:     Started server process [47680]
+2025-11-29 16:20:05 -08:00: INFO:     Waiting for application startup.
+2025-11-29 16:20:07 -08:00: INFO:     Application startup complete.
+2025-11-29 16:20:07 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 10:46:13 -08:00: INFO:     Shutting down
+2025-11-30 10:46:13 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 10:46:13 -08:00: INFO:     Application shutdown complete.
+2025-11-30 10:46:13 -08:00: INFO:     Finished server process [47680]
+2025-11-30 10:46:14 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:183: DeprecationWarning: 
+2025-11-30 10:46:14 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 10:46:14 -08:00: 
+2025-11-30 10:46:14 -08:00:         Read more about it in the
+2025-11-30 10:46:14 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 10:46:14 -08:00:         
+2025-11-30 10:46:14 -08:00:   @app.on_event("startup")
+2025-11-30 10:46:14 -08:00: INFO:     Started server process [78417]
+2025-11-30 10:46:14 -08:00: INFO:     Waiting for application startup.
+2025-11-30 10:46:16 -08:00: INFO:     Application startup complete.
+2025-11-30 10:46:16 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 10:55:14 -08:00: INFO:     Shutting down
+2025-11-30 10:55:14 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 10:55:14 -08:00: INFO:     Application shutdown complete.
+2025-11-30 10:55:14 -08:00: INFO:     Finished server process [78417]
+2025-11-30 10:55:15 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:183: DeprecationWarning: 
+2025-11-30 10:55:15 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 10:55:15 -08:00: 
+2025-11-30 10:55:15 -08:00:         Read more about it in the
+2025-11-30 10:55:15 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 10:55:15 -08:00:         
+2025-11-30 10:55:15 -08:00:   @app.on_event("startup")
+2025-11-30 10:55:15 -08:00: INFO:     Started server process [87667]
+2025-11-30 10:55:15 -08:00: INFO:     Waiting for application startup.
+2025-11-30 10:55:17 -08:00: INFO:     Application startup complete.
+2025-11-30 10:55:17 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 11:00:44 -08:00: INFO:     Shutting down
+2025-11-30 11:00:44 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 11:00:44 -08:00: INFO:     Application shutdown complete.
+2025-11-30 11:00:44 -08:00: INFO:     Finished server process [87667]
+2025-11-30 11:00:45 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:183: DeprecationWarning: 
+2025-11-30 11:00:45 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 11:00:45 -08:00: 
+2025-11-30 11:00:45 -08:00:         Read more about it in the
+2025-11-30 11:00:45 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 11:00:45 -08:00:         
+2025-11-30 11:00:45 -08:00:   @app.on_event("startup")
+2025-11-30 11:00:45 -08:00: INFO:     Started server process [93614]
+2025-11-30 11:00:45 -08:00: INFO:     Waiting for application startup.
+2025-11-30 11:00:47 -08:00: INFO:     Application startup complete.
+2025-11-30 11:00:47 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 11:41:24 -08:00: INFO:     Shutting down
+2025-11-30 11:41:24 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 11:41:24 -08:00: INFO:     Application shutdown complete.
+2025-11-30 11:41:24 -08:00: INFO:     Finished server process [93614]
+2025-11-30 11:41:25 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:214: DeprecationWarning: 
+2025-11-30 11:41:25 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 11:41:25 -08:00: 
+2025-11-30 11:41:25 -08:00:         Read more about it in the
+2025-11-30 11:41:25 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 11:41:25 -08:00:         
+2025-11-30 11:41:25 -08:00:   @app.on_event("startup")
+2025-11-30 11:41:25 -08:00: INFO:     Started server process [32680]
+2025-11-30 11:41:25 -08:00: INFO:     Waiting for application startup.
+2025-11-30 11:41:27 -08:00: INFO:     Application startup complete.
+2025-11-30 11:41:27 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 11:58:16 -08:00: INFO:     Shutting down
+2025-11-30 11:58:16 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 11:58:16 -08:00: INFO:     Application shutdown complete.
+2025-11-30 11:58:16 -08:00: INFO:     Finished server process [32680]
+2025-11-30 11:58:16 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:214: DeprecationWarning: 
+2025-11-30 11:58:16 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 11:58:16 -08:00: 
+2025-11-30 11:58:16 -08:00:         Read more about it in the
+2025-11-30 11:58:16 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 11:58:16 -08:00:         
+2025-11-30 11:58:16 -08:00:   @app.on_event("startup")
+2025-11-30 11:58:16 -08:00: INFO:     Started server process [50867]
+2025-11-30 11:58:16 -08:00: INFO:     Waiting for application startup.
+2025-11-30 11:58:18 -08:00: INFO:     Application startup complete.
+2025-11-30 11:58:18 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 12:34:06 -08:00: INFO:     Shutting down
+2025-11-30 12:34:06 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 12:34:06 -08:00: INFO:     Application shutdown complete.
+2025-11-30 12:34:06 -08:00: INFO:     Finished server process [50867]
+2025-11-30 12:34:07 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:214: DeprecationWarning: 
+2025-11-30 12:34:07 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 12:34:07 -08:00: 
+2025-11-30 12:34:07 -08:00:         Read more about it in the
+2025-11-30 12:34:07 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 12:34:07 -08:00:         
+2025-11-30 12:34:07 -08:00:   @app.on_event("startup")
+2025-11-30 12:34:07 -08:00: INFO:     Started server process [88223]
+2025-11-30 12:34:07 -08:00: INFO:     Waiting for application startup.
+2025-11-30 12:34:09 -08:00: INFO:     Application startup complete.
+2025-11-30 12:34:09 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 13:01:55 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:685: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+2025-11-30 13:01:55 -08:00:   success = mongodb.create_space(space.dict())
+2025-11-30 13:14:37 -08:00: INFO:     Shutting down
+2025-11-30 13:14:37 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 13:14:37 -08:00: INFO:     Application shutdown complete.
+2025-11-30 13:14:37 -08:00: INFO:     Finished server process [88223]
+2025-11-30 13:14:38 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:214: DeprecationWarning: 
+2025-11-30 13:14:38 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 13:14:38 -08:00: 
+2025-11-30 13:14:38 -08:00:         Read more about it in the
+2025-11-30 13:14:38 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 13:14:38 -08:00:         
+2025-11-30 13:14:38 -08:00:   @app.on_event("startup")
+2025-11-30 13:14:38 -08:00: INFO:     Started server process [29162]
+2025-11-30 13:14:38 -08:00: INFO:     Waiting for application startup.
+2025-11-30 13:14:40 -08:00: INFO:     Application startup complete.
+2025-11-30 13:14:40 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 15:17:44 -08:00: INFO:     Shutting down
+2025-11-30 15:17:44 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 15:17:44 -08:00: INFO:     Application shutdown complete.
+2025-11-30 15:17:44 -08:00: INFO:     Finished server process [29162]
+2025-11-30 15:47:16 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:214: DeprecationWarning: 
+2025-11-30 15:47:16 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 15:47:16 -08:00: 
+2025-11-30 15:47:16 -08:00:         Read more about it in the
+2025-11-30 15:47:16 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 15:47:16 -08:00:         
+2025-11-30 15:47:16 -08:00:   @app.on_event("startup")
+2025-11-30 15:47:16 -08:00: INFO:     Started server process [1472]
+2025-11-30 15:47:16 -08:00: INFO:     Waiting for application startup.
+2025-11-30 15:47:16 -08:00: INFO:     Application startup complete.
+2025-11-30 15:47:16 -08:00: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-11-30 16:51:44 -08:00: INFO:     Shutting down
+2025-11-30 16:51:44 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 16:51:44 -08:00: INFO:     Application shutdown complete.
+2025-11-30 16:51:44 -08:00: INFO:     Finished server process [1472]
+2025-11-30 16:51:45 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:217: DeprecationWarning: 
+2025-11-30 16:51:45 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 16:51:45 -08:00: 
+2025-11-30 16:51:45 -08:00:         Read more about it in the
+2025-11-30 16:51:45 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 16:51:45 -08:00:         
+2025-11-30 16:51:45 -08:00:   @app.on_event("startup")
+2025-11-30 16:51:45 -08:00: INFO:     Started server process [25245]
+2025-11-30 16:51:45 -08:00: INFO:     Waiting for application startup.
+2025-11-30 16:51:45 -08:00: INFO:     Application startup complete.
+2025-11-30 16:51:45 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 16:58:30 -08:00: INFO:     Shutting down
+2025-11-30 16:58:30 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 16:58:30 -08:00: INFO:     Application shutdown complete.
+2025-11-30 16:58:30 -08:00: INFO:     Finished server process [25245]
+2025-11-30 16:58:31 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:184: DeprecationWarning: 
+2025-11-30 16:58:31 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 16:58:31 -08:00: 
+2025-11-30 16:58:31 -08:00:         Read more about it in the
+2025-11-30 16:58:31 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 16:58:31 -08:00:         
+2025-11-30 16:58:31 -08:00:   @app.on_event("startup")
+2025-11-30 16:58:31 -08:00: INFO:     Started server process [29620]
+2025-11-30 16:58:31 -08:00: INFO:     Waiting for application startup.
+2025-11-30 16:58:31 -08:00: INFO:     Application startup complete.
+2025-11-30 16:58:31 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:06:02 -08:00: INFO:     Shutting down
+2025-11-30 17:06:02 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:06:02 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:06:02 -08:00: INFO:     Finished server process [29620]
+2025-11-30 17:06:03 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:201: DeprecationWarning: 
+2025-11-30 17:06:03 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:06:03 -08:00: 
+2025-11-30 17:06:03 -08:00:         Read more about it in the
+2025-11-30 17:06:03 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:06:03 -08:00:         
+2025-11-30 17:06:03 -08:00:   @app.on_event("startup")
+2025-11-30 17:06:03 -08:00: INFO:     Started server process [34087]
+2025-11-30 17:06:03 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:06:03 -08:00: INFO:     Application startup complete.
+2025-11-30 17:06:03 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:06:43 -08:00: INFO:     Shutting down
+2025-11-30 17:06:43 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:06:43 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:06:43 -08:00: INFO:     Finished server process [34087]
+2025-11-30 17:06:44 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:201: DeprecationWarning: 
+2025-11-30 17:06:44 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:06:44 -08:00: 
+2025-11-30 17:06:44 -08:00:         Read more about it in the
+2025-11-30 17:06:44 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:06:44 -08:00:         
+2025-11-30 17:06:44 -08:00:   @app.on_event("startup")
+2025-11-30 17:06:44 -08:00: INFO:     Started server process [34608]
+2025-11-30 17:06:44 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:06:44 -08:00: INFO:     Application startup complete.
+2025-11-30 17:06:44 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:09:06 -08:00: INFO:     Shutting down
+2025-11-30 17:09:07 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:09:07 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:09:07 -08:00: INFO:     Finished server process [34608]
+2025-11-30 17:09:08 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:09:08 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:09:08 -08:00: 
+2025-11-30 17:09:08 -08:00:         Read more about it in the
+2025-11-30 17:09:08 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:09:08 -08:00:         
+2025-11-30 17:09:08 -08:00:   @app.on_event("startup")
+2025-11-30 17:09:08 -08:00: INFO:     Started server process [36080]
+2025-11-30 17:09:08 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:09:08 -08:00: INFO:     Application startup complete.
+2025-11-30 17:09:08 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:10:07 -08:00: INFO:     Shutting down
+2025-11-30 17:10:07 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:10:07 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:10:07 -08:00: INFO:     Finished server process [36080]
+2025-11-30 17:10:08 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:08 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:08 -08:00:     except socket.timeout:
+2025-11-30 17:10:08 -08:00:     ^^^^^^
+2025-11-30 17:10:08 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:08 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:08 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:08 -08:00:     except socket.timeout:
+2025-11-30 17:10:08 -08:00:     ^^^^^^
+2025-11-30 17:10:08 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:08 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:08 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:08 -08:00:     except socket.timeout:
+2025-11-30 17:10:08 -08:00:     ^^^^^^
+2025-11-30 17:10:08 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:08 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:08 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:08 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:08 -08:00:     except socket.timeout:
+2025-11-30 17:10:08 -08:00:     ^^^^^^
+2025-11-30 17:10:08 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:09 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:09 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:09 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:09 -08:00:     except socket.timeout:
+2025-11-30 17:10:09 -08:00:     ^^^^^^
+2025-11-30 17:10:09 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:10 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:10 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:10 -08:00:     except socket.timeout:
+2025-11-30 17:10:10 -08:00:     ^^^^^^
+2025-11-30 17:10:10 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:10 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:10 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:10 -08:00:     except socket.timeout:
+2025-11-30 17:10:10 -08:00:     ^^^^^^
+2025-11-30 17:10:10 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:10 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:10 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:10 -08:00:     except socket.timeout:
+2025-11-30 17:10:10 -08:00:     ^^^^^^
+2025-11-30 17:10:10 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:10 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:10 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:10 -08:00:     except socket.timeout:
+2025-11-30 17:10:10 -08:00:     ^^^^^^
+2025-11-30 17:10:10 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:10 -08:00: Traceback (most recent call last):
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 17, in <module>
+2025-11-30 17:10:10 -08:00:     from pf400_driver import PF400Driver
+2025-11-30 17:10:10 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/pf400_driver.py", line 68
+2025-11-30 17:10:10 -08:00:     except socket.timeout:
+2025-11-30 17:10:10 -08:00:     ^^^^^^
+2025-11-30 17:10:10 -08:00: SyntaxError: invalid syntax
+2025-11-30 17:10:20 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:10:20 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:10:20 -08:00: 
+2025-11-30 17:10:20 -08:00:         Read more about it in the
+2025-11-30 17:10:20 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:10:20 -08:00:         
+2025-11-30 17:10:20 -08:00:   @app.on_event("startup")
+2025-11-30 17:10:20 -08:00: INFO:     Started server process [36911]
+2025-11-30 17:10:20 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:10:20 -08:00: INFO:     Application startup complete.
+2025-11-30 17:10:20 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:10:45 -08:00: INFO:     Shutting down
+2025-11-30 17:10:45 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:10:45 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:10:45 -08:00: INFO:     Finished server process [36911]
+2025-11-30 17:10:45 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:10:45 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:10:45 -08:00: 
+2025-11-30 17:10:45 -08:00:         Read more about it in the
+2025-11-30 17:10:45 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:10:45 -08:00:         
+2025-11-30 17:10:45 -08:00:   @app.on_event("startup")
+2025-11-30 17:10:45 -08:00: INFO:     Started server process [37255]
+2025-11-30 17:10:45 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:10:46 -08:00: INFO:     Application startup complete.
+2025-11-30 17:10:46 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:11:40 -08:00: INFO:     Shutting down
+2025-11-30 17:11:40 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:11:40 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:11:40 -08:00: INFO:     Finished server process [37255]
+2025-11-30 17:11:42 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:11:42 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:11:42 -08:00: 
+2025-11-30 17:11:42 -08:00:         Read more about it in the
+2025-11-30 17:11:42 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:11:42 -08:00:         
+2025-11-30 17:11:42 -08:00:   @app.on_event("startup")
+2025-11-30 17:11:42 -08:00: INFO:     Started server process [37835]
+2025-11-30 17:11:42 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:11:42 -08:00: INFO:     Application startup complete.
+2025-11-30 17:11:42 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:11:57 -08:00: INFO:     Shutting down
+2025-11-30 17:11:57 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:11:57 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:11:57 -08:00: INFO:     Finished server process [37835]
+2025-11-30 17:11:58 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:11:58 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:11:58 -08:00: 
+2025-11-30 17:11:58 -08:00:         Read more about it in the
+2025-11-30 17:11:58 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:11:58 -08:00:         
+2025-11-30 17:11:58 -08:00:   @app.on_event("startup")
+2025-11-30 17:11:58 -08:00: INFO:     Started server process [38062]
+2025-11-30 17:11:58 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:11:58 -08:00: INFO:     Application startup complete.
+2025-11-30 17:11:58 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:12:18 -08:00: INFO:     Shutting down
+2025-11-30 17:12:19 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:12:19 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:12:19 -08:00: INFO:     Finished server process [38062]
+2025-11-30 17:12:19 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:12:19 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:12:19 -08:00: 
+2025-11-30 17:12:19 -08:00:         Read more about it in the
+2025-11-30 17:12:19 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:12:19 -08:00:         
+2025-11-30 17:12:19 -08:00:   @app.on_event("startup")
+2025-11-30 17:12:19 -08:00: INFO:     Started server process [38348]
+2025-11-30 17:12:19 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:12:20 -08:00: INFO:     Application startup complete.
+2025-11-30 17:12:20 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:12:34 -08:00: INFO:     Shutting down
+2025-11-30 17:12:34 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:12:34 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:12:34 -08:00: INFO:     Finished server process [38348]
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:35 -08:00: Traceback (most recent call last):
+2025-11-30 17:12:35 -08:00:   File "/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py", line 1, in <module>
+2025-11-30 17:12:35 -08:00:     from fastapi import FastAPI, HTTPException
+2025-11-30 17:12:35 -08:00: ModuleNotFoundError: No module named 'fastapi'
+2025-11-30 17:12:45 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:12:45 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:12:45 -08:00: 
+2025-11-30 17:12:45 -08:00:         Read more about it in the
+2025-11-30 17:12:45 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:12:45 -08:00:         
+2025-11-30 17:12:45 -08:00:   @app.on_event("startup")
+2025-11-30 17:12:45 -08:00: INFO:     Started server process [38764]
+2025-11-30 17:12:45 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:12:46 -08:00: INFO:     Application startup complete.
+2025-11-30 17:12:46 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:13:07 -08:00: INFO:     Shutting down
+2025-11-30 17:13:07 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:13:07 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:13:07 -08:00: INFO:     Finished server process [38764]

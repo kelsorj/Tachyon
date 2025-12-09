@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<transfer_overview>
+  <default_liquid_class_id>100nunctonunc</default_liquid_class_id>
+  <aspirate_script />
+  <dispense_script />
+  <aspirate_distance_from_well_bottom_mm>4</aspirate_distance_from_well_bottom_mm>
+  <dispense_distance_from_well_bottom_mm>2</dispense_distance_from_well_bottom_mm>
+  <tasks>
+    <source_plate_tasks>
+      <prehitpick_tasks>
+        <task>
+          <device_instance>PlatePierce</device_instance>
+          <command>Pierce</command>
+          <parameters>
+            <parameter name="pierce_time_seconds" value="2" />
+          </parameters>
+        </task>
+      </prehitpick_tasks>
+      <posthitpick_tasks/>
+    </source_plate_tasks>
+    <destination_plate_tasks>
+      <prehitpick_tasks />
+      <posthitpick_tasks>
+        <task>
+          <device_instance>WellMate</device_instance>
+          <command>Fill</command>
+          <parameters>
+            <parameter name="volume_ul" value="10" variable="$volume_ul" />
+            <parameter name="columns_to_dispense" value="all" />
+          </parameters>
+        </task>
+        <task>
+          <device_instance>PlateLoc</device_instance>
+          <command>Seal</command>
+          <parameters>
+            <parameter name="seal_time_seconds" value="2" />
+          </parameters>
+        </task>
+      </posthitpick_tasks>
+    </destination_plate_tasks>
+  </tasks>
+  <sources>
+    <source>
+      <labware_id>96 half height</labware_id>
+      <barcode>source1</barcode>
+      <prehitpick_tasks>
+        <task>
+          <device_instance>PlatePierce</device_instance>
+          <command>Pierce</command>
+          <parameters>
+            <parameter name="pierce_time_seconds" value="5" />
+          </parameters>
+        </task>
+      </prehitpick_tasks>
+    </source>
+    <source>
+      <labware_id>96 half height</labware_id>
+      <barcode>source2</barcode>
+    </source>
+    <source>
+      <labware_id>96 half height</labware_id>
+      <barcode>source10</barcode>
+    </source>
+  </sources>
+  <destinations>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>dest1</barcode>
+      <usable_wells>any</usable_wells>
+    </destination>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>dest2</barcode>
+      <usable_wells>any</usable_wells>
+      <variables>
+        <variable name="$volume_ul" value="20" />
+      </variables>
+    </destination>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>dest10</barcode>
+      <usable_wells>any</usable_wells>
+      <posthitpick_tasks>
+        <task>
+          <device_instance>WellMate</device_instance>
+          <command>Fill</command>
+          <parameters>
+            <parameter name="volume_ul" value="10" variable="$volume_ul_other" />
+            <parameter name="columns_to_dispense" value="" />
+          </parameters>
+        </task>
+        <!-- note that this special task list has omitted the PlateLoc task for whatever reason -->
+      </posthitpick_tasks>
+      <variables>
+        <!-- note that changing the variable name here is okay since the overridden task list uses the same variable name -->
+        <variable name="$volume_ul_other" value="30" />
+      </variables>
+    </destination>
+  </destinations>
+  <transfers>
+    <transfer>
+      <liquid_class_id>100nunctonunc</liquid_class_id>
+      <source>
+        <barcode>source1</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>dest1</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">100</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <liquid_class_id>100nunctonunc</liquid_class_id>
+      <source>
+        <barcode>source1</barcode>
+        <well>A2</well>
+      </source>
+      <destination>
+        <barcode>dest1</barcode>
+        <well>A2</well>
+      </destination>
+      <transfer_volume units="ul">100</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+      <aspirate_script>scripts/mix5.py</aspirate_script>
+    </transfer>
+    <transfer>
+      <liquid_class_id>100nunctonunc</liquid_class_id>
+      <source>
+        <barcode>source10</barcode>
+        <well>H12</well>
+      </source>
+      <destination>
+        <barcode>dest10</barcode>
+        <well>H12</well>
+      </destination>
+      <transfer_volume units="ul">100</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+  </transfers>
+</transfer_overview>

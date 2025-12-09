@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0E73947B-BE6E-4949-9F53-B4479DD3682C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.Shared.PlateWork</RootNamespace>
+    <AssemblyName>PlateWork</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivePlate.cs" />
+    <Compile Include="ActivePlateFactory.cs" />
+    <Compile Include="PlateWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Location\Location.csproj">
+      <Project>{75607E88-161B-47E3-8D85-5289E0BD6394}</Project>
+      <Name>Location</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskListXMLParser\TaskListXMLParser.csproj">
+      <Project>{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}</Project>
+      <Name>TaskListXMLParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y $(targetfilename) "..\..\..\..\bin\$(configurationname)\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

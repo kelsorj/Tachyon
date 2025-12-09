@@ -1,0 +1,251 @@
+2025-11-30 17:13:08 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:13:08 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:13:08 -08:00: 
+2025-11-30 17:13:08 -08:00:         Read more about it in the
+2025-11-30 17:13:08 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:13:08 -08:00:         
+2025-11-30 17:13:08 -08:00:   @app.on_event("startup")
+2025-11-30 17:13:08 -08:00: INFO:     Started server process [39062]
+2025-11-30 17:13:08 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:13:09 -08:00: INFO:     Application startup complete.
+2025-11-30 17:13:09 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:13:24 -08:00: INFO:     Shutting down
+2025-11-30 17:13:24 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:13:24 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:13:24 -08:00: INFO:     Finished server process [39062]
+2025-11-30 17:13:26 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:13:26 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:13:26 -08:00: 
+2025-11-30 17:13:26 -08:00:         Read more about it in the
+2025-11-30 17:13:26 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:13:26 -08:00:         
+2025-11-30 17:13:26 -08:00:   @app.on_event("startup")
+2025-11-30 17:13:26 -08:00: INFO:     Started server process [39391]
+2025-11-30 17:13:26 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:13:27 -08:00: INFO:     Application startup complete.
+2025-11-30 17:13:27 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:14:30 -08:00: INFO:     Shutting down
+2025-11-30 17:14:30 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:14:30 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:14:30 -08:00: INFO:     Finished server process [39391]
+2025-11-30 17:14:30 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:14:30 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:14:30 -08:00: 
+2025-11-30 17:14:30 -08:00:         Read more about it in the
+2025-11-30 17:14:30 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:14:30 -08:00:         
+2025-11-30 17:14:30 -08:00:   @app.on_event("startup")
+2025-11-30 17:14:30 -08:00: INFO:     Started server process [40110]
+2025-11-30 17:14:30 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:14:31 -08:00: INFO:     Application startup complete.
+2025-11-30 17:14:31 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 17:15:44 -08:00: INFO:     Shutting down
+2025-11-30 17:15:44 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 17:15:44 -08:00: INFO:     Application shutdown complete.
+2025-11-30 17:15:44 -08:00: INFO:     Finished server process [40110]
+2025-11-30 17:15:45 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 17:15:45 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 17:15:45 -08:00: 
+2025-11-30 17:15:45 -08:00:         Read more about it in the
+2025-11-30 17:15:45 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 17:15:45 -08:00:         
+2025-11-30 17:15:45 -08:00:   @app.on_event("startup")
+2025-11-30 17:15:45 -08:00: INFO:     Started server process [41004]
+2025-11-30 17:15:45 -08:00: INFO:     Waiting for application startup.
+2025-11-30 17:15:45 -08:00: INFO:     Application startup complete.
+2025-11-30 17:15:45 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 19:53:50 -08:00: INFO:     Shutting down
+2025-11-30 19:53:50 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 19:53:50 -08:00: INFO:     Application shutdown complete.
+2025-11-30 19:53:50 -08:00: INFO:     Finished server process [41004]
+2025-11-30 19:53:51 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 19:53:51 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 19:53:51 -08:00: 
+2025-11-30 19:53:51 -08:00:         Read more about it in the
+2025-11-30 19:53:51 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 19:53:51 -08:00:         
+2025-11-30 19:53:51 -08:00:   @app.on_event("startup")
+2025-11-30 19:53:51 -08:00: INFO:     Started server process [99510]
+2025-11-30 19:53:51 -08:00: INFO:     Waiting for application startup.
+2025-11-30 19:53:52 -08:00: INFO:     Application startup complete.
+2025-11-30 19:53:52 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 20:07:53 -08:00: INFO:     Shutting down
+2025-11-30 20:07:53 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 20:07:53 -08:00: INFO:     Application shutdown complete.
+2025-11-30 20:07:53 -08:00: INFO:     Finished server process [99510]
+2025-11-30 20:07:54 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 20:07:54 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 20:07:54 -08:00: 
+2025-11-30 20:07:54 -08:00:         Read more about it in the
+2025-11-30 20:07:54 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 20:07:54 -08:00:         
+2025-11-30 20:07:54 -08:00:   @app.on_event("startup")
+2025-11-30 20:07:54 -08:00: INFO:     Started server process [3863]
+2025-11-30 20:07:54 -08:00: INFO:     Waiting for application startup.
+2025-11-30 20:07:54 -08:00: INFO:     Application startup complete.
+2025-11-30 20:07:54 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 20:57:16 -08:00: INFO:     Shutting down
+2025-11-30 20:57:16 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 20:57:16 -08:00: INFO:     Application shutdown complete.
+2025-11-30 20:57:16 -08:00: INFO:     Finished server process [3863]
+2025-11-30 20:57:17 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:222: DeprecationWarning: 
+2025-11-30 20:57:17 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 20:57:17 -08:00: 
+2025-11-30 20:57:17 -08:00:         Read more about it in the
+2025-11-30 20:57:17 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 20:57:17 -08:00:         
+2025-11-30 20:57:17 -08:00:   @app.on_event("startup")
+2025-11-30 20:57:17 -08:00: INFO:     Started server process [29680]
+2025-11-30 20:57:17 -08:00: INFO:     Waiting for application startup.
+2025-11-30 20:57:18 -08:00: INFO:     Application startup complete.
+2025-11-30 20:57:18 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 21:33:19 -08:00: INFO:     Shutting down
+2025-11-30 21:33:19 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 21:33:19 -08:00: INFO:     Application shutdown complete.
+2025-11-30 21:33:19 -08:00: INFO:     Finished server process [29680]
+2025-11-30 21:33:20 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 21:33:20 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 21:33:20 -08:00: 
+2025-11-30 21:33:20 -08:00:         Read more about it in the
+2025-11-30 21:33:20 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 21:33:20 -08:00:         
+2025-11-30 21:33:20 -08:00:   @app.on_event("startup")
+2025-11-30 21:33:20 -08:00: INFO:     Started server process [50860]
+2025-11-30 21:33:20 -08:00: INFO:     Waiting for application startup.
+2025-11-30 21:33:20 -08:00: INFO:     Application startup complete.
+2025-11-30 21:33:20 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 22:10:42 -08:00: INFO:     Shutting down
+2025-11-30 22:10:42 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 22:10:42 -08:00: INFO:     Application shutdown complete.
+2025-11-30 22:10:42 -08:00: INFO:     Finished server process [50860]
+2025-11-30 22:10:43 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 22:10:43 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 22:10:43 -08:00: 
+2025-11-30 22:10:43 -08:00:         Read more about it in the
+2025-11-30 22:10:43 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 22:10:43 -08:00:         
+2025-11-30 22:10:43 -08:00:   @app.on_event("startup")
+2025-11-30 22:10:43 -08:00: INFO:     Started server process [71575]
+2025-11-30 22:10:43 -08:00: INFO:     Waiting for application startup.
+2025-11-30 22:10:44 -08:00: INFO:     Application startup complete.
+2025-11-30 22:10:44 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 22:13:33 -08:00: INFO:     Shutting down
+2025-11-30 22:13:33 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 22:13:33 -08:00: INFO:     Application shutdown complete.
+2025-11-30 22:13:33 -08:00: INFO:     Finished server process [71575]
+2025-11-30 22:13:34 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 22:13:34 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 22:13:34 -08:00: 
+2025-11-30 22:13:34 -08:00:         Read more about it in the
+2025-11-30 22:13:34 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 22:13:34 -08:00:         
+2025-11-30 22:13:34 -08:00:   @app.on_event("startup")
+2025-11-30 22:13:34 -08:00: INFO:     Started server process [73290]
+2025-11-30 22:13:34 -08:00: INFO:     Waiting for application startup.
+2025-11-30 22:13:34 -08:00: INFO:     Application startup complete.
+2025-11-30 22:13:34 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 22:16:47 -08:00: INFO:     Shutting down
+2025-11-30 22:16:48 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 22:16:48 -08:00: INFO:     Application shutdown complete.
+2025-11-30 22:16:48 -08:00: INFO:     Finished server process [73290]
+2025-11-30 22:16:48 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 22:16:48 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 22:16:48 -08:00: 
+2025-11-30 22:16:48 -08:00:         Read more about it in the
+2025-11-30 22:16:48 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 22:16:48 -08:00:         
+2025-11-30 22:16:48 -08:00:   @app.on_event("startup")
+2025-11-30 22:16:48 -08:00: INFO:     Started server process [75271]
+2025-11-30 22:16:48 -08:00: INFO:     Waiting for application startup.
+2025-11-30 22:16:49 -08:00: INFO:     Application startup complete.
+2025-11-30 22:16:49 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 22:18:17 -08:00: INFO:     Shutting down
+2025-11-30 22:18:17 -08:00: INFO:     Waiting for application shutdown.
+2025-11-30 22:18:17 -08:00: INFO:     Application shutdown complete.
+2025-11-30 22:18:17 -08:00: INFO:     Finished server process [75271]
+2025-11-30 22:18:18 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 22:18:18 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 22:18:18 -08:00: 
+2025-11-30 22:18:18 -08:00:         Read more about it in the
+2025-11-30 22:18:18 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 22:18:18 -08:00:         
+2025-11-30 22:18:18 -08:00:   @app.on_event("startup")
+2025-11-30 22:18:18 -08:00: INFO:     Started server process [76159]
+2025-11-30 22:18:18 -08:00: INFO:     Waiting for application startup.
+2025-11-30 22:18:18 -08:00: INFO:     Application startup complete.
+2025-11-30 22:18:18 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-11-30 22:19:21 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-11-30 22:19:21 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-11-30 22:19:21 -08:00: 
+2025-11-30 22:19:21 -08:00:         Read more about it in the
+2025-11-30 22:19:21 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-11-30 22:19:21 -08:00:         
+2025-11-30 22:19:21 -08:00:   @app.on_event("startup")
+2025-11-30 22:19:21 -08:00: INFO:     Started server process [76813]
+2025-11-30 22:19:21 -08:00: INFO:     Waiting for application startup.
+2025-11-30 22:19:21 -08:00: INFO:     Application startup complete.
+2025-11-30 22:19:21 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-12-01 08:22:49 -08:00: INFO:     Shutting down
+2025-12-01 08:22:49 -08:00: INFO:     Waiting for application shutdown.
+2025-12-01 08:22:49 -08:00: INFO:     Application shutdown complete.
+2025-12-01 08:22:49 -08:00: INFO:     Finished server process [76813]
+2025-12-01 08:22:50 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-12-01 08:22:50 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-12-01 08:22:50 -08:00: 
+2025-12-01 08:22:50 -08:00:         Read more about it in the
+2025-12-01 08:22:50 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-12-01 08:22:50 -08:00:         
+2025-12-01 08:22:50 -08:00:   @app.on_event("startup")
+2025-12-01 08:22:50 -08:00: INFO:     Started server process [76139]
+2025-12-01 08:22:50 -08:00: INFO:     Waiting for application startup.
+2025-12-01 08:22:51 -08:00: INFO:     Application startup complete.
+2025-12-01 08:22:51 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-12-01 08:25:29 -08:00: INFO:     Shutting down
+2025-12-01 08:25:29 -08:00: INFO:     Waiting for application shutdown.
+2025-12-01 08:25:29 -08:00: INFO:     Application shutdown complete.
+2025-12-01 08:25:29 -08:00: INFO:     Finished server process [76139]
+2025-12-01 08:25:49 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-12-01 08:25:49 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-12-01 08:25:49 -08:00: 
+2025-12-01 08:25:49 -08:00:         Read more about it in the
+2025-12-01 08:25:49 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-12-01 08:25:49 -08:00:         
+2025-12-01 08:25:49 -08:00:   @app.on_event("startup")
+2025-12-01 08:25:49 -08:00: INFO:     Started server process [78017]
+2025-12-01 08:25:49 -08:00: INFO:     Waiting for application startup.
+2025-12-01 08:25:50 -08:00: INFO:     Application startup complete.
+2025-12-01 08:25:50 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-12-01 08:26:22 -08:00: INFO:     Shutting down
+2025-12-01 08:26:22 -08:00: INFO:     Waiting for application shutdown.
+2025-12-01 08:26:22 -08:00: INFO:     Application shutdown complete.
+2025-12-01 08:26:22 -08:00: INFO:     Finished server process [78017]
+2025-12-01 08:26:22 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-12-01 08:26:22 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-12-01 08:26:22 -08:00: 
+2025-12-01 08:26:22 -08:00:         Read more about it in the
+2025-12-01 08:26:22 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-12-01 08:26:22 -08:00:         
+2025-12-01 08:26:22 -08:00:   @app.on_event("startup")
+2025-12-01 08:26:22 -08:00: INFO:     Started server process [78403]
+2025-12-01 08:26:22 -08:00: INFO:     Waiting for application startup.
+2025-12-01 08:26:23 -08:00: INFO:     Application startup complete.
+2025-12-01 08:26:23 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3061 (Press CTRL+C to quit)
+2025-12-01 08:26:38 -08:00: INFO:     Shutting down
+2025-12-01 08:26:38 -08:00: INFO:     Waiting for application shutdown.
+2025-12-01 08:26:38 -08:00: INFO:     Application shutdown complete.
+2025-12-01 08:26:38 -08:00: INFO:     Finished server process [78403]
+2025-12-01 08:26:38 -08:00: /Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/pf400_gui/backend/main.py:229: DeprecationWarning: 
+2025-12-01 08:26:38 -08:00:         on_event is deprecated, use lifespan event handlers instead.
+2025-12-01 08:26:38 -08:00: 
+2025-12-01 08:26:38 -08:00:         Read more about it in the
+2025-12-01 08:26:38 -08:00:         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+2025-12-01 08:26:38 -08:00:         
+2025-12-01 08:26:38 -08:00:   @app.on_event("startup")
+2025-12-01 08:26:38 -08:00: INFO:     Started server process [78814]
+2025-12-01 08:26:38 -08:00: INFO:     Waiting for application startup.
+2025-12-01 08:26:39 -08:00: INFO:     Application startup complete.
+2025-12-01 08:26:39 -08:00: INFO:     Uvicorn running on http://0.0.0.0:3062 (Press CTRL+C to quit)
+2025-12-02 09:30:19 -08:00: INFO:     Shutting down
+2025-12-02 09:30:19 -08:00: INFO:     Waiting for application shutdown.
+2025-12-02 09:30:19 -08:00: INFO:     Application shutdown complete.
+2025-12-02 09:30:19 -08:00: INFO:     Finished server process [78814]

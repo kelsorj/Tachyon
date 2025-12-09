@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="BioNex.HivePrototypePlugin.FileLocations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="Auto" Width="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!-- teachpoint file -->
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3">Teachpoint file:</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding SelectedTeachpointFile}"></TextBox>
+        <Button Grid.Row="0" Grid.Column="2" Margin="3" Command="{Binding SelectTeachpointFileCommand}">...</Button>
+        <!-- Technosoft setup file folder -->
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3">TSM setup folder:</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding SelectedTSMSetupFolder}"></TextBox>
+        <Button Grid.Row="1" Grid.Column="2" Margin="3" Command="{Binding SelectTSMSetupFolderCommand}">...</Button>
+        <!-- Motor settings file -->
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3">Motor settings file:</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding SelectedMotorSettingsFile}"></TextBox>
+        <Button Grid.Row="2" Grid.Column="2" Margin="3" Command="{Binding SelectMotorSettingsFileCommand}">...</Button>
+        <!-- Inventory file -->
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3">Inventory file:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Text="{Binding SelectedInventoryFile}"></TextBox>
+        <Button Grid.Row="3" Grid.Column="2" Margin="3" Command="{Binding SelectInventoryFileCommand}">...</Button>
+    </Grid>
+</UserControl>

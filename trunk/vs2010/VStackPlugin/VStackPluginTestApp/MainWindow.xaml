@@ -1,0 +1,24 @@
+﻿<Window x:Class="VStackPluginTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ptcuc="clr-namespace:BioNex.Shared;assembly=PluginTestContainerUserControl"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    
+    <Window.Resources>
+        <Style x:Key="PluginButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel>
+        <GroupBox Header="Commands" DockPanel.Dock="Top">
+            <UniformGrid Columns="2">
+                <Button x:Name="Upstack" Click="Upstack_Click" Style="{StaticResource PluginButtonStyle}">Upstack</Button>
+                <Button x:Name="Downstack" Click="Downstack_Click" Style="{StaticResource PluginButtonStyle}">Downstack</Button>
+                <Button x:Name="ReleaseStack" Click="ReleaseStack_Click" Style="{StaticResource PluginButtonStyle}">Release Stack</Button>
+                <Button x:Name="LoadStack" Click="LoadStack_Click" Style="{StaticResource PluginButtonStyle}">Load Stack</Button>
+            </UniformGrid>
+        </GroupBox>
+        <ptcuc:PluginTestContainerUserControl x:Name="uc_wrapper" DockPanel.Dock="Bottom" />
+    </DockPanel>
+</Window>

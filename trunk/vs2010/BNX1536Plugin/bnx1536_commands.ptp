@@ -1,0 +1,94 @@
+VERSION
+8
+
+COMMSETTINGS
+0
+COM10
+COM2
+9600
+2
+63
+4
+0
+0
+
+COMMDISPLAY
+0
+
+SEND
+0
+Get status
+23 3F 0D
+0
+5
+
+SEND
+1
+Select program 1
+23 50 30 31 0D
+0
+5
+
+SEND
+2
+Select program 2
+23 50 30 32 0D
+0
+5
+
+SEND
+3
+Select program 3
+23 50 30 33 0D
+0
+5
+
+SEND
+4
+Select program 4
+23 50 30 34 0D
+0
+5
+
+SEND
+5
+Select service program 1
+23 50 41 31 0D
+0
+5
+
+SEND
+6
+Select service program 2
+23 50 41 32 0D
+0
+5
+
+SEND
+7
+Select service program 3
+23 50 41 33 0D
+0
+5
+
+SEND
+8
+Select service program 4
+23 50 41 34 0D
+0
+5
+
+SEND
+9
+Start selected program
+23 53 0D
+0
+5
+
+SEND
+10
+Stop
+23 52 0D
+0
+5
+

@@ -1,0 +1,337 @@
+2012-05-09-15_26_12.834 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-09-15_26_12.844 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-09-15_26_12.853 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-09-15_26_12.863 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-09-15_26_12.869 [10160] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-15_26_12.874 [10160] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-15_26_12.880 [10160] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-15_26_12.886 [10160] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-15_26_12.892 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - T Axis firmware version '0.0'
+2012-05-09-15_26_12.974 [10160] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-09-15_26_27.564 [7132] DEBUG axis_2 - MoveAbsolute(-45.004, move_complete=true, ...) called. use_trap=true
+2012-05-09-15_26_27.573 [7132] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-15_26_27.583 [7132] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -147469L; CPA; MODE PP; UPD; !MC;"
+2012-05-09-15_26_28.118 [7132] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_26_28.131 [7132] DEBUG axis_2 - MoveAbsolute(-45.004, move_complete=true, ...) Done in 567ms.
+2012-05-09-15_26_28.145 [7132] DEBUG axis_2 - MoveAbsolute(-45.004mm=-147469IU, move_complete=true, ...) FINALLY CPOS = -147469, APOS = -147473, TPOS = -147469, Err = -4, ERR = -0.001 mm, IQ = 0.711 A
+2012-05-09-15_26_28.736 [4212] DEBUG axis_2 - MoveAbsolute(-90.005, move_complete=true, ...) called. use_trap=true
+2012-05-09-15_26_28.742 [4212] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-15_26_28.748 [4212] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -294929L; CPA; MODE PP; UPD; !MC;"
+2012-05-09-15_26_29.270 [4212] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_26_29.282 [4212] DEBUG axis_2 - MoveAbsolute(-90.005, move_complete=true, ...) Done in 546ms.
+2012-05-09-15_26_29.296 [4212] DEBUG axis_2 - MoveAbsolute(-90.005mm=-294929IU, move_complete=true, ...) FINALLY CPOS = -294929, APOS = -294931, TPOS = -294929, Err = -2, ERR = -0.001 mm, IQ = 0.525 A
+2012-05-09-15_26_29.547 [6548] DEBUG axis_2 - MoveAbsolute(-135.006, move_complete=true, ...) called. use_trap=true
+2012-05-09-15_26_29.553 [6548] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-15_26_29.559 [6548] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -442387L; CPA; MODE PP; UPD; !MC;"
+2012-05-09-15_26_30.093 [6548] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_26_30.105 [6548] DEBUG axis_2 - MoveAbsolute(-135.006, move_complete=true, ...) Done in 558ms.
+2012-05-09-15_26_30.119 [6548] DEBUG axis_2 - MoveAbsolute(-135.006mm=-442387IU, move_complete=true, ...) FINALLY CPOS = -442387, APOS = -442392, TPOS = -442387, Err = -5, ERR = -0.002 mm, IQ = 0.765 A
+2012-05-09-15_26_30.270 [9304] DEBUG axis_2 - MoveAbsolute(-180.007, move_complete=true, ...) called. use_trap=true
+2012-05-09-15_26_30.276 [9304] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -180.007 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_26_30.284 [9304] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Y : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -180.007 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()
+2012-05-09-15_26_31.731 [4716] DEBUG axis_2 - MoveAbsolute(-180.007, move_complete=true, ...) called. use_trap=true
+2012-05-09-15_26_31.737 [4716] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -180.007 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_26_31.744 [4716] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Y : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -180.007 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()
+2012-05-09-15_58_36.652 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_58_36.660 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.143, move_complete=true, ...) Done in 39ms.
+2012-05-09-15_58_36.670 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.143mm=-102050IU, move_complete=true, ...) FINALLY CPOS = -102050, APOS = -102076, TPOS = -102050, Err = -26, ERR = -0.008 mm, IQ = 1.569 A
+2012-05-09-15_58_36.678 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_36.684 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-15_58_36.696 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-09-15_58_36.708 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) Done in 30ms.
+2012-05-09-15_58_36.722 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192mm=323269IU, move_complete=true, ...) FINALLY CPOS = 323269, APOS = 323247, TPOS = 323269, Err = -22, ERR = -0.004 mm, IQ = 1.414 A
+2012-05-09-15_58_36.728 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_36.731 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-09-15_58_36.740 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-09-15_58_36.749 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) Done in 21ms.
+2012-05-09-15_58_36.760 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431mm=-99684IU, move_complete=true, ...) FINALLY CPOS = -99684, APOS = -99633, TPOS = -99684, Err = 51, ERR = 0.092 mm, IQ = -0.461 A
+2012-05-09-15_58_36.799 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state AdvanceToNextSample via trigger SensorsOn, elapsed = 0:00:00:02.6430942
+2012-05-09-15_58_36.854 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-09-15_58_36.857 [5328] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-09-15_58_36.858 [924] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-09-15_58_36.856 [5788] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-09-15_58_36.855 [9352] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-09-15_58_36.865 [3592] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-09-15_58_36.866 [7484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-09-15_58_36.862 [2644] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-09-15_58_36.902 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state SensorsOn via trigger DriveAcrossRow, elapsed = 0:00:00:02.7460420
+2012-05-09-15_58_36.933 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(3.946, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_36.935 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-15_58_36.943 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1616 iu, ...) APOS= 687 iu, delta= 929 iu
+2012-05-09-15_58_36.945 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 20; CACC = 0.65548; CSPD = 40.96778; CPOS = 1616L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-15_58_36.952 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(3.946, move_complete=false, ...) Done in 19ms.
+2012-05-09-15_58_36.956 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-589.221, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_36.958 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -589.221 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_58_36.960 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.502794510747651 Y:-589.135873606076 Z:59.1924682617188 R-179.4312.
+BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -589.221 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-09-15_58_36.990 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state DriveAcrossRow via trigger WaitForMotionComplete, elapsed = 0:00:00:02.8342269
+2012-05-09-15_58_36.995 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state WaitForMotionComplete via trigger SensorsOff, elapsed = 0:00:00:02.8387078
+2012-05-09-15_58_36.999 [924] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-09-15_58_37.002 [7484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-09-15_58_37.000 [9352] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-09-15_58_37.000 [9968] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-09-15_58_37.000 [4360] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-09-15_58_37.002 [2644] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-09-15_58_37.000 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-09-15_58_37.002 [3592] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-09-15_58_37.028 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state SensorsOff via trigger Branch, elapsed = 0:00:00:02.8717436
+2012-05-09-15_58_37.030 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state Branch via trigger AdvanceToNextSample, elapsed = 0:00:00:02.8740117
+2012-05-09-15_58_37.055 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.046, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.057 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-15_58_37.062 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1657 iu, ...) APOS= 1589 iu, delta= 68 iu
+2012-05-09-15_58_37.064 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 1657L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-15_58_37.071 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.046, move_complete=false, ...) Done in 16ms.
+2012-05-09-15_58_37.075 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-589.226, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.076 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -589.226 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_58_37.078 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.40279451074765 Y:-589.135873606076 Z:59.1924682617188 R-179.4312.
+BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -589.226 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-09-15_58_37.448 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_58_37.456 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.147, move_complete=true, ...) Done in 23ms.
+2012-05-09-15_58_37.466 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.147mm=-102063IU, move_complete=true, ...) FINALLY CPOS = -102063, APOS = -102076, TPOS = -102063, Err = -13, ERR = -0.004 mm, IQ = 1.028 A
+2012-05-09-15_58_37.470 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_37.472 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-15_58_37.480 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-09-15_58_37.488 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) Done in 18ms.
+2012-05-09-15_58_37.498 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192mm=323269IU, move_complete=true, ...) FINALLY CPOS = 323269, APOS = 323247, TPOS = 323269, Err = -22, ERR = -0.004 mm, IQ = 1.425 A
+2012-05-09-15_58_37.502 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_37.504 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-09-15_58_37.516 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-09-15_58_37.528 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) Done in 26ms.
+2012-05-09-15_58_37.542 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431mm=-99684IU, move_complete=true, ...) FINALLY CPOS = -99684, APOS = -99634, TPOS = -99684, Err = 50, ERR = 0.090 mm, IQ = -0.474 A
+2012-05-09-15_58_37.580 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state AdvanceToNextSample via trigger SensorsOn, elapsed = 0:00:00:03.4240525
+2012-05-09-15_58_37.584 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-09-15_58_37.587 [5328] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-09-15_58_37.585 [9956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-09-15_58_37.585 [9968] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-09-15_58_37.585 [4360] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-09-15_58_37.587 [7484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-09-15_58_37.587 [5788] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-09-15_58_37.586 [9352] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-09-15_58_37.608 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state SensorsOn via trigger DriveAcrossRow, elapsed = 0:00:00:03.4524088
+2012-05-09-15_58_37.637 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.146, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.639 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-15_58_37.648 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1698 iu, ...) APOS= 774 iu, delta= 924 iu
+2012-05-09-15_58_37.650 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 20; CACC = 0.65548; CSPD = 40.96778; CPOS = 1698L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-15_58_37.658 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.146, move_complete=false, ...) Done in 21ms.
+2012-05-09-15_58_37.663 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-589.231, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.665 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -589.231 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_58_37.667 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.30279451074765 Y:-589.135873606076 Z:59.1924682617188 R-179.4312.
+BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -589.231 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-09-15_58_37.691 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state DriveAcrossRow via trigger WaitForMotionComplete, elapsed = 0:00:00:03.5350255
+2012-05-09-15_58_37.695 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state WaitForMotionComplete via trigger SensorsOff, elapsed = 0:00:00:03.5387216
+2012-05-09-15_58_37.698 [5328] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-09-15_58_37.698 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-09-15_58_37.701 [9956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-09-15_58_37.699 [2644] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-09-15_58_37.701 [4360] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-09-15_58_37.701 [9968] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-09-15_58_37.699 [8140] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-09-15_58_37.699 [924] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-09-15_58_37.714 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state SensorsOff via trigger Branch, elapsed = 0:00:00:03.5578523
+2012-05-09-15_58_37.716 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state Branch via trigger AdvanceToNextSample, elapsed = 0:00:00:03.5598481
+2012-05-09-15_58_37.745 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.246, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.747 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-15_58_37.753 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1739 iu, ...) APOS= 1670 iu, delta= 69 iu
+2012-05-09-15_58_37.755 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 1739L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-15_58_37.762 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.246, move_complete=false, ...) Done in 17ms.
+2012-05-09-15_58_37.766 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-589.236, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_37.768 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -589.236 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_58_37.770 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.202794510747651 Y:-589.135873606076 Z:59.1924682617188 R-179.4312.
+BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -589.236 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-09-15_58_38.201 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-15_58_38.209 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.152, move_complete=true, ...) Done in 18ms.
+2012-05-09-15_58_38.219 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.152mm=-102078IU, move_complete=true, ...) FINALLY CPOS = -102078, APOS = -102077, TPOS = -102078, Err = 1, ERR = 0.000 mm, IQ = 0.317 A
+2012-05-09-15_58_38.223 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_38.226 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-15_58_38.235 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-09-15_58_38.244 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=true, ...) Done in 21ms.
+2012-05-09-15_58_38.255 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192mm=323269IU, move_complete=true, ...) FINALLY CPOS = 323269, APOS = 323247, TPOS = 323269, Err = -22, ERR = -0.004 mm, IQ = 1.451 A
+2012-05-09-15_58_38.260 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) called. use_trap=false
+2012-05-09-15_58_38.263 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-09-15_58_38.273 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-09-15_58_38.282 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=true, ...) Done in 22ms.
+2012-05-09-15_58_38.293 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431mm=-99684IU, move_complete=true, ...) FINALLY CPOS = -99684, APOS = -99634, TPOS = -99684, Err = 50, ERR = 0.090 mm, IQ = -0.461 A
+2012-05-09-15_58_38.331 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state AdvanceToNextSample via trigger SensorsOn, elapsed = 0:00:00:04.1753690
+2012-05-09-15_58_38.336 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-09-15_58_38.336 [9352] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-09-15_58_38.336 [5328] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-09-15_58_38.339 [2644] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-09-15_58_38.340 [4360] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-09-15_58_38.336 [8140] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-09-15_58_38.338 [7484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-09-15_58_38.336 [9956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-09-15_58_38.353 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[1]: Leaving state SensorsOn via trigger DriveAcrossRow, elapsed = 0:00:00:04.1971783
+2012-05-09-15_58_38.378 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.346, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_38.380 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-15_58_38.387 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1780 iu, ...) APOS= 857 iu, delta= 923 iu
+2012-05-09-15_58_38.389 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 20; CACC = 0.65548; CSPD = 40.96778; CPOS = 1780L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-15_58_38.398 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(4.346, move_complete=false, ...) Done in 20ms.
+2012-05-09-15_58_38.402 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-589.242, move_complete=false, ...) called. use_trap=false
+2012-05-09-15_58_38.404 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -589.242 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-09-15_58_38.406 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.10279451074765 Y:-589.135873606076 Z:59.1924682617188 R-179.4312.
+BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -589.242 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-09-16_00_51.408 [9956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-09-16_00_51.406 [7484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-09-16_00_51.406 [9352] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-09-16_00_51.407 [924] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-09-16_00_51.406 [5020] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-09-16_00_51.430 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[2]: Leaving state SensorsOn via trigger DriveAcrossRow, elapsed = 0:00:01:51.1923112
+2012-05-09-16_00_51.456 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1.803, move_complete=false, ...) called. use_trap=false
+2012-05-09-16_00_51.459 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-16_00_51.464 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(738 iu, ...) APOS= 906 iu, delta= -168 iu
+2012-05-09-16_00_51.465 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 12; CACC = 0.65548; CSPD = 40.96778; CPOS = 738L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-16_00_51.472 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(1.803, move_complete=false, ...) Done in 16ms.
+2012-05-09-16_00_51.476 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.145, move_complete=false, ...) called. use_trap=false
+2012-05-09-16_00_51.477 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-16_00_51.486 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-102056 iu, ...) APOS= -455962 iu, delta= 353906 iu
+2012-05-09-16_00_51.487 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 3.27680; CPOS = -102056L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-16_00_51.494 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-31.145, move_complete=false, ...) Done in 18ms.
+2012-05-09-16_00_51.499 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=false, ...) called. use_trap=false
+2012-05-09-16_00_51.500 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-16_00_51.509 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(323269 iu, ...) APOS= 323247 iu, delta= 22 iu
+2012-05-09-16_00_51.511 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 323269L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-16_00_51.517 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(59.192, move_complete=false, ...) Done in 18ms.
+2012-05-09-16_00_51.523 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=false, ...) called. use_trap=false
+2012-05-09-16_00_51.525 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-09-16_00_51.532 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-99684 iu, ...) APOS= -99635 iu, delta= -49 iu
+2012-05-09-16_00_51.534 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - "TJERK = 10; CACC = 0.88889; CSPD = 111.11111; CPOS = -99684L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-16_00_51.541 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_4 - MoveAbsolute(-179.431, move_complete=false, ...) Done in 18ms.
+2012-05-09-16_00_51.583 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSFastHiResScanStateMachine - LLSFastHiResScanStateMachine[2]: Leaving state DriveAcrossRow via trigger WaitForMotionComplete, elapsed = 0:00:01:51.3448609
+2012-05-09-16_00_53.368 [10228] WARN  BioNex.LiquidLevelDevice.LevelSensor - Accepting a small echo response from sensor port 'CAN_1_120' after trying '1 times for a better read
+2012-05-09-16_00_53.427 [7484] WARN  BioNex.LiquidLevelDevice.LevelSensor - Accepting a small echo response from sensor port 'CAN_1_120' after trying '1 times for a better read
+2012-05-09-16_00_53.957 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not select axis 2:  on axis Y

@@ -1,0 +1,5 @@
+2012-05-23-11_16_09.237 [8764] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-23-11_16_09.269 [8764] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-23-11_16_09.713 [8764] ERROR BioNex.SynapsisPrototype.MainWindow - Method 'get_Name' in type 'BioNex.Shared.LabwareCloudXmlRpcClient.LabwareCloudSystemSetup' from assembly 'LabwareCloudXmlRpcClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+System.TypeLoadException: Method 'get_Name' in type 'BioNex.Shared.LabwareCloudXmlRpcClient.LabwareCloudSystemSetup' from assembly 'LabwareCloudXmlRpcClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+2012-05-23-11_16_10.774 [8764] ERROR BioNex.SynapsisPrototype.MainWindow - Could not load customer GUI plugin

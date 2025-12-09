@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="BioNex.LiquidLevelDevice.SetupAndTestingPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             mc:Ignorable="d" d:DesignHeight="483" d:DesignWidth="695">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <GroupBox Header="Channel cycling" BorderBrush="Orange" >
+                <UniformGrid Rows="1">
+                    <Button Grid.Column="0" Command="{Binding StartCycleCommand}">Start Cycling</Button>
+                    <Button Grid.Column="1" Command="{Binding StopCycleCommand}">Stop Cycling</Button>
+                </UniformGrid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Capture" BorderBrush="Orange" >
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" >Labware:</Label>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Name="LabwareCombo" Margin="3" />
+                        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Capture Offset</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CaptureOffset}"></TextBox>
+                        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Capture Cycles</Label>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CaptureCycles}" ToolTip="-1 for continuous"></TextBox>
+                        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">Samples Per Well</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SamplesPerWell}"></TextBox>
+                        <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">Capture Radius</Label>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding CaptureRadius}"></TextBox>
+                        <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right">Rejection Radius</Label>
+                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding RejectionRadius}"></TextBox>
+                        <Button Grid.Row="6" Grid.Column="1" Command="{Binding CaptureVisualizationCommand}">Capture Radius Visualization</Button>
+                        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Disable3D}" Margin="3" FlowDirection="RightToLeft">Disable 3D Visualization</CheckBox>
+                    </Grid>
+                    <Button Name="CaptureButton" Command="{Binding CaptureCommand}" ToolTip="Run one or more capture cycles using the specified Z offset">Capture</Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Header="Discovery" BorderBrush="Orange" >
+                <StackPanel>
+                    <CheckBox IsChecked="{Binding HiResResetSlope}" Margin="3" FlowDirection="RightToLeft">Reset X/Y slope before running alignment scan</CheckBox>
+                    <Button Name="XYAlignmentButton" Command="{Binding XYAlignmentCommand}">
+                        X -> Y Alignment Scan
+                        <Button.ToolTip>
+                            <TextBlock>
+                                Run a high resolution scan to determine the X -> Y alignment equation.<LineBreak />
+                                Resets the X -> Y alignment equation before running the scan.<LineBreak />
+                                Uses 'Capture Cycles' value from 'Capture' group to run multiple cycles.<LineBreak />
+                                Uses 'Capture Offset' value from 'Capture' group to determine Z offset.
+                            </TextBlock>
+                        </Button.ToolTip>
+                    </Button>
+                    <CheckBox IsChecked="{Binding HiResResetSlopeZY}" Margin="3" FlowDirection="RightToLeft">Reset Z/Y slope before running alignment scan</CheckBox>
+                    <Button Name="ZYAlignmentButton" Command="{Binding ZYAlignmentCommand}">
+                        Z -> Y Alignment Scan
+                        <Button.ToolTip>
+                            <TextBlock>
+                                Run a high resolution scan to determine the Z -> Y alignment equation.<LineBreak />
+                                Resets the Z -> Y alignment equation before running the scan.<LineBreak />
+                                Uses 'Capture Cycles' value from 'Capture' group to run multiple cycles.<LineBreak />
+                                Uses 'Capture Offset' value from 'Capture' group to determine Z offset.
+                            </TextBlock>
+                        </Button.ToolTip>
+                    </Button>
+                    <CheckBox IsChecked="{Binding HiResResetXArcCorrection}" Margin="3" FlowDirection="RightToLeft">Reset X Arc Correction before running correction scan</CheckBox>
+                    <Button Name="XArcCorrectionButton" Command="{Binding XArcCorrectionCommand}">X Arc Correction Scan</Button> 
+                    <Button Name="LocateTeachpointButton" Command="{Binding LocateTeachpointCommand}">
+                        Locate Teachpoint
+                        <Button.ToolTip>
+                            <TextBlock>
+                                Run two high resolution scans to locate the exact dead center of the well location feature.<LineBreak />
+                                Uses 'Capture Offset' value from 'Capture' group to determine Z offset.<LineBreak />
+                                The X scan begins at the manually established teach point<LineBreak /> 
+                                The X parameters from 'HiRes Scan' group determine the X scan range.<LineBreak />
+                                The Y scan begins at the manually established teach point + Y Offset.<LineBreak />
+                                The Y parameters from 'HiRes Scan' group determine the Y scan range.
+                            </TextBlock>
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <GroupBox Grid.Column="1" Header="Calibration" BorderBrush="Orange" >
+            <StackPanel>
+                <UniformGrid Rows="4">
+                    <Label HorizontalAlignment="Right">Offset Y</Label>
+                    <TextBox Text="{Binding CalibrationOffsetY}"></TextBox>
+                    <Label HorizontalAlignment="Right">Samples</Label>
+                    <TextBox Text="{Binding CalibrationSamples}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Z Mode A</Label>
+                    <TextBox Text="{Binding CalibrationMaxZA}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Z Mode B</Label>
+                    <TextBox Text="{Binding CalibrationMaxZB}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Z Mode C</Label>
+                    <TextBox Text="{Binding CalibrationMaxZC}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Z Mode D</Label>
+                    <TextBox Text="{Binding CalibrationMaxZD}"></TextBox>
+                    <Label HorizontalAlignment="Right">Points</Label>
+                    <TextBox Text="{Binding CalibrationPoints}"></TextBox>
+                </UniformGrid>
+                <Button Name="CalibrateButton" Command="{Binding CalibrateCommand}">
+                    Calibrate
+                    <Button.ToolTip>
+                        <TextBlock>
+                            Run the calibration routine to generate a Z calibration curve for each sensor.<LineBreak />
+                            Offsets are relative to teachpoint.<LineBreak />
+                            Teach-in bottom is done at Z offset.  Teach-in top is done at Z offset + Z min + Z max.<LineBreak />
+                            Linear interpolation is between Z offset + Z min and Z offset + Z max.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Header="HiRes Scan" BorderBrush="Orange" >
+            <StackPanel>
+                <UniformGrid Rows="3">
+                    <Label HorizontalAlignment="Right">Min X</Label>
+                    <TextBox Text="{Binding HiResMinX}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max X</Label>
+                    <TextBox Text="{Binding HiResMaxX}"></TextBox>
+                    <Label HorizontalAlignment="Right">Step X</Label>
+                    <TextBox Text="{Binding HiResStepX}"></TextBox>
+                    <Label HorizontalAlignment="Right">Min Y</Label>
+                    <TextBox Text="{Binding HiResMinY}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Y</Label>
+                    <TextBox Text="{Binding HiResMaxY}"></TextBox>
+                    <Label HorizontalAlignment="Right">Step Y</Label>
+                    <TextBox Text="{Binding HiResStepY}"></TextBox>
+                    <Label HorizontalAlignment="Right">Min Col.</Label>
+                    <TextBox Text="{Binding HiResMinC}"></TextBox>
+                    <Label HorizontalAlignment="Right">Max Col.</Label>
+                    <TextBox Text="{Binding HiResMaxC}"></TextBox>
+                    <Label HorizontalAlignment="Right">Step Col.</Label>
+                    <TextBox Text="{Binding HiResStepC}"></TextBox>
+                </UniformGrid>
+                <UniformGrid Rows="1">
+                    <Label HorizontalAlignment="Right">Filter Threshold</Label>
+                    <TextBox Text="{Binding HiResFilterThreshold}"></TextBox>
+                </UniformGrid>
+                <CheckBox IsChecked="{Binding HiResShowGraphs}" Margin="3" FlowDirection="RightToLeft">Show debug graphs after scan</CheckBox>
+                <CheckBox IsChecked="{Binding HiResShowWellCenters}" Margin="3" FlowDirection="RightToLeft">Show sensor locations</CheckBox>
+                <CheckBox IsChecked="{Binding HiResFloorToZero}" Margin="3" FlowDirection="RightToLeft">Clamp minimum value to zero</CheckBox>
+                <Button Name="HiResScanButton" Command="{Binding HiResScanCommand}">
+                    High Resolution Scan
+                    <Button.ToolTip>
+                        <TextBlock>
+                                Run a high resolution scan to acquire high detail data.<LineBreak />
+                                Uses 'Capture Cycles' value from 'Capture' group to run multiple cycles.<LineBreak />
+                                Uses 'Capture Offset' value from 'Capture' group to determine Z offset.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Fast Scan Velocity</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding HiResFastScanVelocity}"></TextBox>
+                </Grid>
+                <Button Name="FastHiResScanButton" Command="{Binding FastHiResScanCommand}">
+                    Fast High Resolution Scan
+                    <Button.ToolTip>
+                        <TextBlock>
+                                Run a fast high resolution scan to acquire high detail data.<LineBreak />
+                                Uses sensor periodic mode to capture sensor data at higest possible frequency.<LineBreak />
+                                Uses 'Capture Cycles' value from 'Capture' group to run multiple cycles.<LineBreak />
+                                Uses 'Capture Offset' value from 'Capture' group to determine Z offset.
+                        </TextBlock>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

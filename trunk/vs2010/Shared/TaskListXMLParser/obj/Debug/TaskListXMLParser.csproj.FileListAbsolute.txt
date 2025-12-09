@@ -1,0 +1,5 @@
+C:\code\trunk\vs2010\Shared\TaskListXMLParser\bin\Debug\TaskListXMLParser.dll
+C:\code\trunk\vs2010\Shared\TaskListXMLParser\bin\Debug\TaskListXMLParser.pdb
+C:\code\trunk\vs2010\Shared\TaskListXMLParser\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\TaskListXMLParser\obj\Debug\TaskListXMLParser.dll
+C:\code\trunk\vs2010\Shared\TaskListXMLParser\obj\Debug\TaskListXMLParser.pdb

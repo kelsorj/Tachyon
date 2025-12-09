@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<Teachpoints>
+  <StageTeachpoints>
+    <channel id="1">
+      <stage id="1">
+        <upper_left>
+          <x>325.6</x>
+          <z>-45.5</z>
+          <y>354.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>404.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+      <stage id="2">
+        <upper_left>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>424.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>405.6</x>
+          <z>-45.5</z>
+          <y>454.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+    </channel>
+    <channel id="2">
+      <stage id="1">
+        <upper_left>
+          <x>325.6</x>
+          <z>-45.5</z>
+          <y>354.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>404.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+      <stage id="2">
+        <upper_left>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>424.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>405.6</x>
+          <z>-45.5</z>
+          <y>454.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+    </channel>
+    <channel id="3">
+      <stage id="1">
+        <upper_left>
+          <x>325.6</x>
+          <z>-45.5</z>
+          <y>354.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>404.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+      <stage id="2">
+        <upper_left>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>424.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>405.6</x>
+          <z>-45.5</z>
+          <y>454.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+    </channel>
+    <channel id="4">
+      <stage id="1">
+        <upper_left>
+          <x>325.6</x>
+          <z>-45.5</z>
+          <y>354.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>404.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+      <stage id="2">
+        <upper_left>
+          <x>375.6</x>
+          <z>-45.5</z>
+          <y>424.6</y>
+          <r>-218.2</r>
+        </upper_left>
+        <lower_right>
+          <x>405.6</x>
+          <z>-45.5</z>
+          <y>454.6</y>
+          <r>-218.2</r>
+        </lower_right>
+      </stage>
+    </channel>
+  </StageTeachpoints>
+  <WashTeachpoints>
+    <channel id="1">
+      <x>605.5</x>
+      <z>0</z>
+    </channel>
+    <channel id="2">
+      <x>605.5</x>
+      <z>0</z>
+    </channel>
+    <channel id="3">
+      <x>605.5</x>
+      <z>0</z>
+    </channel>
+    <channel id="4">
+      <x>605.5</x>
+      <z>0</z>
+    </channel>
+  </WashTeachpoints>
+</Teachpoints>

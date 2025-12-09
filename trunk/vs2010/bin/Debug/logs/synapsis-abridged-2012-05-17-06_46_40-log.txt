@@ -1,0 +1,14 @@
+2012-05-17-06_46_40.195 [8344] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-17-06_46_40.262 [8344] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-17-06_46_42.624 [8344] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-17-06_46_43.854 [8344] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-17-06_46_43.871 [8344] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-17-06_46_44.282 [8344] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-17-06_46_44.294 [8344] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-17-06_46_44.301 [8344] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-17-06_46_44.309 [8344] DEBUG axis_4 - SetAxisTimeout(300) called.
+2012-05-17-06_46_44.336 [8344] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-17-06_46_44.339 [8344] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-17-06_46_44.342 [8344] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-17-06_46_44.345 [8344] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-17-06_46_44.348 [8344] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Could not read firmware version on axis 'W'.  Device may require a power cycle or further troubleshooting.

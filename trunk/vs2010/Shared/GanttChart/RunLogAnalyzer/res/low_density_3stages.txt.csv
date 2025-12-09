@@ -1,0 +1,176 @@
+2010-06-01,07:56:29.268,,,moving stage 1 to robot teachpoint took ,0
+2010-06-01,07:56:34.269,,,robot unloading plate tipbox1 to BB PM 1 took ,5.001
+2010-06-01,07:56:34.325,,,moving stage 2 to robot teachpoint took ,0
+2010-06-01,07:56:39.325,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 2 took ,5
+2010-06-01,07:56:39.340,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:56:44.340,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:56:48.049,,,changing tips 2   took ,3.634
+2010-06-01,07:56:48.084,2,,move source stage took ,0.001
+2010-06-01,07:56:48.798,2,,aspirate took ,0.714
+2010-06-01,07:56:49.574,2,,dispense took ,0.774
+2010-06-01,07:56:50.766,2,,tip shucking took ,1.189
+2010-06-01,07:56:51.697,,,changing tips 1   took ,7.282
+2010-06-01,07:56:51.697,1,,move source stage took ,0
+2010-06-01,07:56:52.408,1,,aspirate took ,0.711
+2010-06-01,07:56:53.175,1,,dispense took ,0.767
+2010-06-01,07:56:54.337,1,,tip shucking took ,1.162
+2010-06-01,07:56:55.348,,,changing tips 2   took ,4.581
+2010-06-01,07:56:55.348,2,,move source stage took ,0
+2010-06-01,07:56:55.973,2,,aspirate took ,0.625
+2010-06-01,07:56:56.742,2,,dispense took ,0.769
+2010-06-01,07:56:57.906,2,,tip shucking took ,1.164
+2010-06-01,07:56:59.026,,,changing tips 1   took ,4.689
+2010-06-01,07:56:59.026,1,,move source stage took ,0
+2010-06-01,07:56:59.650,1,,aspirate took ,0.624
+2010-06-01,07:57:00.417,1,,dispense took ,0.767
+2010-06-01,07:57:01.579,1,,tip shucking took ,1.162
+2010-06-01,07:57:01.579,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:57:08.580,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7.001
+2010-06-01,07:57:08.629,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:57:13.629,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:57:17.327,,,changing tips 1   took ,3.648
+2010-06-01,07:57:17.327,1,,move source stage took ,0
+2010-06-01,07:57:17.982,1,,aspirate took ,0.655
+2010-06-01,07:57:18.758,1,,dispense took ,0.776
+2010-06-01,07:57:19.920,1,,tip shucking took ,1.162
+2010-06-01,07:57:20.993,,,changing tips 2   took ,7.314
+2010-06-01,07:57:20.993,2,,move source stage took ,0
+2010-06-01,07:57:21.694,2,,aspirate took ,0.701
+2010-06-01,07:57:22.472,2,,dispense took ,0.778
+2010-06-01,07:57:23.636,2,,tip shucking took ,1.164
+2010-06-01,07:57:24.686,,,changing tips 1   took ,4.766
+2010-06-01,07:57:24.686,1,,move source stage took ,0
+2010-06-01,07:57:25.373,1,,aspirate took ,0.687
+2010-06-01,07:57:26.149,1,,dispense took ,0.776
+2010-06-01,07:57:27.311,1,,tip shucking took ,1.162
+2010-06-01,07:57:28.412,,,changing tips 2   took ,4.776
+2010-06-01,07:57:28.412,2,,move source stage took ,0
+2010-06-01,07:57:29.116,2,,aspirate took ,0.704
+2010-06-01,07:57:29.894,2,,dispense took ,0.778
+2010-06-01,07:57:31.058,2,,tip shucking took ,1.164
+2010-06-01,07:57:32.145,,,changing tips 1   took ,4.834
+2010-06-01,07:57:32.145,1,,move source stage took ,0
+2010-06-01,07:57:32.778,1,,aspirate took ,0.633
+2010-06-01,07:57:33.554,1,,dispense took ,0.776
+2010-06-01,07:57:34.716,1,,tip shucking took ,1.162
+2010-06-01,07:57:34.716,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:57:41.716,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,07:57:41.766,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:57:46.766,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:57:50.509,,,changing tips 1   took ,3.693
+2010-06-01,07:57:50.509,1,,move source stage took ,0
+2010-06-01,07:57:51.238,1,,aspirate took ,0.729
+2010-06-01,07:57:52.023,1,,dispense took ,0.785
+2010-06-01,07:57:53.185,1,,tip shucking took ,1.162
+2010-06-01,07:57:54.239,,,changing tips 2   took ,7.423
+2010-06-01,07:57:54.239,2,,move source stage took ,0
+2010-06-01,07:57:54.942,2,,aspirate took ,0.703
+2010-06-01,07:57:55.729,2,,dispense took ,0.787
+2010-06-01,07:57:56.893,2,,tip shucking took ,1.164
+2010-06-01,07:57:57.996,,,changing tips 1   took ,4.811
+2010-06-01,07:57:57.996,1,,move source stage took ,0
+2010-06-01,07:57:58.674,1,,aspirate took ,0.678
+2010-06-01,07:57:59.459,1,,dispense took ,0.785
+2010-06-01,07:58:00.621,1,,tip shucking took ,1.162
+2010-06-01,07:58:01.656,,,changing tips 2   took ,4.763
+2010-06-01,07:58:01.656,2,,move source stage took ,0
+2010-06-01,07:58:02.350,2,,aspirate took ,0.694
+2010-06-01,07:58:03.138,2,,dispense took ,0.788
+2010-06-01,07:58:04.302,2,,tip shucking took ,1.164
+2010-06-01,07:58:05.292,,,changing tips 1   took ,4.671
+2010-06-01,07:58:05.292,1,,move source stage took ,0
+2010-06-01,07:58:05.991,1,,aspirate took ,0.699
+2010-06-01,07:58:06.776,1,,dispense took ,0.785
+2010-06-01,07:58:07.938,1,,tip shucking took ,1.162
+2010-06-01,07:58:08.933,,,changing tips 2   took ,4.631
+2010-06-01,07:58:08.933,2,,move source stage took ,0
+2010-06-01,07:58:09.630,2,,aspirate took ,0.697
+2010-06-01,07:58:10.417,2,,dispense took ,0.787
+2010-06-01,07:58:11.581,2,,tip shucking took ,1.164
+2010-06-01,07:58:11.581,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:58:18.581,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,07:58:18.631,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:58:23.631,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:58:27.320,,,changing tips 1   took ,3.639
+2010-06-01,07:58:27.320,1,,move source stage took ,0
+2010-06-01,07:58:28.016,1,,aspirate took ,0.696
+2010-06-01,07:58:28.810,1,,dispense took ,0.794
+2010-06-01,07:58:29.972,1,,tip shucking took ,1.162
+2010-06-01,07:58:29.972,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:58:36.972,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,07:58:37.022,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:58:42.022,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:58:45.720,,,changing tips 1   took ,3.648
+2010-06-01,07:58:45.720,1,,move source stage took ,0
+2010-06-01,07:58:46.435,1,,aspirate took ,0.715
+2010-06-01,07:58:47.202,1,,dispense took ,0.767
+2010-06-01,07:58:48.364,1,,tip shucking took ,1.162
+2010-06-01,07:58:49.394,,,changing tips 2   took ,7.322
+2010-06-01,07:58:49.394,2,,move source stage took ,0
+2010-06-01,07:58:50.117,2,,aspirate took ,0.723
+2010-06-01,07:58:50.886,2,,dispense took ,0.769
+2010-06-01,07:58:52.050,2,,tip shucking took ,1.164
+2010-06-01,07:58:53.080,,,changing tips 1   took ,4.716
+2010-06-01,07:58:53.080,1,,move source stage took ,0
+2010-06-01,07:58:53.713,1,,aspirate took ,0.633
+2010-06-01,07:58:54.480,1,,dispense took ,0.767
+2010-06-01,07:58:55.642,1,,tip shucking took ,1.162
+2010-06-01,07:58:56.776,,,changing tips 2   took ,4.726
+2010-06-01,07:58:56.776,2,,move source stage took ,0
+2010-06-01,07:58:57.485,2,,aspirate took ,0.709
+2010-06-01,07:58:58.254,2,,dispense took ,0.769
+2010-06-01,07:58:59.418,2,,tip shucking took ,1.164
+2010-06-01,07:59:00.476,,,changing tips 1   took ,4.834
+2010-06-01,07:59:00.476,1,,move source stage took ,0
+2010-06-01,07:59:01.136,1,,aspirate took ,0.66
+2010-06-01,07:59:01.903,1,,dispense took ,0.767
+2010-06-01,07:59:03.065,1,,tip shucking took ,1.162
+2010-06-01,07:59:03.065,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:59:10.065,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,07:59:10.115,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:59:15.115,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:59:18.858,,,changing tips 1   took ,3.693
+2010-06-01,07:59:18.858,1,,move source stage took ,0
+2010-06-01,07:59:19.572,1,,aspirate took ,0.714
+2010-06-01,07:59:20.348,1,,dispense took ,0.776
+2010-06-01,07:59:21.510,1,,tip shucking took ,1.162
+2010-06-01,07:59:22.581,,,changing tips 2   took ,7.416
+2010-06-01,07:59:22.581,2,,move source stage took ,0
+2010-06-01,07:59:23.295,2,,aspirate took ,0.714
+2010-06-01,07:59:24.073,2,,dispense took ,0.778
+2010-06-01,07:59:25.237,2,,tip shucking took ,1.164
+2010-06-01,07:59:26.321,,,changing tips 1   took ,4.811
+2010-06-01,07:59:26.321,1,,move source stage took ,0
+2010-06-01,07:59:26.994,1,,aspirate took ,0.673
+2010-06-01,07:59:27.770,1,,dispense took ,0.776
+2010-06-01,07:59:28.932,1,,tip shucking took ,1.162
+2010-06-01,07:59:29.950,,,changing tips 2   took ,4.713
+2010-06-01,07:59:29.950,2,,move source stage took ,0
+2010-06-01,07:59:30.674,2,,aspirate took ,0.724
+2010-06-01,07:59:31.452,2,,dispense took ,0.778
+2010-06-01,07:59:32.616,2,,tip shucking took ,1.164
+2010-06-01,07:59:32.616,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:59:39.616,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,07:59:39.666,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:59:44.666,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-06-01,07:59:48.337,,,changing tips 1   took ,3.621
+2010-06-01,07:59:48.337,1,,move source stage took ,0
+2010-06-01,07:59:49.046,1,,aspirate took ,0.709
+2010-06-01,07:59:49.822,1,,dispense took ,0.776
+2010-06-01,07:59:50.984,1,,tip shucking took ,1.162
+2010-06-01,07:59:52.009,,,changing tips 2   took ,7.293
+2010-06-01,07:59:52.009,2,,move source stage took ,0
+2010-06-01,07:59:52.717,2,,aspirate took ,0.708
+2010-06-01,07:59:53.495,2,,dispense took ,0.778
+2010-06-01,07:59:54.659,2,,tip shucking took ,1.164
+2010-06-01,07:59:55.673,,,changing tips 1   took ,4.689
+2010-06-01,07:59:55.673,1,,move source stage took ,0
+2010-06-01,07:59:56.315,1,,aspirate took ,0.642
+2010-06-01,07:59:57.091,1,,dispense took ,0.776
+2010-06-01,07:59:58.253,1,,tip shucking took ,1.162
+2010-06-01,07:59:58.253,,,moving stage 3 to robot teachpoint took ,0
+2010-06-01,07:59:58.253,,,moving stage 2 to robot teachpoint took ,0
+2010-06-01,08:00:05.253,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-06-01,08:00:05.254,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 2 took ,7.001
+2010-06-01,08:00:05.254,,,moving stage 1 to robot teachpoint took ,0
+2010-06-01,08:00:12.254,,,robot loading plate tipbox1 from BB PM 1 took ,7

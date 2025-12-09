@@ -1,0 +1,160 @@
+2012-05-09-06_37_35.262 [5692] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_37_35.297 [5692] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_37_36.478 [5692] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_37_36.524 [5692] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_37_36.536 [5692] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_37_36.847 [5692] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-09-06_37_36.861 [5692] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-09-06_37_36.871 [5692] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-09-06_37_37.411 [5692] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Connected to BeeSure 'Liquid Level Sensor'
+2012-05-09-06_37_37.418 [5692] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-09-06_37_37.429 [5692] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-09-06_37_37.439 [5692] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-09-06_37_37.449 [5692] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-09-06_37_37.535 [5692] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-09-06_37_49.685 [8452] DEBUG axis_3 - Home(wait_for_complete=true) called.
+2012-05-09-06_37_50.722 [Axis homing] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-09-06_37_51.991 [Axis homing] DEBUG axis_3 - HomingThread() finished successfully at APOS=-11 with ELPOSL=1762
+2012-05-09-06_37_52.000 [Axis homing] DEBUG axis_2 - Home(wait_for_complete=true) called.
+2012-05-09-06_37_53.031 [Axis homing] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-09-06_38_08.055 [Axis homing] DEBUG axis_2 - HomingThread() finished successfully at APOS=-5 with ELPOSL=331
+2012-05-09-06_38_08.061 [Axis homing] DEBUG axis_1 - Home(wait_for_complete=true) called.
+2012-05-09-06_38_09.092 [Axis homing] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-09-06_38_14.996 [Axis homing] DEBUG axis_1 - HomingThread() finished successfully at APOS=0 with ELPOSL=489
+2012-05-09-06_38_15.019 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-09-06_38_15.025 [Axis homing] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-06_38_15.035 [Axis homing] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= -11 iu, delta= 11 iu
+2012-05-09-06_38_15.041 [Axis homing] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-06_38_15.050 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 31ms.
+2012-05-09-06_38_15.556 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-09-06_38_15.562 [Axis homing] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-06_38_15.573 [Axis homing] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= -3 iu, delta= 3 iu
+2012-05-09-06_38_15.580 [Axis homing] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-06_38_15.590 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 34ms.
+2012-05-09-06_38_15.599 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-09-06_38_15.605 [Axis homing] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-06_38_15.616 [Axis homing] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= -5 iu, delta= 5 iu
+2012-05-09-06_38_15.622 [Axis homing] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-09-06_38_15.633 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 34ms.
+2012-05-09-06_38_15.642 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-09-06_38_15.648 [Axis homing] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-09-06_38_15.661 [Axis homing] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-09-06_38_15.675 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 33ms.
+2012-05-09-06_38_15.689 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -11, TPOS = 0, Err = -11, ERR = -0.002 mm, IQ = 0.962 A
+2012-05-09-06_38_15.696 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-09-06_38_15.701 [Axis homing] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-09-06_38_15.712 [Axis homing] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-09-06_38_15.721 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 25ms.
+2012-05-09-06_38_15.732 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -2, TPOS = 0, Err = -2, ERR = -0.005 mm, IQ = 0.563 A
+2012-05-09-06_38_15.736 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-09-06_38_15.738 [Axis homing] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-09-06_38_15.759 [Axis homing] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-09-06_38_15.768 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 32ms.
+2012-05-09-06_38_15.778 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -5, TPOS = 0, Err = -5, ERR = -0.002 mm, IQ = 0.763 A

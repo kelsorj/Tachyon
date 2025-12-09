@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!-- lower nav bar -->
+		<table width="480" height="272">
+			<tr>
+				<td>Byte 0:</td>
+				<td>
+					<applet code="NumericField.class" width="40" height="20" name="byte0">
+					<param name="href" value="Amulet:UART.byte(0).value()" />
+					<param name="min" value="0" />
+					<param name="max" value="255" />
+					<param name="minFld" value="0" />
+					<param name="maxFld" value="255" />
+					<param name="printf" value="%5i" />
+					<param name="updateRate" value="0.1" />
+					<param name="waitForInit" value="true" />
+					</applet>
+				</td>
+			</tr>
+			<tr>
+				<td>Word 0:</td>
+				<td>
+					<applet code="NumericField.class" width="40" height="20" name="word0">
+					<param name="href" value="Amulet:UART.word(0).value()" />
+					<param name="min" value="0" />
+					<param name="max" value="65535" />
+					<param name="minFld" value="0" />
+					<param name="maxFld" value="65535" />
+					<param name="printf" value="%6i" />
+					<param name="updateRate" value="0.1" />
+					<param name="waitForInit" value="true" />
+					</applet>					
+				</td>
+			</tr>
+			<tr>
+				<td>String 0:</td>
+				<td>
+					<applet code="StringField.class" width="200" height="15" name="string0">
+					<param name="href" value="Amulet:UART.string(0).value()" />
+					<param name="printf" value="%25s" />
+					<param name="updateRate" value="0.1" />
+					<param name="waitForInit" value="true" />
+					</applet>					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<applet code="CustomButton.class" width="80" height="80">
+					<param name="buttonType" value="spring-loaded" />
+					<param name="downImage" value="images/edit_button.png" />
+					<param name="upImage" value="images/edit_button_pressed.png" />
+					<param name="href" value="AmuletRequestDataFromPC.html" />
+					<param name="repeatDelay" value="1" />
+					<param name="repeatRate" value="0" />
+					<param name="initHref" value="Amulet:UART.label(0).value()" />
+					<param name="label" value="FromInitHref" />
+					</applet>
+				</td>
+			</tr>
+			<tr><td>
+				<a href="CompileMe.html">Return to Main Menu</a>
+			</td></tr>
+		</table>
+	</body>
+</html>
+

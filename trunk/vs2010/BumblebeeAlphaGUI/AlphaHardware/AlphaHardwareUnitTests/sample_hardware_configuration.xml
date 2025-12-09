@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<HardwareConfiguration>
+  <channels>
+    <!-- channels get numbered 1-n automatically, in order of parsing -->
+    <channel>
+      <x>11</x>
+      <z>13</z>
+      <w>14</w>
+    </channel>
+  </channels>
+  <stages>
+    <!-- stages get numbered from 1-n automatically, in order of parsing -->
+    <stage>
+      <y>12</y>
+      <r>15</r>
+    </stage>
+  </stages>
+</HardwareConfiguration>

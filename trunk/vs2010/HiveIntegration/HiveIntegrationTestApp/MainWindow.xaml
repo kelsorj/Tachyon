@@ -1,0 +1,61 @@
+﻿<Window x:Class="HiveIntegrationTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hive Integration Test Application" Height="463" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!-- client (i.e. RPC proxy) -->
+        <StackPanel Grid.Column="0">
+            <Border HorizontalAlignment="Stretch" CornerRadius="5" Background="DarkOrange" Height="28" Margin="3,0,3,3">
+                <TextBlock Text="Client (RPC Proxy)" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+            </Border>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" VerticalAlignment="Center">Server address:</TextBlock>
+                <TextBox Text="{Binding ServerAddress}" Margin="3" VerticalAlignment="Center" Width="150"></TextBox>
+            </StackPanel>
+            <Button Margin="3" Command="{Binding InitializeCommand}">Initialize</Button>
+            <Button Margin="3" Command="{Binding CloseCommand}">Close</Button>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" VerticalAlignment="Center">Barcode:</TextBlock>
+                <TextBox Text="{Binding Barcode}" Margin="3" VerticalAlignment="Center" Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" VerticalAlignment="Center">Labware name:</TextBlock>
+                <TextBox Text="{Binding LabwareName}" Margin="3" VerticalAlignment="Center" Width="100"></TextBox>
+            </StackPanel>
+            <Button Margin="3" Command="{Binding UnloadPlateCommand}">Unload Plate</Button>
+            <Button Margin="3" Command="{Binding LoadPlateCommand}">Load Plate</Button>
+            <Button Margin="3" Command="{Binding HasBarcodeCommand}">Has Barcode?</Button>
+            <Button Margin="3" Command="{Binding GetInventoryCommand}">Get Inventory</Button>
+            <Button Margin="3" Command="{Binding ScanInventoryCommand}">Scan Inventory</Button>
+            <Button Margin="3" Command="{Binding GetLastErrorCommand}">Get Last Error</Button>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" VerticalAlignment="Center">Group name:</TextBlock>
+                <TextBox Text="{Binding GroupName}" Margin="3" VerticalAlignment="Center" Width="100"></TextBox>
+            </StackPanel>
+            <Button Margin="3" Command="{Binding MovePlateCommand}">Move Plate</Button>
+            <Button Margin="3" Command="{Binding GetStatusCommand}">Get Status</Button>
+            <Button Margin="3" Command="{Binding PresentStageCommand}">Present Stage</Button>
+        </StackPanel>
+        <!-- server (i.e. hive hardware end / Synapsis) -->
+        <StackPanel Grid.Column="1">
+            <Border HorizontalAlignment="Stretch" CornerRadius="5" Background="DarkOrange" Height="28" Margin="3,0,3,3">
+                <TextBlock Text="Server (Synapsis)" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+            </Border>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3">Listen on port:</TextBlock>
+                <TextBox Margin="3" Width="100" Text="{Binding ServerPort, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
+            <Button Margin="3" Command="{Binding StartServerCommand}">Start Server</Button>
+            <GroupBox Header="API Error Simulation" BorderBrush="DarkOrange">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox IsChecked="{Binding ServerApiError, UpdateSourceTrigger=PropertyChanged}" Margin="3" VerticalAlignment="Center">Simulate API error</CheckBox>
+                </StackPanel>
+            </GroupBox>
+            <CheckBox IsChecked="{Binding ServerHasBarcode, UpdateSourceTrigger=PropertyChanged}" Margin="3" VerticalAlignment="Center">Has barcode?</CheckBox>
+        </StackPanel>
+    </Grid>
+</Window>

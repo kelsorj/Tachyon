@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+	
+	<body>
+		<div style="position:absolute; width:480px; height:272; top:48px; left:152px; z-index:1;">
+			<img src="images/bionex_logo_translucent.png" width="480" height="272">
+		</div>
+		<div style="width:10px; height:44; position:absolute; left:5px; top:105px; z-index:1;">
+			<font size="4">0</font>
+		</div>
+		<div style="width:240px; height:44; position:absolute; left:18px; top:100px; z-index:1;">
+			<applet code="CustomSlider.class" width="240" height="40" name="byte_slider">
+			<param name="channelImage" value="images/slider_channel_240.png">
+			<param name="handleImage" value="images/slider_handle.png">
+			<param name="handleTrackingImage" value="images/slider_handle_down.png">
+			<param name="initialCondition" value="0">
+			<param name="min" value="0">
+			<param name="max" value="255">
+			<param name="href" value="Amulet:internalRAM.byte(0).setValue()">
+			<param name="hrefEvent" value="onChange">
+			<param name="transparency" value="true">
+			</applet>
+		</div>
+		<div style="width:10px; height:44; position:absolute; left:258px; top:105px; z-index:1;">
+			<font size="4">255</font>
+		</div>
+		<div style="width:240px; height:44; position:absolute; left:15px; top:150px; z-index:1;">
+			<applet code="NumericField.class" width="240" height="40" name="text_byte_slider">
+			<param name="border" value="1">
+			<param name="fontSize" value="4">
+			<param name="href" value="Amulet:document.byte_slider.value()">
+			<param name="updateRate" value="0.1">
+			<param name="printf" value="%3i">
+			<param name="min" value="0">
+			<param name="max" value="255">
+			<param name="minFld" value="0">
+			<param name="maxFld" value="255">
+			</applet>
+		</div>
+	</body>
+</html>
+

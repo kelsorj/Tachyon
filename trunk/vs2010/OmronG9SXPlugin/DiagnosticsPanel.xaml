@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="BioNex.OmronG9SXPlugin.DiagnosticsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    MinHeight="145" MinWidth="171">
+    
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Name="DropShadowButton">
+            <Setter Property="Button.Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="Black" />                    
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Key="StartButtonAnimation" Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation From="0" To="0.7" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True" />
+        </Storyboard>
+        <Storyboard x:Key="StopButtonAnimation" Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation To="0" Duration="0:0:0" />
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <GroupBox>
+        <GroupBox.Header>
+            <TextBlock>Door Interlock Status</TextBlock>
+        </GroupBox.Header>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <utils:StatusIndicator Grid.Row="1" Height="50" OutlineColor="Gray" FillColor="{Binding InterlockColor}" IndicatorText="Interlock" OutlineRadius="8" Margin="5" IndicatorTextColor="GoldenRod" IndicatorTextFontSize="24" OutlineBorderThickness="3" />
+            <utils:StatusIndicator Grid.Row="2" Height="50" OutlineColor="Gray" FillColor="{Binding InterlockResetReadyColor}" IndicatorText="Reset Ready" OutlineRadius="8" Margin="5" IndicatorTextColor="GoldenRod" IndicatorTextFontSize="24" OutlineBorderThickness="3" />
+            <Button Grid.Row="3" Margin="6" Command="{Binding ResetInterlocksCommand}" Height="60" FontWeight="DemiBold" FontSize="16" Content="Reset Interlocks" />
+            <Rectangle Grid.Row="3" Margin="6" Fill="DarkRed" RadiusX="5" RadiusY="5" IsHitTestVisible="False" Opacity="0">
+                <Rectangle.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding EnableResetAnimation}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource StartButtonAnimation}" />
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding EnableResetAnimation}" Value="False">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource StopButtonAnimation}" />
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
+    </GroupBox>
+</UserControl>

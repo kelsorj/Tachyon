@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanttChart", "GanttChart.csproj", "{83640F05-7DE3-41A6-8A35-F43910E7A278}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanttChartTestApp", "GanttChartTestApp\GanttChartTestApp.csproj", "{E90B2438-E097-4DB1-844B-D996E4B3313C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunLogAnalyzer", "RunLogAnalyzer\RunLogAnalyzer.csproj", "{E3F35505-A54F-46DC-8DDB-6057057B011E}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = HivePrototypePlugin.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83640F05-7DE3-41A6-8A35-F43910E7A278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83640F05-7DE3-41A6-8A35-F43910E7A278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83640F05-7DE3-41A6-8A35-F43910E7A278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83640F05-7DE3-41A6-8A35-F43910E7A278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90B2438-E097-4DB1-844B-D996E4B3313C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90B2438-E097-4DB1-844B-D996E4B3313C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90B2438-E097-4DB1-844B-D996E4B3313C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90B2438-E097-4DB1-844B-D996E4B3313C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F35505-A54F-46DC-8DDB-6057057B011E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F35505-A54F-46DC-8DDB-6057057B011E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F35505-A54F-46DC-8DDB-6057057B011E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F35505-A54F-46DC-8DDB-6057057B011E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

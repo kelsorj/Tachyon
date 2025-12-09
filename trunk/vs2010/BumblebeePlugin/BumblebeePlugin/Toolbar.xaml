@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="BioNex.BumblebeePlugin.Toolbar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils">
+
+    <UserControl.Resources>
+        <utils:StringFormatter x:Key="PositionFormatConverter" />
+        <Style x:Key="PositionReadoutStyle">
+            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.Background" Value="Black" />
+            <Setter Property="TextBlock.Foreground" Value="Green" />
+            <Setter Property="TextBlock.FontSize" Value="16" />
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
+        </Style>
+        <!-- telemetry togglebutton stuff here -->
+        <StackPanel x:Key="TelemetryOn">
+            <Image Source="Images/telemetry_on2.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Telemetry On</Label>
+            <StackPanel.ToolTip>
+                <Label>Telemetry is currently on, so positions will be updated in the GUI</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <StackPanel x:Key="TelemetryOff">
+            <Image Source="Images/telemetry_off.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Telemetry Off</Label>
+            <StackPanel.ToolTip>
+                <Label>Telemetry is currently off, so positions will not be updated in the GUI</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <Style TargetType="{x:Type ToggleButton}" x:Key="TelemetryToggleButtonStyle">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="{DynamicResource TelemetryOn}" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource TelemetryOff}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- connect togglebutton stuff here -->
+        <StackPanel x:Key="Connected">
+            <Image Source="Images/connect_me.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Connected</Label>
+            <StackPanel.ToolTip>
+                <Label>Currently connected to Hive device</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <StackPanel x:Key="Disconnected">
+            <Image Source="Images/disconnect.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Disconnected</Label>
+            <StackPanel.ToolTip>
+                <Label>Currently not connected to Bumblebee</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <Style TargetType="{x:Type ToggleButton}" x:Key="ConnectToggleButtonStyle">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="{DynamicResource Connected}" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource Disconnected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Horizontal">
+        <!-- TODO: need to figure out best way to make this togglebutton uncheck itself if we lose the connection -->
+        <ToggleButton Name="button_connect" Margin="3" Width="100" IsChecked="{Binding Connected}" Style="{StaticResource ConnectToggleButtonStyle}" Command="{Binding ConnectCommand}" CommandParameter="{Binding ElementName=button_connect, Path=IsChecked}" />
+        <Button Margin="3" Width="100" Command="{Binding ServosOnCommand}">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Images/servos_on.png" Width="48" />
+                    <Label HorizontalContentAlignment="Center">Servos On</Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button Margin="3" Width="100" Command="{Binding ServosOffCommand}">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Images/servos_off.png" Width="48" />
+                    <Label HorizontalContentAlignment="Center">Servos Off</Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button Margin="3" Width="100" Command="{Binding ResetInterlocksCommand}">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Images/eraser.png" Width="48" />
+                    <Label HorizontalContentAlignment="Center">Reset Interlocks</Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button Margin="3" Width="100" Command="{Binding StopAllCommand}">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Images/stop.png" Width="48" />
+                    <Label HorizontalContentAlignment="Center">Stop All</Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <!-- #244 hide telemetry button, but leave feature always enabled
+        <ToggleButton Name="button_telemetry" Margin="3" Width="100" Style="{StaticResource TelemetryToggleButtonStyle}" IsChecked="{Binding TelemetryEnabled}" Command="{Binding TelemetryToggleCommand}" CommandParameter="{Binding ElementName=button_telemetry, Path=IsChecked}" />
+        -->
+    </StackPanel>
+</UserControl>

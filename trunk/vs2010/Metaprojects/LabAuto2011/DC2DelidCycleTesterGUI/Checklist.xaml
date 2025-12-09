@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="BioNex.DC2DelidCycleTesterGUI.Checklist"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="Auto" Width="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition MinHeight="60" />
+            <RowDefinition MinHeight="60" />
+            <!-- select source labware -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition MinHeight="60" />
+            <RowDefinition MinHeight="60" />
+            <!-- transfer volume per well -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition MinHeight="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MinWidth="150"/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Protocol Checklist</TextBlock>
+        <!-- Step 1: Select hitpick file -->
+        <!-- CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding HitpickFileSelected}"></CheckBox -->
+        <!-- Step 2: Home -->
+        <!-- CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding AllDevicesHomed}"></CheckBox -->
+        <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">Home all devices</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+        <Button Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="3" Padding="5,0,5,0" MinHeight="50" Command="{Binding HomeAllDevicesCommand}" ToolTip="{Binding HomeAllDevicesToolTip}" ToolTipService.ShowOnDisabled="True">Home now</Button>
+        <!-- Step 3: Select lab method -->
+        <!-- CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"></CheckBox -->
+        <!-- Step 4: Select source labware -->
+        <!-- CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding SourceLabwareSelected}"></CheckBox -->
+        <!-- Step 5: Select destination labware -->
+        <!-- CheckBox Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding DestinationLabwareSelected}"></CheckBox -->
+        <!-- Step 6: Select liquid class -->
+        <!-- CheckBox Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding LiquidProfileSelected}"></CheckBox -->
+        <!-- Step 7: Reinventory tipboxes -->
+        <!-- CheckBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding TipboxesReinventoried}"></CheckBox -->
+        <!-- Step 8: Reinventory sources and dests -->
+        <!-- CheckBox Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding PlatesReinventoried}"></CheckBox -->
+        <!-- Step 9: -->
+        <!-- CheckBox Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding TransferVolumeEntered}"></CheckBox -->
+        <!-- Step 10: Enter aspirate distance from well bottom -->
+        <!-- CheckBox Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding AspirateDistanceFromWellBottomEntered}"></CheckBox -->
+        <!-- Step 11: Enter dispense distance from well bottom -->
+        <!-- CheckBox Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding DispenseDistanceFromWellBottomEntered}"></CheckBox -->
+    </Grid>
+</UserControl>

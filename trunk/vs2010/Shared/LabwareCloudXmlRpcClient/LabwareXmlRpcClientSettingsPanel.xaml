@@ -1,0 +1,26 @@
+﻿<Window x:Class="BioNex.Shared.LabwareCloudXmlRpcClient.LabwareXmlRpcClientSettingsPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+        Title="Labware-Cloud Settings" 
+        SizeToContent="WidthAndHeight" 
+        d:DesignWidth="288"
+    >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>        
+        <Label Margin="3">Cloud Url</Label>
+        <TextBox Grid.Column="1" Text="{Binding UrlLabel, Mode=OneWay}" IsReadOnly="True" Margin="3" ></TextBox>
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding SyncCommand}" Margin="3">Sync from cloud</Button>
+        <Button Grid.Row="2" Grid.Column="1" Command="{Binding PublishCommand}" Margin="3">Publish to cloud</Button>
+    </Grid>
+</Window>

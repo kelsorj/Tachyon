@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="BioNex.Plugins.HiGTestGui.Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             mc:Ignorable="d" 
+             d:DesignHeight="368" d:DesignWidth="381">
+    
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <utils:RadioButtonBooleanConverter x:Key="RadioButtonConverter" />
+    </UserControl.Resources>
+    
+    <StackPanel Orientation="Vertical">
+        <Button Command="{Binding ExecuteHomeAllCommand}" ToolTip="{Binding HomeAllToolTip}" ToolTipService.ShowOnDisabled="True" >Home All Devices</Button>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock>Number of cycles:</TextBlock>
+            <TextBox Text="{Binding CycleCount, UpdateSourceTrigger=PropertyChanged}" Width="54"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock>Labware:</TextBlock>
+            <ComboBox ItemsSource="{Binding AvailableLabware}" SelectedIndex="0" SelectedValue="{Binding SelectedLabware}" />
+        </StackPanel>
+        
+        <GroupBox Header="Spin Settings">
+            <StackPanel Orientation="Vertical">
+                <!-- acceleration -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="3" Text="Acceleration:" />
+                    <TextBlock Margin="3" Text="{Binding ElementName=AccelSlider, Path=Value}" />
+                    <TextBlock VerticalAlignment="Center" Text="%" />
+                </StackPanel>
+                <Slider Minimum="1" Maximum="100" Value="{Binding Accel}" Margin="3" Name="AccelSlider" />
+                <!-- deceleration -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="3" Text="Deceleration:" />
+                    <TextBlock Margin="3" Text="{Binding ElementName=DecelSlider, Path=Value}" />
+                    <TextBlock VerticalAlignment="Center" Text="%" />
+                </StackPanel>
+                <Slider Minimum="1" Maximum="100" Value="{Binding Decel}" Margin="3" Name="DecelSlider" />
+                <!-- max RPM -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="3" Text="Maximum G:" />
+                    <TextBlock Margin="3" Text="{Binding ElementName=MaxGSlider, Path=Value}" />
+                </StackPanel>
+                <Slider Minimum="100" Maximum="6982" Value="{Binding DesiredG}" Margin="3" Name="MaxGSlider" Ticks="100,500,1000,2000,2900,3000,3200,4000,5000" IsSnapToTickEnabled="True"/>
+                <!-- spin time -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="3" Text="Spin time:" />
+                    <TextBlock Margin="3" Text="{Binding ElementName=SpinTimeSlider, Path=Value}" />
+                    <TextBlock VerticalAlignment="Center" Text="s" />
+                </StackPanel>
+                <Slider Minimum="1" Maximum="1800" Value="{Binding SpinTimeSeconds}" Margin="3" Name="SpinTimeSlider"  />
+            </StackPanel>
+        </GroupBox>
+        
+        <StackPanel Orientation="Vertical">
+            <RadioButton GroupName="CycleHiGWithHive" IsChecked="{Binding Path=CycleWithHive, Mode=TwoWay, Converter={StaticResource RadioButtonConverter}, ConverterParameter=true}">Cycle HiG with Hive</RadioButton>
+            <RadioButton GroupName="CycleAllHiGs" IsChecked="{Binding Path=CycleWithHive, Mode=TwoWay, Converter={StaticResource RadioButtonConverter}, ConverterParameter=false}">Cycle all available HiGs without Hive</RadioButton>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Margin="3,0,0,0">Delay between cycles:</TextBlock>
+                <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center" Width="40" Text="{Binding DelayBetweenCycles, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBlock VerticalAlignment="Center" Margin="3,0,0,0">seconds</TextBlock>
+            </StackPanel>
+            <CheckBox IsChecked="{Binding HomeAfterEachSpin}">Home after each spin</CheckBox>
+        </StackPanel>
+        
+        <GroupBox Header="Run Status">
+            <ListBox ItemsSource="{Binding RunStatus}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <ProgressBar Minimum="{Binding Value.Min}" Maximum="{Binding Value.Max}" Value="{Binding Value.Value}" />
+                            <TextBlock Text="{Binding Value.Text}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

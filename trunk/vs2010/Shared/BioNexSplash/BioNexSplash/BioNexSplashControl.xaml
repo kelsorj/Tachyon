@@ -1,0 +1,28 @@
+﻿<Window x:Class="BioNexSplash.BioNexSplashControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="237" 
+             d:DesignWidth="640" 
+             SizeToContent="WidthAndHeight" 
+             WindowStartupLocation="CenterScreen" 
+             WindowStyle="None" 
+             ShowInTaskbar="False" 
+             ResizeMode="NoResize" 
+             AllowsTransparency="True" 
+             Background="{x:Null}" 
+             Topmost="False" 
+             Closing="Window_Closing">
+
+    <Window.Resources>
+        <Storyboard x:Key="close_animation" Completed="closeStoryBoard_Completed">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5" FillBehavior="HoldEnd" />
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid>
+        <Image Source="BioNex_logo_transparent_640.png" Width="640" MouseDown="Image_MouseDown" />
+    </Grid>
+</Window>

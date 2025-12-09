@@ -1,0 +1,246 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;NoClearLCD.Page;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+	
+	<body>
+		<table width="480" height="272" background="images/dialog_background.png" style="styleTable">
+			<tr><td></td></tr>
+		</table>
+		<div style="position:absolute; top:0px; left:0px; width:480px; height:272px">
+			<img src="images/dialog_background.png" width="480" height="272">
+		</div>
+		<div style="position:absolute; top:13px; left:10px; width:460px; height:250px">
+			<table height="242" width="450">
+				<!-- name -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Name:</font></td>
+					<td width="320" colspan="3">
+						<applet code="StringField.class" width="320" height="25" name="name">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.string(1).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+				<!-- catalog number -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Catalog number:</font></td>
+					<td width="320" colspan="3">
+						<applet code="StringField.class" width="320" height="25" name="catalog_number">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.string(2).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+				<!-- plate format -->
+				<tr>
+					<td align="right" width="120" valign="top"><font class="plate_table">Format:</font></td>
+					<td width="60" valign="top">
+						<applet code="List.class" width="60" height="73" name="format">
+						<param name="fillColor" value="white">
+						<param name="fontSize" value="4">
+						<param name="options" value="96,384,1536">
+						<param name="initialCondition" value="96">
+						<param name="selectionColor" value="blue">
+						<param name="href" value="Amulet:NOP()">
+						</applet>
+					</td>
+					<td rowspan="5">
+						<!-- this is a table to the right of the format combobox.  it was needed -->
+						<!-- to make the layout easier for the rest of the properties -->
+						<table height="190" width="260">
+							<!-- height -->
+							<tr>
+								<td align="right" width="120"><font class="plate_table">Height [mm]:</font></td>
+								<td width="60">
+									<applet code="StringField.class" width="60" height="25" name="height">
+									<param name="fontSize" value="4">
+									<param name="printf" value="%s">
+									<param name="href" value="Amulet:InternalRAM.string(7).value()">
+									<param name="fillColor" value="white">
+									<param name="fontColor" value="black">
+									<param name="border" value="1">
+									</applet>
+								</td>
+							</tr>
+							<!-- well depth -->
+							<tr>
+								<td align="right"><font class="plate_table">Well depth [mm]:</font></td>
+								<td>
+									<applet code="StringField.class" width="60" height="25" name="well_depth">
+									<param name="fontSize" value="4">
+									<param name="printf" value="%s">
+									<param name="href" value="Amulet:InternalRAM.string(8).value()">
+									<param name="fillColor" value="white">
+									<param name="fontColor" value="black">
+									<param name="border" value="1">
+									</applet>
+								</td>
+							</tr>
+							<!-- max volume -->
+							<tr>
+								<td align="right"><font class="plate_table">Max volume [uL]:</font></td>
+								<td>
+									<applet code="StringField.class" width="60" height="25" name="max_volume">
+									<param name="fontSize" value="4">
+									<param name="printf" value="%s">
+									<param name="href" value="Amulet:InternalRAM.string(9).value()">
+									<param name="fillColor" value="white">
+									<param name="fontColor" value="black">
+									<param name="border" value="1">
+									</applet>
+								</td>
+							</tr>
+							<!-- extended rim -->
+							<tr>
+								<td align="right"><font class="plate_table">Extended rim?:</font></td>
+								<td>
+									<applet code="CheckBox.class" width="26" height="28" name="extended_rim">
+									<param name="href" value="Amulet:NOP()">
+									<param name="checkedValue" value="1">
+									<param name="unCheckedValue" value="0">
+									<param name="emptyImage" value="images/checkbox.png">
+									<param name="fullImage" value="images/checkbox_down.png">
+									<param name="trackingImage" value="images/checkbox.png">
+									</applet>
+								</td>
+							</tr>
+							<!-- apply and cancel buttons -->
+							<tr>
+								<td colspan="2" align="right">
+									<applet code="CustomButton.class" width="48" height="48">
+									<param name="href" value="index2.html">
+									<param name="downImage" value="images/navbuttons/apply_button_down.png">
+									<param name="upImage" value="images/navbuttons/apply_button.png">
+									</applet>
+
+									<applet code="CustomButton.class" width="48" height="48">
+									<param name="href" value="index2.html">
+									<param name="downImage" value="images/navbuttons/cancel_button_down.png">
+									<param name="upImage" value="images/navbuttons/cancel_button.png">
+									</applet>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- row offset -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Row offset [mm]:</font></td>
+					<td width="60">
+						<applet code="StringField.class" width="60" height="25" name="row_offset">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.String(3).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+				<!-- row spacing -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Row spacing [mm]:</font></td>
+					<td width="60">
+						<applet code="StringField.class" width="60" height="25" name="row_spacing">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.String(4).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+				<!-- col offset -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Col. offset [mm]:</font></td>
+					<td width="60">
+						<applet code="StringField.class" width="60" height="25" name="col_offset">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.String(5).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+				<!-- col spacing -->
+				<tr>
+					<td align="right" width="120"><font class="plate_table">Col. spacing [mm]:</font></td>
+					<td width="60">
+						<applet code="StringField.class" width="60" height="25" name="col_spacing">
+						<param name="fontSize" value="4">
+						<param name="printf" value="%s">
+						<param name="href" value="Amulet:InternalRAM.String(6).value()">
+						<param name="fillColor" value="white">
+						<param name="fontColor" value="black">
+						<param name="border" value="1">
+						</applet>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- this section is for the transparent buttons that are on top of each edit field -->
+		<!-- pressing them will open the appropriate keyboard overlay -->
+		<!-- name -->
+		<div style="position:absolute; top:13px; left:130px; width:320px; height:25px">
+			<applet code="CustomButton.class" width="460" height="25">
+			<param name="downImage" value="images/invisible/320x25_down.png">
+			<param name="upImage" value="images/invisible/320x25.png">
+			<param name="href" value="keyboard.html">
+			</applet>
+		</div>
+		<!-- catalog number -->
+		<div style="position:absolute; top:40px; left:130px; width:320px; height:25px">
+			<applet code="CustomButton.class" width="460" height="25">
+			<param name="downImage" value="images/invisible/320x25_down.png">
+			<param name="upImage" value="images/invisible/320x25.png">
+			<param name="href" value="index2.html">
+			</applet>
+		</div>
+		<!-- row offset -->
+		<div style="position:absolute; top:142px; left:130px; width:60px; height:25px">
+			<applet code="CustomButton.class" width="60" height="25">
+			<param name="downImage" value="images/invisible/60x25_down.png">
+			<param name="upImage" value="images/invisible/60x25.png">
+			<param name="href" value="Amulet:InternalRAM.string(2).copyToRamString(0),numkeyboard.html">
+			</applet>
+		</div>
+		<!-- row spacing -->
+		<div style="position:absolute; top:169px; left:130px; width:60px; height:25px">
+			<applet code="CustomButton.class" width="60" height="25">
+			<param name="downImage" value="images/invisible/60x25_down.png">
+			<param name="upImage" value="images/invisible/60x25.png">
+			<param name="href" value="Amulet:InternalRAM.string(2).copyToRamString(0),numkeyboard.html">
+			</applet>
+		</div>
+		<!-- col offset -->
+		<div style="position:absolute; top:196px; left:130px; width:60px; height:25px">
+			<applet code="CustomButton.class" width="60" height="25">
+			<param name="downImage" value="images/invisible/60x25_down.png">
+			<param name="upImage" value="images/invisible/60x25.png">
+			<param name="href" value="Amulet:InternalRAM.string(2).copyToRamString(0),numkeyboard.html">
+			</applet>
+		</div>
+		<!-- col spacing -->
+		<div style="position:absolute; top:223px; left:130px; width:60px; height:25px">
+			<applet code="CustomButton.class" width="60" height="25">
+			<param name="downImage" value="images/invisible/60x25_down.png">
+			<param name="upImage" value="images/invisible/60x25.png">
+			<param name="href" value="Amulet:InternalRAM.string(2).copyToRamString(0),numkeyboard.html">
+			</applet>
+		</div>
+		</body>
+</html>
+

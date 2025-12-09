@@ -1,0 +1,683 @@
+2012-05-16-07_42_41.253 [1484] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-16-07_42_41.296 [1484] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-16-07_42_43.405 [1484] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-16-07_42_43.451 [1484] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-16-07_42_43.468 [1484] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-16-07_42_43.785 [1484] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-16-07_42_43.796 [1484] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-16-07_42_43.805 [1484] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-16-07_42_43.819 [1484] DEBUG axis_4 - SetAxisTimeout(300) called.
+2012-05-16-07_42_43.857 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-16-07_42_43.861 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-16-07_42_43.864 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-16-07_42_43.867 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-16-07_42_43.870 [1484] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Could not read firmware version on axis 'W'.  Device may require a power cycle or further troubleshooting.
+2012-05-16-07_42_45.764 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Connected to BeeSure 'Liquid Level Sensor'
+2012-05-16-07_42_45.766 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-16-07_42_45.773 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-16-07_42_45.779 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-16-07_42_45.785 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-16-07_42_45.787 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-16-07_42_45.790 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-16-07_42_45.792 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-16-07_42_45.795 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-16-07_42_45.797 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - T Axis firmware version '0.0'
+2012-05-16-07_42_45.800 [1484] INFO  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Connected to device at CAN ID (0, 1)
+2012-05-16-07_42_45.870 [1484] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-16-07_44_35.645 [7940] DEBUG axis_2 - MoveAbsolute(-45.007, move_complete=true, ...) called. use_trap=true
+2012-05-16-07_44_35.648 [7940] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-16-07_44_35.653 [7940] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -147479L; CPA; MODE PP; UPD; !MC;"
+2012-05-16-07_44_36.174 [7940] DEBUG axis_2 - MoveAbsolute(-45.007, ...) in a condition where MC is not high, but TPOS == CPOS == -147479 IU, so motioncomplete_flag raised essentially
+2012-05-16-07_44_36.186 [7940] DEBUG axis_2 - MoveAbsolute(-45.007, move_complete=true, ...) Done in 541ms.
+2012-05-16-07_44_36.200 [7940] DEBUG axis_2 - MoveAbsolute(-45.007mm=-147479IU, move_complete=true, ...) FINALLY CPOS = -147479, APOS = -147489, TPOS = -147479, Err = -10, ERR = -0.003 mm, IQ = 0.953 A
+2012-05-16-07_44_36.590 [7604] DEBUG axis_2 - MoveAbsolute(-90.010, move_complete=true, ...) called. use_trap=true
+2012-05-16-07_44_36.592 [7604] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-16-07_44_36.595 [7604] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -294945L; CPA; MODE PP; UPD; !MC;"
+2012-05-16-07_44_37.128 [7604] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-16-07_44_37.140 [7604] DEBUG axis_2 - MoveAbsolute(-90.010, move_complete=true, ...) Done in 550ms.
+2012-05-16-07_44_37.154 [7604] DEBUG axis_2 - MoveAbsolute(-90.010mm=-294945IU, move_complete=true, ...) FINALLY CPOS = -294945, APOS = -294949, TPOS = -294945, Err = -4, ERR = -0.001 mm, IQ = 0.709 A
+2012-05-16-07_48_08.706 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_09.408 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_09.411 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_09.415 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_09.433 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_10.125 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_10.827 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_10.833 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_10.839 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_10.874 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_11.577 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_12.279 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_12.285 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_12.292 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_12.328 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_13.028 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_13.730 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_13.736 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_13.743 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_13.779 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_14.978 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_15.680 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_15.682 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_15.684 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_15.709 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_16.413 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_17.115 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_17.121 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_17.127 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_17.162 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_17.863 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_18.565 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_18.571 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_18.577 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_18.614 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_19.314 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_20.016 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_20.022 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_20.028 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_20.061 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_21.264 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_21.966 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_21.972 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_21.979 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_22.017 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_22.715 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_23.417 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_23.423 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_23.430 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_23.465 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_24.166 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_24.867 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_24.873 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_24.880 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_24.916 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_25.616 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_26.318 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_26.324 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_26.331 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_26.368 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_27.566 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_28.268 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_28.274 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_28.393 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_28.410 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_29.111 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_29.813 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_29.819 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_29.825 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_29.861 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_30.562 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_31.264 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_31.270 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_31.276 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_31.312 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_32.013 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_32.715 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_32.719 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_32.722 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_32.753 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_33.947 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_34.649 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_34.654 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_34.659 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_34.687 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_35.382 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_36.084 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_36.090 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_36.095 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_36.127 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_36.833 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_37.535 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_37.541 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_37.548 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_37.582 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_38.284 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_38.986 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_38.992 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_38.999 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_39.038 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_40.234 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_40.936 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_40.942 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_40.948 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_40.985 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_41.684 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_42.386 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_42.392 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_42.399 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_42.436 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_43.135 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_43.837 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_43.843 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_43.849 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_43.880 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_44.586 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_45.288 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_45.294 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_45.300 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_45.337 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_46.537 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_47.239 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_47.245 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_47.252 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_47.287 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_47.988 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_48.689 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_48.695 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_48.702 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_48.738 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_49.438 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_50.140 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_50.146 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_50.153 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_50.188 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_50.889 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_51.591 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_51.597 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_51.604 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_51.641 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_52.839 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_53.541 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_53.547 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_53.553 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_48_53.590 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_54.290 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_54.992 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_54.998 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_55.004 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_48_55.042 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_55.740 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_56.442 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_56.448 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_56.455 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_48_56.490 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_57.191 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_57.893 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_57.899 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_57.905 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_48_57.938 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_48_59.141 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_48_59.843 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_48_59.849 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_48_59.856 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_49_00.021 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_00.716 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_01.418 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_01.424 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_01.431 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_49_01.465 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_02.167 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_02.869 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_02.875 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_02.882 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_49_02.918 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_03.618 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_04.321 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_04.327 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_04.333 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_49_04.359 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_05.569 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_06.271 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_06.277 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_06.283 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_49_06.315 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_07.020 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_07.722 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_07.728 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_07.735 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_49_07.768 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_08.470 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_09.172 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_09.178 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_09.185 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_49_09.222 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_09.921 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_49_10.623 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_49_10.629 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_49_10.635 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_49_10.672 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_49_10.735 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #126. Entering operational state now.
+2012-05-16-07_49_10.744 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #124. Entering operational state now.
+2012-05-16-07_49_10.749 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #120. Entering operational state now.
+2012-05-16-07_49_10.754 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #121. Entering operational state now.
+2012-05-16-07_49_10.759 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #122. Entering operational state now.
+2012-05-16-07_49_10.765 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #123. Entering operational state now.
+2012-05-16-07_49_10.769 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #125. Entering operational state now.
+2012-05-16-07_49_10.772 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #127. Entering operational state now.
+2012-05-16-07_55_52.232 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_55_52.934 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_55_52.940 [LLS enginnering tab position update thread] DEBUG axis_1 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_55_52.947 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 1:  on axis X
+2012-05-16-07_55_52.983 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 1:  on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_55_53.683 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_55_54.385 [LLS enginnering tab position update thread] DEBUG axis_2 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_55_54.391 [LLS enginnering tab position update thread] DEBUG axis_2 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_55_54.397 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 2:  on axis Y
+2012-05-16-07_55_54.433 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Y'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 2:  on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_55_55.133 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_55_55.835 [LLS enginnering tab position update thread] DEBUG axis_3 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_55_55.841 [LLS enginnering tab position update thread] DEBUG axis_3 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_55_55.847 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 3:  on axis Z
+2012-05-16-07_55_55.882 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'Z'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 3:  on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_55_56.584 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-07_55_57.286 [LLS enginnering tab position update thread] DEBUG axis_4 - TS_GetLongVariable() failed to read APOS 2 time(s).
+2012-05-16-07_55_57.292 [LLS enginnering tab position update thread] DEBUG axis_4 - GetPositionCounts() TS_GetLongVariable(APOS) failed.
+2012-05-16-07_55_57.299 [LLS enginnering tab position update thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not read APOS register on axis 4:  on axis W
+2012-05-16-07_55_57.335 [LLS enginnering tab position update thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to get position for 'W'
+BioNex.Shared.TechnosoftLibrary.AxisException: Could not read APOS register on axis 4:  on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionCounts()
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.GetPositionMM()
+   at BioNex.LiquidLevelDevice.LLSensorModel.GetAxisPositionMM(Int32 index)
+2012-05-16-07_55_58.245 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #126. Entering operational state now.
+2012-05-16-07_55_58.252 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #120. Entering operational state now.
+2012-05-16-07_55_58.257 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #121. Entering operational state now.
+2012-05-16-07_55_58.263 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #122. Entering operational state now.
+2012-05-16-07_55_58.269 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #123. Entering operational state now.
+2012-05-16-07_55_58.274 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #124. Entering operational state now.
+2012-05-16-07_55_58.280 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #125. Entering operational state now.
+2012-05-16-07_55_58.286 [5352] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::NMTReceive - Received NMT Wakeup message from our device at node #127. Entering operational state now.
+2012-05-16-07_55_58.534 [LLS enginnering tab position update thread] DEBUG axis_1 - TS_GetLongVariable() failed to read APOS 1 time(s).
+2012-05-16-08_12_52.860 [7816] DEBUG LLSLocateTeachpointStateMachine - LLSLocateTeachpointStateMachine[1]: Creating
+2012-05-16-08_12_52.884 [7816] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Creating
+2012-05-16-08_12_52.901 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Starting
+2012-05-16-08_12_52.904 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0016104
+2012-05-16-08_12_52.992 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.0892490
+2012-05-16-08_12_52.998 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis X
+2012-05-16-08_12_53.028 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.212174878228441 Y:-26.8575071964197 Z:0.0456606990596669 R-179.9676.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-16-08_12_53.031 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:00.1281587
+2012-05-16-08_12_53.036 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-16-08_12_53.036 [7368] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-16-08_12_53.036 [952] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-16-08_12_53.037 [7200] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-16-08_12_53.037 [7140] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-16-08_12_53.037 [6800] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-16-08_12_53.037 [4728] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-16-08_12_53.036 [8004] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-16-08_12_53.058 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis X
+2012-05-16-08_12_53.080 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.212174878228441 Y:-26.8575071964197 Z:80.6880493164063 R-179.9676.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-16-08_12_53.082 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:00.1795654
+2012-05-16-08_12_53.270 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Failed to detect anything before reaching the labware height of 0.00 mm - aborting operation
+2012-05-16-08_12_53.271 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:00.3688193
+2012-05-16-08_12_53.278 [4728] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-16-08_12_53.280 [6800] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-16-08_12_53.281 [7368] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-16-08_12_53.280 [7200] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-16-08_12_53.281 [952] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-16-08_12_53.281 [7140] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-16-08_12_53.282 [8004] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-16-08_12_53.279 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-16-08_12_53.324 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:00.4218173
+2012-05-16-08_12_53.329 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis Z
+2012-05-16-08_12_53.343 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0 R0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-16-08_12_53.345 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-16-08_12_53.346 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:00.4435254
+2012-05-16-08_12_53.348 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Ending normally, elapsed = 0:00:00:00.4453066
+2012-05-16-08_12_53.350 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - Collision Avoider: Failed to detect anything before reaching the labware height of 0.00 mm - aborting operation
+2012-05-16-08_12_58.790 [1484] INFO  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevoce: Disconnected from device at CAN ID (0, 1)
+2012-05-16-08_13_00.551 [1484] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-16-08_13_00.569 [1484] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-16-08_13_00.579 [1484] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-16-08_13_00.588 [1484] DEBUG axis_4 - SetAxisTimeout(300) called.
+2012-05-16-08_13_00.598 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-16-08_13_00.601 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-16-08_13_00.603 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-16-08_13_00.605 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-16-08_13_00.607 [1484] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Could not read firmware version on axis 'W'.  Device may require a power cycle or further troubleshooting.
+2012-05-16-08_13_01.121 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Connected to BeeSure 'Liquid Level Sensor'
+2012-05-16-08_13_01.127 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-16-08_13_01.137 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-16-08_13_01.147 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-16-08_13_01.157 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-16-08_13_01.163 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-16-08_13_01.169 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-16-08_13_01.175 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-16-08_13_01.181 [1484] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-16-08_13_01.187 [1484] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - T Axis firmware version '0.0'
+2012-05-16-08_13_01.193 [1484] INFO  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Connected to device at CAN ID (0, 1)
+2012-05-16-08_13_03.371 [8064] DEBUG LLSLocateTeachpointStateMachine - LLSLocateTeachpointStateMachine[2]: Creating
+2012-05-16-08_13_03.373 [8064] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Creating
+2012-05-16-08_13_03.379 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Starting
+2012-05-16-08_13_03.381 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0000195
+2012-05-16-08_13_03.792 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.4111560
+2012-05-16-08_13_03.801 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis X
+2012-05-16-08_13_03.862 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.212174878228441 Y:-26.8575071964197 Z:0.0456606990596669 R-179.9676.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-16-08_13_03.868 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:00.4867780
+2012-05-16-08_13_03.875 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-16-08_13_03.876 [6800] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-16-08_13_03.881 [8004] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-16-08_13_03.876 [1184] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-16-08_13_03.881 [7368] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-16-08_13_03.876 [7200] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-16-08_13_03.875 [4728] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-16-08_13_03.892 [952] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-16-08_13_03.917 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis X
+2012-05-16-08_13_03.935 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.212174878228441 Y:-26.8575071964197 Z:80.6880493164063 R-179.9676.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-16-08_13_03.937 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:00.5558597
+2012-05-16-08_13_04.042 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Failed to detect anything before reaching the labware height of 0.00 mm - aborting operation
+2012-05-16-08_13_04.043 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:00.6625436
+2012-05-16-08_13_04.046 [7140] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-16-08_13_04.050 [7200] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-16-08_13_04.051 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-16-08_13_04.053 [1184] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-16-08_13_04.052 [7368] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-16-08_13_04.052 [6800] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-16-08_13_04.053 [952] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-16-08_13_04.053 [4728] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-16-08_13_04.061 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:00.6796447
+2012-05-16-08_13_04.064 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis Z
+2012-05-16-08_13_04.077 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0 R0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-16-08_13_04.078 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-16-08_13_04.080 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:00.6989772
+2012-05-16-08_13_04.081 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Ending normally, elapsed = 0:00:00:00.7001049
+2012-05-16-08_13_04.082 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR BioNex.LiquidLevelDevice.LLSensorModel - Collision Avoider: Failed to detect anything before reaching the labware height of 0.00 mm - aborting operation

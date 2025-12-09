@@ -1,0 +1,35 @@
+2012-05-14-13_11_11.645 [840] DEBUG axis_4 - "CACC = 0.88889; CSPD = 111.11111; CPOS = -55L; CPA; MODE PP; UPD; !MC;"
+2012-05-14-13_11_11.677 [840] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-14-13_11_11.685 [840] DEBUG axis_4 - MoveAbsolute(-0.100, move_complete=true, ...) Done in 49ms.
+2012-05-14-13_11_11.694 [840] DEBUG axis_4 - MoveAbsolute(-0.100mm=-55IU, move_complete=true, ...) FINALLY CPOS = -55, APOS = -65, TPOS = -55, Err = -10, ERR = -0.017 mm, IQ = -0.166 A
+2012-05-14-13_11_19.509 [2748] DEBUG axis_4 - MoveAbsolute(-45.085, move_complete=true, ...) called. use_trap=true
+2012-05-14-13_11_19.515 [2748] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-14-13_11_19.522 [2748] DEBUG axis_4 - "CACC = 0.88889; CSPD = 111.11111; CPOS = -25047L; CPA; MODE PP; UPD; !MC;"
+2012-05-14-13_11_19.881 [2748] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-14-13_11_19.892 [2748] DEBUG axis_4 - MoveAbsolute(-45.085, move_complete=true, ...) Done in 383ms.
+2012-05-14-13_11_19.905 [2748] DEBUG axis_4 - MoveAbsolute(-45.085mm=-25047IU, move_complete=true, ...) FINALLY CPOS = -25047, APOS = -25046, TPOS = -25047, Err = 1, ERR = 0.002 mm, IQ = -0.083 A
+2012-05-14-13_11_20.229 [9080] DEBUG axis_4 - MoveAbsolute(-90.085, move_complete=true, ...) called. use_trap=true
+2012-05-14-13_11_20.235 [9080] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-14-13_11_20.242 [9080] DEBUG axis_4 - "CACC = 0.88889; CSPD = 111.11111; CPOS = -50047L; CPA; MODE PP; UPD; !MC;"
+2012-05-14-13_11_20.616 [9080] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-14-13_11_20.628 [9080] DEBUG axis_4 - MoveAbsolute(-90.085, move_complete=true, ...) Done in 399ms.
+2012-05-14-13_11_20.641 [9080] DEBUG axis_4 - MoveAbsolute(-90.085mm=-50047IU, move_complete=true, ...) FINALLY CPOS = -50047, APOS = -50047, TPOS = -50047, Err = 0, ERR = 0.000 mm, IQ = -0.152 A
+2012-05-14-13_11_20.801 [8744] DEBUG axis_4 - MoveAbsolute(-135.085, move_complete=true, ...) called. use_trap=true
+2012-05-14-13_11_20.807 [8744] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-14-13_11_20.814 [8744] DEBUG axis_4 - "CACC = 0.88889; CSPD = 111.11111; CPOS = -75047L; CPA; MODE PP; UPD; !MC;"
+2012-05-14-13_11_21.180 [8744] DEBUG axis_4 - motioncomplete_flag raised.
+2012-05-14-13_11_21.192 [8744] DEBUG axis_4 - MoveAbsolute(-135.085, move_complete=true, ...) Done in 391ms.
+2012-05-14-13_11_21.205 [8744] DEBUG axis_4 - MoveAbsolute(-135.085mm=-75047IU, move_complete=true, ...) FINALLY CPOS = -75047, APOS = -75039, TPOS = -75047, Err = 8, ERR = 0.014 mm, IQ = -0.056 A
+2012-05-14-13_11_21.473 [10632] DEBUG axis_4 - MoveAbsolute(-180.085, move_complete=true, ...) called. use_trap=true
+2012-05-14-13_11_21.476 [10632] DEBUG axis_4 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 4
+2012-05-14-13_11_21.481 [10632] DEBUG axis_4 - "CACC = 0.88889; CSPD = 111.11111; CPOS = -100047L; CPA; MODE PP; UPD; !MC;"
+2012-05-14-13_11_21.836 [10632] DEBUG axis_4 - MoveAbsolute(-180.085, ...) in a condition where MC is not high, but TPOS == CPOS == -100047 IU, so motioncomplete_flag raised essentially
+2012-05-14-13_11_21.848 [10632] DEBUG axis_4 - MoveAbsolute(-180.085, move_complete=true, ...) Done in 375ms.
+2012-05-14-13_11_21.865 [10632] DEBUG axis_4 - MoveAbsolute(-180.085mm=-100047IU, move_complete=true, ...) FINALLY CPOS = -100047, APOS = -99991, TPOS = -100047, Err = 56, ERR = 0.101 mm, IQ = -0.502 A
+2012-05-14-13_11_22.227 [8924] DEBUG axis_4 - MoveAbsolute(-224.987, move_complete=true, ...) called. use_trap=true
+2012-05-14-13_11_22.233 [8924] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -224.987 because it is past the minimum travel limit of -185.000 on axis W
+2012-05-14-13_11_22.242 [8924] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving W : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -224.987 because it is past the minimum travel limit of -185.000 on axis W
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()

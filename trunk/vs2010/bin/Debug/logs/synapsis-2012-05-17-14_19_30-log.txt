@@ -1,0 +1,185 @@
+2012-05-17-14_19_30.571 [7324] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-17-14_19_30.614 [7324] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-17-14_19_32.782 [7324] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-17-14_19_32.829 [7324] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-17-14_19_32.846 [7324] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-17-14_19_32.947 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to open CAN connection to motors.
+BioNex.Shared.TechnosoftLibrary.TechnosoftException: Failed to open connection to device on channel 0
+   at BioNex.Shared.TechnosoftLibrary.TechnosoftConnection..ctor(String channel_name, Byte can_mfg_id, UInt32 baudrate)
+   at BioNex.LiquidLevelDevice.LLSensorModel.ReloadMotorSettings(Boolean simulate)
+2012-05-17-14_19_33.160 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 120.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_33.300 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 121.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_33.543 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 122.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_33.797 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 123.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_34.047 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 124.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_34.304 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 125.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_34.519 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 126.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_34.697 [7324] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 127.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-17-14_19_34.702 [7324] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Not all motors are responding
+2012-05-17-14_19_34.706 [7324] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Some sensors are not connected
+2012-05-17-14_19_34.809 [7324] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-17-15_25_05.538 [7324] INFO  BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - System is running on battery backup
+2012-05-17-16_47_14.512 [7324] INFO  BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - System is on AC power

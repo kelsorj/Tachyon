@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <Product Id="258415c9-ddef-4d84-b4fc-271a8c99e889" Name="BioNex BeeSure Integration Files" Language="1033" Version="1.0.0.0" Manufacturer="BioNex" UpgradeCode="987931be-9313-4958-8a29-d7a00207243d">
+    <!-- DKM 2012-03-05 updated from 200 to 300 so I could include the VC++ 2010 redistributable merge module -->
+		<Package InstallerVersion="300" Compressed="yes" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- automatically install VC++ 2010 redist: http://wix.sourceforge.net/manual-wix3/install_vcredist.htm -->
+      <Merge Id="VCRedist" SourceFile="$(var.ProjectDir)\MergeModules\Microsoft_VC100_CRT_x86.msm" DiskId="1" Language="0"/>
+      <!-- this directory is defined for the application shortcut on the desktop -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="BioNex">
+          <Directory Id="INSTALLLOCATION" Name="BeeSure">
+            <!-- nothing goes here since the necessary files are extracted from the assembly -->
+          </Directory>
+        </Directory>
+			</Directory>
+		</Directory>
+
+    <ComponentGroup Id="ProductComponents">
+      <ComponentRef Id="BeeSureTestApp.exe" />
+      <ComponentRef Id="BioNexGuiControls.dll" />
+      <ComponentRef Id="CanDongleWrapper.dll" />
+      <ComponentRef Id="DeviceInterface.dll" />
+      <ComponentRef Id="Galasoft.MvvmLight.WPF4.dll" />
+      <ComponentRef Id="HeavyUtils.dll" />
+      <ComponentRef Id="IError.dll" />
+      <ComponentRef Id="labware.s3db" />
+      <ComponentRef Id="LabwareDatabase.dll" />
+      <ComponentRef Id="LibraryInterfaces.dll" />
+      <ComponentRef Id="LiquidLevelDevice.dll" />
+      <ComponentRef Id="Location.dll" />
+      <ComponentRef Id="log4net.dll" />
+      <ComponentRef Id="log4net_LICENSE.txt"/>
+      <ComponentRef Id="log4net_NOTICE.txt"/>
+      <!-- TODO: fix pre-build event in BeeSureTestApp for logging.xml -->
+      <!-- ComponentRef Id="logging.xml" /-->
+      <ComponentRef Id="PlateDefs.dll" />
+      <ComponentRef Id="PlateWork.dll" />
+      <ComponentRef Id="System.Data.SQLite.dll" />
+      <ComponentRef Id="Stateless.dll" />
+      <ComponentRef Id="TaskListXMLParser.dll" />
+      <ComponentRef Id="TechnosoftLibrary" />
+      <ComponentRef Id="TML_lib" />
+      <ComponentRef Id="tmlcomm" />
+      <ComponentRef Id="UcanDotNET.dll" />
+      <ComponentRef Id="Utils.dll" />
+      <ComponentRef Id="chm" />
+      <ComponentRef Id="SysTecDriver"/>
+    </ComponentGroup>
+
+    <!-- add all of the file references - exe, dlls, etc. -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="BeeSureTestApp.exe" Guid="509FBDFE-EBAD-4085-84B9-CC4BEA89783B">
+        <!-- main exe -->
+        <File Id="BeeSureTestApp" Source="..\BeeSureTestApp\bin\debug\BeeSureTestApp.exe" KeyPath="yes">
+          <Shortcut Id="DesktopExeLink" Directory="DesktopFolder" Name="BeeSure Test Container" WorkingDirectory="INSTALLLOCATION" Icon="BeeSureTestApp.exe" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <Component Id="BioNexGuiControls.dll">
+        <File Id="BioNexGuiControls.dll" Source="..\BeeSureTestApp\bin\debug\BioNexGuiControls.dll" />
+      </Component>
+      <Component Id="CanDongleWrapper.dll">
+        <File Id="CanDongleWrapper.dll" Source="..\BeeSureTestApp\bin\debug\CanDongleWrapper.dll" />
+      </Component>
+      <Component Id="DeviceInterface.dll">
+        <File Id="DeviceInterface.dll" Source="..\BeeSureTestApp\bin\debug\DeviceInterface.dll" />
+      </Component>
+      <Component Id="Galasoft.MvvmLight.WPF4.dll">
+        <File Id="Galasoft.MvvmLight.WPF4.dll" Source="..\BeeSureTestApp\bin\debug\Galasoft.MvvmLight.WPF4.dll" />
+      </Component>
+      <Component Id="HeavyUtils.dll">
+        <File Id="HeavyUtils.dll" Source="..\BeeSureTestApp\bin\debug\HeavyUtils.dll" />
+      </Component>
+      <Component Id="IError.dll">
+        <File Id="IError.dll" Source="..\BeeSureTestApp\bin\debug\IError.dll" />
+      </Component>
+      <Component Id="labware.s3db">
+        <File Id="labware.s3db" Source="..\BeeSureTestApp\bin\debug\labware.s3db" />
+      </Component>
+      <Component Id="LabwareDatabase.dll">
+        <File Id="LabwareDatabase.dll" Source="..\BeeSureTestApp\bin\debug\LabwareDatabase.dll" />
+      </Component>
+      <Component Id="LibraryInterfaces.dll">
+        <File Id="LibraryInterfaces.dll" Source="..\BeeSureTestApp\bin\debug\LibraryInterfaces.dll" />
+      </Component>
+      <Component Id="LiquidLevelDevice.dll">
+        <File Id="LiquidLevelDevice.dll" Source="..\BeeSureTestApp\bin\debug\LiquidLevelDevice.dll" />
+      </Component>
+      <Component Id="Location.dll">
+        <File Id="Location.dll" Source="..\BeeSureTestApp\bin\debug\Location.dll" />
+      </Component>
+      <Component Id="log4net.dll">
+        <File Id="log4net.dll" Source="..\BeeSureTestApp\bin\debug\log4net.dll" />
+      </Component>
+      <Component Id="log4net_LICENSE.txt">
+        <File Id="log4net_LICENSE.txt" Source="..\BeeSureTestApp\bin\debug\log4net_LICENSE.txt" />
+      </Component>
+      <Component Id="log4net_NOTICE.txt">
+        <File Id="log4net_NOTICE.txt" Source="..\BeeSureTestApp\bin\debug\log4net_NOTICE.txt" />
+      </Component>
+      <!-- TODO: fix pre-build event in BeeSureTestApp for logging.xml -->
+      <!--
+      <Component Id="logging.xml">
+        <File Id="logging.xml" Source="..\BeeSureTestApp\bin\debug\logging.xml" />
+      </Component>
+      -->
+      <Component Id="PlateDefs.dll">
+        <File Id="PlateDefs.dll" Source="..\BeeSureTestApp\bin\debug\PlateDefs.dll" />
+      </Component>
+      <Component Id="PlateWork.dll">
+        <File Id="PlateWork.dll" Source="..\BeeSureTestApp\bin\debug\PlateWork.dll" />
+      </Component>
+      <Component Id="System.Data.SQLite.dll">
+        <File Id="System.Data.SQLite.dll" Source="..\BeeSureTestApp\bin\debug\System.Data.SQLite.dll" />
+      </Component>
+      <Component Id="Stateless.dll">
+        <File Id="Stateless.dll" Source="..\BeeSureTestApp\bin\debug\Stateless.dll" />
+      </Component>
+      <Component Id="TaskListXMLParser.dll">
+        <File Id="TaskListXMLParser.dll" Source="..\BeeSureTestApp\bin\debug\TaskListXMLParser.dll" />
+      </Component>
+      <Component Id="TechnosoftLibrary">
+        <File Id="TechnosoftLibrary" Source="..\BeeSureTestApp\bin\debug\TechnosoftLibraryMT.dll" />
+      </Component>
+
+      <!-- if we are building an XP installer, then we want to use the single-threaded TML libraries -->
+      <?ifdef WIX_TML_SINGLETHREADED ?>
+      <Component Id="TML_lib">
+        <File Id="TML_lib" Source="..\BeeSureTestApp\bin\debug\TML_lib.dll" />
+      </Component>
+      <Component Id="tmlcomm">
+        <File Id="tmlcomm" Source="..\BeeSureTestApp\bin\debug\tmlcomm.dll" />
+      </Component>
+      <!-- otherwise, use the multi-threaded TML libraries -->
+      <?else ?>
+      <Component Id="TML_lib">
+        <File Id="TML_lib" Source="..\BeeSureTestApp\bin\debug\TML_lib-mt.dll" />
+      </Component>
+      <Component Id="tmlcomm">
+        <File Id="tmlcomm" Source="..\BeeSureTestApp\bin\debug\tmlcomm-mt.dll" />
+      </Component>
+      <?endif ?>
+      <!-- end TML-LIB thread handling-->
+
+      <Component Id="UcanDotNET.dll">
+        <File Id="UcanDotNET.dll" Source="..\BeeSureTestApp\bin\debug\UcanDotNet.dll" />
+      </Component>
+      <Component Id="Utils.dll">
+        <File Id="Utils.dll" Source="..\BeeSureTestApp\bin\debug\Utils.dll" />
+      </Component>
+      <Component Id="chm">
+        <!-- no longer using bin folder because TeamCity locked it down -->
+        <!-- File Id="chm" Source="..\bin\html\index.chm" / -->
+        <File Id="chm" Source="c:\temp\beesure\html\index.chm" />
+      </Component>
+      <Component Id="SysTecDriver">
+        <File Id="SysTecDriver" Source="$(var.ProjectDir)\SysTec\systec_setup_4.14.exe" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="Installer" Level="1">
+      <Feature Id="Main" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="ProductComponents" />
+      </Feature>
+      <!-- automatically install VC++ 2010 redist: http://wix.sourceforge.net/manual-wix3/install_vcredist.htm -->
+      <Feature Id="VCRedist" Title="Visual C++ 10.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+        <MergeRef Id="VCRedist"/>
+      </Feature>
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+
+    <Icon Id="BeeSureTestApp.exe" SourceFile="..\BeeSureTestApp\bin\debug\BeeSureTestApp.exe" />
+    <!-- change installer images here.  Search WiX documentation for "banner" -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Bitmaps\bionexbanner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Bitmaps\beesuredialog.bmp"/>
+
+    <!-- .NET 4.0 detection / installation: search WiX documentation for ".NET" -->
+    <PropertyRef Id="NETFRAMEWORK40FULL" />
+    <Condition Message ="This application requires .NET Framework 4.0.  Please install the .NET Framework and then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <!-- this section is used for component detection... specifically the SysTec driver, which
+       is located at HKLM\SOFTWARE\SYSTEC-electronic\USB-CANmodul Control\Settings, look for "InstallPath" key -->
+    <Property Id="SYSTECINSTALLED">
+      <RegistrySearch Id="SysTecInstalledSearch" Win64="yes" Root="HKLM" Key="SOFTWARE\SYSTEC-electronic\USB-CANmodul Control\Settings" Name="InstallPath" Type="raw" />
+    </Property>
+    <!-- the following line ALWAYS makes the checkbox appear on the last dialog -->
+    <!--Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Install device drivers when the installer exits." /-->
+    <!-- the following line is intended to make the checkbox a conditional property -->
+    <!-- http://stackoverflow.com/questions/480258/how-do-i-create-a-conditional-property-in-wix-almost-like-an-if-then -->
+    <SetProperty Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Install device drivers when the installer exits." After="CostFinalize">
+      <![CDATA[NOT SYSTECINSTALLED]]>
+    </SetProperty>
+    
+    <!-- http://msdn.microsoft.com/en-us/library/aa372048.aspx -->
+    <CustomAction Id="InstallSysTecDrivers" Execute="immediate" FileKey="SysTecDriver" ExeCommand="" Return="asyncNoWait" Impersonate="yes" />
+
+    <UI>
+      <!-- http://www.codeproject.com/Articles/21472/Creating-an-installer-using-Wix-v3-0-Votive-and-Vi -->
+      <UIRef Id="WixUI_InstallDir" />
+      <!-- override the default behavior for WixUI_InstallDir and skip the EULA page -->
+      <!-- http://stackoverflow.com/questions/597025/how-to-build-a-minimal-wix-installer-ui-without-a-license-page -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <!-- for running the SysTec installer after installation is complete -->
+      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="InstallSysTecDrivers">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+      <!-- need this or you'll get error 2819 when running the installer: http://stackoverflow.com/questions/7349837/wix-installer-guidance -->
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    </UI>
+
+    <!-- http://wix.sourceforge.net/manual-wix3/run_program_after_install.htm -->
+    <!-- not necessary anymore since I'm using the checkbox to control installation of the SysTec drivers -->
+    <!-- InstallExecuteSequence>
+      <Custom Action="InstallSysTecDrivers" After="InstallFinalize" />
+    </InstallExecuteSequence -->
+	</Product>
+</Wix>

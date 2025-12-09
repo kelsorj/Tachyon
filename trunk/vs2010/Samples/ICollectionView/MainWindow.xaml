@@ -1,0 +1,22 @@
+﻿<Window x:Class="ICollectionViewSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <!-- MyClass is a concrete class that implements ToString() so that a more friendly string is in the droplist -->
+        <TextBlock>ICollectionView with List&lt;MyClass&gt;</TextBlock>
+        <!-- I am not synchronizing on purpose here, to show the effects of not using the flag-->
+        <!-- By not synchronizing, the following effects have been noted -->
+        <!-- 1. the first item in the droplist isn't automatically selected when the GUI appears -->
+        <!-- 2. CurrentChanging and CurrentChanged events are fired when the GUI first appears, but never again -->
+        <!-- 3. Changing the selected item does not result in firing of the aforementioned events -->
+        <ComboBox ItemsSource="{Binding ComboBoxView1}" IsSynchronizedWithCurrentItem="False" />
+        <!-- MyInterfaceImpl inherits from MyInterface, but additionally implements ToString() so that a more friendly string is in the droplist -->
+        <TextBlock>ICollectionView with List&lt;MyInterfaceImpl&gt;</TextBlock>
+        <!-- Here, I am using the IsSynchronizedWithCurrentItem property -->
+        <ComboBox ItemsSource="{Binding ComboBoxView2}" IsSynchronizedWithCurrentItem="True"/>
+        <!-- MyInterfaceImpl inherits from MyInterface, but additionally implements ToString() so that a more friendly string is in the droplist -->
+        <TextBlock>ICollectionView with List&lt;MyClass&gt;, gets collection changed to different object</TextBlock>
+        <ComboBox ItemsSource="{Binding ComboBoxView3}" IsSynchronizedWithCurrentItem="True"/>
+    </StackPanel>
+</Window>

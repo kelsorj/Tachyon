@@ -1,0 +1,550 @@
+<?xml version="1.0"?>
+<transfer_overview>
+  <default_liquid_class>20ul</default_liquid_class>
+  <aspirate_script />
+  <dispense_script />
+  <aspirate_distance_from_well_bottom_mm>1</aspirate_distance_from_well_bottom_mm>
+  <dispense_distance_from_well_bottom_mm>1</dispense_distance_from_well_bottom_mm>
+  <sources>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB36540016</barcode>
+    </source>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB12340008</barcode>
+    </source>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB12340030</barcode>
+    </source>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB45670053</barcode>
+    </source>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB00110011</barcode>
+    </source>
+    <source>
+      <labware_id>Thermo block</labware_id>
+      <barcode>E11AMB01770018</barcode>
+    </source>
+  </sources>
+  <destinations>
+    <destination>
+      <labware_id>Greiner 655101</labware_id>
+      <barcode>Source100</barcode>
+      <usable_wells>any</usable_wells>
+    </destination>
+    <destination>
+      <labware_id>Greiner 655101</labware_id>
+      <barcode>Source99</barcode>
+      <usable_wells>any</usable_wells>
+    </destination>
+    <destination>
+      <labware_id>Greiner 655101</labware_id>
+      <barcode>Source98</barcode>
+      <usable_wells>any</usable_wells>
+    </destination>
+  </destinations>
+
+  <transfers>
+    <!-- 1st source to 1st dest -->
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>G3</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>A4</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>G6</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB36540016</barcode>
+        <well>G9</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+
+    <!-- 2nd source to 1st dest -->
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>G3</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>A4</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>G6</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340008</barcode>
+        <well>G9</well>
+      </source>
+      <destination>
+        <barcode>Source100</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+
+    <!-- 3rd source to 2nd dest -->
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>G3</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>A4</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>G6</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB12340030</barcode>
+        <well>G9</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+
+    <!-- 4th source plate to 2nd dest plate -->
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>G3</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>A4</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>G6</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB45670053</barcode>
+        <well>G9</well>
+      </source>
+      <destination>
+        <barcode>Source99</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+
+    <!-- 5th source to 3rd dest -->
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>A5</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>D6</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>C5</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>B11</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB00110011</barcode>
+        <well>H4</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+
+    <!-- 6th source plate to 3rd dest plate -->
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>C3</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A1</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>F3</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G3</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>D7</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A4</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>B1</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G6</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>A7</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>A7</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>E11AMB01770018</barcode>
+        <well>H8</well>
+      </source>
+      <destination>
+        <barcode>Source98</barcode>
+        <well>G9</well>
+      </destination>
+      <transfer_volume units="ul">20</transfer_volume>
+      <current_volume units="ul">10</current_volume>
+    </transfer>
+  </transfers>
+
+<tasks>
+	<source_plate_tasks>
+		<prehitpick_tasks>
+			<task>
+				<device_type>Hive</device_type>
+				<command>Unload</command>
+			</task>
+		</prehitpick_tasks>
+		<posthitpick_tasks>
+			<task>
+				<device_type>Hive</device_type>
+				<command>Load</command>
+			</task>
+		</posthitpick_tasks>
+	</source_plate_tasks>
+	<destination_plate_tasks>
+		<prehitpick_tasks>
+			<task>
+				<device_type>Hive</device_type>
+				<command>Unload</command>
+			</task>
+			<task>
+				<device_type>BNX1536</device_type>
+				<command>RunProgram</command>
+				<parameters>
+					<parameter name="program_number" value="2" />
+				</parameters>
+			</task>
+			<task>
+				<device_type>HiG</device_type>
+				<command>Spin</command>
+				<parameters>
+					<parameter name="accel" value="100" />
+					<parameter name="decel" value="100" />
+					<parameter name="g" value="500" />
+					<parameter name="time_s" value="5" />
+					<parameter name="bucket_number" value="1" />
+				</parameters>
+			</task>
+		</prehitpick_tasks>
+		<posthitpick_tasks>
+			<task>
+				<device_type>Liquid Level Sensor</device_type>
+				<command>ScanPlate</command>
+			</task>
+			<task>
+				<device_type>Hive</device_type>
+				<command>Load</command>
+			</task>
+		</posthitpick_tasks>
+	</destination_plate_tasks>
+</tasks>
+</transfer_overview>

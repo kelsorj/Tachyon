@@ -1,0 +1,6 @@
+2012-05-09-06_37_00.148 [5080] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_37_00.182 [5080] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_37_01.381 [5080] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_37_01.427 [5080] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_37_01.439 [5080] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_37_01.700 [5080] DEBUG axis_1 - SetAxisTimeout(300) called.

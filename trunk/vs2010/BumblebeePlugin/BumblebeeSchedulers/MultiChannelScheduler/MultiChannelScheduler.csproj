@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1C1EF7B-18F9-4842-AA4B-BC1A51943715}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MultiChannelScheduler</RootNamespace>
+    <AssemblyName>MultiChannelScheduler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChannelService.cs" />
+    <Compile Include="MCSService.cs" />
+    <Compile Include="MultiChannelScheduler.cs" />
+    <Compile Include="PlateService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceSharedMemory.cs" />
+    <Compile Include="TipBoxService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\thirdparty\MEF2\src\ComponentModel\ComponentModel.csproj">
+      <Project>{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}</Project>
+      <Name>ComponentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BumblebeeAlphaGUI\AlphaHardware\AlphaHardware.csproj">
+      <Project>{56C2A737-97EE-4C3D-863C-28B68DE996A2}</Project>
+      <Name>AlphaHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BumblebeeAlphaGUI\BumblebeeAlpha.Configuration\BumblebeeAlpha.Configuration.csproj">
+      <Project>{79DF7A29-A2CE-4773-8087-C64ED82E8748}</Project>
+      <Name>BumblebeeAlpha.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BumblebeeAlphaGUI\BumblebeeAlpha.Teachpoints\BumblebeeAlpha.Teachpoints.csproj">
+      <Project>{F677C21C-A622-44AF-AAE0-4E7B9915F7D8}</Project>
+      <Name>BumblebeeAlpha.Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchedulerInterface\SchedulerInterface.csproj">
+      <Project>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</Project>
+      <Name>SchedulerInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

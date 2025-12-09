@@ -1,0 +1,12 @@
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\bin\Debug\BioNexSplash.dll
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\bin\Debug\BioNexSplash.pdb
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplashControl.baml
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplashControl.g.cs
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplash_MarkupCompile.cache
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplash.g.resources
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplash.Properties.Resources.resources
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\GenerateResource.read.1.tlog
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\GenerateResource.write.1.tlog
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplash.dll
+C:\code\trunk\vs2010\Shared\BioNexSplash\BioNexSplash\obj\Debug\BioNexSplash.pdb

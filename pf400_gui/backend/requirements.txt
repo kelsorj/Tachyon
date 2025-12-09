@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+# Note: rclpy is a ROS 2 package and must be installed separately via ROS 2 installation
+# It's optional - the code includes fallback mocks when rclpy is not available
+# rclpy

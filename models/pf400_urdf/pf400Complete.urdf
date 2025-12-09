@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="pf400Complete">
+  <link name="vertical">
+    <inertial>
+      <origin xyz="-0.00084752 0.00529979 0.149059" rpy="0 0 0" />
+      <mass value="43.3312" />
+      <inertia ixx="2.20745" ixy="-0.00010739" ixz="-0.000338891" iyy="2.26047" iyz="-0.0135624" izz="0.161875" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.00154647 -0.023204 -0.224839" rpy="0 -0 -1.5708" />
+      <geometry>
+        <mesh filename="meshes/vertical.stl" />
+      </geometry>
+      <material name="vertical_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00154647 -0.023204 -0.224839" rpy="0 -0 -1.5708" />
+      <geometry>
+        <mesh filename="meshes/vertical.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="shoulder">
+    <inertial>
+      <origin xyz="4.75277e-08 5 -0.0285672" rpy="0 0 0" />
+      <mass value="1.85774" />
+      <inertia ixx="0.00248498" ixy="-2.18085e-09" ixz="8.11074e-10" iyy="0.00217131" iyz="2.97916e-07" izz="0.00365476" />
+    </inertial>
+    <visual>
+      <origin xyz="0 5 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/shoulder.stl" />
+      </geometry>
+      <material name="shoulder_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/shoulder.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="bicep">
+    <inertial>
+      <origin xyz="-0.0195217 -0.110793 -0.062" rpy="0 0 0" />
+      <mass value="6.32155" />
+      <inertia ixx="0.0538484" ixy="-0.00798195" ixz="-3.40748e-16" iyy="0.00995401" iyz="-4.04981e-16" izz="0.0593739" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/bicep.stl" />
+      </geometry>
+      <material name="bicep_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/bicep.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="forearm">
+    <inertial>
+      <origin xyz="-0.0797095 0.0247323 -0.029" rpy="0 0 0" />
+      <mass value="2.83753" />
+      <inertia ixx="0.00384013" ixy="0.00464154" ixz="2.28723e-10" iyy="0.0173591" iyz="-5.30538e-10" izz="0.0204497" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/forearm.stl" />
+      </geometry>
+      <material name="forearm_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/forearm.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="palm">
+    <inertial>
+      <origin xyz="9.92915e-08 0.0322007 -0.000367834" rpy="0 0 0" />
+      <mass value="0.96955" />
+      <inertia ixx="0.000945894" ixy="-1.40512e-09" ixz="-5.79933e-10" iyy="0.00106184" iyz="1.43037e-05" izz="0.00181064" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/palm.stl" />
+      </geometry>
+      <material name="palm_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/palm.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="fingerleft">
+    <inertial>
+      <origin xyz="-0.0815485 0.00970597 -0.00302386" rpy="0 0 0" />
+      <mass value="0.0210048" />
+      <inertia ixx="2.76072e-07" ixy="8.71174e-07" ixz="-1.01575e-08" iyy="1.54587e-05" iyz="-3.88447e-09" izz="1.56759e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/fingerleft.stl" />
+      </geometry>
+      <material name="fingerleft_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/fingerleft.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="j5left" type="prismatic">
+    <origin xyz="0.065 0 0" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="fingerleft" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-1.20328e-09" upper="0.025" />
+  </joint>
+  <link name="fingerright">
+    <inertial>
+      <origin xyz="-0.0866169 -0.0147532 -0.00292275" rpy="0 0 0" />
+      <mass value="0.0221003" />
+      <inertia ixx="3.07001e-07" ixy="-9.71626e-07" ixz="3.34215e-08" iyy="1.60861e-05" iyz="1.42086e-08" izz="1.63237e-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/fingerright.stl" />
+      </geometry>
+      <material name="fingerright_material">
+        <color rgba="0.615686 0.811765 0.929412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/fingerright.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="j5right" type="prismatic">
+    <origin xyz="-0.065 0 0" rpy="0 0 0" />
+    <parent link="palm" />
+    <child link="fingerright" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-1.20328e-09" upper="0.025" />
+    <mimic joint="j5left" multiplier="-1.0" offset="0.0" />
+  </joint>
+  <joint name="j4" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="forearm" />
+    <child link="palm" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-7.55594" upper="5.01043" />
+  </joint>
+  <joint name="j3" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="bicep" />
+    <child link="forearm" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-6.28318" upper="6.28318" />
+  </joint>
+  <joint name="j2" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="shoulder" />
+    <child link="bicep" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-1.39639" upper="1.74521" />
+  </joint>
+  <joint name="j1" type="prismatic">
+    <origin xyz="0 5 0" rpy="0 0 0" />
+    <parent link="vertical" />
+    <child link="shoulder" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" velocity="10" lower="-0.108769" upper="0.441231" />
+  </joint>
+</robot>

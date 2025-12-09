@@ -1,0 +1,81 @@
+﻿<Window x:Class="SMTPReporting.SMTPDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ff="clr-namespace:SMTPReporting"
+    Height="300" Width="300" Title="Email Settings" Closed="Window_Closed">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </Window.Resources>
+
+        <GroupBox Header="Email Settings" BorderBrush="Orange">    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+ 
+            <TextBlock Grid.Row ="0">Username:</TextBlock>
+            <TextBox ToolTip="Enter the user name for the email account" Grid.Row="0" Grid.Column="1" Text="{Binding Username}"/>
+
+            <TextBlock Grid.Row ="1" >Password:</TextBlock>
+            <PasswordBox ToolTip="Enter the password for the email account" Grid.Row="1" Grid.Column="1" ff:PasswordBoxAssistant.BindPassword="true"  ff:PasswordBoxAssistant.BoundPassword="{Binding Path=EmailPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Row="2">Server:</TextBlock>
+            <TextBox ToolTip="Enter the name for the email server (e.g. mail.company.com)" Grid.Row="2" Grid.Column="1" Text="{Binding ServerName}"/>
+
+            <TextBlock Grid.Row ="3" >Port:</TextBlock>
+            <TextBox ToolTip="Enter the port your SMTP server uses" Grid.Row="3" Grid.Column="1" Text="{Binding SMTPPort}"/>
+
+            <TextBlock Grid.Row="4">From:</TextBlock>
+            <TextBox ToolTip="Enter the name for from field of the email (e.g. noreply@company.com)" Grid.Row="4" Grid.Column="1" Text="{Binding From}"/>
+            
+            <TextBlock Grid.Row="5">Recipients:</TextBlock>
+            <TextBox ToolTip="Enter a comma-delimited list of recipients (e.g. joe@company.com, jack@company.com, jill@company.com)" Grid.Row="5" Grid.Column="1" Text="{Binding RecipientList}"/>
+
+            <TextBlock Grid.Row="6" >SSL enabled:</TextBlock>
+            <CheckBox ToolTip="Check if your email server requires SSL (STARTTLS only, SMTPS is not currently supported)" Grid.Row="6" Grid.Column="1" IsChecked="{Binding SSLEnable}"/>
+
+            <TextBlock Grid.Row="7">Email enabled:</TextBlock>
+            <CheckBox ToolTip="Check to enable email notifications from Synapsis" Grid.Row="7" Grid.Column="1" IsChecked="{Binding EmailEnable}"/>
+
+            <Button Command="{Binding TestConnectionCommand}" Content="Test Connection" Grid.Row="8" Grid.Column="1" Grid.RowSpan="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3" Background="#FFFFB000" />
+        </Grid>
+</GroupBox>
+
+</Window>

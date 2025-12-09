@@ -1,0 +1,30 @@
+2012-05-09-06_26_03.031 [8564] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_26_03.088 [8564] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_26_04.559 [8564] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_26_04.612 [8564] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_26_04.624 [8564] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_26_04.909 [8564] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-09-06_26_04.918 [8564] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-09-06_26_04.926 [8564] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-09-06_26_05.642 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-06_26_06.344 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-06_26_07.046 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-06_26_07.748 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-06_26_07.757 [8564] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: The firmware programmed on axis 'X' does not match the firmware in the motor settings file.  Extracting local .t.zip files to see if it's really a firmware mismatch.
+2012-05-09-06_26_08.466 [8564] DEBUG axis_2 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-06_26_09.169 [8564] DEBUG axis_2 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-06_26_09.871 [8564] DEBUG axis_2 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-06_26_10.573 [8564] DEBUG axis_2 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-06_26_10.580 [8564] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: The firmware programmed on axis 'Y' does not match the firmware in the motor settings file.  Extracting local .t.zip files to see if it's really a firmware mismatch.
+2012-05-09-06_26_11.290 [8564] DEBUG axis_3 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-06_26_11.992 [8564] DEBUG axis_3 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-06_26_12.694 [8564] DEBUG axis_3 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-06_26_13.396 [8564] DEBUG axis_3 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-06_26_13.403 [8564] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: The firmware programmed on axis 'Z' does not match the firmware in the motor settings file.  Extracting local .t.zip files to see if it's really a firmware mismatch.
+2012-05-09-06_26_14.114 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-09-06_26_14.816 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-09-06_26_15.517 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-09-06_26_16.219 [8564] DEBUG axis_1 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-09-06_26_16.228 [8564] WARN  BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: The firmware programmed on axis 'X' does not match the firmware in the motor settings file.  Updating firmware to the firmware embedded in the assembly.
+2012-05-09-06_26_16.242 [8564] INFO  axis_1 - Reprogramming axis ID 1 motor settings and TML program with C:\Users\gillbates\AppData\Local\Temp\1.sw
+2012-05-09-06_26_16.941 [8564] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Could not reprogram sw file C:\Users\gillbates\AppData\Local\Temp\1.sw on axis 1:  on axis X

@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="BioNex.GreenMachine.TecanPumpDiagnostics"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="Centered">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!-- initialize and stop buttons -->
+        <UniformGrid Rows="1" Grid.Row="0" Grid.ColumnSpan="3">
+            <Button Command="{Binding InitializePumpCommand}">Initialize</Button>
+            <Button Command="{Binding StopPumpCommand}">Stop</Button>
+        </UniformGrid>
+        <!-- aspirate / dispense control -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Centered}">Volume (μL)</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Centered}">Speed</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Centered}">Valve</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding SelectedVolume}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedSpeed}" />
+        <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding SelectedVale}" Height="28" />
+        <!-- raw command -->
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3">Direct command:</TextBlock>
+        <TextBox Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding SelectedDirectCommand}" />
+        <UniformGrid Rows="1" Grid.Row="5" Grid.ColumnSpan="3">
+            <Button Command="{Binding SendCommand}">Send</Button>
+            <Button Command="{Binding ClearCommand}">Clear</Button>
+        </UniformGrid>
+    </Grid>
+</UserControl>

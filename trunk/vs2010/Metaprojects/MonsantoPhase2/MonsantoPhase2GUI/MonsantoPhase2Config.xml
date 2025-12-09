@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <HiveName>Monsanto_Bumblebee_1</HiveName>
+  <JemsServerUrl>192.168.2.177</JemsServerUrl>
+  <JemsServerPort>4111</JemsServerPort>
+  <JemsListenerPort>5678</JemsListenerPort>
+  <IWorksListenerPort>7890</IWorksListenerPort>
+  <VWorksServerUrl>192.168.2.177</VWorksServerUrl>
+  <LabwareCloudListenerPort>8901</LabwareCloudListenerPort>
+  <LabwareCloudHost>localhost</LabwareCloudHost>
+  <LabwareDecoderFileName>config\labware_decoder.txt</LabwareDecoderFileName>
+  <SMTPServer>mail.bionexsolutions.com</SMTPServer>
+  <SMTPUsername>donotreply@bionexsolutions.com</SMTPUsername>
+  <SMTPPassword>bionex</SMTPPassword>
+  <SMTPPort>26</SMTPPort>
+  <SMPTSSL>false</SMPTSSL>
+  <SMTPEnabled>true</SMTPEnabled>
+  <SMTPSender>donotreply@bionexsolutions.com</SMTPSender>
+  <SMTPRecipients>kelsorj@me.com,kelsorj@gmail.com</SMTPRecipients>
+  <SMTPSubjectString>This is from Synapsis</SMTPSubjectString>
+</Configuration>

@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7808A117-09FF-4AE8-8D81-1E39062A2247}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.LiquidLevelDevice</RootNamespace>
+    <AssemblyName>LiquidLevelDevice</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28doxygen%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug %28doxygen%29\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Single-threaded TML %28doxygen%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Single-threaded TML %28doxygen%29\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;TML_SINGLETHREADED</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.WPF4">
+      <HintPath>..\..\..\..\..\thirdparty\MvvmLightToolkit\bin\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\..\..\..\..\thirdparty\WinAPICodePack1.1\binaries\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\..\..\..\..\thirdparty\WinAPICodePack1.1\binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.74.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <HintPath>..\..\..\..\..\thirdparty\SQLite\precompiled_netfx40\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BeeSureIntegrationSamples.cs" />
+    <Compile Include="CaptureDataFile.cs" />
+    <Compile Include="CaptureRadiusVisualization.xaml.cs">
+      <DependentUpon>CaptureRadiusVisualization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LLSXArcCorrectionScanStateMachine.cs" />
+    <Compile Include="LLSLabwareSafetyCheckStateMachine.cs" />
+    <Compile Include="LLSXArcCorrectionAlgorithm.cs" />
+    <Compile Include="ResultsSummaryContent.xaml.cs">
+      <DependentUpon>ResultsSummaryContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResultsSummary.xaml.cs">
+      <DependentUpon>ResultsSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LLSensorProperties.cs" />
+    <Compile Include="OutputConfigPanel.xaml.cs">
+      <DependentUpon>OutputConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BeeSureIntegration.cs" />
+    <Compile Include="BeeSureLabware.cs" />
+    <Compile Include="LLSFastHiResScanStateMachine.cs" />
+    <Compile Include="LiquidLevelVolumeMapDatabase.cs" />
+    <Compile Include="LLSXYAlignmentAlgorithm.cs" />
+    <Compile Include="LLSYZAlignmentAlgorithm.cs" />
+    <Compile Include="VolumeMapWizard.xaml.cs">
+      <DependentUpon>VolumeMapWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolumeMapPanel.xaml.cs">
+      <DependentUpon>VolumeMapPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanProgressPanel.xaml.cs">
+      <DependentUpon>ScanProgressPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GraphWindow.xaml.cs">
+      <DependentUpon>GraphWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineeringPanel.xaml.cs">
+      <DependentUpon>EngineeringPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DiagnosticsPanel.xaml.cs">
+      <DependentUpon>DiagnosticsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LevelSensor.cs" />
+    <Compile Include="LevelSensorPort.cs" />
+    <Compile Include="LLSCalibrationStateMachine.cs" />
+    <Compile Include="LLSCaptureStateMachine.cs" />
+    <Compile Include="LLSensorModel.cs" />
+    <Compile Include="LLSensorPlugin.cs" />
+    <Compile Include="LLSHiResScanStateMachine.cs" />
+    <Compile Include="LLSLocateTeachpointAlgorithm.cs" />
+    <Compile Include="LLSLocateTeachpointStateMachine.cs" />
+    <Compile Include="LLSPeakDetectAlgorithm.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupAndTestingPanel.xaml.cs">
+      <DependentUpon>SetupAndTestingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatusPanel.xaml.cs">
+      <DependentUpon>StatusPanel.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TML\1.t.zip" />
+    <EmbeddedResource Include="TML\2.t.zip" />
+    <EmbeddedResource Include="TML\3.t.zip" />
+    <EmbeddedResource Include="TML\4.t.zip" />
+    <EmbeddedResource Include="TML\1.sw" />
+    <EmbeddedResource Include="TML\2.sw" />
+    <EmbeddedResource Include="TML\3.sw" />
+    <EmbeddedResource Include="TML\4.sw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\thirdparty\MEF2\src\ComponentModel\ComponentModel.csproj">
+      <Project>{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}</Project>
+      <Name>ComponentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\thirdparty\Stateless\source_and_examples\Stateless\Stateless.csproj">
+      <Project>{A15EEC02-60EC-4705-A58B-A6ECD55A9628}</Project>
+      <Name>Stateless</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DeviceManagerDatabase\DeviceManagerDatabase\DeviceManagerDatabase.csproj">
+      <Project>{B9EF0535-0EA5-410F-B90D-8B7B71861237}</Project>
+      <Name>DeviceManagerDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\BioNexGuiControls\BioNexGuiControls.csproj">
+      <Project>{10273A0D-94F9-4E65-9165-9A7A1215FE99}</Project>
+      <Name>BioNexGuiControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\CanDongleWrapper\CanDongleWrapper.csproj">
+      <Project>{2154A570-D83B-486F-8B95-F3FBEAABE971}</Project>
+      <Name>CanDongleWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\HeavyUtils\HeavyUtils\HeavyUtils.csproj">
+      <Project>{17DB2007-B1C0-442F-9229-B34204170EA4}</Project>
+      <Name>HeavyUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\Location\Location.csproj">
+      <Project>{75607E88-161B-47E3-8D85-5289E0BD6394}</Project>
+      <Name>Location</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\PlateWork\PlateWork.csproj">
+      <Project>{0E73947B-BE6E-4949-9F53-B4479DD3682C}</Project>
+      <Name>PlateWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\TaskListXMLParser\TaskListXMLParser.csproj">
+      <Project>{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}</Project>
+      <Name>TaskListXMLParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\TechnosoftLibraryMT\TechnosoftLibraryMT.csproj">
+      <Project>{EA3D0EB3-2723-4F17-BA76-7963F7506B6A}</Project>
+      <Name>TechnosoftLibraryMT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\TechnosoftLibrary\UcanDotNET\UcanDotNET.vbproj">
+      <Project>{CAEEC669-8001-4F0D-A16A-2CADDDC24E97}</Project>
+      <Name>UcanDotNET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CaptureRadiusVisualization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResultsSummaryContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResultsSummary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OutputConfigPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VolumeMapWizard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VolumeMapPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanProgressPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineeringPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DiagnosticsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GraphWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SetupAndTestingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatusPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doxyfile" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\thirdparty\Technosoft\tmlcomm-mt.dll">
+      <Link>tmlcomm-mt.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\..\..\thirdparty\Technosoft\TML_lib-mt.dll">
+      <Link>TML_lib-mt.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\thirdparty\Technosoft\tmlcomm.dll">
+      <Link>tmlcomm.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\..\..\thirdparty\Technosoft\TML_lib.dll">
+      <Link>TML_lib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Images\BioNex.ico" />
+    <Content Include="Images\BioNex_logo_transparent_151x55.jpg" />
+    <EmbeddedResource Include="TML\motor_settings.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set doxygen=no
+if "$(Configuration)"=="Debug (doxygen)" set doxygen=yes
+if "$(Configuration)"=="Debug Single-threaded TML (doxygen)" set doxygen=yes
+echo %25doxygen%25
+if %25doxygen%25==yes doxygen ..\..\doxyfile
+xcopy /i/y "$(TargetPath)" "$(ProjectDir)..\..\..\bin\$(ConfigurationName)\plugins\"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

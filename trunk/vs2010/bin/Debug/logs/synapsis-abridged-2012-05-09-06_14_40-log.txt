@@ -1,0 +1,9 @@
+2012-05-09-06_14_41.004 [8184] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_14_41.035 [8184] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_14_42.257 [8184] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_14_42.298 [8184] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_14_42.310 [8184] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_14_42.533 [8184] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to open CAN connection to motors.
+BioNex.Shared.TechnosoftLibrary.TechnosoftException: Failed to open connection to device on channel 0
+   at BioNex.Shared.TechnosoftLibrary.TechnosoftConnection..ctor(String channel_name, Byte can_mfg_id, UInt32 baudrate)
+   at BioNex.LiquidLevelDevice.LLSensorModel.ReloadMotorSettings(Boolean simulate)

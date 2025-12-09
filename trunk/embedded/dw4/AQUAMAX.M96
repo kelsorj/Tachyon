@@ -1,0 +1,955 @@
+                                                                                                                        
+
+80C196 relocater/linker v4.0 r7        SN072886-149 (C)1995 Tasking Software BV
+(C)1983,1990,1993 Intel Corporation
+INPUT FILES: np_sfrs.obj, flashdat.obj, new_prog.obj, globdata.obj, cstart.obj, main.obj, init.obj, serial.obj, 
+   timer1.obj, timer2.obj, display.obj, eeprom.obj, motor0.obj, motor1.obj, motor2.obj, pressure.obj, prgm.obj, 
+   intprogs.obj, prgm2.obj, edit.obj, keybrd.obj, flashprg.obj, comm1.obj, comm2.obj, calib.obj, c96.lib
+OUTPUT FILE: aquamax.abs
+CONTROLS SPECIFIED IN INVOCATION COMMAND: 
+   model(NP-ENF) ram(0100h-03FFh,2000h-2003h,3000h-3000h,4000h-4000h,5000h-5004h,08000h-0FFFFh(stack)) rom(0F80000h-0FBF
+    FFFh,0FC0000h-0FCFFFFh,0FD0000h-0FDEFFFh(flashdat),0FDF000h-0FDFFFFh(new_prog),0FE0000h-0FEFEFFh,0FF0000h-0FFFEFFh)
+
+INPUT MODULES INCLUDED:
+   C:\ASM\C196\lib\np_sfrs.obj(NP_SFRS)  10-Nov-95 16:46:35
+   flashdat.obj(FLASHDAT)  28-May-107 14:05:29, C196 v4.0 md(np-e) fk
+   new_prog.obj(NEW_PROG)  28-May-107 14:05:35, C196 v4.0 md(np-e) fk
+   globdata.obj(GLOBDATA)  28-May-107 14:05:29, C196 v4.0 md(np-e) fk
+   cstart.obj(STARTUP)  28-May-107 14:05:2                                      
+   main.obj(MAIN)  28-May-107 14:05:29, C196 v4.0 md(np-e) fk
+   init.obj(INIT)  28-May-107 14:05:30, C196 v4.0 md(np-e) fk
+   serial.obj(SERIAL)  28-May-107 14:05:34, C196 v4.0 md(np-e) fk
+   timer1.obj(TIMER1)  28-May-107 14:05:30, C196 v4.0 md(np-e) fk
+   timer2.obj(TIMER2)  28-May-107 14:05:31, C196 v4.0 md(np-e) fk
+   display.obj(DISPLAY)  28-May-107 14:05:31, C196 v4.0 md(np-e) fk
+   eeprom.obj(EEPROM)  28-May-107 14:05:31, C196 v4.0 md(np-e) fk
+   motor0.obj(MOTOR0)  28-May-107 14:05:31, C196 v4.0 md(np-e) fk
+   motor1.obj(MOTOR1)  28-May-107 14:05:31, C196 v4.0 md(np-e) fk
+   motor2.obj(MOTOR2)  28-May-107 14:05:32, C196 v4.0 md(np-e) fk
+   pressure.obj(PRESSURE)  28-May-107 14:05:30, C196 v4.0 md(np-e) fk
+   prgm.obj(PRGM)  28-May-107 14:05:32, C196 v4.0 md(np-e) fk
+   intprogs.obj(INTPROGS)  28-May-107 14:05:32, C196 v4.0 md(np-e) fk
+   prgm2.obj(PRGM2)  28-May-107 14:05:33, C196 v4.0 md(np-e) fk
+   edit.obj(EDIT)  28-May-107 14:05:33, C196 v4.0 md(np-e) fk
+   keybrd.obj(KEYBRD)  28-May-107 14:05:34, C196 v4.0 md(np-e) fk
+   flashprg.obj(FLASHPRG)  28-May-107 14:05:34, C196 v4.0 md(np-e) fk
+   comm1.obj(COMM1)  28-May-107 14:05:34, C196 v4.0 md(np-e) fk
+   comm2.obj(COMM2)  28-May-107 14:05:34, C196 v4.0 md(np-e) fk
+   calib.obj(CALIB)  28-May-107 14:05:30, C196 v4.0 md(np-e) fk
+   c96.lib(DISABLE)  10-Nov-95 15:35:19
+   c96.lib(DIVL)  10-Nov-95 15:35:20
+   c96.lib(ENABLE)  10-Nov-95 15:35:22
+   c96.lib(FRAM01)  10-Nov-95 15:35:23
+   c96.lib(IDLE)  10-Nov-95 15:35:24
+   c96.lib(MODL)  10-Nov-95 15:35:25
+   c96.lib(MULL)  10-Nov-95 15:35:26
+   c96.lib(TMPREG0)  10-Nov-95 15:35:30
+   c96.lib(TMPREG8)  10-Nov-95 15:35:31
+   c96.lib(_ISALPHA)  10-Nov-95 15:35:46, C196 v99.9 md(np-e) fk
+   c96.lib(_ISDIGIT)  10-Nov-95 15:35:52, C196 v99.9 md(np-e) fk
+   c96.lib(_STRCPY)  10-Nov-95 15:36:15
+   c96.lib(_ATOI)  10-Nov-95 15:36:55, C196 v99.9 md(np-e) fk
+   c96.lib(_SPRINTF)  10-Nov-95 15:37:06, C196 v99.9 md(np-e) fk
+   c96.lib(DIVUL)  10-Nov-95 15:35:21
+   c96.lib(_CTYPE_)  10-Nov-95 15:35:41, C196 v99.9 md(np-e) fk
+   c96.lib(_DOPRINT)  10-Nov-95 15:37:08, C196 v99.9 md(np-e) fk
+   c96.lib(_STRLEN)  10-Nov-95 15:36:16
+   c96.lib(_LTOA)  10-Nov-95 15:36:49, C196 v99.9 md(np-e) fk
+
+
+SEGMENT MAP FOR aquamax.abs(NP_SFRS):
+
+            TYPE          BASE    LENGTH   ALIGNMENT    MODULE NAME
+            ----          ----    ------   ---------    -----------
+
+**RESERVED*            000000H   00001AH
+            OVRLY      00001AH   000002H   WORD         EEPROM
+            REG        00001CH   000008H   ABSOLUTE     TMPREG0
+            REG        000024H   000008H   ABSOLUTE     TMPREG8
+            OVRLY      00002CH   000018H   DOUBLE WORD  _DOPRINT
+            OVRLY      000044H   000006H   WORD         MOTOR0
+            OVRLY      00004AH   000006H   WORD         MOTOR2
+            OVRLY      000050H   000006H   DOUBLE WORD  NEW_PROG
+            OVRLY      000056H   000006H   WORD         MOTOR1
+            OVRLY      00005CH   000006H   WORD         _LTOA
+            OVRLY      000062H   000004H   WORD         PRESSURE
+            OVRLY      000066H   000004H   WORD         _ATOI
+            OVRLY      00006AH   000002H   WORD         DISPLAY
+            OVRLY      00006CH   000002H   WORD         SERIAL
+            REG        00006EH   000002H   WORD         FRAM01
+            REG        000070H   000045H   DOUBLE WORD  GLOBDATA
+*** GAP ***            0000B5H   000001H
+            REG        0000B6H   000006H   WORD         MOTOR1
+            REG        0000BCH   000006H   WORD         MOTOR2
+            REG        0000C2H   000006H   WORD         MOTOR0
+*** GAP ***            0000C8H   000038H
+            DATA       000100H   000243H   WORD         GLOBDATA
+            DATA       000343H   000001H   BYTE         MOTOR0
+            DATA       000344H   000077H   WORD         PRGM
+            DATA       0003BBH   000001H   BYTE         EEPROM
+            DATA       0003BCH   00000AH   WORD         PRESSURE
+            DATA       0003C6H   000004H   WORD         _SPRINTF
+            DATA       0003CAH   000003H   BYTE         MAIN
+*** GAP ***            0003CDH   000001H
+            DATA       0003CEH   000002H   WORD         DISPLAY
+*** GAP ***            0003D0H   001C30H
+            DATA       002000H   000001H   ABSOLUTE     GLOBDATA
+            DATA       002001H   000001H   ABSOLUTE     GLOBDATA
+            DATA       002002H   000001H   ABSOLUTE     GLOBDATA
+            DATA       002003H   000001H   ABSOLUTE     GLOBDATA
+*** GAP ***            002004H   000FFCH
+            DATA       003000H   000001H   ABSOLUTE     GLOBDATA
+*** GAP ***            003001H   000FFFH
+            DATA       004000H   000001H   ABSOLUTE     GLOBDATA
+*** GAP ***            004001H   000FFFH
+            DATA       005000H   000001H   ABSOLUTE     GLOBDATA
+            DATA       005001H   000001H   ABSOLUTE     GLOBDATA
+            DATA       005002H   000001H   ABSOLUTE     GLOBDATA
+            DATA       005003H   000001H   ABSOLUTE     GLOBDATA
+            DATA       005004H   000001H   ABSOLUTE     GLOBDATA
+*** GAP ***            005005H   002FFBH
+            DATA       008000H   000200H   ABSOLUTE     FLASHPRG
+            DATA       008200H   000200H   ABSOLUTE     NEW_PROG
+            STACK      008400H   000F50H   WORD
+            DATA       009350H   00080BH   WORD         SERIAL
+*** GAP ***            009B5BH   000001H
+            DATA       009B5CH   000108H   WORD         EDIT
+            DATA       009C64H   000102H   BYTE         NEW_PROG
+            DATA       009D66H   000100H   BYTE         FLASHPRG
+            DATA       009E66H   000100H   BYTE         COMM1
+            DATA       009F66H   0000E2H   WORD         INTPROGS
+            DATA       00A048H   000059H   WORD         PRGM2
+*** GAP ***            00A0A1H   000001H
+            DATA       00A0A2H   000047H   WORD         COMM2
+*** GAP ***            00A0E9H   FC5F17H
+            FARCONST   FD0000H   000003H   ABSOLUTE     FLASHDAT
+            FARCONST   FD0003H   000040H   ABSOLUTE     FLASHDAT
+*** GAP ***            FD0043H   0000BDH
+            FARCONST   FD0100H   000100H   ABSOLUTE     FLASHDAT
+*** GAP ***            FD0200H   000E00H
+            FARCONST   FD1000H   000100H   ABSOLUTE     FLASHDAT
+*** GAP ***            FD1100H   000F00H
+            FARCONST   FD2000H   006400H   ABSOLUTE     FLASHDAT
+*** GAP ***            FD8400H   007828H
+            FARCODE    FDFC28H   0003D8H   BYTE         NEW_PROG
+*** GAP ***            FE0000H   00D46BH
+            FARCONST   FED46BH   000015H   BYTE         DISPLAY
+            FARCONST   FED480H   000040H   BYTE         COMM1
+            FARCONST   FED4C0H   0000BEH   BYTE         CALIB
+            FARCONST   FED57EH   000101H   BYTE         _CTYPE_
+            FARCONST   FED67FH   0001C7H   BYTE         COMM2
+            FARCONST   FED846H   0001FEH   WORD         PRESSURE
+            FARCONST   FEDA44H   0002D2H   WORD         PRGM
+            FARCONST   FEDD16H   000934H   WORD         PRGM2
+            FARCONST   FEE64AH   000AFCH   WORD         INTPROGS
+            FARCONST   FEF146H   000DBAH   WORD         EDIT
+*** GAP ***            FEFF00H   00010EH
+            FARCONST   FF000EH   000028H   WORD         KEYBRD
+            FARCONST   FF0036H   00042EH   WORD         MAIN
+*** GAP ***            FF0464H   000001H
+            FARCODE    FF0465H   000014H   BYTE         TIMER2
+            FARCODE    FF0479H   000014H   BYTE         _STRLEN
+            FARCODE    FF048DH   000019H   BYTE         _ISALPHA
+            FARCODE    FF04A6H   000019H   BYTE         _ISDIGIT
+            FARCODE    FF04BFH   000022H   BYTE         _STRCPY
+            FARCODE    FF04E1H   000028H   BYTE         MULL
+            FARCODE    FF0509H   00004CH   BYTE         DIVL
+            FARCODE    FF0555H   00004EH   BYTE         MODL
+            FARCODE    FF05A3H   00007AH   BYTE         _SPRINTF
+            FARCODE    FF061DH   0000AAH   BYTE         KEYBRD
+            FARCODE    FF06C7H   0000B6H   BYTE         DIVUL
+            FARCODE    FF077DH   0000B9H   BYTE         _ATOI
+            FARCODE    FF0836H   000134H   BYTE         TIMER1
+            FARCODE    FF096AH   0001C9H   BYTE         INIT
+            FARCODE    FF0B33H   00020EH   BYTE         DISPLAY
+            FARCODE    FF0D41H   000286H   BYTE         MOTOR2
+            FARCODE    FF0FC7H   00028AH   BYTE         MOTOR1
+            FARCODE    FF1251H   0002A6H   BYTE         SERIAL
+            FARCODE    FF14F7H   000454H   BYTE         MOTOR0
+            FARCODE    FF194BH   0006B5H   BYTE         EEPROM
+            FARCONST   FF2000H   000002H   ABSOLUTE     TIMER1
+            FARCONST   FF2002H   000002H   ABSOLUTE     TIMER2
+*** GAP ***            FF2004H   000006H
+            FARCONST   FF200AH   000002H   ABSOLUTE     SERIAL
+            FARCONST   FF200CH   000002H   ABSOLUTE     SERIAL
+            FARCONST   FF200EH   000002H   ABSOLUTE     MOTOR0
+*** GAP ***            FF2010H   000008H
+            FARCODE    FF2018H   000004H   ABSOLUTE     STARTUP
+*** GAP ***            FF201CH   000014H
+            FARCONST   FF2030H   000002H   ABSOLUTE     MOTOR1
+            FARCONST   FF2032H   000002H   ABSOLUTE     MOTOR2
+*** GAP ***            FF2034H   00004CH
+            FARCODE    FF2080H   00007DH   ABSOLUTE     STARTUP
+*** GAP ***            FF20FDH   000001H
+            FARCODE    FF20FEH   000002H   BYTE         DISABLE
+            FARCODE    FF2100H   000002H   BYTE         ENABLE
+            FARCODE    FF2102H   000003H   BYTE         IDLE
+            FARCODE    FF2105H   00007FH   BYTE         _LTOA
+            FARCODE    FF2184H   0002D7H   BYTE         FLASHPRG
+            FARCODE    FF245BH   0006B8H   BYTE         COMM1
+            FARCODE    FF2B13H   000976H   BYTE         _DOPRINT
+            FARCODE    FF3489H   0009DAH   BYTE         COMM2
+            FARCODE    FF3E63H   000C2EH   BYTE         CALIB
+            FARCODE    FF4A91H   000E89H   BYTE         PRGM2
+            FARCODE    FF591AH   0010D0H   BYTE         PRESSURE
+            FARCODE    FF69EAH   0012BAH   BYTE         MAIN
+            FARCODE    FF7CA4H   0019EFH   BYTE         PRGM
+            FARCODE    FF9693H   003370H   BYTE         EDIT
+            FARCODE    FFCA03H   0034FDH   BYTE         INTPROGS
+*** GAP ***            FFFF00H   000100H
+
+
+                                                                                                                        
+
+SYMBOL TABLE FOR aquamax.abs(NP_SFRS):
+
+ATTRIBUTES                   VALUE    NAME
+----------                   -----    ----
+
+                                      PUBLICS:
+NULL     WORD                008EH      EPA3_TIME_1F
+NULL     BYTE                00E0H      EPA_CON0_7C
+NULL     WORD                00E4H      EPA_CON1_7C
+NULL     BYTE                00FEH      P3_PIN_7E
+NULL     WORD                008AH      EPA2_TIME_1F
+NULL     BYTE                00E8H      EPA_CON2_7C
+NULL     WORD                00ECH      EPA_CON3_7C
+NULL     BYTE                00DEH      P3_PIN_3F
+NULL     BYTE                00DCH      P3_REG_1F
+NULL     BYTE                00F9H      SP_STAT_3E
+NULL     BYTE                00ECH      AD_COMMAND_3E
+NULL     WORD                0086H      EPA1_TIME_1F
+NULL     BYTE                00F9H      SP_STAT_7D
+NULL     BYTE                00ECH      AD_COMMAND_7D
+NULL     WORD                0082H      EPA0_TIME_1F
+NULL     BYTE                00FAH      SBUF_TX_7D
+NULL     BYTE                1F9EH      EPA_PEND
+NULL     BYTE                00FAH      SBUF_TX_3E
+NULL     BYTE                00D1H      P2SSEL_1F
+NULL     BYTE                00BBH      SP_CONTROL_1F
+NULL     BYTE                0094H      T2CONTROL_1F
+NULL     BYTE                0088H      EPA2_CON_1F
+NULL     BYTE                00C0H      EPA_CON0_3E
+NULL     WORD                00C4H      EPA_CON1_3E
+NULL     WORD                0002H      FF_REG
+NULL     BYTE                00C8H      EPA_CON2_3E
+NULL     WORD                00CCH      EPA_CON3_3E
+REG      BYTE                0012H      INT_PEND1
+NULL     WORD                00C0H      ADDRCOM0_1E
+NULL     WORD                00C8H      ADDRCOM1_1E
+NULL     BYTE                00D0H      P1_MODE_1F
+NULL     BYTE                00F7H      P2_PIN_7E
+NULL     WORD                00D0H      ADDRCOM2_1E
+NULL     WORD                00D8H      ADDRCOM3_1E
+NULL     BYTE                00D1H      P2_MODE_1F
+NULL     BYTE                00D7H      P2_PIN_3F
+NULL     BYTE                00D5H      P2_REG_1F
+NULL     BYTE                0090H      T1CONTROL_1F
+NULL     WORD                00E0H      ADDRCOM4_1E
+NULL     WORD                00E8H      ADDRCOM5_1E
+NULL     BYTE                00D8H      P3_MODE_1F
+NULL     BYTE                00D9H      P4_MODE_1F
+NULL     BYTE                00D8H      P3SSEL_1F
+NULL     WORD                008CH      EPA3_CON_1F
+NULL     BYTE                1FDFH      P4_PIN
+DATA     BYTE                1FDDH      P4_REG
+NULL     WORD                00E2H      ADDRMSK4_3D
+NULL     WORD                00EAH      ADDRMSK5_3D
+DATA     BYTE                1FB0H      PWM0_CONTROL
+NULL     BYTE                00F6H      P1_PIN_7E
+DATA     BYTE                1FB2H      PWM1_CONTROL
+NULL     BYTE                00D6H      P1_PIN_3F
+NULL     BYTE                00D4H      P1_REG_1F
+NULL     WORD                00CAH      EPA_TIME2_3E
+NULL     WORD                00CEH      EPA_TIME3_3E
+NULL     WORD                00C2H      ADDRMSK0_3D
+NULL     WORD                00CAH      ADDRMSK1_3D
+DATA     BYTE                1FD2H      P1_DIR
+DATA     BYTE                1FB4H      PWM2_CONTROL
+NULL     WORD                0004H      PTSSEL
+NULL     WORD                00C2H      EPA_TIME0_3E
+NULL     WORD                00C6H      EPA_TIME1_3E
+NULL     WORD                00D2H      ADDRMSK2_3D
+NULL     WORD                00DAH      ADDRMSK3_3D
+NULL     WORD                00EAH      EPA_TIME2_7C
+NULL     WORD                00EEH      EPA_TIME3_7C
+NULL     WORD                00E2H      EPA_TIME0_7C
+NULL     WORD                00E6H      EPA_TIME1_7C
+NULL     BYTE                00EEH      AD_TEST_3E
+NULL     BYTE                0080H      EPA0_CON_1F
+NULL     WORD                00F2H      ADDRMSK2_7A
+NULL     WORD                00FAH      ADDRMSK3_7A
+NULL     WORD                00E2H      ADDRMSK4_7B
+NULL     WORD                00EAH      ADDRMSK5_7B
+NULL     BYTE                00EEH      AD_TEST_7D
+NULL     WORD                00E2H      ADDRMSK0_7A
+NULL     WORD                00EAH      ADDRMSK1_7A
+NULL     BYTE                1FD9H      P4SSEL
+NULL     BYTE                0090H      TIMER1_CONTROL_1F
+NULL     BYTE                0094H      TIMER2_CONTROL_1F
+DATA     BYTE                1FB6H      CON_REG0
+NULL     BYTE                00DBH      P4_DIR_3F
+NULL     BYTE                1FD7H      P2PIN
+NULL     BYTE                1FD5H      P2REG
+NULL     BYTE                1FFEH      P3PIN
+NULL     BYTE                1FFCH      P3REG
+NULL     BYTE                00BBH      SP_CON_1F
+NULL     BYTE                1FD6H      P1PIN
+NULL     BYTE                1FD4H      P1REG
+NULL     WORD                0018H      SP
+NULL     BYTE                00D0H      P1SSEL_1F
+NULL     WORD                0084H      EPA1_CON_1F
+NULL     BYTE                00FBH      P4_DIR_7E
+NULL     BYTE                1FFFH      P4PIN
+NULL     BYTE                1FFDH      P4REG
+NULL     WORD                00FEH      SP_BAUD_COUNT_7D
+NULL     BYTE                00B9H      SP_STATUS_1F
+NULL     BYTE                00E4H      BUSCON0_7A
+NULL     BYTE                00ECH      BUSCON1_7A
+NULL     BYTE                1FE3H      EPDIR
+NULL     BYTE                00F2H      P1IO_7E
+NULL     WORD                00FEH      SP_BAUD_COUNT_3E
+NULL     BYTE                00F4H      BUSCON2_7A
+NULL     BYTE                00FCH      BUSCON3_7A
+NULL     BYTE                00E4H      BUSCON4_7B
+NULL     BYTE                00ECH      BUSCON5_7B
+DATA     WORD                1F96H      TIMER2
+NULL     BYTE                00D2H      P1IO_3F
+DATA     BYTE                1FD3H      P2_DIR
+DATA     WORD                1F92H      TIMER1
+NULL     BYTE                00D3H      P2IO_3F
+NULL     BYTE                00DAH      P3_DIR_3F
+NULL     WORD                00FCH      SP_BAUD_7D
+NULL     BYTE                00AFH      AD_TIME_1F
+NULL     BYTE                00D4H      BUSCON2_3D
+NULL     BYTE                00DCH      BUSCON3_3D
+NULL     BYTE                0013H      IMASK1
+NULL     BYTE                00FAH      P3IO_7E
+NULL     WORD                00FCH      SP_BAUD_3E
+NULL     BYTE                009EH      EPA_STAT_1F
+NULL     BYTE                00C4H      BUSCON0_3D
+NULL     BYTE                00CCH      BUSCON1_3D
+NULL     BYTE                00DAH      P3IO_3F
+NULL     BYTE                00B8H      SBUF_RX_1F
+NULL     WORD                00EAH      AD_RESULT_7D
+NULL     BYTE                009CH      EPA_MASK_1F
+NULL     BYTE                00F3H      P2IO_7E
+NULL     BYTE                00FAH      P3_DIR_7E
+NULL     WORD                00EAH      AD_RESULT_3E
+NULL     BYTE                00E4H      BUSCON4_3D
+NULL     BYTE                00ECH      BUSCON5_3D
+NULL     BYTE                00DBH      P4IO_3F
+NULL     BYTE                1FDBH      P4IO
+NULL     BYTE                00FBH      P4IO_7E
+NULL     BYTE                00D3H      P2_DIR_3F
+NULL     WORD                0092H      TIMER1_1F
+NULL     BYTE                1FE3H      EP_DIR
+NULL     WORD                0096H      TIMER2_1F
+NULL     BYTE                1FE1H      EP_MODE
+NULL     BYTE                00F3H      P2_DIR_7E
+NULL     BYTE                1FE1H      EPMODE
+NULL     BYTE                00F4H      P1REG_7E
+NULL     BYTE                00F7H      P2PIN_7E
+NULL     BYTE                1F9EH      EPA_STAT
+NULL     BYTE                1F64H      BUSCON4
+NULL     BYTE                1F6CH      BUSCON5
+NULL     BYTE                00F6H      CON_REG0_3E
+NULL     BYTE                1FD3H      P2IO
+NULL     BYTE                1FDAH      P3_DIR
+NULL     WORD                1FAAH      AD_RESULT
+NULL     BYTE                1FAFH      AD_TIME
+NULL     BYTE                00D6H      P1PIN_1F
+NULL     BYTE                00D4H      P1REG_3F
+NULL     BYTE                00D7H      P2PIN_3F
+NULL     BYTE                00D5H      P2REG_1F
+NULL     BYTE                00F6H      CON_REG0_7D
+NULL     BYTE                00D2H      P1_DIR_3F
+NULL     BYTE                00B4H      PWM2_CONTROL_1F
+NULL     BYTE                1F44H      BUSCON0
+NULL     WORD                0000H      ZERO_REG
+NULL     BYTE                00B0H      PWM0_CONTROL_1F
+NULL     BYTE                00B2H      PWM1_CONTROL_1F
+NULL     BYTE                1F4CH      BUSCON1
+NULL     BYTE                00D9H      P4SSEL_1F
+NULL     BYTE                1FDAH      P3IO
+NULL     BYTE                1F9CH      EPA_MASK
+NULL     BYTE                1F54H      BUSCON2
+NULL     BYTE                00F2H      P1_DIR_7E
+DATA     BYTE                1FB8H      SBUF_RX
+DATA     WORD                1FBCH      SP_BAUD
+NULL     BYTE                1F5CH      BUSCON3
+NULL     BYTE                00FFH      P4_PIN_7E
+NULL     BYTE                00DFH      P4_PIN_3F
+NULL     BYTE                00DDH      P4_REG_1F
+DATA     BYTE                1FB9H      SP_STATUS
+NULL     BYTE                1FD2H      P1IO
+NULL     WORD                1FBEH      SP_BAUD_COUNT
+NULL     BYTE                009EH      EPA_PEND_1F
+NULL     WORD                00C2H      EPA0_TIME_3E
+DATA     BYTE                1FBBH      SP_CON
+NULL     BYTE                0014H      WSR
+NULL     BYTE                00FCH      P3_REG_7E
+NULL     BYTE                00B9H      SP_STAT_1F
+NULL     BYTE                00ACH      AD_COMMAND_1F
+NULL     WORD                00C6H      EPA1_TIME_3E
+NULL     BYTE                00DEH      P3_PIN_1F
+NULL     BYTE                00DCH      P3_REG_3F
+NULL     WORD                00CAH      EPA2_TIME_3E
+DATA     BYTE                1FDBH      P4_DIR
+NULL     BYTE                00F4H      T2CONTROL_7C
+NULL     BYTE                00E8H      EPA2_CON_7C
+NULL     WORD                00CEH      EPA3_TIME_3E
+NULL     BYTE                00FBH      SP_CONTROL_7D
+NULL     WORD                00EAH      EPA2_TIME_7C
+NULL     BYTE                0088H      EPA_CON2_1F
+NULL     WORD                008CH      EPA_CON3_1F
+NULL     BYTE                00F1H      P2SSEL_7E
+NULL     BYTE                00FBH      SP_CONTROL_3E
+NULL     BYTE                00D4H      T2CONTROL_3E
+NULL     BYTE                00C8H      EPA2_CON_3E
+NULL     WORD                00EEH      EPA3_TIME_7C
+NULL     BYTE                0080H      EPA_CON0_1F
+NULL     WORD                0084H      EPA_CON1_1F
+NULL     BYTE                00D1H      P2SSEL_3F
+NULL     BYTE                00BAH      SBUF_TX_1F
+NULL     WORD                00E2H      EPA0_TIME_7C
+NULL     WORD                00E6H      EPA1_TIME_7C
+NULL     BYTE                1FD0H      P1SSEL
+DATA     WORD                1F84H      EPA1_CON
+NULL     BYTE                00F8H      P3_MODE_7E
+NULL     WORD                00D0H      ADDRCOM2_3D
+NULL     WORD                00D8H      ADDRCOM3_3D
+REG      BYTE                0009H      INT_PEND
+NULL     BYTE                00D0H      P1_MODE_3F
+NULL     BYTE                00F1H      P2_MODE_7E
+NULL     BYTE                00F5H      P2_REG_7E
+NULL     BYTE                00D0H      T1CONTROL_3E
+NULL     WORD                00C0H      ADDRCOM0_3D
+NULL     WORD                00C8H      ADDRCOM1_3D
+NULL     BYTE                1F94H      TIMER2_CONTROL
+NULL     BYTE                00F0H      P1_MODE_7E
+NULL     BYTE                00D1H      P2_MODE_3F
+NULL     BYTE                00D7H      P2_PIN_1F
+NULL     BYTE                00D5H      P2_REG_3F
+NULL     BYTE                1F90H      TIMER1_CONTROL
+NULL     BYTE                00D8H      P3_MODE_3F
+NULL     WORD                00ECH      EPA3_CON_7C
+NULL     WORD                00E0H      ADDRCOM4_3D
+NULL     WORD                00E8H      ADDRCOM5_3D
+NULL     BYTE                00D9H      P4_MODE_3F
+NULL     WORD                00E0H      ADDRCOM0_7A
+NULL     WORD                00E8H      ADDRCOM1_7A
+NULL     BYTE                00F8H      P3SSEL_7E
+NULL     WORD                00CCH      EPA3_CON_3E
+NULL     WORD                00F0H      ADDRCOM2_7A
+NULL     WORD                00F8H      ADDRCOM3_7A
+NULL     WORD                00E0H      ADDRCOM4_7B
+NULL     WORD                00E8H      ADDRCOM5_7B
+REG      BYTE                0013H      INT_MASK1
+NULL     BYTE                00D8H      P3SSEL_3F
+NULL     BYTE                00F9H      P4_MODE_7E
+NULL     BYTE                00F0H      T1CONTROL_7C
+NULL     WORD                0082H      EPA_TIME0_1F
+NULL     WORD                0086H      EPA_TIME1_1F
+NULL     BYTE                1FAEH      AD_TEST
+NULL     BYTE                00F4H      P1_REG_7E
+NULL     WORD                008AH      EPA_TIME2_1F
+NULL     WORD                008EH      EPA_TIME3_1F
+NULL     WORD                00E2H      ADDRMSK4_1E
+NULL     WORD                00EAH      ADDRMSK5_1E
+NULL     BYTE                00D6H      P1_PIN_1F
+NULL     BYTE                00D4H      P1_REG_3F
+NULL     WORD                00D2H      ADDRMSK2_1E
+NULL     WORD                00DAH      ADDRMSK3_1E
+NULL     BYTE                00E0H      EPA0_CON_7C
+NULL     WORD                00C2H      ADDRMSK0_1E
+NULL     WORD                00CAH      ADDRMSK1_1E
+NULL     BYTE                00AEH      AD_TEST_1F
+NULL     BYTE                00C0H      EPA0_CON_3E
+DATA     BYTE                1F80H      EPA0_CON
+NULL     WORD                1F8AH      EPA_TIME2
+NULL     WORD                1F5AH      ADDRMSK3
+NULL     WORD                1F8EH      EPA_TIME3
+NULL     WORD                1F52H      ADDRMSK2
+NULL     BYTE                00D4H      TIMER2_CONTROL_3E
+NULL     WORD                1F82H      EPA_TIME0
+NULL     WORD                1F4AH      ADDRMSK1
+NULL     BYTE                00D0H      TIMER1_CONTROL_3E
+NULL     WORD                00E4H      EPA1_CON_7C
+NULL     WORD                1F86H      EPA_TIME1
+NULL     WORD                1F42H      ADDRMSK0
+NULL     BYTE                00DBH      P4_DIR_1F
+NULL     BYTE                00F4H      TIMER2_CONTROL_7C
+NULL     BYTE                00F0H      P1SSEL_7E
+NULL     BYTE                00F0H      TIMER1_CONTROL_7C
+NULL     WORD                00C4H      EPA1_CON_3E
+NULL     BYTE                00D0H      P1SSEL_3F
+NULL     BYTE                00FBH      SP_CON_3E
+DATA     BYTE                1FD6H      P1_PIN
+DATA     BYTE                1FD4H      P1_REG
+NULL     WORD                1F6AH      ADDRMSK5
+NULL     BYTE                00FBH      SP_CON_7D
+NULL     WORD                1F62H      ADDRMSK4
+NULL     BYTE                00FEH      EPA_STAT_7C
+NULL     BYTE                1FE7H      EP_PIN
+NULL     BYTE                1FE5H      EP_REG
+NULL     BYTE                00D2H      P1IO_1F
+NULL     WORD                00BEH      SP_BAUD_COUNT_1F
+NULL     BYTE                00F9H      SP_STATUS_7D
+NULL     BYTE                0012H      IPEND1
+NULL     BYTE                00F9H      SP_STATUS_3E
+NULL     BYTE                00FCH      EPA_MASK_7C
+DATA     BYTE                1FD9H      P4_MODE
+NULL     BYTE                00D3H      P2IO_1F
+NULL     BYTE                00DAH      P3_DIR_1F
+NULL     BYTE                00F8H      SBUF_RX_7D
+NULL     WORD                00AAH      AD_RESULT_1F
+NULL     BYTE                00C4H      BUSCON0_1E
+NULL     BYTE                00CCH      BUSCON1_1E
+NULL     BYTE                00F8H      SBUF_RX_3E
+NULL     BYTE                00DCH      EPA_MASK_3E
+NULL     BYTE                00D4H      BUSCON2_1E
+NULL     BYTE                00DCH      BUSCON3_1E
+NULL     BYTE                00DAH      P3IO_1F
+NULL     WORD                00BCH      SP_BAUD_1F
+NULL     BYTE                00EFH      AD_TIME_7D
+NULL     BYTE                00DEH      EPA_STAT_3E
+NULL     BYTE                00E4H      BUSCON4_1E
+NULL     BYTE                00ECH      BUSCON5_1E
+NULL     BYTE                00EFH      AD_TIME_3E
+NULL     BYTE                1FD8H      P3SSEL
+NULL     WORD                1F8CH      EPA3_CON
+NULL     BYTE                00DBH      P4IO_1F
+NULL     WORD                00F6H      TIMER2_7C
+NULL     WORD                1F60H      ADDRCOM4
+NULL     WORD                00F2H      TIMER1_7C
+DATA     BYTE                1FD0H      P1_MODE
+NULL     WORD                1F68H      ADDRCOM5
+NULL     WORD                0006H      PTSSRV
+NULL     BYTE                0009H      INT_PENDING
+NULL     BYTE                00D3H      P2_DIR_1F
+NULL     BYTE                1FE7H      EPPIN
+NULL     BYTE                1FE5H      EPREG
+NULL     WORD                1F40H      ADDRCOM0
+NULL     BYTE                1FD8H      P3_MODE
+NULL     WORD                1F48H      ADDRCOM1
+NULL     WORD                00D6H      TIMER2_3E
+DATA     BYTE                1FD7H      P2_PIN
+DATA     BYTE                1FD5H      P2_REG
+NULL     WORD                1F50H      ADDRCOM2
+NULL     WORD                00D2H      TIMER1_3E
+DATA     BYTE                1FD1H      P2_MODE
+DATA     BYTE                1F90H      T1CONTROL
+NULL     WORD                1F58H      ADDRCOM3
+NULL     BYTE                00F6H      P1PIN_7E
+NULL     BYTE                00F5H      P2REG_7E
+NULL     WORD                1F84H      EPA_CON1
+NULL     BYTE                00B6H      CON_REG0_1F
+NULL     BYTE                1F80H      EPA_CON0
+NULL     WORD                1F8CH      EPA_CON3
+NULL     BYTE                00D6H      P1PIN_3F
+NULL     BYTE                00D4H      P1REG_1F
+NULL     BYTE                00D7H      P2PIN_1F
+NULL     BYTE                00D5H      P2REG_3F
+NULL     BYTE                1F88H      EPA_CON2
+NULL     BYTE                00D2H      P1_DIR_1F
+NULL     BYTE                00F9H      P4SSEL_7E
+NULL     BYTE                00D9H      P4SSEL_3F
+NULL     BYTE                00F0H      PWM0_CONTROL_3E
+NULL     BYTE                00F2H      PWM1_CONTROL_3E
+NULL     BYTE                00F4H      PWM2_CONTROL_7D
+NULL     BYTE                1FBBH      SP_CONTROL
+NULL     BYTE                00F0H      PWM0_CONTROL_7D
+NULL     BYTE                00F2H      PWM1_CONTROL_7D
+NULL     BYTE                00F4H      PWM2_CONTROL_3E
+NULL     BYTE                1FD1H      P2SSEL
+DATA     BYTE                1FBAH      SBUF_TX
+DATA     BYTE                1F94H      T2CONTROL
+DATA     BYTE                1F88H      EPA2_CON
+NULL     BYTE                1FACH      AD_COMMAND
+DATA     WORD                1F8AH      EPA2_TIME
+NULL     BYTE                00FDH      P4_REG_7E
+NULL     BYTE                1FB9H      SP_STAT
+NULL     BYTE                00DFH      P4_PIN_1F
+NULL     BYTE                00DDH      P4_REG_3F
+NULL     BYTE                00FEH      EPA_PEND_7C
+NULL     WORD                1F8EH      EPA3_TIME
+REG      BYTE                0008H      INT_MASK
+NULL     BYTE                00DEH      EPA_PEND_3E
+DATA     WORD                1F82H      EPA0_TIME
+NULL     WORD                0000H      R0
+NULL     BYTE                1FDEH      P3_PIN
+DATA     BYTE                1FDCH      P3_REG
+DATA     WORD                1F86H      EPA1_TIME
+FARCONST ARRAY             FD0000H      FWID
+FARCONST ARRAY             FD0003H      FIRMWAREVERTXT
+FARCONST ARRAY             FD0100H      CPARAM
+FARCONST ARRAY             FD1000H      PROGINFO
+FARCONST ARRAY             FD2000H      PROGRAM
+DATA     BYTE                9C64H      SERIAL_ERROR
+DATA     BYTE                9C65H      RECEIVE_FLAG
+DATA     ARRAY               8200H      RAM_FUNC_SPACE
+DATA     ARRAY               9C66H      FLASH_SECTOR_BUFFER
+FARCODE  PROCEDURE         FDFC28H      GET_RS_BYTE
+FARCODE  PROCEDURE         FDFC87H      LOAD_NEW_FLASH_PROGRAM
+FARCODE  PROCEDURE         FDFF15H      FLASHSECTOR_PROGRAM
+DATA     BYTE                2000H      LCD_DATA_IN
+DATA     BYTE                2001H      LCD_DATA_OUT
+DATA     BYTE                2002H      LCD_INST_IN
+DATA     BYTE                2003H      LCD_INST_OUT
+DATA     BYTE                3000H      IN_PORT0
+DATA     BYTE                4000H      IN_PORT1
+DATA     BYTE                5000H      OUT_PORT0
+DATA     BYTE                5001H      OUT_PORT1
+DATA     BYTE                5002H      OUT_PORT2
+DATA     BYTE                5003H      OUT_PORT3
+DATA     BYTE                5004H      OUT_PORT4
+REG      BYTE                009AH      PORT0
+REG      BYTE                009BH      PORT1
+REG      BYTE                009CH      PORT2
+REG      BYTE                009DH      PORT3
+REG      BYTE                009EH      PORT4
+DATA     ARRAY               0100H      PARAM
+DATA     ARRAY               0200H      RAMPROG
+DATA     WORD                0300H      MAINSTATE
+DATA     WORD                0302H      DISPSTATE
+DATA     WORD                0304H      RUNNINGSTATE
+DATA     WORD                0306H      PRGMSTATE
+DATA     BYTE                0330H      WANTED_PRGM
+DATA     WORD                0308H      EXTCOMMAND
+DATA     WORD                030AH      EXTCOMVAL
+DATA     WORD                030CH      EXTCOMVAL2
+DATA     WORD                030EH      EXTSTART
+DATA     BYTE                0331H      PLATEALARM
+DATA     BYTE                0332H      BUFFER1ALARM
+DATA     BYTE                0333H      BUFFER2ALARM
+DATA     BYTE                0334H      BUFFER3ALARM
+DATA     BYTE                0335H      BUFFER4ALARM
+DATA     BYTE                0336H      WASTEALARM
+DATA     BYTE                0337H      WASTEERROR
+DATA     BYTE                0338H      PRESSUREALARM
+DATA     BYTE                0339H      PRESSUREOK
+DATA     BYTE                033AH      SENSORERROR
+DATA     BYTE                033BH      PRESSUREERROR
+DATA     BYTE                033CH      P_FINE_REG
+DATA     BYTE                033DH      CURRENTADC
+DATA     BYTE                033EH      PRES1ALARM
+DATA     BYTE                033FH      PRES2ALARM
+DATA     BYTE                0340H      PRES3ALARM
+DATA     BYTE                0341H      PRES4ALARM
+DATA     BYTE                0342H      IDLEFLAG
+DATA     INTEGER             0310H      REGPRESSURE
+DATA     INTEGER             0312H      CURRENTPRES
+DATA     ARRAY               0314H      PRESS
+DATA     ARRAY               0320H      MBAR
+DATA     WORD                032EH      MINIPRIMEVOL
+REG      LONGINT             0070H      TIMER_100US
+REG      WORD                0074H      COUNT_100US
+REG      BYTE                009FH      DISPFLAG
+REG      BYTE                00A0H      START_FLAG
+REG      BYTE                00A1H      MS1_PRESCALE
+REG      BYTE                00A2H      MS20_PRESCALE
+REG      WORD                0076H      SEC_PRESCALE
+REG      WORD                0078H      MS1000_PRESCALE
+REG      WORD                007AH      LED_PRESCALE
+REG      BYTE                00A3H      LED_ON
+REG      BYTE                00A4H      LED_OFF
+REG      BYTE                00A5H      UPPDATEFLAG
+REG      BYTE                00A6H      SECFLAG
+REG      WORD                007CH      BEEP_CNT
+REG      WORD                007EH      RS_TIMER_1MS
+REG      WORD                0080H      TIMER_1SEC
+REG      WORD                0082H      TIMER1_DELAY
+REG      WORD                0084H      TIMER_1MS
+REG      WORD                0086H      DISPPAUSE
+REG      WORD                0088H      IDLETIMER
+REG      WORD                008AH      PRESSURETIMEOUT
+REG      WORD                008CH      ADC_TIMER
+REG      BYTE                00A7H      MOTOR0_START_FLAG
+REG      BYTE                00A8H      MOTOR1_START_FLAG
+REG      BYTE                00A9H      MOTOR2_START_FLAG
+REG      INTEGER             008EH      MOTOR0_TACHOPOS
+REG      INTEGER             0090H      MOTOR0_TACHOPOS_END
+REG      BYTE                00AAH      MOTOR0_PWM
+REG      BYTE                00ABH      MOTOR0_BUSY
+REG      INTEGER             0092H      MOTOR1_TACHOPOS
+REG      INTEGER             0094H      MOTOR1_TACHOPOS_END
+REG      BYTE                00ACH      MOTOR1_PWM
+REG      BYTE                00ADH      MOTOR1_BUSY
+REG      INTEGER             0096H      MOTOR2_TACHOPOS
+REG      INTEGER             0098H      MOTOR2_TACHOPOS_END
+REG      BYTE                00AEH      MOTOR2_PWM
+REG      BYTE                00AFH      MOTOR2_BUSY
+REG      BYTE                00B0H      KEYBUFFER
+REG      BYTE                00B1H      NEWKEY
+REG      BYTE                00B2H      NEXTKEY
+REG      BYTE                00B3H      KEYSTATE
+REG      BYTE                00B4H      LASTKEY
+FARCODE  ENTRY             FF2080H      CSTART
+DATA     BYTE                03CAH      REPLY_PZ
+DATA     BYTE                03CBH      REPLY_PL
+DATA     BYTE                03CCH      REPLY_END
+FARCODE  PROCEDURE         FF69EAH      REPLY
+FARCODE  PROCEDURE         FF6A54H      CHECK_ROBOT_PL_ALARM
+FARCODE  PROCEDURE         FF6A88H      MAIN
+FARCODE  PROCEDURE         FF096AH      COPY_CPARAM_TO_PARAM
+FARCODE  PROCEDURE         FF09CBH      INIT_ALL
+FARCODE  PROCEDURE         FF0AB3H      CALIBRATE_POSITIONS
+FARCODE  PROCEDURE         FF0AB4H      UPPDATE_ALARMS
+DATA     INTEGER             9358H      REC_BUFCNT
+FARCODE  PROCEDURE         FF1251H      INIT_SERIAL
+FARCODE  PROCEDURE         FF12E4H      GET_CHAR
+FARCODE  PROCEDURE         FF1329H      PUT_CHAR
+FARCODE  PROCEDURE         FF1388H      PUT_WORD
+FARCODE  PROCEDURE         FF13BEH      PUT_S
+FARCODE  PROCEDURE         FF140BH      TRANSMIT
+FARCODE  PROCEDURE         FF1464H      RECEIVE
+FARCODE  PROCEDURE         FF0836H      INIT_TIMER1
+FARCODE  PROCEDURE         FF0874H      TIMER1_INTERRUPT
+FARCODE  PROCEDURE         FF095AH      DELAY_MS
+FARCODE  PROCEDURE         FF0465H      INIT_TIMER2
+FARCODE  PROCEDURE         FF0476H      TIMER2_INTERRUPT
+FARCODE  PROCEDURE         FF0B33H      LCD_ADR
+FARCODE  PROCEDURE         FF0B53H      LCD_WRITE
+FARCODE  PROCEDURE         FF0B96H      LCD_PUTS
+FARCODE  PROCEDURE         FF0C66H      LCD_PUTC
+FARCODE  PROCEDURE         FF0CA6H      LCD_CLRL
+FARCODE  PROCEDURE         FF0CC0H      LCD_INIT
+DATA     BYTE                03BBH      NOACK
+FARCODE  PROCEDURE         FF194BH      WRITE_EEPROM_PARAM
+FARCODE  PROCEDURE         FF1B57H      READ_EEPROM_PARAM
+FARCODE  PROCEDURE         FF1CBFH      I2C_START
+FARCODE  PROCEDURE         FF1D16H      I2C_STOP
+FARCODE  PROCEDURE         FF1D4CH      I2C_SENDBYTE
+FARCODE  PROCEDURE         FF1E07H      I2C_TIMING_TEST
+FARCODE  PROCEDURE         FF14F7H      MOTOR0_TEST
+FARCODE  PROCEDURE         FF161FH      STOP_MOTOR0
+FARCODE  PROCEDURE         FF1632H      SOFT_STOP_MOTOR0
+FARCODE  PROCEDURE         FF1646H      START_MOTOR0
+FARCODE  PROCEDURE         FF16FFH      INIT_MOTOR0_HOME_POSITION
+FARCODE  PROCEDURE         FF17DFH      INIT_MOTOR0
+FARCODE  PROCEDURE         FF17EDH      INIT_PWM0
+FARCODE  PROCEDURE         FF1822H      INIT_EPA0
+FARCODE  PROCEDURE         FF1855H      EPA0_INTERRUPT
+FARCODE  PROCEDURE         FF0FC7H      STOP_MOTOR1
+FARCODE  PROCEDURE         FF0FDAH      CALIBRATE_MOTOR_POSITIONS
+FARCODE  PROCEDURE         FF0FDEH      START_MOTOR1
+FARCODE  PROCEDURE         FF10A7H      INIT_MOTOR1_HOME_POSITION
+FARCODE  PROCEDURE         FF1124H      INIT_MOTOR1
+FARCODE  PROCEDURE         FF112DH      INIT_PWM1
+FARCODE  PROCEDURE         FF1162H      INIT_EPA1
+FARCODE  PROCEDURE         FF1195H      EPA1_INTERRUPT
+FARCODE  PROCEDURE         FF0D41H      STOP_MOTOR2
+FARCODE  PROCEDURE         FF0D54H      START_MOTOR2
+FARCODE  PROCEDURE         FF0E1DH      INIT_MOTOR2_HOME_POSITION
+FARCODE  PROCEDURE         FF0E9AH      INIT_MOTOR2
+FARCODE  PROCEDURE         FF0EA3H      INIT_PWM2
+FARCODE  PROCEDURE         FF0ED8H      INIT_EPA2
+FARCODE  PROCEDURE         FF0F0BH      EPA2_INTERRUPT
+DATA     INTEGER             03BCH      VALVEWAIT
+DATA     INTEGER             03BEH      PUMPWAIT
+DATA     INTEGER             03C0H      DIFFPRESSURE
+FARCODE  PROCEDURE         FF591AH      INIT_PRESSURE
+FARCODE  PROCEDURE         FF595AH      REGULATE_PRESSURE
+FARCODE  PROCEDURE         FF609FH      CALIBRATE_PRESSURE
+FARCODE  PROCEDURE         FF6959H      READ_ADC
+DATA     WORD                0344H      CMDNO
+DATA     BYTE                0396H      ROWCOL
+FARCODE  PROCEDURE         FF7CA4H      ADJUST_DISPTIME
+FARCODE  PROCEDURE         FF7FACH      RUN_PRGM
+FARCODE  PROCEDURE         FFCA03H      RUN_SERVICE_PRGM
+FARCODE  PROCEDURE         FFFCE2H      SET_PLATE_TYPE
+FARCODE  PROCEDURE         FFFD7EH      GET_HEADTYPETXT
+DATA     ARRAY               A04AH      PRGNAMETXT
+DATA     ARRAY               A062H      PLATENAMETXT
+DATA     ARRAY               A07AH      PRGSTEPSTXT
+DATA     BYTE                A092H      HEAD1
+DATA     BYTE                A093H      HEAD2
+DATA     BYTE                A094H      HEAD3
+DATA     BYTE                A095H      HEAD4
+DATA     BYTE                A096H      HEAD5
+DATA     BYTE                A097H      DISP1
+DATA     BYTE                A098H      DISP2
+DATA     BYTE                A099H      DISP3
+DATA     BYTE                A09AH      DISP4
+DATA     BYTE                A09BH      DISPLOW1
+DATA     BYTE                A09CH      DISPLOW2
+DATA     BYTE                A09DH      DISPLOW3
+DATA     BYTE                A09EH      DISPLOW4
+DATA     BYTE                A09FH      ASP
+DATA     BYTE                A0A0H      PROGERROR
+DATA     WORD                A048H      PRGSTEPS
+FARCODE  PROCEDURE         FF4A91H      GET_PRGNAMETXT
+FARCODE  PROCEDURE         FF4CFBH      CHECK_HEADS
+FARCODE  PROCEDURE         FF4F57H      CHECK_PROGRAM
+FARCODE  PROCEDURE         FF56CBH      DISPLAY_PROG_ERROR
+FARCODE  PROCEDURE         FF5809H      SEND_ERROR_REPLY
+DATA     STRUCTURE           9B5CH      PRG
+DATA     BYTE                9C62H      CURRENTCMD
+DATA     INTEGER             9C5CH      CURRENTVAL
+DATA     INTEGER             9C5EH      ASPTIME
+DATA     WORD                9C60H      ASPHEIGHT
+DATA     BYTE                9C63H      MAXROWS
+FARCODE  PROCEDURE         FF9693H      AQUAMAXINFO
+FARCODE  PROCEDURE         FF9D8AH      EDITIDLETIME
+FARCODE  PROCEDURE         FF9E9DH      PROGRAMEDIT
+FARCODE  PROCEDURE         FFA1E3H      SELECTPRGMPARAMETER
+FARCODE  PROCEDURE         FFAEEAH      SELECTASPPARAMETER
+FARCODE  PROCEDURE         FFB1CCH      EDITASPHEIGHT
+FARCODE  PROCEDURE         FFB2F3H      EDITWELLPOS
+FARCODE  PROCEDURE         FFB41AH      EDITASPOFFSET
+FARCODE  PROCEDURE         FFB609H      EDITLIQFACTOR
+FARCODE  PROCEDURE         FFB730H      EDITPRESSURE
+FARCODE  PROCEDURE         FFB835H      EDITSOAKTIME
+FARCODE  PROCEDURE         FFBA81H      EDITCOMMAND
+FARCODE  PROCEDURE         FFBCEBH      EDITCMDVALUE
+FARCODE  PROCEDURE         FFC04DH      EDITROWS
+FARCODE  PROCEDURE         FFC96BH      GETROWCNT
+FARCODE  PROCEDURE         FF061DH      INIT_KEY_BOARD
+FARCODE  PROCEDURE         FF0626H      KB_HIT
+FARCODE  PROCEDURE         FF062AH      GET_KEY
+FARCODE  PROCEDURE         FF064DH      PUT_KEY
+FARCODE  PROCEDURE         FF0659H      SCAN_KEY_BOARD
+DATA     ARRAY               8000H      RAM_FUNC_AREA
+DATA     ARRAY               9D66H      FLASH_SECTOR_BUF
+FARCODE  PROCEDURE         FF2184H      FLASH_REPROGRAM
+FARCODE  PROCEDURE         FF236FH      FLASHSECTOR_REPROGRAM
+DATA     ARRAY               9E66H      FLASH_DATA_BUF
+FARCODE  PROCEDURE         FF245BH      CLRALLFLASHPROGRAMS
+FARCODE  PROCEDURE         FF24E6H      SEND_PARAMETERBLOCK
+FARCODE  PROCEDURE         FF2560H      RECEIVE_PARAMETERBLOCK
+FARCODE  PROCEDURE         FF2642H      UPLOAD_ALL_SUBPROGRAM_BLOCKS
+FARCODE  PROCEDURE         FF288FH      DOWNLOAD_SUBPROGRAM_BLOCK
+FARCODE  PROCEDURE         FF29F4H      SEND_DEVICE_CODE
+FARCODE  PROCEDURE         FF2A16H      SEND_DEVICE_CODE2
+FARCODE  PROCEDURE         FF2A38H      SEND_SERIALNO
+FARCODE  PROCEDURE         FF2A50H      SEND_FIRMVER
+FARCODE  PROCEDURE         FF2A69H      SEND_PROGNAME
+FARCODE  PROCEDURE         FF2A82H      SEND_PROGDATE
+DATA     WORD                A0A2H      COMM_STATE
+DATA     ARRAY               A0A6H      INPUTSTR
+DATA     INTEGER             A0A4H      INPUTSTRINDEX
+DATA     SHORTINT            A0E7H      COMMANDTYPE
+FARCODE  PROCEDURE         FF3489H      INIT_COMM
+FARCODE  PROCEDURE         FF348FH      INTERPRETCOMMAND
+FARCODE  PROCEDURE         FF3E63H      CALIBRATE_PRESS
+FARCODE  PROCEDURE         FF4161H      CALIBRATE_DISP_LIFT
+FARCODE  PROCEDURE         FF45C5H      CALIBRATE_CARRIAGE
+FARCODE  PROCEDURE         FF4A81H      CALIBRATE_LIQUIDS
+FARCODE  PROCEDURE         FF20FEH      DISABLE
+FARCODE  ENTRY             FF0509H      ??DIVL
+FARCODE  PROCEDURE         FF2100H      ENABLE
+REG      WORD                006EH      _FRAME01_
+REG      WORD                006EH      ?FRAME01
+FARCODE  PROCEDURE         FF2102H      IDLE
+FARCODE  ENTRY             FF0555H      ??MODL
+FARCODE  ENTRY             FF04E1H      ??MULL
+REG      LONG                001CH      PLMREG
+REG      NULL                001CH      TMPREG0
+REG      NULL                0024H      TMPREG8
+FARCODE  PROCEDURE         FF048DH      ISALPHA
+FARCODE  PROCEDURE         FF04A6H      ISDIGIT
+FARCODE  PROCEDURE         FF04BFH      STRCPY
+FARCODE  PROCEDURE         FF077DH      ATOI
+FARCODE  PROCEDURE         FF05C6H      SPRINTF
+FARCODE  ENTRY             FF06C7H      ??DIVUL
+FARCONST ARRAY             FED57EH      _CTYPE_
+FARCODE  PROCEDURE         FF2B13H      DOPRINT
+FARCODE  PROCEDURE         FF0479H      STRLEN
+FARCODE  PROCEDURE         FF2105H      _LTOA
+NULL     NULL                A0E9H      MEMORY
+NULL     NULL                5F17H      ?MEMORY_SIZE
+
+                                      MODULE: NP_SFRS
+
+                                      MODULE: FLASHDAT
+
+                                      MODULE: NEW_PROG
+
+                                      MODULE: GLOBDATA
+
+                                      MODULE: STARTUP
+
+                                      MODULE: MAIN
+
+                                      MODULE: INIT
+
+                                      MODULE: SERIAL
+
+                                      MODULE: TIMER1
+
+                                      MODULE: TIMER2
+
+                                      MODULE: DISPLAY
+
+                                      MODULE: EEPROM
+
+                                      MODULE: MOTOR0
+
+                                      MODULE: MOTOR1
+
+                                      MODULE: MOTOR2
+
+                                      MODULE: PRESSURE
+
+                                      MODULE: PRGM
+
+                                      MODULE: INTPROGS
+
+                                      MODULE: PRGM2
+
+                                      MODULE: EDIT
+
+                                      MODULE: KEYBRD
+
+                                      MODULE: FLASHPRG
+
+                                      MODULE: COMM1
+
+                                      MODULE: COMM2
+
+                                      MODULE: CALIB
+
+                                      MODULE: DISABLE
+
+                                      MODULE: DIVL
+
+                                      MODULE: ENABLE
+
+                                      MODULE: FRAM01
+
+                                      MODULE: IDLE
+
+                                      MODULE: MODL
+
+                                      MODULE: MULL
+
+                                      MODULE: TMPREG0
+
+                                      MODULE: TMPREG8
+
+                                      MODULE: _ISALPHA
+
+                                      MODULE: _ISDIGIT
+
+                                      MODULE: _STRCPY
+
+                                      MODULE: _ATOI
+
+                                      MODULE: _SPRINTF
+
+                                      MODULE: DIVUL
+
+                                      MODULE: _CTYPE_
+
+                                      MODULE: _DOPRINT
+
+                                      MODULE: _STRLEN
+
+                                      MODULE: _LTOA
+
+
+
+WARNING 24: Module FLASHDAT does not have the expected segment(s): FARCONST
+
+RL196 COMPLETED,   1 WARNING(S),   0 ERROR(S)

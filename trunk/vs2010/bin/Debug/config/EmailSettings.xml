@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<SMTPConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SMTPPort>0</SMTPPort>
+  <UseSSL>false</UseSSL>
+  <EnableEmail>false</EnableEmail>
+</SMTPConfiguration>

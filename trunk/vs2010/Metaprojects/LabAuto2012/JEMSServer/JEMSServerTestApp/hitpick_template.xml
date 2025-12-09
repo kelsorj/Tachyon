@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<projects>
+    <project name='a_project_name' destination ='96' method='protocolA' volume ='120uL'>
+        <source type='96' bc='%SOURCE_BARCODE'>
+            <hitpick type ='control' source_row='A' source_column='1' destination_plate='1' destination_row='A' destination_column='1'/>
+            <hitpick type ='control' source_row='B' source_column='1' destination_plate='1' destination_row='B' destination_column='1'/>
+            <hitpick type ='control' source_row='C' source_column='1' destination_plate='1' destination_row='C' destination_column='1'/>
+            <hitpick type ='control' source_row='D' source_column='1' destination_plate='1' destination_row='D' destination_column='1'/>
+            <hitpick type ='control' source_row='E' source_column='1' destination_plate='1' destination_row='E' destination_column='1'/>
+            <hitpick type ='control' source_row='F' source_column='1' destination_plate='1' destination_row='F' destination_column='1'/>
+            <hitpick type ='control' source_row='G' source_column='1' destination_plate='1' destination_row='G' destination_column='1'/>
+            <hitpick type ='control' source_row='H' source_column='1' destination_plate='1' destination_row='H' destination_column='1'/>
+            <hitpick type ='sample' source_row='A' source_column='1' />
+            <hitpick type ='sample' source_row='B' source_column='5' />
+            <hitpick type ='sample' source_row='D' source_column='8' />
+            <hitpick type ='sample' source_row='A' source_column='2'/>
+            <hitpick type ='sample' source_row='A' source_column='3'/>
+            <hitpick type ='sample' source_row='H' source_column='3'/>
+            <hitpick type ='sample' source_row='A' source_column='4'/>
+            <hitpick type ='sample' source_row='C' source_column='5'/>
+            <hitpick type ='sample' source_row='C' source_column='6'/>
+            <hitpick type ='sample' source_row='D' source_column='7'/>
+            <hitpick type ='sample' source_row='G' source_column='7'/>
+            <hitpick type ='sample' source_row='A' source_column='9'/>
+            <hitpick type ='sample' source_row='G' source_column='10'/>
+            <hitpick type ='sample' source_row='A' source_column='11'/>
+            <hitpick type ='sample' source_row='C' source_column='11'/>
+            <hitpick type ='sample' source_row='D' source_column='11'/>
+            <hitpick type ='sample' source_row='E' source_column='11'/>
+            <hitpick type ='sample' source_row='F' source_column='11'/>
+            <hitpick type ='sample' source_row='G' source_column='11'/>
+            <hitpick type ='sample' source_row='C' source_column='12'/>
+            <hitpick type ='sample' source_row='D' source_column='12'/>
+            <hitpick type ='sample' source_row='E' source_column='12'/>
+            <hitpick type ='sample' source_row='F' source_column='12'/>
+            <hitpick type ='sample' source_row='G' source_column='12'/>
+        </source>
+    </project>
+</projects>

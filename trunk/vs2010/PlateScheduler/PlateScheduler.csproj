@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC5C903A-B1D9-4EC0-BF72-2BECA61EECE0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.PlateScheduler</RootNamespace>
+    <AssemblyName>PlateScheduler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition.Codeplex, Version=4.1.1.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
+      <HintPath>..\..\..\thirdparty\MEF2\build\System.ComponentModel.Composition.Codeplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DevicePlaceholder.cs" />
+    <Compile Include="PathPlanner.cs" />
+    <Compile Include="PlateScheduler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotScheduler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeviceManagerDatabase\DeviceManagerDatabase\DeviceManagerDatabase.csproj">
+      <Project>{B9EF0535-0EA5-410F-B90D-8B7B71861237}</Project>
+      <Name>DeviceManagerDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Combinatorics\Combinatorics.csproj">
+      <Project>{BECCB5B6-8CF1-403B-8C73-F1567A9EE8AA}</Project>
+      <Name>Combinatorics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\IError\IError.csproj">
+      <Project>{F09F5A2A-4337-4A81-8599-B5B0E1E18ED5}</Project>
+      <Name>IError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Location\Location.csproj">
+      <Project>{75607E88-161B-47E3-8D85-5289E0BD6394}</Project>
+      <Name>Location</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\PathFinding\PathFinding\PathFinding.csproj">
+      <Project>{4F287493-27B0-4272-BF9D-2DBE6FE4F5A6}</Project>
+      <Name>PathFinding</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\PlateWork\PlateWork.csproj">
+      <Project>{0E73947B-BE6E-4949-9F53-B4479DD3682C}</Project>
+      <Name>PlateWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\TaskListXMLParser\TaskListXMLParser.csproj">
+      <Project>{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}</Project>
+      <Name>TaskListXMLParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y $(targetfilename) "..\..\..\bin\$(configurationname)\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

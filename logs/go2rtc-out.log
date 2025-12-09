@@ -1,0 +1,280 @@
+2025-11-30 19:53:51 -08:00: 19:53:51.256 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 19:53:51 -08:00: 19:53:51.256 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 19:53:51 -08:00: 19:53:51.256 INF [rtsp] listen addr=:8554
+2025-11-30 19:53:51 -08:00: 19:53:51.256 INF [api] listen addr=:1984
+2025-11-30 19:53:51 -08:00: 19:53:51.257 INF [webrtc] listen addr=:8555
+2025-11-30 20:07:53 -08:00: 20:07:53.794 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 20:07:53 -08:00: 20:07:53.795 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 20:07:53 -08:00: 20:07:53.795 INF [rtsp] listen addr=:8554
+2025-11-30 20:07:53 -08:00: 20:07:53.795 INF [api] listen addr=:1984
+2025-11-30 20:07:53 -08:00: 20:07:53.795 INF [webrtc] listen addr=:8555
+2025-11-30 20:57:17 -08:00: 20:57:17.008 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 20:57:17 -08:00: 20:57:17.008 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 20:57:17 -08:00: 20:57:17.008 INF [rtsp] listen addr=:8554
+2025-11-30 20:57:17 -08:00: 20:57:17.008 INF [api] listen addr=:1984
+2025-11-30 20:57:17 -08:00: 20:57:17.009 INF [webrtc] listen addr=:8555
+2025-11-30 21:22:34 -08:00: 21:22:34.262 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 21:22:34 -08:00: 21:22:34.262 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 21:22:34 -08:00: 21:22:34.263 INF [rtsp] listen addr=:8554
+2025-11-30 21:22:34 -08:00: 21:22:34.263 INF [api] listen addr=:1985
+2025-11-30 21:22:34 -08:00: 21:22:34.264 INF [webrtc] listen addr=:8555
+2025-11-30 21:23:11 -08:00: 21:23:11.255 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:12 -08:00: 21:23:12.820 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:27 -08:00: 21:23:27.238 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:28 -08:00: 21:23:28.818 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:43 -08:00: 21:23:43.232 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:44 -08:00: 21:23:44.820 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:23:59 -08:00: 21:23:59.234 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:00 -08:00: 21:24:00.821 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:15 -08:00: 21:24:15.233 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:16 -08:00: 21:24:16.822 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:31 -08:00: 21:24:31.233 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:31 -08:00: 21:24:31.824 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:38 -08:00: 21:24:38.771 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:47 -08:00: 21:24:47.232 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:24:53 -08:00: 21:24:53.817 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:03 -08:00: 21:25:03.233 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:09 -08:00: 21:25:09.818 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:19 -08:00: 21:25:19.233 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:25 -08:00: 21:25:25.819 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:35 -08:00: 21:25:35.235 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:41 -08:00: 21:25:41.816 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:51 -08:00: 21:25:51.241 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:25:57 -08:00: 21:25:57.817 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:07 -08:00: 21:26:07.233 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:13 -08:00: 21:26:13.819 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:23 -08:00: 21:26:23.235 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:28 -08:00: 21:26:28.826 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:39 -08:00: 21:26:39.234 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:44 -08:00: 21:26:44.825 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:26:55 -08:00: 21:26:55.234 ERR github.com/AlexxIT/go2rtc/internal/api/ws/ws.go:106 > host=localhost:1985 origin=http://172.25.32.40:1984 error="websocket: request origin not allowed by Upgrader.CheckOrigin"
+2025-11-30 21:28:14 -08:00: 21:28:14.096 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 21:28:14 -08:00: 21:28:14.097 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 21:28:14 -08:00: 21:28:14.097 INF [rtsp] listen addr=:8554
+2025-11-30 21:28:14 -08:00: 21:28:14.097 INF [api] listen addr=:1985
+2025-11-30 21:28:14 -08:00: 21:28:14.098 INF [webrtc] listen addr=:8555
+2025-11-30 21:31:38 -08:00: 21:31:38.795 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 21:31:38 -08:00: 21:31:38.795 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 21:31:38 -08:00: 21:31:38.797 INF [rtsp] listen addr=:8554
+2025-11-30 21:31:38 -08:00: 21:31:38.797 INF [api] listen addr=:1984
+2025-11-30 21:31:38 -08:00: 21:31:38.798 INF [webrtc] listen addr=:8555
+2025-11-30 21:33:20 -08:00: 21:33:20.011 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 21:33:20 -08:00: 21:33:20.011 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 21:33:20 -08:00: 21:33:20.011 INF [rtsp] listen addr=:8554
+2025-11-30 21:33:20 -08:00: 21:33:20.011 INF [api] listen addr=:1984
+2025-11-30 21:33:20 -08:00: 21:33:20.011 INF [webrtc] listen addr=:8555
+2025-11-30 22:18:18 -08:00: 22:18:18.237 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-11-30 22:18:18 -08:00: 22:18:18.237 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-11-30 22:18:18 -08:00: 22:18:18.238 INF [rtsp] listen addr=:8554
+2025-11-30 22:18:18 -08:00: 22:18:18.238 INF [api] listen addr=:1984
+2025-11-30 22:18:18 -08:00: 22:18:18.238 INF [webrtc] listen addr=:8555
+2025-12-01 08:13:43 -08:00: 08:13:43.109 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-01 08:13:43 -08:00: 08:13:43.109 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-01 08:13:43 -08:00: 08:13:43.110 INF [rtsp] listen addr=:8554
+2025-12-01 08:13:43 -08:00: 08:13:43.110 INF [api] listen addr=:1984
+2025-12-01 08:13:43 -08:00: 08:13:43.111 INF [webrtc] listen addr=:8555
+2025-12-06 14:40:03 -08:00: 14:40:03.230 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-06 14:40:03 -08:00: 14:40:03.231 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-06 14:40:03 -08:00: 14:40:03.233 INF [api] listen addr=:8099
+2025-12-06 14:40:03 -08:00: 14:40:03.234 INF [rtsp] listen addr=:8554
+2025-12-06 14:40:03 -08:00: 14:40:03.236 INF [webrtc] listen addr=:8555
+2025-12-08 14:32:05 -08:00: 14:32:05.076 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 14:32:05 -08:00: 14:32:05.078 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 14:32:05 -08:00: 14:32:05.081 INF [api] listen addr=:8099
+2025-12-08 14:32:05 -08:00: 14:32:05.081 INF [rtsp] listen addr=:8554
+2025-12-08 14:32:05 -08:00: 14:32:05.083 INF [webrtc] listen addr=:8555
+2025-12-08 14:35:17 -08:00: 14:35:17.939 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 14:35:17 -08:00: 14:35:17.940 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 14:35:17 -08:00: 14:35:17.941 INF [api] listen addr=:8099
+2025-12-08 14:35:17 -08:00: 14:35:17.941 INF [rtsp] listen addr=:8554
+2025-12-08 14:35:17 -08:00: 14:35:17.942 INF [webrtc] listen addr=:8555
+2025-12-08 14:45:32 -08:00: 14:45:32.907 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 14:45:32 -08:00: 14:45:32.907 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 14:45:32 -08:00: 14:45:32.908 INF [api] listen addr=:8099
+2025-12-08 14:45:32 -08:00: 14:45:32.908 INF [rtsp] listen addr=:8554
+2025-12-08 14:45:32 -08:00: 14:45:32.909 INF [webrtc] listen addr=:8555
+2025-12-08 17:50:11 -08:00: 17:50:11.841 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 17:50:11 -08:00: 17:50:11.843 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 17:50:11 -08:00: 17:50:11.847 INF [rtsp] listen addr=:8554
+2025-12-08 17:50:11 -08:00: 17:50:11.847 INF [api] listen addr=:8099
+2025-12-08 17:50:11 -08:00: 17:50:11.850 INF [webrtc] listen addr=:8555
+2025-12-08 18:53:59 -08:00: 18:53:59.883 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 18:53:59 -08:00: 18:53:59.884 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 18:53:59 -08:00: 18:53:59.885 INF [api] listen addr=:8099
+2025-12-08 18:53:59 -08:00: 18:53:59.885 INF [rtsp] listen addr=:8554
+2025-12-08 18:53:59 -08:00: 18:53:59.886 INF [webrtc] listen addr=:8555
+2025-12-08 19:20:37 -08:00: 19:20:37.273 WRN github.com/AlexxIT/go2rtc/internal/streams/producer.go:170 > error="read tcp 172.25.32.40:51415->172.25.104.65:554: i/o timeout" url=rtsp://172.25.104.65:554/stream1
+2025-12-08 19:20:42 -08:00: 19:20:42.342 WRN github.com/AlexxIT/go2rtc/internal/streams/producer.go:170 > error="read tcp 172.25.32.40:51442->172.25.104.65:554: i/o timeout" url=rtsp://172.25.104.65:554/stream1
+2025-12-08 19:29:52 -08:00: 19:29:52.084 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 19:29:52 -08:00: 19:29:52.084 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 19:29:52 -08:00: 19:29:52.085 INF [api] listen addr=:8099
+2025-12-08 19:29:52 -08:00: 19:29:52.086 INF [rtsp] listen addr=:8554
+2025-12-08 19:29:52 -08:00: 19:29:52.087 INF [webrtc] listen addr=:8555
+2025-12-08 19:37:35 -08:00: 19:37:35.443 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 19:37:35 -08:00: 19:37:35.443 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 19:37:35 -08:00: 19:37:35.444 INF [api] listen addr=:8099
+2025-12-08 19:37:35 -08:00: 19:37:35.444 INF [rtsp] listen addr=:8554
+2025-12-08 19:37:35 -08:00: 19:37:35.445 INF [webrtc] listen addr=:8555
+2025-12-08 19:52:19 -08:00: 19:52:19.510 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 19:52:19 -08:00: 19:52:19.510 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 19:52:19 -08:00: 19:52:19.512 INF [api] listen addr=:8099
+2025-12-08 19:52:19 -08:00: 19:52:19.512 INF [rtsp] listen addr=:8554
+2025-12-08 19:52:19 -08:00: 19:52:19.513 INF [webrtc] listen addr=:8555
+2025-12-08 19:56:17 -08:00: 19:56:16.999 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 19:56:17 -08:00: 19:56:17.000 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 19:56:17 -08:00: 19:56:17.004 INF [api] listen addr=:8099
+2025-12-08 19:56:17 -08:00: 19:56:17.004 INF [rtsp] listen addr=:8554
+2025-12-08 19:56:17 -08:00: 19:56:17.005 INF [webrtc] listen addr=:8555
+2025-12-08 20:12:29 -08:00: 20:12:29.982 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:12:29 -08:00: 20:12:29.983 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:12:29 -08:00: 20:12:29.983 INF [api] listen addr=:8099
+2025-12-08 20:12:29 -08:00: 20:12:29.984 INF [rtsp] listen addr=:8554
+2025-12-08 20:12:29 -08:00: 20:12:29.985 INF [webrtc] listen addr=:8555
+2025-12-08 20:15:34 -08:00: 20:15:34.925 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:15:34 -08:00: 20:15:34.926 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:15:34 -08:00: 20:15:34.927 INF [api] listen addr=:8099
+2025-12-08 20:15:34 -08:00: 20:15:34.927 INF [rtsp] listen addr=:8554
+2025-12-08 20:15:34 -08:00: 20:15:34.928 INF [webrtc] listen addr=:8555
+2025-12-08 20:23:53 -08:00: 20:23:53.399 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:23:53 -08:00: 20:23:53.399 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:23:53 -08:00: 20:23:53.400 INF [api] listen addr=:8099
+2025-12-08 20:23:53 -08:00: 20:23:53.401 INF [rtsp] listen addr=:8554
+2025-12-08 20:23:53 -08:00: 20:23:53.402 INF [webrtc] listen addr=:8555
+2025-12-08 20:26:39 -08:00: 20:26:39.836 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:26:39 -08:00: 20:26:39.836 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:26:39 -08:00: 20:26:39.837 INF [api] listen addr=:8099
+2025-12-08 20:26:39 -08:00: 20:26:39.838 INF [rtsp] listen addr=:8554
+2025-12-08 20:26:39 -08:00: 20:26:39.839 INF [webrtc] listen addr=:8555
+2025-12-08 20:27:31 -08:00: 20:27:31.556 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:27:31 -08:00: 20:27:31.556 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:27:31 -08:00: 20:27:31.556 INF [api] listen addr=:8099
+2025-12-08 20:27:31 -08:00: 20:27:31.557 INF [rtsp] listen addr=:8554
+2025-12-08 20:27:31 -08:00: 20:27:31.558 INF [webrtc] listen addr=:8555
+2025-12-08 20:28:46 -08:00: 20:28:46.335 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:28:46 -08:00: 20:28:46.335 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:28:46 -08:00: 20:28:46.336 INF [api] listen addr=:8099
+2025-12-08 20:28:46 -08:00: 20:28:46.337 INF [rtsp] listen addr=:8554
+2025-12-08 20:28:46 -08:00: 20:28:46.338 INF [webrtc] listen addr=:8555
+2025-12-08 20:37:47 -08:00: 20:37:47.060 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:37:47 -08:00: 20:37:47.060 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:37:47 -08:00: 20:37:47.061 INF [api] listen addr=:8099
+2025-12-08 20:37:47 -08:00: 20:37:47.061 INF [rtsp] listen addr=:8554
+2025-12-08 20:37:47 -08:00: 20:37:47.063 INF [webrtc] listen addr=:8555
+2025-12-08 20:38:39 -08:00: 20:38:39.415 WRN github.com/AlexxIT/go2rtc/internal/streams/producer.go:170 > error="read tcp 172.25.32.40:59336->172.25.108.37:554: i/o timeout" url=rtsp://camera-b2-lid-hotel.eng.eikontx.com:554/stream1
+2025-12-08 20:44:48 -08:00: 20:44:48.552 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:44:48 -08:00: 20:44:48.553 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:44:48 -08:00: 20:44:48.554 INF [api] listen addr=:8099
+2025-12-08 20:44:48 -08:00: 20:44:48.554 INF [rtsp] listen addr=:8554
+2025-12-08 20:44:48 -08:00: 20:44:48.555 INF [webrtc] listen addr=:8555
+2025-12-08 20:46:41 -08:00: 20:46:41.369 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:46:41 -08:00: 20:46:41.369 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:46:41 -08:00: 20:46:41.370 INF [api] listen addr=:8099
+2025-12-08 20:46:41 -08:00: 20:46:41.370 INF [rtsp] listen addr=:8554
+2025-12-08 20:46:41 -08:00: 20:46:41.372 INF [webrtc] listen addr=:8555
+2025-12-08 20:48:26 -08:00: 20:48:26.016 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:48:26 -08:00: 20:48:26.017 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:48:26 -08:00: 20:48:26.017 INF [api] listen addr=:8099
+2025-12-08 20:48:26 -08:00: 20:48:26.018 INF [rtsp] listen addr=:8554
+2025-12-08 20:48:26 -08:00: 20:48:26.019 INF [webrtc] listen addr=:8555
+2025-12-08 20:50:06 -08:00: 20:50:06.645 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:50:06 -08:00: 20:50:06.646 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:50:06 -08:00: 20:50:06.647 INF [api] listen addr=:8099
+2025-12-08 20:50:06 -08:00: 20:50:06.647 INF [rtsp] listen addr=:8554
+2025-12-08 20:50:06 -08:00: 20:50:06.648 INF [webrtc] listen addr=:8555
+2025-12-08 20:53:01 -08:00: 20:53:01.103 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:53:01 -08:00: 20:53:01.103 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:53:01 -08:00: 20:53:01.105 INF [rtsp] listen addr=:8554
+2025-12-08 20:53:01 -08:00: 20:53:01.106 INF [api] listen addr=:8099
+2025-12-08 20:53:01 -08:00: 20:53:01.106 INF [webrtc] listen addr=:8555
+2025-12-08 20:54:09 -08:00: 20:54:09.262 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:54:09 -08:00: 20:54:09.262 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:54:09 -08:00: 20:54:09.262 INF [api] listen addr=:8099
+2025-12-08 20:54:09 -08:00: 20:54:09.263 INF [rtsp] listen addr=:8554
+2025-12-08 20:54:09 -08:00: 20:54:09.264 INF [webrtc] listen addr=:8555
+2025-12-08 20:58:33 -08:00: 20:58:33.214 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:58:33 -08:00: 20:58:33.214 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:58:33 -08:00: 20:58:33.215 INF [api] listen addr=:8099
+2025-12-08 20:58:33 -08:00: 20:58:33.216 INF [rtsp] listen addr=:8554
+2025-12-08 20:58:33 -08:00: 20:58:33.217 INF [webrtc] listen addr=:8555
+2025-12-08 20:59:34 -08:00: 20:59:34.769 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 20:59:34 -08:00: 20:59:34.769 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 20:59:34 -08:00: 20:59:34.770 INF [api] listen addr=:8099
+2025-12-08 20:59:34 -08:00: 20:59:34.770 INF [rtsp] listen addr=:8554
+2025-12-08 20:59:34 -08:00: 20:59:34.771 INF [webrtc] listen addr=:8555
+2025-12-08 21:02:06 -08:00: 21:02:06.506 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:02:06 -08:00: 21:02:06.509 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:02:06 -08:00: 21:02:06.511 INF [api] listen addr=:8099
+2025-12-08 21:02:06 -08:00: 21:02:06.512 INF [rtsp] listen addr=:8554
+2025-12-08 21:02:06 -08:00: 21:02:06.513 INF [webrtc] listen addr=:8555
+2025-12-08 21:02:43 -08:00: 21:02:43.938 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:02:43 -08:00: 21:02:43.939 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:02:43 -08:00: 21:02:43.939 INF [api] listen addr=:8099
+2025-12-08 21:02:43 -08:00: 21:02:43.940 INF [rtsp] listen addr=:8554
+2025-12-08 21:02:43 -08:00: 21:02:43.941 INF [webrtc] listen addr=:8555
+2025-12-08 21:03:23 -08:00: 21:03:23.282 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:03:23 -08:00: 21:03:23.284 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:03:23 -08:00: 21:03:23.285 INF [api] listen addr=:8099
+2025-12-08 21:03:23 -08:00: 21:03:23.285 INF [rtsp] listen addr=:8554
+2025-12-08 21:03:23 -08:00: 21:03:23.286 INF [webrtc] listen addr=:8555
+2025-12-08 21:04:28 -08:00: 21:04:28.915 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:04:28 -08:00: 21:04:28.915 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:04:28 -08:00: 21:04:28.916 INF [api] listen addr=:8099
+2025-12-08 21:04:28 -08:00: 21:04:28.917 INF [rtsp] listen addr=:8554
+2025-12-08 21:04:28 -08:00: 21:04:28.918 INF [webrtc] listen addr=:8555
+2025-12-08 21:06:30 -08:00: 21:06:30.158 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:06:30 -08:00: 21:06:30.158 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:06:30 -08:00: 21:06:30.159 INF [api] listen addr=:8099
+2025-12-08 21:06:30 -08:00: 21:06:30.159 INF [rtsp] listen addr=:8554
+2025-12-08 21:06:30 -08:00: 21:06:30.160 INF [webrtc] listen addr=:8555
+2025-12-08 21:08:11 -08:00: 21:08:11.220 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:08:11 -08:00: 21:08:11.221 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:08:11 -08:00: 21:08:11.222 INF [api] listen addr=:8099
+2025-12-08 21:08:11 -08:00: 21:08:11.222 INF [rtsp] listen addr=:8554
+2025-12-08 21:08:11 -08:00: 21:08:11.223 INF [webrtc] listen addr=:8555
+2025-12-08 21:08:38 -08:00: 21:08:38.125 WRN github.com/AlexxIT/go2rtc/internal/streams/producer.go:170 > error="read tcp 172.25.32.40:52027->172.25.108.25:554: i/o timeout" url=rtsp://camera-b4-lid-hotel.eng.eikontx.com:554/stream1
+2025-12-08 21:11:54 -08:00: 21:11:54.313 WRN github.com/AlexxIT/go2rtc/internal/streams/producer.go:170 > error="read tcp 172.25.32.40:52989->172.25.108.25:554: i/o timeout" url=rtsp://camera-b4-lid-hotel.eng.eikontx.com:554/stream1
+2025-12-08 21:12:19 -08:00: 21:12:19.501 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:12:19 -08:00: 21:12:19.501 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:12:19 -08:00: 21:12:19.502 INF [api] listen addr=:8099
+2025-12-08 21:12:19 -08:00: 21:12:19.503 INF [rtsp] listen addr=:8554
+2025-12-08 21:12:19 -08:00: 21:12:19.504 INF [webrtc] listen addr=:8555
+2025-12-08 21:16:27 -08:00: 21:16:27.420 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:16:27 -08:00: 21:16:27.420 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:16:27 -08:00: 21:16:27.421 INF [api] listen addr=:8099
+2025-12-08 21:16:27 -08:00: 21:16:27.421 INF [rtsp] listen addr=:8554
+2025-12-08 21:16:27 -08:00: 21:16:27.423 INF [webrtc] listen addr=:8555
+2025-12-08 21:17:48 -08:00: 21:17:48.613 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:17:48 -08:00: 21:17:48.613 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:17:48 -08:00: 21:17:48.614 INF [api] listen addr=:8099
+2025-12-08 21:17:48 -08:00: 21:17:48.615 INF [rtsp] listen addr=:8554
+2025-12-08 21:17:48 -08:00: 21:17:48.616 INF [webrtc] listen addr=:8555
+2025-12-08 21:19:01 -08:00: 21:19:01.205 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:19:01 -08:00: 21:19:01.206 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:19:01 -08:00: 21:19:01.206 INF [api] listen addr=:8099
+2025-12-08 21:19:01 -08:00: 21:19:01.207 INF [rtsp] listen addr=:8554
+2025-12-08 21:19:01 -08:00: 21:19:01.208 INF [webrtc] listen addr=:8555
+2025-12-08 21:23:01 -08:00: 21:23:01.279 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:23:01 -08:00: 21:23:01.279 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:23:01 -08:00: 21:23:01.280 INF [api] listen addr=:8099
+2025-12-08 21:23:01 -08:00: 21:23:01.281 INF [rtsp] listen addr=:8554
+2025-12-08 21:23:01 -08:00: 21:23:01.282 INF [webrtc] listen addr=:8555
+2025-12-08 21:36:36 -08:00: 21:36:36.338 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:36:36 -08:00: 21:36:36.339 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:36:36 -08:00: 21:36:36.340 INF [api] listen addr=:8099
+2025-12-08 21:36:36 -08:00: 21:36:36.340 INF [rtsp] listen addr=:8554
+2025-12-08 21:36:36 -08:00: 21:36:36.341 INF [webrtc] listen addr=:8555
+2025-12-08 21:37:04 -08:00: 21:37:04.812 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:37:04 -08:00: 21:37:04.813 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:37:04 -08:00: 21:37:04.813 INF [api] listen addr=:8099
+2025-12-08 21:37:04 -08:00: 21:37:04.814 INF [rtsp] listen addr=:8554
+2025-12-08 21:37:04 -08:00: 21:37:04.815 INF [webrtc] listen addr=:8555
+2025-12-08 21:49:43 -08:00: 21:49:43.909 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:49:43 -08:00: 21:49:43.909 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:49:43 -08:00: 21:49:43.910 INF [api] listen addr=:8099
+2025-12-08 21:49:43 -08:00: 21:49:43.911 INF [rtsp] listen addr=:8554
+2025-12-08 21:49:43 -08:00: 21:49:43.912 INF [webrtc] listen addr=:8555
+2025-12-08 21:52:53 -08:00: 21:52:53.040 INF go2rtc platform=darwin/arm64 revision=2dc0d58 version=1.9.12
+2025-12-08 21:52:53 -08:00: 21:52:53.042 INF config path="/Users/kelsorj/Library/CloudStorage/GoogleDrive-kelsorj@gmail.com/My Drive/Code/Aikon/go2rtc.yaml"
+2025-12-08 21:52:53 -08:00: 21:52:53.044 INF [rtsp] listen addr=:8554
+2025-12-08 21:52:53 -08:00: 21:52:53.045 INF [api] listen addr=:8099
+2025-12-08 21:52:53 -08:00: 21:52:53.046 INF [webrtc] listen addr=:8555

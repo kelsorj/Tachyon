@@ -1,0 +1,10 @@
+2025-11-30 22:04:26 -08:00: [Robot WS Client] Connecting to ws://ekmbalps1.corp.eikontx.com:3061/ws/robot...
+2025-11-30 22:04:26 -08:00: [Robot WS Client] Connected to remote server
+2025-11-30 22:04:26 -08:00: [Robot WS Client] Robot WebSocket connection established
+2025-11-30 22:06:47 -08:00: [Robot WS Client] Handling GET /state
+2025-11-30 22:06:47 -08:00: [Robot WS Client] Responded to GET /state with status 404
+2025-11-30 22:07:03 -08:00: [Robot WS Client] Handling GET /joints
+2025-11-30 22:07:03 -08:00: [Robot WS Client] Responded to GET /joints with status 404
+2025-11-30 22:07:14 -08:00: [Robot WS Client] Handling GET /description
+2025-11-30 22:07:14 -08:00: [Robot WS Client] Responded to GET /description with status 404
+2025-11-30 22:10:31 -08:00: [Robot WS Client] Shutting down...

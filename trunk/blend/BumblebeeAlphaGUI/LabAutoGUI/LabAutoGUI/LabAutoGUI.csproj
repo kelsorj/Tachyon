@@ -1,0 +1,136 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
+    <ProjectGuid>{A4043100-0C3A-4CFF-9715-8BDB337CD650}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <DefaultClrNameSpace>LabAutoGUI</DefaultClrNameSpace>
+    <RootNamespace>LabAutoGUI</RootNamespace>
+    <AssemblyName>LabAutoGUI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <AlwaysCompileMarkupFilesInSeparateDomain>false</AlwaysCompileMarkupFilesInSeparateDomain>
+    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bumblebee2DSimulatorControl.dll">
+      <HintPath>..\..\..\..\vs2008\Bumblebee2DSimulatorControl\bin\Debug\Bumblebee2DSimulatorControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Bumblebee2DSimulatorControl.ViewModel.dll">
+      <HintPath>..\..\..\..\vs2008\Bumblebee2DSimulatorControl\bin\Debug\Bumblebee2DSimulatorControl.ViewModel.dll</HintPath>
+    </Reference>
+    <Reference Include="BumblebeeAlphaGUI.ViewModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\vs2008\BumblebeeAlphaGUI\bin\Debug\BumblebeeAlphaGUI.ViewModel.dll</HintPath>
+    </Reference>
+    <Reference Include="HardwareVisualizerViewModel.dll">
+      <HintPath>..\..\..\..\vs2008\BumblebeeAlphaGUI\HardwareVisualizerViewModel\bin\Debug\HardwareVisualizerViewModel.dll</HintPath>
+    </Reference>
+    <Reference Include="LabwareDatabase.dll">
+      <HintPath>..\..\..\..\vs2008\BumblebeeAlphaGUI\HardwareVisualizerViewModel\bin\Debug\LabwareDatabase.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagnostics.xaml.cs">
+      <DependentUpon>Diagnostics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Protocol.xaml.cs">
+      <DependentUpon>Protocol.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Diagnostics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Protocol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <AppDesigner Include="Properties\" />
+    <None Include="Application.ico">
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="advancedsettings.png" />
+    <Resource Include="BioNex Logo.png" />
+    <Resource Include="clicknrun.png" />
+    <Resource Include="disksfilesystems.png" />
+    <Resource Include="error.png" />
+    <Resource Include="Images\clockwise.png" />
+    <Resource Include="Images\counterclockwise.png" />
+    <Resource Include="Images\down_arrow.png" />
+    <Resource Include="Images\down_slightleft_arrow.png" />
+    <Resource Include="Images\left_arrow.png" />
+    <Resource Include="Images\right_arrow.png" />
+    <Resource Include="Images\up_arrow.png" />
+    <Resource Include="Images\up_slightright_arrow.png" />
+    <Resource Include="kfm_home.png" />
+    <Resource Include="restart.png" />
+    <Resource Include="shutdown.png" />
+    <Resource Include="Volume Manager.png" />
+    <Resource Include="xeyes.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+		 Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

@@ -1,0 +1,17 @@
+﻿<Window x:Class="LiquidLevelSensorEngineerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lls="clr-namespace:BioNex.LiquidLevelDevice;assembly=LiquidLevelDevice"
+        Title="BioNex LLS Engineering Test App" Height="710" Width="640" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <lls:DiagnosticsPanel Grid.Row="0" Name="Diags" />
+        <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
+        <!-- Turn off undo for the text log, otherwise it bloats to infinite memory use -->
+        <TextBox Name="TextLog" Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnlyCaretVisible="True" UndoLimit="0" />
+    </Grid>
+</Window>

@@ -1,0 +1,7 @@
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\bin\UcanDotNET.dll
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\bin\UcanDotNET.pdb
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\bin\UcanDotNET.xml
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\obj\Debug\UcanDotNET.dll
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\obj\Debug\UcanDotNET.xml
+C:\code\trunk\vs2010\Shared\TechnosoftLibrary\UcanDotNET\obj\Debug\UcanDotNET.pdb

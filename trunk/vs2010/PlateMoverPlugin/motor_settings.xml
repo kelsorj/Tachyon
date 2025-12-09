@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Motor settings in this file reflect the soft limits of the axes -->
+<!-- Units used in file -->
+<!-- velocity: m/s -->
+<!-- acceleration: m/s^2 -->
+<!-- jerk: IU -->
+<!-- min_limit: mm -->
+<!-- max_limit: mm -->
+<!-- move_done_window: mm -->
+<!-- settling time: ms -->
+<!-- slow_loop_servo_time_sec: s -->
+<MotorSettings>
+  <axes>
+    <axis name="Y">
+      <id>22</id>
+      <velocity>1023.437</velocity>
+      <acceleration>8000</acceleration>
+      <jerk>40</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>450</max_limit>
+      <move_done_window>0.122</move_done_window>
+      <settling_time>50</settling_time>
+      <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+    </axis>
+    <axis name="R">
+      <id>25</id>
+      <velocity>1430.42</velocity>
+      <acceleration>14622.803</acceleration>
+      <jerk>50</jerk>
+      <encoder_lines>4096</encoder_lines>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <move_done_window>0.11</move_done_window>
+      <settling_time>25</settling_time>
+      <slow_loop_servo_time_sec>0.002001</slow_loop_servo_time_sec>
+    </axis>
+  </axes>
+</MotorSettings>

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="BioNex.KeyenceSZ01SPlugin.DiagnosticsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    MinHeight="145" MinWidth="171">
+    <GroupBox>
+        <GroupBox.Header>
+            <TextBlock>Laser Curtain Status</TextBlock>
+        </GroupBox.Header>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!-- #274 I added this to my branch, but for some reason the changes didn't merge so I am readding it -->
+            <!-- Border Grid.Row="0" CornerRadius="10" Background="{Binding WarningColor}" BorderThickness="5" BorderBrush="DarkGray" Margin="5"/ -->
+            <!-- TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Padding="15">Warning</TextBlock -->
+            <utils:StatusIndicator Grid.Row="1" Height="50" OutlineColor="Gray" FillColor="{Binding InterlockColor}" IndicatorText="Interlock" OutlineRadius="8" Margin="5" IndicatorTextColor="GoldenRod" IndicatorTextFontSize="24" OutlineBorderThickness="3" />
+            <utils:StatusIndicator Grid.Row="2" Height="50" OutlineColor="Gray" FillColor="{Binding InterlockResetReadyColor}" IndicatorText="Reset Ready" OutlineRadius="8" Margin="5" IndicatorTextColor="GoldenRod" IndicatorTextFontSize="24" OutlineBorderThickness="3" />
+            <Button Grid.Row="3" Margin="6" Command="{Binding ResetInterlocksCommand}" Height="40" Content="Reset Interlocks">
+                <!-- DKM 2011-03-31 drop shadow effect looks weird for some reason, but Pause/Resume looks fine... -->
+                <!--
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="{Binding ResetInterlocksButtonGlowSize}" ShadowDepth="{Binding ResetInterlocksShadowDepth}" Color="Orange" />
+                </Button.Effect>
+                -->
+            </Button>
+        </Grid>
+    </GroupBox>
+</UserControl>

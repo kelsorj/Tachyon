@@ -1,0 +1,425 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	mc:Ignorable="d"
+	x:Class="LabAutoGUI.Diagnostics"
+	x:Name="UserControl"
+	d:DesignWidth="750" d:DesignHeight="550">
+
+    <UserControl.Resources>
+        <x:Array x:Key="Increments" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>20.0</sys:Double>
+            <sys:Double>50.0</sys:Double>
+            <sys:Double>100.0</sys:Double>
+            <sys:Double>200.0</sys:Double>
+        </x:Array>
+        <x:Array x:Key="ThetaIncrements" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>15.0</sys:Double>
+            <sys:Double>30.0</sys:Double>
+            <sys:Double>45.0</sys:Double>
+            <sys:Double>60.0</sys:Double>
+            <sys:Double>90.0</sys:Double>
+            <sys:Double>180.0</sys:Double>
+        </x:Array>
+        <ControlTemplate x:Key="ULPopupTemplate">
+            <Border Background="White" BorderBrush="Black" Padding="5" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Vertical">
+                    <Button Command="{Binding MoveAboveULCommand}" CommandParameter="5">5mm</Button>
+                    <Button Command="{Binding MoveAboveULCommand}" CommandParameter="10">10mm</Button>
+                    <Button Command="{Binding MoveAboveULCommand}" CommandParameter="15">15mm</Button>
+                    <Button Command="{Binding MoveAboveULCommand}" CommandParameter="20">20mm</Button>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="LRPopupTemplate">
+            <Border Background="White" BorderBrush="Black" Padding="5" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Vertical">
+                    <Button Command="{Binding MoveAboveLRCommand}" CommandParameter="5">5mm</Button>
+                    <Button Command="{Binding MoveAboveLRCommand}" CommandParameter="10">10mm</Button>
+                    <Button Command="{Binding MoveAboveLRCommand}" CommandParameter="15">15mm</Button>
+                    <Button Command="{Binding MoveAboveLRCommand}" CommandParameter="20">20mm</Button>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ULPopupControlTemplate" TargetType="ContentControl">
+            <Grid Name="MyControl">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+                <Popup Name="MyPopup" StaysOpen="True" Placement="Right">
+                    <ContentControl Template="{StaticResource ULPopupTemplate}"/>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger SourceName="MyControl" Property="UIElement.IsMouseOver" Value="True">
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="True"/>
+                </Trigger>
+                <!--
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition SourceName="MyControl" Property="UIElement.IsMouseOver" Value="False" />
+                        <Condition SourceName="MyPopup" Property="UIElement.IsMouseOver" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="False" />
+                </MultiTrigger>
+                -->
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="LRPopupControlTemplate" TargetType="ContentControl">
+            <Grid Name="MyControl">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+                <Popup Name="MyPopup" StaysOpen="True" Placement="Right">
+                    <ContentControl Template="{StaticResource LRPopupTemplate}"/>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger SourceName="MyControl" Property="UIElement.IsMouseOver" Value="True">
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="True"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="90"></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<StackPanel Orientation="Vertical" Grid.Column="0">
+			<Button Command="{Binding HomeAllAxesCommand}" Margin="5" Style="{DynamicResource TransparentButton}">
+				<Button.Content>
+					<StackPanel Orientation="Vertical">
+						<Image Height="48" Source="kfm_home.png" Stretch="Uniform"/>
+						<Label Foreground="White">Home all</Label>
+					</StackPanel>
+				</Button.Content>
+			</Button>
+			<Button Command="{Binding ResetAllServosCommand}" Margin="5" Style="{DynamicResource TransparentButton}">
+				<Button.Content>
+					<StackPanel Orientation="Vertical">
+						<Image Height="48" Source="shutdown.png" Stretch="Uniform"/>
+						<Label Foreground="White">Reset all</Label>
+					</StackPanel>
+				</Button.Content>
+			</Button>
+			<Button Command="{Binding ServoOnAllMotorsCommand}" Margin="5" Style="{DynamicResource TransparentButton}">
+				<Button.Content>
+					<StackPanel Orientation="Vertical">
+						<Image Height="48" Source="restart.png" Stretch="Uniform"/>
+						<Label Foreground="White">Servo on</Label>
+					</StackPanel>
+				</Button.Content>
+			</Button>
+		</StackPanel>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Label Grid.Row="0" Style="{DynamicResource HeaderLabel}">Channel and Stage Selection</Label>
+			<StackPanel Grid.Row="1" Orientation="Horizontal">
+				<Label HorizontalContentAlignment="Right" Foreground="White">Channel:</Label>
+				<ComboBox Margin="3" ItemsSource="{Binding ChannelList}" Text="{Binding SelectedChannel, Mode=OneWayToSource}" SelectedIndex="0"></ComboBox>
+				<Label HorizontalContentAlignment="Right" Foreground="White">Stage:</Label>
+				<ComboBox Margin="3" ItemsSource="{Binding StageList}" Text="{Binding SelectedStage, Mode=OneWayToSource}" SelectedIndex="0"></ComboBox>
+			</StackPanel>
+			<Label Grid.Row="2" Style="{DynamicResource HeaderLabel}">Move / Teach</Label>
+
+			<!-- move / teach control goes here -->
+		    <Grid Grid.Row="3" Margin="3">
+		        <Grid.RowDefinitions>
+		            <RowDefinition></RowDefinition>
+		            <RowDefinition Height="30"></RowDefinition>
+		        </Grid.RowDefinitions>
+		        <Grid.ColumnDefinitions>
+		            <ColumnDefinition></ColumnDefinition>
+		            <ColumnDefinition></ColumnDefinition>
+		            <ColumnDefinition Width="160"></ColumnDefinition>
+		        </Grid.ColumnDefinitions>
+		        <!-- Channel side -->
+		        <Grid Margin="3">
+		            <Grid.RowDefinitions>
+		                <RowDefinition Height="25"></RowDefinition>
+		                <RowDefinition></RowDefinition>
+		            </Grid.RowDefinitions>
+		            <Label Grid.Row="0" HorizontalContentAlignment="Center" Background="Gray">Channel</Label>
+		            <Grid Grid.Row="1">
+		                <Grid.ColumnDefinitions>
+		                    <ColumnDefinition Width="70"></ColumnDefinition>
+		                    <ColumnDefinition></ColumnDefinition>
+		                </Grid.ColumnDefinitions>
+		                <Grid>
+		                    <Grid.RowDefinitions>
+		                        <RowDefinition></RowDefinition>
+		                        <RowDefinition></RowDefinition>
+		                    </Grid.RowDefinitions>
+		                    <Border CornerRadius="5" Padding="3" Grid.Row="0" BorderThickness="1" BorderBrush="DarkGray">
+		                        <Grid>
+		                            <Grid.RowDefinitions>
+		                                <RowDefinition Height="25"></RowDefinition>
+		                                <RowDefinition></RowDefinition>
+		                                <RowDefinition Height="25"></RowDefinition>
+		                                <RowDefinition></RowDefinition>
+		                            </Grid.RowDefinitions>
+		                            <Label Grid.Row="0" HorizontalAlignment="Center" Foreground="White">W</Label>
+		                            <Button Command="{Binding JogWUpCommand}" Grid.Row="1" Style="{DynamicResource TransparentButton}" ToolTip="Aspirate">
+										<Image Source="Images/up_arrow.png" />
+									</Button>
+		                            <ComboBox ItemsSource="{StaticResource Increments}" Text="{Binding WIncrement, Mode=TwoWay}" Grid.Row="2" Margin="3"></ComboBox>
+		                            <Button Command="{Binding JogWDownCommand}" Grid.Row="3" Style="{DynamicResource TransparentButton}" ToolTip="Dispense">
+										<Image Source="Images/down_arrow.png" />
+									</Button>
+		                        </Grid>
+		                    </Border>
+		                    <Border CornerRadius="5" Padding="3" Grid.Row="1" BorderThickness="1" BorderBrush="DarkGray">
+		                        <Grid>
+		                            <Grid.RowDefinitions>
+		                                <RowDefinition Height="25"></RowDefinition>
+		                                <RowDefinition></RowDefinition>
+		                                <RowDefinition Height="25"></RowDefinition>
+		                                <RowDefinition></RowDefinition>
+		                            </Grid.RowDefinitions>
+		                            <Label Grid.Row="0" HorizontalAlignment="Center" Foreground="White">Z</Label>
+		                            <Button Command="{Binding JogZUpCommand}" Grid.Row="1" Style="{DynamicResource TransparentButton}" ToolTip="Jog Z up">
+										<Image Source="Images/up_arrow.png" />
+									</Button>
+		                            <ComboBox ItemsSource="{StaticResource Increments}" Text="{Binding ZIncrement, Mode=TwoWay}" Grid.Row="2" Margin="3"></ComboBox>
+		                            <Button Command="{Binding JogZDownCommand}" Grid.Row="3" Style="{DynamicResource TransparentButton}" ToolTip="Jog Z down">
+		                            	<Image Source="Images/down_arrow.png" />									
+		                            </Button>
+		                        </Grid>
+		                    </Border>
+		                </Grid>
+						<Border Grid.Column="1" VerticalAlignment="Center" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+			                <Grid>
+			                    <Grid.RowDefinitions>
+			                        <RowDefinition></RowDefinition>
+			                        <RowDefinition></RowDefinition>
+			                    </Grid.RowDefinitions>
+			                    <Grid.ColumnDefinitions>
+			                        <ColumnDefinition></ColumnDefinition>
+			                        <ColumnDefinition></ColumnDefinition>
+			                        <ColumnDefinition></ColumnDefinition>
+			                    </Grid.ColumnDefinitions>
+			                    <Label Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3" Foreground="White">X</Label>
+			                    <Button Command="{Binding JogXLeftCommand}" Grid.Row="1" Grid.Column="0" Style="{DynamicResource TransparentButton}" ToolTip="Jog tip to the left">
+									<Image Source="Images/left_arrow.png" />
+								</Button>
+			                    <ComboBox ItemsSource="{StaticResource Increments}" Text="{Binding XIncrement, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="3"></ComboBox>
+			                    <Button Command="{Binding JogXRightCommand}" Grid.Row="1" Grid.Column="2" Style="{DynamicResource TransparentButton}" ToolTip="Jog tip to the right">
+									<Image Source="Images/right_arrow.png" />
+								</Button>
+			                </Grid>
+						</Border>
+		            </Grid>
+		        </Grid>
+		        <!-- Stage side -->
+		        <Grid Grid.Column="1" Margin="3">
+		            <Grid.RowDefinitions>
+		                <RowDefinition Height="25"></RowDefinition>
+		                <RowDefinition></RowDefinition>
+		            </Grid.RowDefinitions>
+		            <Label Grid.Row="0" HorizontalContentAlignment="Center" Background="Gray">Stage</Label>
+		            <Grid Grid.Row="1">
+		                <Grid.ColumnDefinitions>
+		                    <ColumnDefinition></ColumnDefinition>
+		                    <ColumnDefinition Width="75"></ColumnDefinition>
+		                </Grid.ColumnDefinitions>
+						<Border Grid.Column="0" VerticalAlignment="Center" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+			                <Grid VerticalAlignment="Center">
+			                    <Grid.RowDefinitions>
+			                        <RowDefinition></RowDefinition>
+			                        <RowDefinition></RowDefinition>
+			                    </Grid.RowDefinitions>
+			                    <Grid.ColumnDefinitions>
+			                        <ColumnDefinition></ColumnDefinition>
+			                        <ColumnDefinition></ColumnDefinition>
+			                        <ColumnDefinition></ColumnDefinition>
+			                    </Grid.ColumnDefinitions>
+			                    <Label Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3" Foreground="White">Theta</Label>
+			                    <Button Command="{Binding JogRCCWCommand}" Grid.Row="1" Grid.Column="0" Style="{DynamicResource TransparentButton}">
+									<Image Source="Images/counterclockwise.png" Height="48" Width="48" />
+								</Button>
+			                    <ComboBox ItemsSource="{StaticResource ThetaIncrements}" Text="{Binding RIncrement, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Margin="3"></ComboBox>
+			                    <Button Command="{Binding JogRCWCommand}" Grid.Row="1" Grid.Column="2" Style="{DynamicResource TransparentButton}">
+									<Image Source="Images/clockwise.png" Height="48" Width="48" />
+								</Button>
+			                </Grid>
+						</Border>
+						<Border Grid.Column="1" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+			                <Grid Grid.Column="1">
+			                    <Grid Grid.Row="0">
+			                        <Grid.RowDefinitions>
+			                            <RowDefinition Height="25"></RowDefinition>
+			                            <RowDefinition></RowDefinition>
+			                            <RowDefinition Height="25"></RowDefinition>
+			                            <RowDefinition></RowDefinition>
+			                        </Grid.RowDefinitions>
+			                        <Label Grid.Row="0" HorizontalAlignment="Center" Foreground="White">Y</Label>
+			                        <Button Command="{Binding JogYAwayCommand}" Grid.Row="1" Style="{DynamicResource TransparentButton}" ToolTip="Jog stage away from user">
+										<Image Source="Images/up_slightright_arrow.png" Height="48" Width="48" />
+									</Button>
+			                        <ComboBox ItemsSource="{StaticResource Increments}" Text="{Binding YIncrement, Mode=TwoWay}" Grid.Row="2" Margin="3"></ComboBox>
+			                        <Button Command="{Binding JogYTowardsCommand}" Grid.Row="3" Style="{DynamicResource TransparentButton}" ToolTip="Jog stage towards user">
+										<Image Source="Images/down_slightleft_arrow.png" Height="48" Width="48" />
+									</Button>
+			                    </Grid>
+			                </Grid>
+						</Border>
+		            </Grid>
+		        </Grid>
+		        <Grid Grid.Column="2" Background="Transparent">
+		            <Grid.RowDefinitions>
+		                <RowDefinition></RowDefinition>
+		                <RowDefinition></RowDefinition>
+						<RowDefinition></RowDefinition>
+		            </Grid.RowDefinitions>
+		            <Button Grid.Row="0" Margin="3" Command="{Binding TeachULCommand}">
+		                <Button.Content>
+		                    <StackPanel>
+		                        <Label HorizontalContentAlignment="Center">Teach</Label>
+		                        <Canvas Height="30" Width="50">
+		                            <Rectangle Height="30" Width="50" Stroke="LightGray" StrokeThickness="2"></Rectangle>
+		                            <Ellipse Height="4" Width="4" Stroke="Red" Fill="Red" StrokeThickness="2" Canvas.Top="2" Canvas.Left="2"></Ellipse>
+		                        </Canvas>
+		                        <Label HorizontalContentAlignment="Center">Upper Left</Label>
+		                        <StackPanel Orientation="Horizontal">
+		                            <ContentControl Template="{StaticResource ULPopupControlTemplate}">
+		                                <Button Margin="3" Content="Move Above" />    
+		                            </ContentControl>
+		                            <Button Margin="3" Command="{Binding MoveToULCommand}">Move To
+		                                <Button.ToolTip>
+		                                    <StackPanel Orientation="Vertical">
+		                                        <Label>Currently taught positions:</Label>
+		                                        <StackPanel Orientation="Horizontal">
+		                                            <Label>X:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding XPosition}" />
+		                                            <Label>Y:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding YPosition}" />
+		                                            <Label>Z:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding ZPosition}" />
+		                                            <Label>R:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding RPosition}" />
+		                                        </StackPanel>
+		                                    </StackPanel>
+		                                </Button.ToolTip>
+		                            </Button>
+		                        </StackPanel>
+		                    </StackPanel>
+		                </Button.Content>
+		            </Button>
+		            <Button Grid.Row="1" Margin="3" Command="{Binding TeachLRCommand}">
+		                <Button.Content>
+		                    <StackPanel Orientation="Vertical">
+		                        <Label HorizontalContentAlignment="Center">Teach</Label>
+		                        <Canvas Height="30" Width="50">
+		                            <Rectangle Height="30" Width="50" Stroke="LightGray" StrokeThickness="2"></Rectangle>
+		                            <Ellipse Height="4" Width="4" Stroke="Red" Fill="Red" StrokeThickness="2" Canvas.Top="24" Canvas.Left="44"></Ellipse>
+		                        </Canvas>
+		                        <Label HorizontalContentAlignment="Center">Lower Right</Label>
+		                        <StackPanel Orientation="Horizontal">
+		                            <ContentControl Template="{StaticResource LRPopupControlTemplate}">
+		                                <Button Margin="3" Content="Move Above" />
+		                            </ContentControl>
+		                            <Button Margin="3" Command="{Binding MoveToLRCommand}">Move To
+		                                <Button.ToolTip>
+		                                    <StackPanel Orientation="Vertical">
+		                                        <Label>Currently taught positions:</Label>
+		                                        <StackPanel Orientation="Horizontal">
+		                                            <Label>X:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding XPosition}"/>
+		                                            <Label>Y:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding YPosition}" />
+		                                            <Label>Z:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding ZPosition}" />
+		                                            <Label>R:</Label>
+		                                            <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding RPosition}" />
+		                                        </StackPanel>
+		                                    </StackPanel>
+		                                </Button.ToolTip>
+		                            </Button>
+		                        </StackPanel>
+		                    </StackPanel>
+		                </Button.Content>
+		            </Button>
+			        <!-- Wash station teach buttons -->
+			        <Grid Grid.Row="3">
+						<Grid.RowDefinitions>
+							<RowDefinition></RowDefinition>
+							<RowDefinition></RowDefinition>
+							<RowDefinition></RowDefinition>
+						</Grid.RowDefinitions>
+			            <Button Grid.Row="0" Margin="3" Command="{Binding MoveAboveWashCommand}">Move Above Wash Station</Button>
+			            <Button Grid.Row="1" Margin="3" Command="{Binding MoveToWashCommand}" Content="Move To Wash Station">
+			                <Button.ToolTip>
+			                        <StackPanel Orientation="Vertical">
+			                            <Label>Currently taught positions:</Label>
+			                            <StackPanel Orientation="Horizontal">
+			                                <Label>X:</Label>
+			                            	<TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center"  Text="{Binding XPosition}"/>
+			                                <Label>Z:</Label>
+			                                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center"  Text="{Binding ZPosition}"/>
+			                            </StackPanel>
+			                        </StackPanel>
+			                </Button.ToolTip>
+			            </Button>
+			            <Button Grid.Row="2" Margin="3" Command="{Binding TeachWashStation}">Teach Wash Station</Button>
+			        </Grid>
+
+					
+		        </Grid>
+		        <!-- position readouts go here -->
+		        <Grid Grid.ColumnSpan="3" Grid.Row="2" Name="grid_positions">
+		            <StackPanel Orientation="Horizontal">
+		                <Label VerticalContentAlignment="Center" Foreground="White">X:</Label>
+		                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding XPosition}" />
+		                <Label VerticalContentAlignment="Center" Foreground="White">Y:</Label>
+		                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding YPosition}" />
+		                <Label VerticalContentAlignment="Center" Foreground="White">Z:</Label>
+		                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding ZPosition}" />
+		                <Label VerticalContentAlignment="Center" Foreground="White">W:</Label>
+		                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding WPosition}" />
+		                <Label VerticalContentAlignment="Center" Foreground="White">R:</Label>
+		                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding RPosition}" />
+		            </StackPanel>
+		        </Grid>
+		    </Grid>
+			<!-- end move / teach -->
+
+			<Label Grid.Row="4" Style="{DynamicResource HeaderLabel}">Homing</Label>
+			<UniformGrid Grid.Row="5" Rows="1">
+				<Button Margin="3">Home X</Button>
+				<Button Margin="3">Home Y</Button>
+				<Button Margin="3">Home Z</Button>
+				<Button Margin="3">Home W</Button>
+				<Button Margin="3">Home R</Button>
+			</UniformGrid>
+		</Grid>
+	
+	</Grid>
+</UserControl>

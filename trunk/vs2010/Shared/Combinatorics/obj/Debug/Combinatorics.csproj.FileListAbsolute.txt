@@ -1,0 +1,5 @@
+C:\code\trunk\vs2010\Shared\Combinatorics\bin\Debug\Combinatorics.dll
+C:\code\trunk\vs2010\Shared\Combinatorics\bin\Debug\Combinatorics.pdb
+C:\code\trunk\vs2010\Shared\Combinatorics\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\Combinatorics\obj\Debug\Combinatorics.dll
+C:\code\trunk\vs2010\Shared\Combinatorics\obj\Debug\Combinatorics.pdb

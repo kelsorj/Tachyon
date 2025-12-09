@@ -1,0 +1,12 @@
+create new image, 480x272, transparent background
+select all
+fill with 9c9fa0
+change opacity to 50%
+new layer
+select all
+shrink selection by 10px
+select -> rounded rectangle, 10%
+fill with black
+change opacity of layer to 88%
+shrink selection 10px
+fill with 407dce

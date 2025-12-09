@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="BioNex.Hig.DiagnosticsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioNex.Hig"
+             mc:Ignorable="d" 
+             d:DesignHeight="606" d:DesignWidth="644" Width="Auto" Height="Auto" KeyUp="UserControl_KeyUp">
+
+    <UserControl.Resources>
+        <!-- connect togglebutton stuff here -->
+        <StackPanel x:Key="Connected">
+            <Image Source="Images/connect_me.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Connected</Label>
+            <StackPanel.ToolTip>
+                <Label>Currently connected to HiG device</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <StackPanel x:Key="Disconnected">
+            <Image Source="Images/disconnect.png" Width="48" Height="48" />
+            <Label HorizontalContentAlignment="Center">Disconnected</Label>
+            <StackPanel.ToolTip>
+                <Label>Currently not connected to HiG device</Label>
+            </StackPanel.ToolTip>
+        </StackPanel>
+        <Style TargetType="{x:Type ToggleButton}" x:Key="ConnectToggleButtonStyle">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="{DynamicResource Connected}" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource Disconnected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="3">
+            <!-- TODO: need to figure out best way to make this togglebutton uncheck itself if we lose the connection -->
+            <ToggleButton Name="button_connect" Margin="3" Width="100" IsChecked="{Binding Connected}" Style="{StaticResource ConnectToggleButtonStyle}" Command="{Binding ConnectCommand}" CommandParameter="{Binding ElementName=button_connect, Path=IsChecked}" DataContext="{Binding}" />
+            <Button Margin="3" Width="100" Command="{Binding HomeAllAxesCommand}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="Images/home.png" Width="48" />
+                        <Label HorizontalContentAlignment="Center">Home All Axes</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="3" Width="100" Command="{Binding ServosOnCommand}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="Images/servos_on.png" Width="48" />
+                        <Label HorizontalContentAlignment="Center">Servos On</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="3" Width="100" Command="{Binding ServosOffCommand}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="Images/servos_off.png" Width="48" />
+                        <Label HorizontalContentAlignment="Center">Servos Off</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="3" Width="100" Command="{Binding ResetInterlocksCommand}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="Images/eraser.png" Width="48" />
+                        <Label HorizontalContentAlignment="Center">Reset Interlocks</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="3" Width="100" Command="{Binding StopAllCommand}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="Images/stop.png" Width="48" />
+                        <Label HorizontalContentAlignment="Center">Stop All</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <!--
+            <ToggleButton Name="button_telemetry" Margin="3" Width="100" Style="{StaticResource TelemetryToggleButtonStyle}" IsChecked="{Binding TelemetryEnabled}" Command="{Binding TelemetryCommand}" CommandParameter="{Binding ElementName=button_telemetry, Path=IsChecked}" />
+            -->
+        </StackPanel>
+        <TabControl DockPanel.Dock="Top" SelectedIndex="0">
+            <TabItem Header="Functions" MinHeight="50">
+                <local:Functions x:Name="FunctionsPanel" />
+            </TabItem>
+            <TabItem Header="Engineering" MinHeight="50" Visibility="{Binding EngineeringTabVisibility}">
+                <local:EngineeringPanel x:Name="EngineeringPanel" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

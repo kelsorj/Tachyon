@@ -1,0 +1,20 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "WorkflowPersistanceStorage"
+   MSDTVersion = "80"
+   DefDBRef = "BumblebeeWorkflowPersistanceStorage.dbp.mdf"
+   Begin Folder = "Change Scripts"
+   End
+   Begin Folder = "Create Scripts"
+      Script = "SqlPersistenceService_Logic.sql"
+      Script = "SqlPersistenceService_Schema.sql"
+   End
+   Begin DBRefFolder = "Database References"
+      Begin DBRefNode = "BumblebeeWorkflowPersistanceStorage.dbp.mdf"
+         ConnectStr = "Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Code\trunk\vs2008\BumblebeeAlphaGUI\WorkflowPersistanceStorage\BumblebeeWorkflowPersistanceStorage.dbp.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True"
+         Provider = "{91510608-8809-4020-8897-FBA057E22D54}"
+         Colorizer = 6
+      End
+   End
+   Begin Folder = "Queries"
+   End
+End

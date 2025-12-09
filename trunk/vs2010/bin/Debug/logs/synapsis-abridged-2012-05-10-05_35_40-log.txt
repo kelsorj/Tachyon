@@ -1,0 +1,155 @@
+2012-05-10-05_38_42.607 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_38_42.610 [Axis homing] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_38_42.619 [Axis homing] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_38_42.628 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_38_42.639 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 2, TPOS = 0, Err = 2, ERR = 0.005 mm, IQ = -0.073 A
+2012-05-10-05_38_42.644 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_38_42.647 [Axis homing] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_38_42.656 [Axis homing] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_38_42.665 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_38_42.676 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = -0.453 A
+2012-05-10-05_43_00.615 [4452] DEBUG axis_2 - MoveAbsolute(-45.000, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_00.621 [4452] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_00.627 [4452] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -147456L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_01.164 [4452] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_43_01.175 [4452] DEBUG axis_2 - MoveAbsolute(-45.000, move_complete=true, ...) Done in 560ms.
+2012-05-10-05_43_01.188 [4452] DEBUG axis_2 - MoveAbsolute(-45.000mm=-147456IU, move_complete=true, ...) FINALLY CPOS = -147456, APOS = -147453, TPOS = -147456, Err = 3, ERR = 0.001 mm, IQ = 0.132 A
+2012-05-10-05_43_01.496 [1472] DEBUG axis_2 - MoveAbsolute(-90.000, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_01.500 [1472] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_01.507 [1472] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -294911L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_02.042 [1472] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_43_02.051 [1472] DEBUG axis_2 - MoveAbsolute(-90.000, move_complete=true, ...) Done in 555ms.
+2012-05-10-05_43_02.062 [1472] DEBUG axis_2 - MoveAbsolute(-90.000mm=-294911IU, move_complete=true, ...) FINALLY CPOS = -294911, APOS = -294905, TPOS = -294911, Err = 6, ERR = 0.002 mm, IQ = 0.317 A
+2012-05-10-05_43_02.316 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_02.321 [5452] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_02.327 [5452] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -442366L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_02.851 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, ...) in a condition where MC is not high, but TPOS == CPOS == -442366 IU, so motioncomplete_flag raised essentially
+2012-05-10-05_43_02.862 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, move_complete=true, ...) Done in 546ms.
+2012-05-10-05_43_02.875 [5452] DEBUG axis_2 - MoveAbsolute(-134.999mm=-442366IU, move_complete=true, ...) FINALLY CPOS = -442366, APOS = -442359, TPOS = -442366, Err = 7, ERR = 0.002 mm, IQ = 0.095 A
+2012-05-10-05_43_03.562 [4432] DEBUG axis_2 - MoveAbsolute(-180.001, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_03.569 [4432] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -180.001 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-10-05_43_03.580 [4432] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Y : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -180.001 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()
+2012-05-10-05_49_19.314 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0495116
+2012-05-10-05_49_19.336 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0714424
+2012-05-10-05_49_19.359 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0944246
+2012-05-10-05_49_19.377 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1125662
+2012-05-10-05_49_19.398 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1335475
+2012-05-10-05_49_19.421 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1564669
+2012-05-10-05_49_19.442 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1775859
+2012-05-10-05_49_19.465 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2004737
+2012-05-10-05_49_19.485 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2204682
+2012-05-10-05_49_19.508 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2435421
+2012-05-10-05_49_19.532 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2675763
+2012-05-10-05_49_19.555 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2905487
+2012-05-10-05_49_19.578 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3134286
+2012-05-10-05_49_19.600 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3356270
+2012-05-10-05_49_19.622 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3575489
+2012-05-10-05_49_19.643 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3785824
+2012-05-10-05_49_19.667 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4025122
+2012-05-10-05_49_19.691 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4264882
+2012-05-10-05_49_19.712 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4476268
+2012-05-10-05_49_19.732 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4675320
+2012-05-10-05_49_19.752 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.4877057
+2012-05-10-05_49_19.757 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_19.764 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_19.757 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_19.758 [7672] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_19.759 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_19.759 [8828] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_19.764 [9424] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_19.764 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_19.795 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.82 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_49_34.076 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6024293
+2012-05-10-05_49_34.101 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6274525
+2012-05-10-05_49_34.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6524380
+2012-05-10-05_49_34.150 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6764949
+2012-05-10-05_49_34.172 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6984416
+2012-05-10-05_49_34.196 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7225250
+2012-05-10-05_49_34.220 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7465224
+2012-05-10-05_49_34.243 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7695223
+2012-05-10-05_49_34.267 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7935313
+2012-05-10-05_49_34.292 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8185336
+2012-05-10-05_49_34.315 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8415167
+2012-05-10-05_49_34.339 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8654103
+2012-05-10-05_49_34.363 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8893946
+2012-05-10-05_49_34.386 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9124704
+2012-05-10-05_49_34.410 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9364780
+2012-05-10-05_49_34.434 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9604056
+2012-05-10-05_49_34.457 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9834576
+2012-05-10-05_49_34.479 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0054768
+2012-05-10-05_49_34.503 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0294686
+2012-05-10-05_49_34.526 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0525090
+2012-05-10-05_49_34.545 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:03.0719148
+2012-05-10-05_49_34.548 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_34.549 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_34.553 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_34.552 [7672] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_34.559 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_34.550 [5904] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_34.551 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_34.555 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_34.571 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.43 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_49_52.541 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9451483
+2012-05-10-05_49_52.565 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9692066
+2012-05-10-05_49_52.588 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9921451
+2012-05-10-05_49_52.612 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0161485
+2012-05-10-05_49_52.637 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0411266
+2012-05-10-05_49_52.660 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0641065
+2012-05-10-05_49_52.684 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0881537
+2012-05-10-05_49_52.708 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1121445
+2012-05-10-05_49_52.731 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1350578
+2012-05-10-05_49_52.754 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1580787
+2012-05-10-05_49_52.776 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1800877
+2012-05-10-05_49_52.795 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1991309
+2012-05-10-05_49_52.818 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2221564
+2012-05-10-05_49_52.841 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2451517
+2012-05-10-05_49_52.866 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2701749
+2012-05-10-05_49_52.889 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2931687
+2012-05-10-05_49_52.912 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3160597
+2012-05-10-05_49_52.934 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3381646
+2012-05-10-05_49_52.953 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3571738
+2012-05-10-05_49_52.977 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3812265
+2012-05-10-05_49_52.998 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.4023191
+2012-05-10-05_49_53.002 [9424] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_53.004 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_53.004 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_53.003 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_53.005 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_53.009 [7544] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_53.003 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_53.008 [8828] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_53.036 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 7.90 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_51_08.031 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3395246
+2012-05-10-05_51_08.055 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3635183
+2012-05-10-05_51_08.079 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3875161
+2012-05-10-05_51_08.102 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4104439
+2012-05-10-05_51_08.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4345343
+2012-05-10-05_51_08.150 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4584446
+2012-05-10-05_51_08.174 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4824439
+2012-05-10-05_51_08.198 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5066660
+2012-05-10-05_51_08.223 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5315799
+2012-05-10-05_51_08.247 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5555512
+2012-05-10-05_51_08.270 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5785636
+2012-05-10-05_51_08.295 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6035571
+2012-05-10-05_51_08.319 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6275321
+2012-05-10-05_51_08.342 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6505678
+2012-05-10-05_51_08.366 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6745736
+2012-05-10-05_51_08.389 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6974711
+2012-05-10-05_51_08.413 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7215788
+2012-05-10-05_51_08.437 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7455538
+2012-05-10-05_51_08.461 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7695386
+2012-05-10-05_51_08.484 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7924356
+2012-05-10-05_51_08.505 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.8141351
+2012-05-10-05_51_08.511 [5156] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_51_08.514 [2504] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_51_08.512 [8660] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_51_08.519 [6956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_51_08.514 [8976] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_51_08.513 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_51_08.515 [9992] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_51_08.519 [8840] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_51_08.546 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.42 mm, this is taller than the labware height of 0.00 mm - aborting operation

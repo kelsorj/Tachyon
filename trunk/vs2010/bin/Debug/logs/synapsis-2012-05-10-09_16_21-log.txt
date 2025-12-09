@@ -1,0 +1,166 @@
+2012-05-10-09_16_21.860 [7700] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-10-09_16_21.894 [7700] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-10-09_16_23.052 [7700] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-10-09_16_23.099 [7700] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-10-09_16_23.111 [7700] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-10-09_16_23.439 [7700] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-10-09_16_23.451 [7700] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-10-09_16_23.459 [7700] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-10-09_16_23.467 [7700] DEBUG axis_4 - SetAxisTimeout(300) called.
+2012-05-10-09_16_23.511 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-10-09_16_23.515 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-10-09_16_23.519 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-10-09_16_23.522 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-10-09_16_24.820 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Connected to BeeSure 'Liquid Level Sensor'
+2012-05-10-09_16_24.827 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-10-09_16_24.838 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-10-09_16_24.850 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-10-09_16_24.861 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-10-09_16_24.865 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 1 time(s).
+2012-05-10-09_16_24.869 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_major 2 time(s).
+2012-05-10-09_16_24.873 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 1 time(s).
+2012-05-10-09_16_24.877 [7700] DEBUG axis_4 - TS_GetIntVariable() failed to read firmware_minor 2 time(s).
+2012-05-10-09_16_24.880 [7700] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - T Axis firmware version '0.0'
+2012-05-10-09_16_24.962 [7700] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-10-09_16_28.705 [7700] INFO  BioNex.SynapsisPrototype.Model.SynapsisModel - user requested to home all devices
+2012-05-10-09_16_28.720 [7700] DEBUG axis_3 - Home(wait_for_complete=true) called.
+2012-05-10-09_16_29.757 [Axis homing] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-10-09_16_31.023 [Axis homing] DEBUG axis_3 - HomingThread() finished successfully at APOS=-43 with ELPOSL=419
+2012-05-10-09_16_31.031 [Axis homing] DEBUG axis_2 - Home(wait_for_complete=true) called.
+2012-05-10-09_16_32.062 [Axis homing] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-10-09_16_47.089 [Axis homing] DEBUG axis_2 - HomingThread() finished successfully at APOS=-2 with ELPOSL=1376
+2012-05-10-09_16_47.094 [Axis homing] DEBUG axis_1 - Home(wait_for_complete=true) called.
+2012-05-10-09_16_48.125 [Axis homing] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-10-09_16_52.744 [Axis homing] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Home(...) error: Control error on axis X
+2012-05-10-09_16_52.759 [Axis homing] WARN  axis_1 - Home(...) error: Control error on axis X ()
+2012-05-10-09_16_52.765 [Axis homing] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Home failed on 'X'
+BioNex.Shared.TechnosoftLibrary.AxisException: Home(...) error: Control error on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.HomingThread(Int64 timeout_ms)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.Home(Boolean wait_for_complete)
+   at BioNex.LiquidLevelDevice.LLSensorModel.Home(Int32 axis_index, Boolean block, Boolean force)
+2012-05-10-09_16_52.789 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-09_16_52.795 [Axis homing] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-09_16_52.805 [Axis homing] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= -40 iu, delta= 40 iu
+2012-05-10-09_16_52.810 [Axis homing] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-09_16_52.817 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 28ms.
+2012-05-10-09_16_53.323 [Axis homing] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Axis not homed on axis X
+2012-05-10-09_16_53.328 [Axis homing] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0 R0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-10-09_16_53.334 [Axis homing] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach park position X:0 Y:0 Z:0.
+BioNex.Shared.TechnosoftLibrary.AxisException: Axis not homed on axis X
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveToPark()
+2012-05-10-09_16_56.689 [8240] DEBUG BioNex.Shared.CanDongleWrapper.Dongle - CanDongleWrapper::StatusEvent - Status event happened on Systec Dev#1: CAN_Status=4, USB_Status=0, ret=0
+2012-05-10-09_18_06.100 [Axis homing] INFO  BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - System is running on battery backup
+2012-05-10-09_18_43.904 [Axis homing] INFO  BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - System is on AC power

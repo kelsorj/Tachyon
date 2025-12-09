@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="BioNex.LiquidLevelDevice.DiagnosticsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioNex.LiquidLevelDevice"
+             mc:Ignorable="d" 
+             d:DesignHeight="628" d:DesignWidth="750"
+             KeyUp="UserControl_KeyUp" 
+             >
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top" SelectedIndex="0" Name="Tabs">
+            <TabItem Header="Status" ><!--="{Binding EngineeringTabVisibility}" -->
+                <local:StatusPanel x:Name="Status" />
+            </TabItem>
+            <TabItem Header="Scan Progress" > <!-- Visibility="{Binding EngineeringTabVisibility}" -->
+                <local:ScanProgressPanel x:Name="ScanProgress" />
+            </TabItem>
+            <TabItem Header="Volume Mapping" > <!--{Binding EngineeringTabVisibility}" -->
+                <local:VolumeMapPanel x:Name="VolumeMap" />
+            </TabItem>
+            <TabItem Header="Output File Configuration" > <!--{Binding EngineeringTabVisibility}" -->
+                <local:OutputConfigPanel x:Name="OutputConfig" />
+            </TabItem>
+
+            <TabItem Header="Jog / Teach" Visibility="{Binding EngineeringTabVisibility}">
+                <local:EngineeringPanel x:Name="Engineering" />
+            </TabItem>
+            <TabItem Header="Setup / Testing" Visibility="{Binding EngineeringTabVisibility}">
+                <local:SetupAndTestingPanel x:Name="SetupAndTesting" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,33 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  
+  <Page.Resources>
+    <x:Array x:Key="Teachpoints" Type="sys:String">
+      <sys:String>Teachpoint A</sys:String>
+      <sys:String>Teachpoint B</sys:String>
+    </x:Array>
+  </Page.Resources>
+  
+  <Grid>  
+    <Grid.RowDefinitions>
+      <RowDefinition Height="30"></RowDefinition>
+      <RowDefinition Height="30"></RowDefinition>
+      <RowDefinition Height="30"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="100"></ColumnDefinition>
+      <ColumnDefinition></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <!-- teachpoints -->
+    <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right">Teachpoint:</Label>
+    <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{StaticResource Teachpoints}" Margin="3" />
+    <!-- hover delta readout -->
+    <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right">Hover Delta:</Label>
+    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HoverDelta}"></TextBlock>
+    <!-- z hover combobox -->
+    <Label Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Right">Z Hover:</Label>
+    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{StaticResource HoverValues}" Margin="3" />
+  </Grid>
+</Page>

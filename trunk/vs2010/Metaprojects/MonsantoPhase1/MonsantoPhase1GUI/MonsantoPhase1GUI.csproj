@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{17A18DA7-0AEE-4396-9E6E-08E38B527F1A}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.CustomerGUIPlugins</RootNamespace>
+    <AssemblyName>MonsantoPhase1GUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcV2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\thirdparty\XML-RPC\bin\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF4">
+      <HintPath>..\..\..\..\..\thirdparty\MvvmLightToolkit\bin\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.74.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\thirdparty\SQLite\precompiled_netfx40\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="DownstackStateMachine.cs" />
+    <Compile Include="FateProcessing.cs" />
+    <Compile Include="ReinventoryCartStateMachine.cs" />
+    <Compile Include="StackerImplementation.cs" />
+    <Compile Include="SystemPanel.xaml.cs">
+      <DependentUpon>SystemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpstackStateMachine.cs" />
+    <Compile Include="PlateMoverStateMachine.cs" />
+    <Page Include="MonsantoPhase1GUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="BehaviorEngine.cs" />
+    <Compile Include="Messages.cs" />
+    <Compile Include="MonsantoPhase1GUI.xaml.cs">
+      <DependentUpon>MonsantoPhase1GUI.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="SystemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\thirdparty\MEF2\src\ComponentModel\ComponentModel.csproj">
+      <Project>{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}</Project>
+      <Name>ComponentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\thirdparty\Stateless\source_and_examples\Stateless\Stateless.csproj">
+      <Project>{A15EEC02-60EC-4705-A58B-A6ECD55A9628}</Project>
+      <Name>Stateless</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DockMonitorPlugin\DockMonitorPlugin.csproj">
+      <Project>{0C5B70A1-2CB4-45C3-9B68-75CA432FC786}</Project>
+      <Name>DockMonitorPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HivePlugin\HivePrototypePlugin\HivePrototypePlugin.csproj">
+      <Project>{EB894B39-A39B-47D0-B1C0-7DC7C589EC8E}</Project>
+      <Name>HivePrototypePlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\PlateMoverPlugin\PlateMoverPlugin.csproj">
+      <Project>{49D6D38D-C56B-4EA0-9B68-C87C6B8F9437}</Project>
+      <Name>PlateMoverPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\HeavyUtils\HeavyUtils\HeavyUtils.csproj">
+      <Project>{17DB2007-B1C0-442F-9229-B34204170EA4}</Project>
+      <Name>HeavyUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\IError\IError.csproj">
+      <Project>{F09F5A2A-4337-4A81-8599-B5B0E1E18ED5}</Project>
+      <Name>IError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\ITechnosoftConnectionSharer\ITechnosoftConnectionSharer.csproj">
+      <Project>{81864633-4C7F-4B9C-BD24-23A55E4CED61}</Project>
+      <Name>ITechnosoftConnectionSharer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\LabwareCloudXmlRpcClient\LabwareCloudXmlRpcClient.csproj">
+      <Project>{4931D129-EF45-454A-8770-5BCE6785C6CD}</Project>
+      <Name>LabwareCloudXmlRpcClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\LabwareCloudXmlRpcServer\LabwareCloudXmlRpcServer.csproj">
+      <Project>{A58DF2EE-3DBB-4AA8-B90A-4165C33D320A}</Project>
+      <Name>LabwareCloudXmlRpcServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\SMTPReporting\SMTPReporting\SMTPReporting.csproj">
+      <Project>{EB67A6C2-93FA-4150-AA2C-8541E1A41B58}</Project>
+      <Name>SMTPReporting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\ThreadsafeMessenger\ThreadsafeMessenger.csproj">
+      <Project>{07561CFE-43B4-45BF-AE9B-4D2C1813B21B}</Project>
+      <Name>ThreadsafeMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Shared\XmlRpcGlue\XmlRpcGlue.csproj">
+      <Project>{B69AB990-15EE-47FC-B16B-6EEE2E8A0F9A}</Project>
+      <Name>XmlRpcGlue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\SynapsisPrototype\SynapsisPrototype.csproj">
+      <Project>{59BEC8B1-ABD5-4FCB-AEE3-7076340F21DA}</Project>
+      <Name>SynapsisPrototype</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiveServer\HiveServer.csproj">
+      <Project>{CAC455F5-7C48-4B3A-8F4A-52911E20D1CF}</Project>
+      <Name>HiveServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IWorksCommandServer\IWorksCommandServer.csproj">
+      <Project>{012FFCC3-1FA8-40D4-BA41-64F63532ED51}</Project>
+      <Name>IWorksCommandServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JEMSClient\JEMSClient.csproj">
+      <Project>{9AA86A05-5C28-41FD-B533-3B6B5CEE6203}</Project>
+      <Name>JEMSClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MonsantoPhase1Config.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pause.png" />
+    <Resource Include="Images\resume.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/-->
+  <Import Project="$(WORK_FOLDER)\thirdparty\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y "$(TargetPath)" "$(ProjectDir)..\..\..\bin\$(ConfigurationName)\plugins\"
+xcopy /i/y "$(ProjectDir)..\..\..\..\..\thirdparty\XML-RPC\bin\CookComputing.XmlRpcV2.dll" "$(SolutionDir)..\..\$(OutDir)"
+REM -- config file is stored in system config svn -- don't wipe it every time we build!
+REM xcopy /i/y $(ProjectDir)MonsantoPhase1Config.xml $(ProjectDir)..\..\..\bin\$(ConfigurationName)\config\
+rem copy IWorksCommandServer
+xcopy /i/y "$(SolutionDir)IWorksCommandServer\bin\$(ConfigurationName)\IWorksCommandServer.dll" "$(ProjectDir)..\..\..\bin\$(ConfigurationName)\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  -->
+  <Target Name="BeforeBuild" Condition=" '$(Configuration)' == 'Deployment' ">
+    <FileUpdate Files="Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$1.$2.$3.$(build_vcs_number_1)" />
+  </Target>
+  <!--
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

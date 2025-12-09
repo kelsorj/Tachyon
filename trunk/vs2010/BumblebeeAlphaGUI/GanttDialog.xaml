@@ -1,0 +1,9 @@
+﻿<Window x:Class="BioNex.BumblebeeAlphaGUI.GanttDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:gc="clr-namespace:BioNex.Shared.GanttChart;assembly=GanttChart"
+    Title="Gantt Chart" Height="309" Width="357">
+    <Grid>
+        <gc:UserControl1 Name="chart" Height="Auto" Width="Auto" ></gc:UserControl1>
+    </Grid>
+</Window>

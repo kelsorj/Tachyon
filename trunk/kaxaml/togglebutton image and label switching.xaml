@@ -1,0 +1,48 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Page.Resources>
+    <StackPanel x:Key="TelemetryOn">
+      <Image Source="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\telemetry_on.png" Width="48" Height="48" />
+      <Label HorizontalContentAlignment="Center">Telemetry On</Label>
+    </StackPanel>
+    <StackPanel x:Key="TelemetryOff">
+      <Image Source="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\telemetry_off.png" Width="48" Height="48" />
+      <Label HorizontalContentAlignment="Center">Telemetry Off</Label>
+    </StackPanel>
+    <StackPanel x:Key="TelemetryOn2">
+      <Image Source="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\telemetry_on.png" Width="48" Height="48" />
+      <Label HorizontalContentAlignment="Center">Telemetry On</Label>
+    </StackPanel>
+    <StackPanel x:Key="TelemetryOff2">
+      <Image Source="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\telemetry_off.png" Width="48" Height="48" />
+      <Label HorizontalContentAlignment="Center">Telemetry Off</Label>
+    </StackPanel>
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButtonStyle">
+      <Style.Triggers>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Content" Value="{DynamicResource TelemetryOn}" />
+        </Trigger>
+        <Trigger Property="IsChecked" Value="False">
+          <Setter Property="Content" Value="{DynamicResource TelemetryOff}" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButtonStyle2">
+      <Style.Triggers>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Content" Value="{DynamicResource TelemetryOn2}" />
+        </Trigger>
+        <Trigger Property="IsChecked" Value="False">
+          <Setter Property="Content" Value="{DynamicResource TelemetryOff2}" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </Page.Resources>
+
+  <StackPanel>
+    <ToggleButton Style="{StaticResource ToggleButtonStyle}"></ToggleButton>
+    <ToggleButton Style="{StaticResource ToggleButtonStyle2}"></ToggleButton>
+  </StackPanel>
+</Page>

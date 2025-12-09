@@ -1,0 +1,1061 @@
+2010-05-28,11:30:18.372,,,moving stage 1 to robot teachpoint took ,0.001
+2010-05-28,11:30:23.373,,,robot unloading plate tipbox1 to BB PM 1 took ,5.001
+2010-05-28,11:30:23.427,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:30:28.427,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 2 took ,5
+2010-05-28,11:30:28.439,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:30:33.440,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:30:40.934,,,changing tips 1  2   took ,7.421
+2010-05-28,11:30:40.964,1,2,move source stage took ,0.001
+2010-05-28,11:30:44.702,1,2,aspirate took ,3.738
+2010-05-28,11:30:48.249,,,changing tips 3  4   took ,14.736
+2010-05-28,11:30:48.249,3,4,move source stage took ,0
+2010-05-28,11:30:48.272,1,2,dispense took ,3.57
+2010-05-28,11:30:50.902,1,2,tip shucking took ,2.626
+2010-05-28,11:30:52.118,3,4,aspirate took ,3.869
+2010-05-28,11:30:55.681,3,4,dispense took ,3.563
+2010-05-28,11:30:58.214,,,changing tips 1  2   took ,7.311
+2010-05-28,11:30:58.214,1,2,move source stage took ,0
+2010-05-28,11:30:58.277,3,4,tip shucking took ,2.596
+2010-05-28,11:31:02.122,1,2,aspirate took ,3.908
+2010-05-28,11:31:05.684,1,2,dispense took ,3.562
+2010-05-28,11:31:05.767,,,changing tips 3  4   took ,7.49
+2010-05-28,11:31:05.767,3,4,move source stage took ,0
+2010-05-28,11:31:08.282,1,2,tip shucking took ,2.598
+2010-05-28,11:31:09.608,3,4,aspirate took ,3.841
+2010-05-28,11:31:13.166,3,4,dispense took ,3.558
+2010-05-28,11:31:15.672,,,changing tips 1  2   took ,7.39
+2010-05-28,11:31:15.672,1,2,move source stage took ,0
+2010-05-28,11:31:15.762,3,4,tip shucking took ,2.596
+2010-05-28,11:31:19.493,1,2,aspirate took ,3.821
+2010-05-28,11:31:23.043,1,2,dispense took ,3.55
+2010-05-28,11:31:23.285,,,changing tips 3  4   took ,7.522
+2010-05-28,11:31:23.285,3,4,move source stage took ,0
+2010-05-28,11:31:25.641,1,2,tip shucking took ,2.598
+2010-05-28,11:31:27.090,3,4,aspirate took ,3.805
+2010-05-28,11:31:30.656,3,4,dispense took ,3.566
+2010-05-28,11:31:32.879,,,changing tips 1  2   took ,7.238
+2010-05-28,11:31:32.879,1,2,move source stage took ,0
+2010-05-28,11:31:33.252,3,4,tip shucking took ,2.596
+2010-05-28,11:31:36.649,1,2,aspirate took ,3.77
+2010-05-28,11:31:40.216,1,2,dispense took ,3.567
+2010-05-28,11:31:40.522,,,changing tips 3  4   took ,7.27
+2010-05-28,11:31:40.522,3,4,move source stage took ,0
+2010-05-28,11:31:42.814,1,2,tip shucking took ,2.598
+2010-05-28,11:31:44.317,3,4,aspirate took ,3.795
+2010-05-28,11:31:47.882,3,4,dispense took ,3.565
+2010-05-28,11:31:50.121,,,changing tips 1  2   took ,7.307
+2010-05-28,11:31:50.121,1,2,move source stage took ,0
+2010-05-28,11:31:50.478,3,4,tip shucking took ,2.596
+2010-05-28,11:31:53.933,1,2,aspirate took ,3.812
+2010-05-28,11:31:57.496,1,2,dispense took ,3.563
+2010-05-28,11:31:57.824,,,changing tips 3  4   took ,7.346
+2010-05-28,11:31:57.824,3,4,move source stage took ,0
+2010-05-28,11:32:00.094,1,2,tip shucking took ,2.598
+2010-05-28,11:32:01.620,3,4,aspirate took ,3.796
+2010-05-28,11:32:05.176,3,4,dispense took ,3.556
+2010-05-28,11:32:07.483,,,changing tips 1  2   took ,7.389
+2010-05-28,11:32:07.483,1,2,move source stage took ,0
+2010-05-28,11:32:07.772,3,4,tip shucking took ,2.596
+2010-05-28,11:32:11.330,1,2,aspirate took ,3.847
+2010-05-28,11:32:14.899,1,2,dispense took ,3.569
+2010-05-28,11:32:15.186,,,changing tips 3  4   took ,7.414
+2010-05-28,11:32:15.186,3,4,move source stage took ,0
+2010-05-28,11:32:17.497,1,2,tip shucking took ,2.598
+2010-05-28,11:32:19.029,3,4,aspirate took ,3.843
+2010-05-28,11:32:22.597,3,4,dispense took ,3.568
+2010-05-28,11:32:24.749,,,changing tips 1  2   took ,7.252
+2010-05-28,11:32:24.749,1,2,move source stage took ,0
+2010-05-28,11:32:25.193,3,4,tip shucking took ,2.596
+2010-05-28,11:32:28.520,1,2,aspirate took ,3.771
+2010-05-28,11:32:32.079,1,2,dispense took ,3.559
+2010-05-28,11:32:32.490,,,changing tips 3  4   took ,7.297
+2010-05-28,11:32:32.490,3,4,move source stage took ,0
+2010-05-28,11:32:34.677,1,2,tip shucking took ,2.598
+2010-05-28,11:32:36.356,3,4,aspirate took ,3.866
+2010-05-28,11:32:39.932,3,4,dispense took ,3.576
+2010-05-28,11:32:42.002,,,changing tips 1  2   took ,7.325
+2010-05-28,11:32:42.002,1,2,move source stage took ,0
+2010-05-28,11:32:42.528,3,4,tip shucking took ,2.596
+2010-05-28,11:32:45.850,1,2,aspirate took ,3.848
+2010-05-28,11:32:49.414,1,2,dispense took ,3.564
+2010-05-28,11:32:49.885,,,changing tips 3  4   took ,7.357
+2010-05-28,11:32:49.885,3,4,move source stage took ,0
+2010-05-28,11:32:52.012,1,2,tip shucking took ,2.598
+2010-05-28,11:32:53.738,3,4,aspirate took ,3.853
+2010-05-28,11:32:57.404,3,4,dispense took ,3.666
+2010-05-28,11:32:59.394,,,changing tips 1  2   took ,7.382
+2010-05-28,11:32:59.394,1,2,move source stage took ,0
+2010-05-28,11:33:00.000,3,4,tip shucking took ,2.596
+2010-05-28,11:33:03.198,1,2,aspirate took ,3.804
+2010-05-28,11:33:06.852,1,2,dispense took ,3.654
+2010-05-28,11:33:07.427,,,changing tips 3  4   took ,7.427
+2010-05-28,11:33:07.427,3,4,move source stage took ,0
+2010-05-28,11:33:09.450,1,2,tip shucking took ,2.598
+2010-05-28,11:33:11.288,3,4,aspirate took ,3.861
+2010-05-28,11:33:14.927,3,4,dispense took ,3.639
+2010-05-28,11:33:16.690,,,changing tips 1  2   took ,7.24
+2010-05-28,11:33:16.690,1,2,move source stage took ,0
+2010-05-28,11:33:17.523,3,4,tip shucking took ,2.596
+2010-05-28,11:33:20.428,1,2,aspirate took ,3.738
+2010-05-28,11:33:23.995,1,2,dispense took ,3.567
+2010-05-28,11:33:24.813,,,changing tips 3  4   took ,7.29
+2010-05-28,11:33:24.813,3,4,move source stage took ,0
+2010-05-28,11:33:26.593,1,2,tip shucking took ,2.598
+2010-05-28,11:33:28.700,3,4,aspirate took ,3.887
+2010-05-28,11:33:32.268,3,4,dispense took ,3.568
+2010-05-28,11:33:33.903,,,changing tips 1  2   took ,7.31
+2010-05-28,11:33:33.903,1,2,move source stage took ,0
+2010-05-28,11:33:34.864,3,4,tip shucking took ,2.596
+2010-05-28,11:33:37.674,1,2,aspirate took ,3.771
+2010-05-28,11:33:41.265,1,2,dispense took ,3.591
+2010-05-28,11:33:42.206,,,changing tips 3  4   took ,7.342
+2010-05-28,11:33:42.206,3,4,move source stage took ,0
+2010-05-28,11:33:43.863,1,2,tip shucking took ,2.598
+2010-05-28,11:33:46.022,3,4,aspirate took ,3.816
+2010-05-28,11:33:49.612,3,4,dispense took ,3.59
+2010-05-28,11:33:51.265,,,changing tips 1  2   took ,7.402
+2010-05-28,11:33:51.265,1,2,move source stage took ,0
+2010-05-28,11:33:52.208,3,4,tip shucking took ,2.596
+2010-05-28,11:33:55.109,1,2,aspirate took ,3.844
+2010-05-28,11:33:55.909,,,changing tips 3   took ,3.701
+2010-05-28,11:33:55.911,3,,move source stage took ,0
+2010-05-28,11:33:57.843,3,,aspirate took ,1.932
+2010-05-28,11:33:58.648,1,2,dispense took ,3.539
+2010-05-28,11:34:00.511,3,,dispense took ,1.816
+2010-05-28,11:34:01.246,1,2,tip shucking took ,2.598
+2010-05-28,11:34:01.809,3,,tip shucking took ,1.298
+2010-05-28,11:34:04.957,,,changing tips 1   took ,3.711
+2010-05-28,11:34:04.957,1,,move source stage took ,0
+2010-05-28,11:34:06.848,1,,aspirate took ,1.891
+2010-05-28,11:34:08.682,1,,dispense took ,1.834
+2010-05-28,11:34:09.980,1,,tip shucking took ,1.298
+2010-05-28,11:34:09.980,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:34:16.980,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:34:17.030,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:34:22.030,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:34:29.331,,,changing tips 1  2   took ,7.251
+2010-05-28,11:34:29.331,1,2,move source stage took ,0
+2010-05-28,11:34:33.151,1,2,aspirate took ,3.82
+2010-05-28,11:34:36.614,,,changing tips 3  4   took ,14.517
+2010-05-28,11:34:36.614,3,4,move source stage took ,0
+2010-05-28,11:34:36.724,1,2,dispense took ,3.573
+2010-05-28,11:34:39.322,1,2,tip shucking took ,2.598
+2010-05-28,11:34:40.453,3,4,aspirate took ,3.839
+2010-05-28,11:34:44.025,3,4,dispense took ,3.572
+2010-05-28,11:34:46.621,3,4,tip shucking took ,2.596
+2010-05-28,11:34:46.647,,,changing tips 1  2   took ,7.325
+2010-05-28,11:34:46.647,1,2,move source stage took ,0
+2010-05-28,11:34:50.481,1,2,aspirate took ,3.834
+2010-05-28,11:34:54.011,,,changing tips 3  4   took ,7.389
+2010-05-28,11:34:54.011,3,4,move source stage took ,0
+2010-05-28,11:34:54.055,1,2,dispense took ,3.574
+2010-05-28,11:34:56.653,1,2,tip shucking took ,2.598
+2010-05-28,11:34:57.797,3,4,aspirate took ,3.786
+2010-05-28,11:35:01.371,3,4,dispense took ,3.574
+2010-05-28,11:35:03.967,3,4,tip shucking took ,2.596
+2010-05-28,11:35:04.035,,,changing tips 1  2   took ,7.382
+2010-05-28,11:35:04.035,1,2,move source stage took ,0
+2010-05-28,11:35:07.873,1,2,aspirate took ,3.838
+2010-05-28,11:35:11.448,1,2,dispense took ,3.575
+2010-05-28,11:35:11.479,,,changing tips 3  4   took ,7.511
+2010-05-28,11:35:11.479,3,4,move source stage took ,0
+2010-05-28,11:35:14.046,1,2,tip shucking took ,2.598
+2010-05-28,11:35:15.323,3,4,aspirate took ,3.844
+2010-05-28,11:35:18.898,3,4,dispense took ,3.575
+2010-05-28,11:35:21.281,,,changing tips 1  2   took ,7.235
+2010-05-28,11:35:21.281,1,2,move source stage took ,0
+2010-05-28,11:35:21.494,3,4,tip shucking took ,2.596
+2010-05-28,11:35:25.101,1,2,aspirate took ,3.82
+2010-05-28,11:35:28.680,1,2,dispense took ,3.579
+2010-05-28,11:35:28.774,,,changing tips 3  4   took ,7.28
+2010-05-28,11:35:28.774,3,4,move source stage took ,0
+2010-05-28,11:35:31.278,1,2,tip shucking took ,2.598
+2010-05-28,11:35:32.672,3,4,aspirate took ,3.898
+2010-05-28,11:35:36.256,3,4,dispense took ,3.584
+2010-05-28,11:35:38.613,,,changing tips 1  2   took ,7.335
+2010-05-28,11:35:38.613,1,2,move source stage took ,0
+2010-05-28,11:35:38.852,3,4,tip shucking took ,2.596
+2010-05-28,11:35:42.525,1,2,aspirate took ,3.912
+2010-05-28,11:35:46.102,1,2,dispense took ,3.577
+2010-05-28,11:35:46.196,,,changing tips 3  4   took ,7.344
+2010-05-28,11:35:46.196,3,4,move source stage took ,0
+2010-05-28,11:35:48.700,1,2,tip shucking took ,2.598
+2010-05-28,11:35:49.986,3,4,aspirate took ,3.79
+2010-05-28,11:35:53.562,3,4,dispense took ,3.576
+2010-05-28,11:35:56.095,,,changing tips 1  2   took ,7.394
+2010-05-28,11:35:56.095,1,2,move source stage took ,0
+2010-05-28,11:35:56.158,3,4,tip shucking took ,2.596
+2010-05-28,11:35:59.871,1,2,aspirate took ,3.776
+2010-05-28,11:36:03.451,1,2,dispense took ,3.58
+2010-05-28,11:36:03.708,,,changing tips 3  4   took ,7.55
+2010-05-28,11:36:03.708,3,4,move source stage took ,0
+2010-05-28,11:36:06.049,1,2,tip shucking took ,2.598
+2010-05-28,11:36:07.502,3,4,aspirate took ,3.794
+2010-05-28,11:36:11.084,3,4,dispense took ,3.582
+2010-05-28,11:36:13.301,,,changing tips 1  2   took ,7.252
+2010-05-28,11:36:13.301,1,2,move source stage took ,0
+2010-05-28,11:36:13.680,3,4,tip shucking took ,2.596
+2010-05-28,11:36:17.110,1,2,aspirate took ,3.809
+2010-05-28,11:36:20.702,1,2,dispense took ,3.592
+2010-05-28,11:36:20.974,,,changing tips 3  4   took ,7.293
+2010-05-28,11:36:20.974,3,4,move source stage took ,0
+2010-05-28,11:36:23.300,1,2,tip shucking took ,2.598
+2010-05-28,11:36:24.749,3,4,aspirate took ,3.775
+2010-05-28,11:36:28.315,3,4,dispense took ,3.566
+2010-05-28,11:36:30.634,,,changing tips 1  2   took ,7.334
+2010-05-28,11:36:30.634,1,2,move source stage took ,0
+2010-05-28,11:36:30.911,3,4,tip shucking took ,2.596
+2010-05-28,11:36:34.482,1,2,aspirate took ,3.848
+2010-05-28,11:36:38.067,1,2,dispense took ,3.585
+2010-05-28,11:36:38.277,,,changing tips 3  4   took ,7.366
+2010-05-28,11:36:38.277,3,4,move source stage took ,0
+2010-05-28,11:36:40.665,1,2,tip shucking took ,2.598
+2010-05-28,11:36:42.130,3,4,aspirate took ,3.853
+2010-05-28,11:36:45.746,3,4,dispense took ,3.616
+2010-05-28,11:36:48.056,,,changing tips 1  2   took ,7.39
+2010-05-28,11:36:48.056,1,2,move source stage took ,0
+2010-05-28,11:36:48.342,3,4,tip shucking took ,2.596
+2010-05-28,11:36:51.908,1,2,aspirate took ,3.852
+2010-05-28,11:36:55.512,1,2,dispense took ,3.604
+2010-05-28,11:36:55.759,,,changing tips 3  4   took ,7.417
+2010-05-28,11:36:55.759,3,4,move source stage took ,0
+2010-05-28,11:36:58.110,1,2,tip shucking took ,2.598
+2010-05-28,11:36:59.526,3,4,aspirate took ,3.767
+2010-05-28,11:37:03.115,3,4,dispense took ,3.589
+2010-05-28,11:37:05.353,,,changing tips 1  2   took ,7.243
+2010-05-28,11:37:05.353,1,2,move source stage took ,0
+2010-05-28,11:37:05.711,3,4,tip shucking took ,2.596
+2010-05-28,11:37:09.166,1,2,aspirate took ,3.813
+2010-05-28,11:37:12.718,1,2,dispense took ,3.552
+2010-05-28,11:37:12.996,,,changing tips 3  4   took ,7.285
+2010-05-28,11:37:12.996,3,4,move source stage took ,0
+2010-05-28,11:37:15.316,1,2,tip shucking took ,2.598
+2010-05-28,11:37:16.765,3,4,aspirate took ,3.769
+2010-05-28,11:37:20.279,3,4,dispense took ,3.514
+2010-05-28,11:37:22.625,,,changing tips 1  2   took ,7.309
+2010-05-28,11:37:22.625,1,2,move source stage took ,0
+2010-05-28,11:37:22.875,3,4,tip shucking took ,2.596
+2010-05-28,11:37:26.495,1,2,aspirate took ,3.87
+2010-05-28,11:37:29.996,1,2,dispense took ,3.501
+2010-05-28,11:37:30.238,,,changing tips 3  4   took ,7.363
+2010-05-28,11:37:30.238,3,4,move source stage took ,0
+2010-05-28,11:37:32.594,1,2,tip shucking took ,2.598
+2010-05-28,11:37:34.074,3,4,aspirate took ,3.836
+2010-05-28,11:37:37.562,3,4,dispense took ,3.488
+2010-05-28,11:37:39.987,,,changing tips 1  2   took ,7.393
+2010-05-28,11:37:39.987,1,2,move source stage took ,0
+2010-05-28,11:37:40.158,3,4,tip shucking took ,2.596
+2010-05-28,11:37:43.804,1,2,aspirate took ,3.817
+2010-05-28,11:37:43.859,,,changing tips 3   took ,3.701
+2010-05-28,11:37:43.859,3,,move source stage took ,0
+2010-05-28,11:37:45.810,3,,aspirate took ,1.951
+2010-05-28,11:37:47.300,1,2,dispense took ,3.496
+2010-05-28,11:37:49.090,3,,dispense took ,1.78
+2010-05-28,11:37:49.898,1,2,tip shucking took ,2.598
+2010-05-28,11:37:50.388,3,,tip shucking took ,1.298
+2010-05-28,11:37:53.609,,,changing tips 1   took ,3.711
+2010-05-28,11:37:53.609,1,,move source stage took ,0
+2010-05-28,11:37:55.509,1,,aspirate took ,1.9
+2010-05-28,11:37:57.289,1,,dispense took ,1.78
+2010-05-28,11:37:58.587,1,,tip shucking took ,1.298
+2010-05-28,11:37:58.587,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:37:58.588,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:38:05.587,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:38:05.588,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 2 took ,7
+2010-05-28,11:38:05.638,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:38:10.638,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 2 took ,5
+2010-05-28,11:38:10.638,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:38:15.638,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:38:16.280,,,moving stage 1 to robot teachpoint took ,0
+2010-05-28,11:38:23.280,,,robot loading plate tipbox1 from BB PM 1 took ,7
+2010-05-28,11:38:28.280,,,robot unloading plate tipbox2 to BB PM 1 took ,5
+2010-05-28,11:38:35.514,,,changing tips 1  2   took ,19.826
+2010-05-28,11:38:35.514,1,2,move source stage took ,0
+2010-05-28,11:38:39.322,1,2,aspirate took ,3.808
+2010-05-28,11:38:42.810,,,changing tips 3  4   took ,27.12
+2010-05-28,11:38:42.810,3,4,move source stage took ,0
+2010-05-28,11:38:42.887,1,2,dispense took ,3.565
+2010-05-28,11:38:45.485,1,2,tip shucking took ,2.598
+2010-05-28,11:38:46.604,3,4,aspirate took ,3.794
+2010-05-28,11:38:50.167,3,4,dispense took ,3.563
+2010-05-28,11:38:52.763,3,4,tip shucking took ,2.596
+2010-05-28,11:38:52.793,,,changing tips 1  2   took ,7.308
+2010-05-28,11:38:52.793,1,2,move source stage took ,0
+2010-05-28,11:38:56.646,1,2,aspirate took ,3.853
+2010-05-28,11:39:00.152,,,changing tips 3  4   took ,7.389
+2010-05-28,11:39:00.152,3,4,move source stage took ,0
+2010-05-28,11:39:00.208,1,2,dispense took ,3.562
+2010-05-28,11:39:02.806,1,2,tip shucking took ,2.598
+2010-05-28,11:39:04.047,3,4,aspirate took ,3.895
+2010-05-28,11:39:07.605,3,4,dispense took ,3.558
+2010-05-28,11:39:10.201,3,4,tip shucking took ,2.596
+2010-05-28,11:39:10.217,,,changing tips 1  2   took ,7.411
+2010-05-28,11:39:10.217,1,2,move source stage took ,0
+2010-05-28,11:39:14.039,1,2,aspirate took ,3.822
+2010-05-28,11:39:17.589,1,2,dispense took ,3.55
+2010-05-28,11:39:17.662,,,changing tips 3  4   took ,7.461
+2010-05-28,11:39:17.662,3,4,move source stage took ,0
+2010-05-28,11:39:20.187,1,2,tip shucking took ,2.598
+2010-05-28,11:39:21.512,3,4,aspirate took ,3.85
+2010-05-28,11:39:25.078,3,4,dispense took ,3.566
+2010-05-28,11:39:27.435,,,changing tips 1  2   took ,7.248
+2010-05-28,11:39:27.435,1,2,move source stage took ,0
+2010-05-28,11:39:27.674,3,4,tip shucking took ,2.596
+2010-05-28,11:39:31.243,1,2,aspirate took ,3.808
+2010-05-28,11:39:34.810,1,2,dispense took ,3.567
+2010-05-28,11:39:34.959,,,changing tips 3  4   took ,7.285
+2010-05-28,11:39:34.959,3,4,move source stage took ,0
+2010-05-28,11:39:37.408,1,2,tip shucking took ,2.598
+2010-05-28,11:39:38.789,3,4,aspirate took ,3.83
+2010-05-28,11:39:42.354,3,4,dispense took ,3.565
+2010-05-28,11:39:44.737,,,changing tips 1  2   took ,7.329
+2010-05-28,11:39:44.737,1,2,move source stage took ,0
+2010-05-28,11:39:44.950,3,4,tip shucking took ,2.596
+2010-05-28,11:39:48.603,1,2,aspirate took ,3.866
+2010-05-28,11:39:52.166,1,2,dispense took ,3.563
+2010-05-28,11:39:52.290,,,changing tips 3  4   took ,7.34
+2010-05-28,11:39:52.290,3,4,move source stage took ,0
+2010-05-28,11:39:54.764,1,2,tip shucking took ,2.598
+2010-05-28,11:39:56.161,3,4,aspirate took ,3.871
+2010-05-28,11:39:59.717,3,4,dispense took ,3.556
+2010-05-28,11:40:02.164,,,changing tips 1  2   took ,7.4
+2010-05-28,11:40:02.164,1,2,move source stage took ,0
+2010-05-28,11:40:02.313,3,4,tip shucking took ,2.596
+2010-05-28,11:40:06.044,1,2,aspirate took ,3.88
+2010-05-28,11:40:09.613,1,2,dispense took ,3.569
+2010-05-28,11:40:09.789,,,changing tips 3  4   took ,7.476
+2010-05-28,11:40:09.789,3,4,move source stage took ,0
+2010-05-28,11:40:12.211,1,2,tip shucking took ,2.598
+2010-05-28,11:40:13.614,3,4,aspirate took ,3.825
+2010-05-28,11:40:17.182,3,4,dispense took ,3.568
+2010-05-28,11:40:19.475,,,changing tips 1  2   took ,7.264
+2010-05-28,11:40:19.475,1,2,move source stage took ,0
+2010-05-28,11:40:19.778,3,4,tip shucking took ,2.596
+2010-05-28,11:40:23.316,1,2,aspirate took ,3.841
+2010-05-28,11:40:26.875,1,2,dispense took ,3.559
+2010-05-28,11:40:27.058,,,changing tips 3  4   took ,7.28
+2010-05-28,11:40:27.058,3,4,move source stage took ,0
+2010-05-28,11:40:29.473,1,2,tip shucking took ,2.598
+2010-05-28,11:40:30.864,3,4,aspirate took ,3.806
+2010-05-28,11:40:34.440,3,4,dispense took ,3.576
+2010-05-28,11:40:36.807,,,changing tips 1  2   took ,7.334
+2010-05-28,11:40:36.807,1,2,move source stage took ,0
+2010-05-28,11:40:37.036,3,4,tip shucking took ,2.596
+2010-05-28,11:40:40.619,1,2,aspirate took ,3.812
+2010-05-28,11:40:44.183,1,2,dispense took ,3.564
+2010-05-28,11:40:44.390,,,changing tips 3  4   took ,7.354
+2010-05-28,11:40:44.390,3,4,move source stage took ,0
+2010-05-28,11:40:46.781,1,2,tip shucking took ,2.598
+2010-05-28,11:40:48.207,3,4,aspirate took ,3.817
+2010-05-28,11:40:51.873,3,4,dispense took ,3.666
+2010-05-28,11:40:54.169,,,changing tips 1  2   took ,7.388
+2010-05-28,11:40:54.169,1,2,move source stage took ,0
+2010-05-28,11:40:54.469,3,4,tip shucking took ,2.596
+2010-05-28,11:40:57.986,1,2,aspirate took ,3.817
+2010-05-28,11:41:01.640,1,2,dispense took ,3.654
+2010-05-28,11:41:01.904,,,changing tips 3  4   took ,7.435
+2010-05-28,11:41:01.904,3,4,move source stage took ,0
+2010-05-28,11:41:04.238,1,2,tip shucking took ,2.598
+2010-05-28,11:41:05.684,3,4,aspirate took ,3.78
+2010-05-28,11:41:09.323,3,4,dispense took ,3.639
+2010-05-28,11:41:11.497,,,changing tips 1  2   took ,7.259
+2010-05-28,11:41:11.497,1,2,move source stage took ,0
+2010-05-28,11:41:11.919,3,4,tip shucking took ,2.596
+2010-05-28,11:41:15.343,1,2,aspirate took ,3.846
+2010-05-28,11:41:18.910,1,2,dispense took ,3.567
+2010-05-28,11:41:19.200,,,changing tips 3  4   took ,7.281
+2010-05-28,11:41:19.200,3,4,move source stage took ,0
+2010-05-28,11:41:21.508,1,2,tip shucking took ,2.598
+2010-05-28,11:41:23.091,3,4,aspirate took ,3.891
+2010-05-28,11:41:26.659,3,4,dispense took ,3.568
+2010-05-28,11:41:28.829,,,changing tips 1  2   took ,7.321
+2010-05-28,11:41:28.829,1,2,move source stage took ,0
+2010-05-28,11:41:29.255,3,4,tip shucking took ,2.596
+2010-05-28,11:41:32.636,1,2,aspirate took ,3.807
+2010-05-28,11:41:36.227,1,2,dispense took ,3.591
+2010-05-28,11:41:36.622,,,changing tips 3  4   took ,7.367
+2010-05-28,11:41:36.622,3,4,move source stage took ,0
+2010-05-28,11:41:38.825,1,2,tip shucking took ,2.598
+2010-05-28,11:41:40.484,3,4,aspirate took ,3.862
+2010-05-28,11:41:44.074,3,4,dispense took ,3.59
+2010-05-28,11:41:46.221,,,changing tips 1  2   took ,7.396
+2010-05-28,11:41:46.221,1,2,move source stage took ,0
+2010-05-28,11:41:46.670,3,4,tip shucking took ,2.596
+2010-05-28,11:41:50.014,1,2,aspirate took ,3.793
+2010-05-28,11:41:50.371,,,changing tips 3   took ,3.701
+2010-05-28,11:41:50.371,3,,move source stage took ,0
+2010-05-28,11:41:52.297,3,,aspirate took ,1.926
+2010-05-28,11:41:53.553,1,2,dispense took ,3.539
+2010-05-28,11:41:55.413,3,,dispense took ,1.816
+2010-05-28,11:41:56.151,1,2,tip shucking took ,2.598
+2010-05-28,11:41:56.711,3,,tip shucking took ,1.298
+2010-05-28,11:41:59.862,,,changing tips 1   took ,3.711
+2010-05-28,11:41:59.862,1,,move source stage took ,0
+2010-05-28,11:42:01.735,1,,aspirate took ,1.873
+2010-05-28,11:42:03.569,1,,dispense took ,1.834
+2010-05-28,11:42:04.867,1,,tip shucking took ,1.298
+2010-05-28,11:42:04.867,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:42:11.867,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:42:11.967,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:42:16.967,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:42:24.273,,,changing tips 1  2   took ,7.256
+2010-05-28,11:42:24.273,1,2,move source stage took ,0
+2010-05-28,11:42:28.100,1,2,aspirate took ,3.827
+2010-05-28,11:42:31.556,,,changing tips 3  4   took ,14.517
+2010-05-28,11:42:31.556,3,4,move source stage took ,0
+2010-05-28,11:42:31.673,1,2,dispense took ,3.573
+2010-05-28,11:42:34.271,1,2,tip shucking took ,2.598
+2010-05-28,11:42:35.409,3,4,aspirate took ,3.853
+2010-05-28,11:42:38.981,3,4,dispense took ,3.572
+2010-05-28,11:42:41.577,3,4,tip shucking took ,2.596
+2010-05-28,11:42:41.605,,,changing tips 1  2   took ,7.334
+2010-05-28,11:42:41.605,1,2,move source stage took ,0
+2010-05-28,11:42:45.422,1,2,aspirate took ,3.817
+2010-05-28,11:42:48.966,,,changing tips 3  4   took ,7.389
+2010-05-28,11:42:48.966,3,4,move source stage took ,0
+2010-05-28,11:42:48.996,1,2,dispense took ,3.574
+2010-05-28,11:42:51.594,1,2,tip shucking took ,2.598
+2010-05-28,11:42:52.769,3,4,aspirate took ,3.803
+2010-05-28,11:42:56.343,3,4,dispense took ,3.574
+2010-05-28,11:42:58.939,3,4,tip shucking took ,2.596
+2010-05-28,11:42:58.977,,,changing tips 1  2   took ,7.383
+2010-05-28,11:42:58.977,1,2,move source stage took ,0
+2010-05-28,11:43:02.743,1,2,aspirate took ,3.766
+2010-05-28,11:43:06.321,1,2,dispense took ,3.578
+2010-05-28,11:43:06.400,,,changing tips 3  4   took ,7.461
+2010-05-28,11:43:06.400,3,4,move source stage took ,0
+2010-05-28,11:43:08.919,1,2,tip shucking took ,2.598
+2010-05-28,11:43:10.268,3,4,aspirate took ,3.868
+2010-05-28,11:43:13.842,3,4,dispense took ,3.574
+2010-05-28,11:43:16.163,,,changing tips 1  2   took ,7.244
+2010-05-28,11:43:16.163,1,2,move source stage took ,0
+2010-05-28,11:43:16.438,3,4,tip shucking took ,2.596
+2010-05-28,11:43:19.988,1,2,aspirate took ,3.825
+2010-05-28,11:43:23.563,1,2,dispense took ,3.575
+2010-05-28,11:43:23.716,,,changing tips 3  4   took ,7.278
+2010-05-28,11:43:23.716,3,4,move source stage took ,0
+2010-05-28,11:43:26.161,1,2,tip shucking took ,2.598
+2010-05-28,11:43:27.546,3,4,aspirate took ,3.83
+2010-05-28,11:43:31.121,3,4,dispense took ,3.575
+2010-05-28,11:43:33.495,,,changing tips 1  2   took ,7.334
+2010-05-28,11:43:33.495,1,2,move source stage took ,0
+2010-05-28,11:43:33.717,3,4,tip shucking took ,2.596
+2010-05-28,11:43:37.355,1,2,aspirate took ,3.86
+2010-05-28,11:43:40.934,1,2,dispense took ,3.579
+2010-05-28,11:43:41.078,,,changing tips 3  4   took ,7.361
+2010-05-28,11:43:41.078,3,4,move source stage took ,0
+2010-05-28,11:43:43.532,1,2,tip shucking took ,2.598
+2010-05-28,11:43:44.904,3,4,aspirate took ,3.826
+2010-05-28,11:43:48.488,3,4,dispense took ,3.584
+2010-05-28,11:43:50.917,,,changing tips 1  2   took ,7.384
+2010-05-28,11:43:50.917,1,2,move source stage took ,0
+2010-05-28,11:43:51.084,3,4,tip shucking took ,2.596
+2010-05-28,11:43:54.740,1,2,aspirate took ,3.823
+2010-05-28,11:43:58.317,1,2,dispense took ,3.577
+2010-05-28,11:43:58.530,,,changing tips 3  4   took ,7.446
+2010-05-28,11:43:58.530,3,4,move source stage took ,0
+2010-05-28,11:44:00.915,1,2,tip shucking took ,2.598
+2010-05-28,11:44:02.356,3,4,aspirate took ,3.826
+2010-05-28,11:44:05.932,3,4,dispense took ,3.576
+2010-05-28,11:44:08.153,,,changing tips 1  2   took ,7.238
+2010-05-28,11:44:08.153,1,2,move source stage took ,0
+2010-05-28,11:44:08.528,3,4,tip shucking took ,2.596
+2010-05-28,11:44:11.957,1,2,aspirate took ,3.804
+2010-05-28,11:44:15.537,1,2,dispense took ,3.58
+2010-05-28,11:44:15.796,,,changing tips 3  4   took ,7.268
+2010-05-28,11:44:15.796,3,4,move source stage took ,0
+2010-05-28,11:44:18.135,1,2,tip shucking took ,2.598
+2010-05-28,11:44:19.648,3,4,aspirate took ,3.852
+2010-05-28,11:44:23.230,3,4,dispense took ,3.582
+2010-05-28,11:44:25.455,,,changing tips 1  2   took ,7.32
+2010-05-28,11:44:25.455,1,2,move source stage took ,0
+2010-05-28,11:44:25.826,3,4,tip shucking took ,2.596
+2010-05-28,11:44:29.276,1,2,aspirate took ,3.821
+2010-05-28,11:44:32.868,1,2,dispense took ,3.592
+2010-05-28,11:44:33.188,,,changing tips 3  4   took ,7.361
+2010-05-28,11:44:33.188,3,4,move source stage took ,0
+2010-05-28,11:44:35.466,1,2,tip shucking took ,2.598
+2010-05-28,11:44:37.004,3,4,aspirate took ,3.816
+2010-05-28,11:44:40.620,3,4,dispense took ,3.616
+2010-05-28,11:44:42.848,,,changing tips 1  2   took ,7.382
+2010-05-28,11:44:42.848,1,2,move source stage took ,0
+2010-05-28,11:44:43.216,3,4,tip shucking took ,2.596
+2010-05-28,11:44:46.666,1,2,aspirate took ,3.818
+2010-05-28,11:44:50.270,1,2,dispense took ,3.604
+2010-05-28,11:44:50.649,,,changing tips 3  4   took ,7.433
+2010-05-28,11:44:50.649,3,4,move source stage took ,0
+2010-05-28,11:44:52.868,1,2,tip shucking took ,2.598
+2010-05-28,11:44:54.482,3,4,aspirate took ,3.833
+2010-05-28,11:44:58.072,3,4,dispense took ,3.59
+2010-05-28,11:45:00.122,,,changing tips 1  2   took ,7.254
+2010-05-28,11:45:00.122,1,2,move source stage took ,0
+2010-05-28,11:45:00.668,3,4,tip shucking took ,2.596
+2010-05-28,11:45:03.975,1,2,aspirate took ,3.853
+2010-05-28,11:45:07.549,1,2,dispense took ,3.574
+2010-05-28,11:45:07.945,,,changing tips 3  4   took ,7.276
+2010-05-28,11:45:07.945,3,4,move source stage took ,0
+2010-05-28,11:45:10.147,1,2,tip shucking took ,2.598
+2010-05-28,11:45:11.752,3,4,aspirate took ,3.807
+2010-05-28,11:45:15.324,3,4,dispense took ,3.572
+2010-05-28,11:45:17.454,,,changing tips 1  2   took ,7.307
+2010-05-28,11:45:17.454,1,2,move source stage took ,0
+2010-05-28,11:45:17.920,3,4,tip shucking took ,2.596
+2010-05-28,11:45:21.326,1,2,aspirate took ,3.872
+2010-05-28,11:45:24.864,1,2,dispense took ,3.538
+2010-05-28,11:45:25.279,,,changing tips 3  4   took ,7.359
+2010-05-28,11:45:25.279,3,4,move source stage took ,0
+2010-05-28,11:45:27.462,1,2,tip shucking took ,2.598
+2010-05-28,11:45:29.051,3,4,aspirate took ,3.772
+2010-05-28,11:45:32.569,3,4,dispense took ,3.518
+2010-05-28,11:45:34.848,,,changing tips 1  2   took ,7.386
+2010-05-28,11:45:34.848,1,2,move source stage took ,0
+2010-05-28,11:45:35.165,3,4,tip shucking took ,2.596
+2010-05-28,11:45:38.661,1,2,aspirate took ,3.813
+2010-05-28,11:45:38.866,,,changing tips 3   took ,3.701
+2010-05-28,11:45:38.866,3,,move source stage took ,0
+2010-05-28,11:45:40.816,3,,aspirate took ,1.95
+2010-05-28,11:45:42.150,1,2,dispense took ,3.489
+2010-05-28,11:45:43.982,3,,dispense took ,1.816
+2010-05-28,11:45:44.748,1,2,tip shucking took ,2.598
+2010-05-28,11:45:45.280,3,,tip shucking took ,1.298
+2010-05-28,11:45:48.459,,,changing tips 1   took ,3.711
+2010-05-28,11:45:48.459,1,,move source stage took ,0
+2010-05-28,11:45:50.377,1,,aspirate took ,1.918
+2010-05-28,11:45:52.211,1,,dispense took ,1.834
+2010-05-28,11:45:53.509,1,,tip shucking took ,1.298
+2010-05-28,11:45:53.509,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:45:53.509,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:46:00.509,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:46:00.509,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 2 took ,7
+2010-05-28,11:46:00.559,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:46:05.559,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 2 took ,5
+2010-05-28,11:46:05.559,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:46:10.559,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:46:11.199,,,moving stage 1 to robot teachpoint took ,0
+2010-05-28,11:46:18.199,,,robot loading plate tipbox2 from BB PM 1 took ,7
+2010-05-28,11:46:23.199,,,robot unloading plate tipbox3 to BB PM 1 took ,5
+2010-05-28,11:46:30.433,,,changing tips 1  2   took ,19.824
+2010-05-28,11:46:30.433,1,2,move source stage took ,0
+2010-05-28,11:46:34.259,1,2,aspirate took ,3.826
+2010-05-28,11:46:37.727,,,changing tips 3  4   took ,27.117
+2010-05-28,11:46:37.727,3,4,move source stage took ,0
+2010-05-28,11:46:37.824,1,2,dispense took ,3.565
+2010-05-28,11:46:40.422,1,2,tip shucking took ,2.598
+2010-05-28,11:46:41.524,3,4,aspirate took ,3.797
+2010-05-28,11:46:45.087,3,4,dispense took ,3.563
+2010-05-28,11:46:47.683,3,4,tip shucking took ,2.596
+2010-05-28,11:46:47.743,,,changing tips 1  2   took ,7.321
+2010-05-28,11:46:47.743,1,2,move source stage took ,0
+2010-05-28,11:46:51.502,1,2,aspirate took ,3.759
+2010-05-28,11:46:55.064,1,2,dispense took ,3.562
+2010-05-28,11:46:55.123,,,changing tips 3  4   took ,7.44
+2010-05-28,11:46:55.123,3,4,move source stage took ,0
+2010-05-28,11:46:57.662,1,2,tip shucking took ,2.598
+2010-05-28,11:46:58.959,3,4,aspirate took ,3.836
+2010-05-28,11:47:02.517,3,4,dispense took ,3.558
+2010-05-28,11:47:05.055,,,changing tips 1  2   took ,7.393
+2010-05-28,11:47:05.055,1,2,move source stage took ,0
+2010-05-28,11:47:05.131,3,4,tip shucking took ,2.614
+2010-05-28,11:47:08.852,1,2,aspirate took ,3.797
+2010-05-28,11:47:12.402,1,2,dispense took ,3.55
+2010-05-28,11:47:12.668,,,changing tips 3  4   took ,7.537
+2010-05-28,11:47:12.668,3,4,move source stage took ,0
+2010-05-28,11:47:15.000,1,2,tip shucking took ,2.598
+2010-05-28,11:47:16.501,3,4,aspirate took ,3.833
+2010-05-28,11:47:20.067,3,4,dispense took ,3.566
+2010-05-28,11:47:22.261,,,changing tips 1  2   took ,7.26
+2010-05-28,11:47:22.261,1,2,move source stage took ,0
+2010-05-28,11:47:22.663,3,4,tip shucking took ,2.596
+2010-05-28,11:47:26.126,1,2,aspirate took ,3.865
+2010-05-28,11:47:29.693,1,2,dispense took ,3.567
+2010-05-28,11:47:29.934,,,changing tips 3  4   took ,7.271
+2010-05-28,11:47:29.934,3,4,move source stage took ,0
+2010-05-28,11:47:32.291,1,2,tip shucking took ,2.598
+2010-05-28,11:47:33.706,3,4,aspirate took ,3.772
+2010-05-28,11:47:37.271,3,4,dispense took ,3.565
+2010-05-28,11:47:39.623,,,changing tips 1  2   took ,7.331
+2010-05-28,11:47:39.623,1,2,move source stage took ,0
+2010-05-28,11:47:39.867,3,4,tip shucking took ,2.596
+2010-05-28,11:47:43.504,1,2,aspirate took ,3.881
+2010-05-28,11:47:47.067,1,2,dispense took ,3.563
+2010-05-28,11:47:47.236,,,changing tips 3  4   took ,7.369
+2010-05-28,11:47:47.236,3,4,move source stage took ,0
+2010-05-28,11:47:49.665,1,2,tip shucking took ,2.598
+2010-05-28,11:47:51.070,3,4,aspirate took ,3.834
+2010-05-28,11:47:54.626,3,4,dispense took ,3.556
+2010-05-28,11:47:57.045,,,changing tips 1  2   took ,7.379
+2010-05-28,11:47:57.045,1,2,move source stage took ,0
+2010-05-28,11:47:57.222,3,4,tip shucking took ,2.596
+2010-05-28,11:48:00.867,1,2,aspirate took ,3.822
+2010-05-28,11:48:04.436,1,2,dispense took ,3.569
+2010-05-28,11:48:04.658,,,changing tips 3  4   took ,7.435
+2010-05-28,11:48:04.658,3,4,move source stage took ,0
+2010-05-28,11:48:07.034,1,2,tip shucking took ,2.598
+2010-05-28,11:48:08.489,3,4,aspirate took ,3.831
+2010-05-28,11:48:12.065,3,4,dispense took ,3.576
+2010-05-28,11:48:14.285,,,changing tips 1  2   took ,7.25
+2010-05-28,11:48:14.285,1,2,move source stage took ,0
+2010-05-28,11:48:14.661,3,4,tip shucking took ,2.596
+2010-05-28,11:48:18.102,1,2,aspirate took ,3.817
+2010-05-28,11:48:21.652,1,2,dispense took ,3.55
+2010-05-28,11:48:21.958,,,changing tips 3  4   took ,7.297
+2010-05-28,11:48:21.958,3,4,move source stage took ,0
+2010-05-28,11:48:24.250,1,2,tip shucking took ,2.598
+2010-05-28,11:48:25.819,3,4,aspirate took ,3.861
+2010-05-28,11:48:29.395,3,4,dispense took ,3.576
+2010-05-28,11:48:31.561,,,changing tips 1  2   took ,7.31
+2010-05-28,11:48:31.561,1,2,move source stage took ,0
+2010-05-28,11:48:31.991,3,4,tip shucking took ,2.596
+2010-05-28,11:48:35.429,1,2,aspirate took ,3.868
+2010-05-28,11:48:38.993,1,2,dispense took ,3.564
+2010-05-28,11:48:39.354,,,changing tips 3  4   took ,7.362
+2010-05-28,11:48:39.354,3,4,move source stage took ,0
+2010-05-28,11:48:41.591,1,2,tip shucking took ,2.598
+2010-05-28,11:48:43.170,3,4,aspirate took ,3.816
+2010-05-28,11:48:46.836,3,4,dispense took ,3.666
+2010-05-28,11:48:48.983,,,changing tips 1  2   took ,7.392
+2010-05-28,11:48:48.983,1,2,move source stage took ,0
+2010-05-28,11:48:49.432,3,4,tip shucking took ,2.596
+2010-05-28,11:48:52.814,1,2,aspirate took ,3.831
+2010-05-28,11:48:56.468,1,2,dispense took ,3.654
+2010-05-28,11:48:56.866,,,changing tips 3  4   took ,7.434
+2010-05-28,11:48:56.866,3,4,move source stage took ,0
+2010-05-28,11:48:59.066,1,2,tip shucking took ,2.598
+2010-05-28,11:49:00.681,3,4,aspirate took ,3.815
+2010-05-28,11:49:04.320,3,4,dispense took ,3.639
+2010-05-28,11:49:06.309,,,changing tips 1  2   took ,7.243
+2010-05-28,11:49:06.309,1,2,move source stage took ,0
+2010-05-28,11:49:06.916,3,4,tip shucking took ,2.596
+2010-05-28,11:49:10.188,1,2,aspirate took ,3.879
+2010-05-28,11:49:13.755,1,2,dispense took ,3.567
+2010-05-28,11:49:14.193,,,changing tips 3  4   took ,7.277
+2010-05-28,11:49:14.193,3,4,move source stage took ,0
+2010-05-28,11:49:16.353,1,2,tip shucking took ,2.598
+2010-05-28,11:49:17.973,3,4,aspirate took ,3.78
+2010-05-28,11:49:21.541,3,4,dispense took ,3.568
+2010-05-28,11:49:23.672,,,changing tips 1  2   took ,7.319
+2010-05-28,11:49:23.672,1,2,move source stage took ,0
+2010-05-28,11:49:24.137,3,4,tip shucking took ,2.596
+2010-05-28,11:49:27.454,1,2,aspirate took ,3.782
+2010-05-28,11:49:31.045,1,2,dispense took ,3.591
+2010-05-28,11:49:31.495,,,changing tips 3  4   took ,7.358
+2010-05-28,11:49:31.495,3,4,move source stage took ,0
+2010-05-28,11:49:33.643,1,2,tip shucking took ,2.598
+2010-05-28,11:49:35.269,3,4,aspirate took ,3.774
+2010-05-28,11:49:38.859,3,4,dispense took ,3.59
+2010-05-28,11:49:41.034,,,changing tips 1  2   took ,7.391
+2010-05-28,11:49:41.034,1,2,move source stage took ,0
+2010-05-28,11:49:41.455,3,4,tip shucking took ,2.596
+2010-05-28,11:49:44.919,1,2,aspirate took ,3.885
+2010-05-28,11:49:45.156,,,changing tips 3   took ,3.701
+2010-05-28,11:49:45.156,3,,move source stage took ,0
+2010-05-28,11:49:47.027,3,,aspirate took ,1.871
+2010-05-28,11:49:48.458,1,2,dispense took ,3.539
+2010-05-28,11:49:50.293,3,,dispense took ,1.816
+2010-05-28,11:49:51.056,1,2,tip shucking took ,2.598
+2010-05-28,11:49:51.591,3,,tip shucking took ,1.298
+2010-05-28,11:49:54.767,,,changing tips 1   took ,3.711
+2010-05-28,11:49:54.767,1,,move source stage took ,0
+2010-05-28,11:49:56.640,1,,aspirate took ,1.873
+2010-05-28,11:49:58.474,1,,dispense took ,1.834
+2010-05-28,11:49:59.772,1,,tip shucking took ,1.298
+2010-05-28,11:49:59.772,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:50:06.772,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:50:06.822,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:50:11.822,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:50:19.130,,,changing tips 1  2   took ,7.258
+2010-05-28,11:50:19.130,1,2,move source stage took ,0
+2010-05-28,11:50:22.978,1,2,aspirate took ,3.848
+2010-05-28,11:50:26.413,,,changing tips 3  4   took ,14.517
+2010-05-28,11:50:26.413,3,4,move source stage took ,0
+2010-05-28,11:50:26.551,1,2,dispense took ,3.573
+2010-05-28,11:50:29.149,1,2,tip shucking took ,2.598
+2010-05-28,11:50:30.257,3,4,aspirate took ,3.844
+2010-05-28,11:50:33.829,3,4,dispense took ,3.572
+2010-05-28,11:50:36.425,3,4,tip shucking took ,2.596
+2010-05-28,11:50:36.474,,,changing tips 1  2   took ,7.325
+2010-05-28,11:50:36.474,1,2,move source stage took ,0
+2010-05-28,11:50:40.312,1,2,aspirate took ,3.838
+2010-05-28,11:50:43.814,,,changing tips 3  4   took ,7.389
+2010-05-28,11:50:43.814,3,4,move source stage took ,0
+2010-05-28,11:50:43.886,1,2,dispense took ,3.574
+2010-05-28,11:50:46.484,1,2,tip shucking took ,2.598
+2010-05-28,11:50:47.639,3,4,aspirate took ,3.825
+2010-05-28,11:50:51.213,3,4,dispense took ,3.574
+2010-05-28,11:50:53.809,3,4,tip shucking took ,2.596
+2010-05-28,11:50:53.877,,,changing tips 1  2   took ,7.393
+2010-05-28,11:50:53.877,1,2,move source stage took ,0
+2010-05-28,11:50:57.673,1,2,aspirate took ,3.796
+2010-05-28,11:51:01.251,1,2,dispense took ,3.578
+2010-05-28,11:51:01.320,,,changing tips 3  4   took ,7.511
+2010-05-28,11:51:01.320,3,4,move source stage took ,0
+2010-05-28,11:51:03.849,1,2,tip shucking took ,2.598
+2010-05-28,11:51:05.169,3,4,aspirate took ,3.849
+2010-05-28,11:51:08.743,3,4,dispense took ,3.574
+2010-05-28,11:51:11.093,,,changing tips 1  2   took ,7.243
+2010-05-28,11:51:11.093,1,2,move source stage took ,0
+2010-05-28,11:51:11.339,3,4,tip shucking took ,2.596
+2010-05-28,11:51:14.917,1,2,aspirate took ,3.824
+2010-05-28,11:51:18.494,1,2,dispense took ,3.577
+2010-05-28,11:51:18.617,,,changing tips 3  4   took ,7.278
+2010-05-28,11:51:18.617,3,4,move source stage took ,0
+2010-05-28,11:51:21.092,1,2,tip shucking took ,2.598
+2010-05-28,11:51:22.413,3,4,aspirate took ,3.796
+2010-05-28,11:51:25.989,3,4,dispense took ,3.576
+2010-05-28,11:51:28.426,,,changing tips 1  2   took ,7.334
+2010-05-28,11:51:28.426,1,2,move source stage took ,0
+2010-05-28,11:51:28.585,3,4,tip shucking took ,2.596
+2010-05-28,11:51:32.262,1,2,aspirate took ,3.836
+2010-05-28,11:51:35.842,1,2,dispense took ,3.58
+2010-05-28,11:51:35.979,,,changing tips 3  4   took ,7.394
+2010-05-28,11:51:35.979,3,4,move source stage took ,0
+2010-05-28,11:51:38.440,1,2,tip shucking took ,2.598
+2010-05-28,11:51:39.799,3,4,aspirate took ,3.82
+2010-05-28,11:51:43.381,3,4,dispense took ,3.582
+2010-05-28,11:51:45.842,,,changing tips 1  2   took ,7.402
+2010-05-28,11:51:45.842,1,2,move source stage took ,0
+2010-05-28,11:51:45.977,3,4,tip shucking took ,2.596
+2010-05-28,11:51:49.664,1,2,aspirate took ,3.822
+2010-05-28,11:51:53.256,1,2,dispense took ,3.592
+2010-05-28,11:51:53.457,,,changing tips 3  4   took ,7.479
+2010-05-28,11:51:53.457,3,4,move source stage took ,0
+2010-05-28,11:51:55.854,1,2,tip shucking took ,2.598
+2010-05-28,11:51:57.277,3,4,aspirate took ,3.82
+2010-05-28,11:52:00.843,3,4,dispense took ,3.566
+2010-05-28,11:52:03.110,,,changing tips 1  2   took ,7.256
+2010-05-28,11:52:03.110,1,2,move source stage took ,0
+2010-05-28,11:52:03.439,3,4,tip shucking took ,2.596
+2010-05-28,11:52:06.952,1,2,aspirate took ,3.842
+2010-05-28,11:52:10.537,1,2,dispense took ,3.585
+2010-05-28,11:52:10.723,,,changing tips 3  4   took ,7.284
+2010-05-28,11:52:10.723,3,4,move source stage took ,0
+2010-05-28,11:52:13.135,1,2,tip shucking took ,2.598
+2010-05-28,11:52:14.618,3,4,aspirate took ,3.895
+2010-05-28,11:52:18.196,3,4,dispense took ,3.578
+2010-05-28,11:52:20.442,,,changing tips 1  2   took ,7.306
+2010-05-28,11:52:20.442,1,2,move source stage took ,0
+2010-05-28,11:52:20.792,3,4,tip shucking took ,2.596
+2010-05-28,11:52:24.263,1,2,aspirate took ,3.821
+2010-05-28,11:52:27.849,1,2,dispense took ,3.586
+2010-05-28,11:52:28.145,,,changing tips 3  4   took ,7.352
+2010-05-28,11:52:28.145,3,4,move source stage took ,0
+2010-05-28,11:52:30.447,1,2,tip shucking took ,2.598
+2010-05-28,11:52:32.008,3,4,aspirate took ,3.863
+2010-05-28,11:52:35.624,3,4,dispense took ,3.616
+2010-05-28,11:52:37.834,,,changing tips 1  2   took ,7.386
+2010-05-28,11:52:37.834,1,2,move source stage took ,0
+2010-05-28,11:52:38.220,3,4,tip shucking took ,2.596
+2010-05-28,11:52:41.641,1,2,aspirate took ,3.807
+2010-05-28,11:52:45.245,1,2,dispense took ,3.604
+2010-05-28,11:52:45.657,,,changing tips 3  4   took ,7.437
+2010-05-28,11:52:45.657,3,4,move source stage took ,0
+2010-05-28,11:52:47.843,1,2,tip shucking took ,2.598
+2010-05-28,11:52:49.435,3,4,aspirate took ,3.778
+2010-05-28,11:52:53.025,3,4,dispense took ,3.59
+2010-05-28,11:52:55.100,,,changing tips 1  2   took ,7.257
+2010-05-28,11:52:55.100,1,2,move source stage took ,0
+2010-05-28,11:52:55.621,3,4,tip shucking took ,2.596
+2010-05-28,11:52:58.873,1,2,aspirate took ,3.773
+2010-05-28,11:53:02.447,1,2,dispense took ,3.574
+2010-05-28,11:53:02.893,,,changing tips 3  4   took ,7.272
+2010-05-28,11:53:02.893,3,4,move source stage took ,0
+2010-05-28,11:53:05.045,1,2,tip shucking took ,2.598
+2010-05-28,11:53:06.720,3,4,aspirate took ,3.827
+2010-05-28,11:53:10.292,3,4,dispense took ,3.572
+2010-05-28,11:53:12.372,,,changing tips 1  2   took ,7.327
+2010-05-28,11:53:12.372,1,2,move source stage took ,0
+2010-05-28,11:53:12.888,3,4,tip shucking took ,2.596
+2010-05-28,11:53:16.222,1,2,aspirate took ,3.85
+2010-05-28,11:53:19.760,1,2,dispense took ,3.538
+2010-05-28,11:53:20.255,,,changing tips 3  4   took ,7.367
+2010-05-28,11:53:20.255,3,4,move source stage took ,0
+2010-05-28,11:53:22.358,1,2,tip shucking took ,2.598
+2010-05-28,11:53:24.098,3,4,aspirate took ,3.843
+2010-05-28,11:53:26.042,,,changing tips 1   took ,3.684
+2010-05-28,11:53:26.042,1,,move source stage took ,0
+2010-05-28,11:53:27.616,3,4,dispense took ,3.518
+2010-05-28,11:53:27.987,1,,aspirate took ,1.945
+2010-05-28,11:53:29.743,1,,dispense took ,1.756
+2010-05-28,11:53:30.212,3,4,tip shucking took ,2.596
+2010-05-28,11:53:31.041,1,,tip shucking took ,1.298
+2010-05-28,11:53:37.621,,,changing tips 2  3   took ,7.408
+2010-05-28,11:53:37.621,2,3,move source stage took ,0
+2010-05-28,11:53:41.352,,,changing tips 1   took ,10.311
+2010-05-28,11:53:41.444,2,3,aspirate took ,3.823
+2010-05-28,11:53:41.452,1,,move source stage took ,0
+2010-05-28,11:53:43.388,1,,aspirate took ,1.936
+2010-05-28,11:53:44.933,2,3,dispense took ,3.489
+2010-05-28,11:53:46.763,1,,dispense took ,1.825
+2010-05-28,11:53:47.531,2,3,tip shucking took ,2.598
+2010-05-28,11:53:48.061,1,,tip shucking took ,1.298
+2010-05-28,11:53:48.061,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:53:48.061,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:53:55.061,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:53:55.061,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 2 took ,7
+2010-05-28,11:53:55.111,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,11:54:00.111,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 2 took ,5
+2010-05-28,11:54:00.111,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:54:05.111,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:54:05.753,,,moving stage 1 to robot teachpoint took ,0
+2010-05-28,11:54:12.753,,,robot loading plate tipbox3 from BB PM 1 took ,7
+2010-05-28,11:54:17.753,,,robot unloading plate tipbox4 to BB PM 1 took ,5
+2010-05-28,11:54:24.987,,,changing tips 1  2   took ,19.826
+2010-05-28,11:54:24.987,1,2,move source stage took ,0
+2010-05-28,11:54:28.801,1,2,aspirate took ,3.814
+2010-05-28,11:54:32.281,,,changing tips 3  4   took ,27.117
+2010-05-28,11:54:32.281,3,4,move source stage took ,0
+2010-05-28,11:54:32.366,1,2,dispense took ,3.565
+2010-05-28,11:54:34.964,1,2,tip shucking took ,2.598
+2010-05-28,11:54:36.107,3,4,aspirate took ,3.826
+2010-05-28,11:54:39.670,3,4,dispense took ,3.563
+2010-05-28,11:54:42.266,3,4,tip shucking took ,2.596
+2010-05-28,11:54:42.290,,,changing tips 1  2   took ,7.325
+2010-05-28,11:54:42.290,1,2,move source stage took ,0
+2010-05-28,11:54:46.067,1,2,aspirate took ,3.777
+2010-05-28,11:54:49.634,1,2,dispense took ,3.567
+2010-05-28,11:54:49.655,,,changing tips 3  4   took ,7.389
+2010-05-28,11:54:49.655,3,4,move source stage took ,0
+2010-05-28,11:54:52.232,1,2,tip shucking took ,2.598
+2010-05-28,11:54:53.563,3,4,aspirate took ,3.908
+2010-05-28,11:54:57.129,3,4,dispense took ,3.566
+2010-05-28,11:54:59.632,,,changing tips 1  2   took ,7.399
+2010-05-28,11:54:59.632,1,2,move source stage took ,0
+2010-05-28,11:54:59.725,3,4,tip shucking took ,2.596
+2010-05-28,11:55:03.459,1,2,aspirate took ,3.827
+2010-05-28,11:55:07.026,1,2,dispense took ,3.567
+2010-05-28,11:55:07.246,,,changing tips 3  4   took ,7.521
+2010-05-28,11:55:07.246,3,4,move source stage took ,0
+2010-05-28,11:55:09.624,1,2,tip shucking took ,2.598
+2010-05-28,11:55:11.119,3,4,aspirate took ,3.873
+2010-05-28,11:55:14.670,3,4,dispense took ,3.551
+2010-05-28,11:55:16.869,,,changing tips 1  2   took ,7.245
+2010-05-28,11:55:16.869,1,2,move source stage took ,0
+2010-05-28,11:55:17.266,3,4,tip shucking took ,2.596
+2010-05-28,11:55:20.671,1,2,aspirate took ,3.802
+2010-05-28,11:55:24.241,1,2,dispense took ,3.57
+2010-05-28,11:55:24.542,,,changing tips 3  4   took ,7.276
+2010-05-28,11:55:24.542,3,4,move source stage took ,0
+2010-05-28,11:55:26.839,1,2,tip shucking took ,2.598
+2010-05-28,11:55:28.373,3,4,aspirate took ,3.831
+2010-05-28,11:55:31.923,3,4,dispense took ,3.55
+2010-05-28,11:55:34.171,,,changing tips 1  2   took ,7.331
+2010-05-28,11:55:34.171,1,2,move source stage took ,0
+2010-05-28,11:55:34.519,3,4,tip shucking took ,2.596
+2010-05-28,11:55:38.027,1,2,aspirate took ,3.856
+2010-05-28,11:55:41.580,1,2,dispense took ,3.553
+2010-05-28,11:55:41.874,,,changing tips 3  4   took ,7.354
+2010-05-28,11:55:41.874,3,4,move source stage took ,0
+2010-05-28,11:55:44.178,1,2,tip shucking took ,2.598
+2010-05-28,11:55:45.691,3,4,aspirate took ,3.817
+2010-05-28,11:55:49.259,3,4,dispense took ,3.568
+2010-05-28,11:55:51.570,,,changing tips 1  2   took ,7.391
+2010-05-28,11:55:51.570,1,2,move source stage took ,0
+2010-05-28,11:55:51.855,3,4,tip shucking took ,2.596
+2010-05-28,11:55:55.380,1,2,aspirate took ,3.81
+2010-05-28,11:55:58.940,1,2,dispense took ,3.56
+2010-05-28,11:55:59.273,,,changing tips 3  4   took ,7.418
+2010-05-28,11:55:59.273,3,4,move source stage took ,0
+2010-05-28,11:56:01.538,1,2,tip shucking took ,2.598
+2010-05-28,11:56:03.118,3,4,aspirate took ,3.845
+2010-05-28,11:56:06.695,3,4,dispense took ,3.577
+2010-05-28,11:56:08.776,,,changing tips 1  2   took ,7.238
+2010-05-28,11:56:08.776,1,2,move source stage took ,0
+2010-05-28,11:56:09.291,3,4,tip shucking took ,2.596
+2010-05-28,11:56:12.604,1,2,aspirate took ,3.828
+2010-05-28,11:56:16.181,1,2,dispense took ,3.577
+2010-05-28,11:56:16.569,,,changing tips 3  4   took ,7.277
+2010-05-28,11:56:16.569,3,4,move source stage took ,0
+2010-05-28,11:56:18.779,1,2,tip shucking took ,2.598
+2010-05-28,11:56:20.411,3,4,aspirate took ,3.842
+2010-05-28,11:56:23.959,3,4,dispense took ,3.548
+2010-05-28,11:56:26.108,,,changing tips 1  2   took ,7.329
+2010-05-28,11:56:26.108,1,2,move source stage took ,0
+2010-05-28,11:56:26.555,3,4,tip shucking took ,2.596
+2010-05-28,11:56:29.955,1,2,aspirate took ,3.847
+2010-05-28,11:56:33.530,1,2,dispense took ,3.575
+2010-05-28,11:56:33.901,,,changing tips 3  4   took ,7.346
+2010-05-28,11:56:33.901,3,4,move source stage took ,0
+2010-05-28,11:56:36.128,1,2,tip shucking took ,2.598
+2010-05-28,11:56:37.659,3,4,aspirate took ,3.758
+2010-05-28,11:56:41.325,3,4,dispense took ,3.666
+2010-05-28,11:56:43.530,,,changing tips 1  2   took ,7.402
+2010-05-28,11:56:43.530,1,2,move source stage took ,0
+2010-05-28,11:56:43.921,3,4,tip shucking took ,2.596
+2010-05-28,11:56:47.284,1,2,aspirate took ,3.754
+2010-05-28,11:56:50.938,1,2,dispense took ,3.654
+2010-05-28,11:56:51.353,,,changing tips 3  4   took ,7.431
+2010-05-28,11:56:51.353,3,4,move source stage took ,0
+2010-05-28,11:56:53.536,1,2,tip shucking took ,2.598
+2010-05-28,11:56:55.152,3,4,aspirate took ,3.799
+2010-05-28,11:56:58.777,3,4,dispense took ,3.625
+2010-05-28,11:57:00.796,,,changing tips 1  2   took ,7.259
+2010-05-28,11:57:00.796,1,2,move source stage took ,0
+2010-05-28,11:57:01.373,3,4,tip shucking took ,2.596
+2010-05-28,11:57:04.657,1,2,aspirate took ,3.861
+2010-05-28,11:57:08.226,1,2,dispense took ,3.569
+2010-05-28,11:57:08.649,,,changing tips 3  4   took ,7.275
+2010-05-28,11:57:08.649,3,4,move source stage took ,0
+2010-05-28,11:57:10.824,1,2,tip shucking took ,2.598
+2010-05-28,11:57:12.466,3,4,aspirate took ,3.817
+2010-05-28,11:57:16.070,3,4,dispense took ,3.604
+2010-05-28,11:57:18.158,,,changing tips 1  2   took ,7.334
+2010-05-28,11:57:18.158,1,2,move source stage took ,0
+2010-05-28,11:57:18.666,3,4,tip shucking took ,2.596
+2010-05-28,11:57:21.967,1,2,aspirate took ,3.809
+2010-05-28,11:57:25.558,1,2,dispense took ,3.591
+2010-05-28,11:57:26.011,,,changing tips 3  4   took ,7.345
+2010-05-28,11:57:26.011,3,4,move source stage took ,0
+2010-05-28,11:57:28.156,1,2,tip shucking took ,2.598
+2010-05-28,11:57:29.875,3,4,aspirate took ,3.864
+2010-05-28,11:57:33.463,3,4,dispense took ,3.588
+2010-05-28,11:57:35.550,,,changing tips 1  2   took ,7.393
+2010-05-28,11:57:35.550,1,2,move source stage took ,0
+2010-05-28,11:57:36.059,3,4,tip shucking took ,2.596
+2010-05-28,11:57:39.415,1,2,aspirate took ,3.865
+2010-05-28,11:57:39.760,,,changing tips 3   took ,3.701
+2010-05-28,11:57:39.760,3,,move source stage took ,0
+2010-05-28,11:57:41.691,3,,aspirate took ,1.931
+2010-05-28,11:57:42.941,1,2,dispense took ,3.526
+2010-05-28,11:57:44.807,3,,dispense took ,1.816
+2010-05-28,11:57:45.539,1,2,tip shucking took ,2.598
+2010-05-28,11:57:46.105,3,,tip shucking took ,1.298
+2010-05-28,11:57:49.250,,,changing tips 1   took ,3.711
+2010-05-28,11:57:49.250,1,,move source stage took ,0
+2010-05-28,11:57:51.177,1,,aspirate took ,1.927
+2010-05-28,11:57:53.002,1,,dispense took ,1.825
+2010-05-28,11:57:54.300,1,,tip shucking took ,1.298
+2010-05-28,11:57:54.300,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:58:01.300,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,11:58:01.350,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,11:58:06.350,,,robot unloading plate NUNC 96 clear round well flat bottom to BB PM 3 took ,5
+2010-05-28,11:58:13.647,,,changing tips 1  2   took ,7.247
+2010-05-28,11:58:13.647,1,2,move source stage took ,0
+2010-05-28,11:58:17.520,1,2,aspirate took ,3.873
+2010-05-28,11:58:20.930,,,changing tips 3  4   took ,14.517
+2010-05-28,11:58:20.930,3,4,move source stage took ,0
+2010-05-28,11:58:21.095,1,2,dispense took ,3.575
+2010-05-28,11:58:23.693,1,2,tip shucking took ,2.598
+2010-05-28,11:58:24.710,3,4,aspirate took ,3.78
+2010-05-28,11:58:28.284,3,4,dispense took ,3.574
+2010-05-28,11:58:30.880,3,4,tip shucking took ,2.596
+2010-05-28,11:58:31.009,,,changing tips 1  2   took ,7.316
+2010-05-28,11:58:31.009,1,2,move source stage took ,0
+2010-05-28,11:58:34.835,1,2,aspirate took ,3.826
+2010-05-28,11:58:38.370,,,changing tips 3  4   took ,7.49
+2010-05-28,11:58:38.370,3,4,move source stage took ,0
+2010-05-28,11:58:38.411,1,2,dispense took ,3.576
+2010-05-28,11:58:41.009,1,2,tip shucking took ,2.598
+2010-05-28,11:58:42.210,3,4,aspirate took ,3.84
+2010-05-28,11:58:45.788,3,4,dispense took ,3.578
+2010-05-28,11:58:48.384,3,4,tip shucking took ,2.596
+2010-05-28,11:58:48.392,,,changing tips 1  2   took ,7.383
+2010-05-28,11:58:48.392,1,2,move source stage took ,0
+2010-05-28,11:58:52.225,1,2,aspirate took ,3.833
+2010-05-28,11:58:55.810,1,2,dispense took ,3.585
+2010-05-28,11:58:55.846,,,changing tips 3  4   took ,7.461
+2010-05-28,11:58:55.846,3,4,move source stage took ,0
+2010-05-28,11:58:58.408,1,2,tip shucking took ,2.598
+2010-05-28,11:58:59.693,3,4,aspirate took ,3.847
+2010-05-28,11:59:03.268,3,4,dispense took ,3.575
+2010-05-28,11:59:05.666,,,changing tips 1  2   took ,7.257
+2010-05-28,11:59:05.666,1,2,move source stage took ,0
+2010-05-28,11:59:05.864,3,4,tip shucking took ,2.596
+2010-05-28,11:59:09.454,1,2,aspirate took ,3.788
+2010-05-28,11:59:13.032,1,2,dispense took ,3.578
+2010-05-28,11:59:13.159,,,changing tips 3  4   took ,7.294
+2010-05-28,11:59:13.159,3,4,move source stage took ,0
+2010-05-28,11:59:15.630,1,2,tip shucking took ,2.598
+2010-05-28,11:59:17.000,3,4,aspirate took ,3.841
+2010-05-28,11:59:20.581,3,4,dispense took ,3.581
+2010-05-28,11:59:22.938,,,changing tips 1  2   took ,7.307
+2010-05-28,11:59:22.938,1,2,move source stage took ,0
+2010-05-28,11:59:23.177,3,4,tip shucking took ,2.596
+2010-05-28,11:59:26.848,1,2,aspirate took ,3.91
+2010-05-28,11:59:30.403,1,2,dispense took ,3.555
+2010-05-28,11:59:30.521,,,changing tips 3  4   took ,7.344
+2010-05-28,11:59:30.521,3,4,move source stage took ,0
+2010-05-28,11:59:33.001,1,2,tip shucking took ,2.598
+2010-05-28,11:59:34.383,3,4,aspirate took ,3.862
+2010-05-28,11:59:37.965,3,4,dispense took ,3.582
+2010-05-28,11:59:40.391,,,changing tips 1  2   took ,7.39
+2010-05-28,11:59:40.391,1,2,move source stage took ,0
+2010-05-28,11:59:40.561,3,4,tip shucking took ,2.596
+2010-05-28,11:59:44.256,1,2,aspirate took ,3.865
+2010-05-28,11:59:47.831,1,2,dispense took ,3.575
+2010-05-28,11:59:48.004,,,changing tips 3  4   took ,7.442
+2010-05-28,11:59:48.004,3,4,move source stage took ,0
+2010-05-28,11:59:50.429,1,2,tip shucking took ,2.598
+2010-05-28,11:59:51.874,3,4,aspirate took ,3.87
+2010-05-28,11:59:55.462,3,4,dispense took ,3.588
+2010-05-28,11:59:57.687,,,changing tips 1  2   took ,7.258
+2010-05-28,11:59:57.687,1,2,move source stage took ,0
+2010-05-28,11:59:58.058,3,4,tip shucking took ,2.596
+2010-05-28,12:00:01.542,1,2,aspirate took ,3.855
+2010-05-28,12:00:05.115,1,2,dispense took ,3.573
+2010-05-28,12:00:05.330,,,changing tips 3  4   took ,7.272
+2010-05-28,12:00:05.330,3,4,move source stage took ,0
+2010-05-28,12:00:07.713,1,2,tip shucking took ,2.598
+2010-05-28,12:00:09.120,3,4,aspirate took ,3.79
+2010-05-28,12:00:12.708,3,4,dispense took ,3.588
+2010-05-28,12:00:15.049,,,changing tips 1  2   took ,7.336
+2010-05-28,12:00:15.049,1,2,move source stage took ,0
+2010-05-28,12:00:15.304,3,4,tip shucking took ,2.596
+2010-05-28,12:00:18.887,1,2,aspirate took ,3.838
+2010-05-28,12:00:22.479,1,2,dispense took ,3.592
+2010-05-28,12:00:22.662,,,changing tips 3  4   took ,7.358
+2010-05-28,12:00:22.662,3,4,move source stage took ,0
+2010-05-28,12:00:25.077,1,2,tip shucking took ,2.598
+2010-05-28,12:00:26.470,3,4,aspirate took ,3.808
+2010-05-28,12:00:30.086,3,4,dispense took ,3.616
+2010-05-28,12:00:32.471,,,changing tips 1  2   took ,7.393
+2010-05-28,12:00:32.471,1,2,move source stage took ,0
+2010-05-28,12:00:32.682,3,4,tip shucking took ,2.596
+2010-05-28,12:00:36.315,1,2,aspirate took ,3.844
+2010-05-28,12:00:39.919,1,2,dispense took ,3.604
+2010-05-28,12:00:40.115,,,changing tips 3  4   took ,7.433
+2010-05-28,12:00:40.115,3,4,move source stage took ,0
+2010-05-28,12:00:42.517,1,2,tip shucking took ,2.598
+2010-05-28,12:00:43.919,3,4,aspirate took ,3.804
+2010-05-28,12:00:47.509,3,4,dispense took ,3.59
+2010-05-28,12:00:49.768,,,changing tips 1  2   took ,7.251
+2010-05-28,12:00:49.768,1,2,move source stage took ,0
+2010-05-28,12:00:50.105,3,4,tip shucking took ,2.596
+2010-05-28,12:00:53.634,1,2,aspirate took ,3.866
+2010-05-28,12:00:57.208,1,2,dispense took ,3.574
+2010-05-28,12:00:57.381,,,changing tips 3  4   took ,7.276
+2010-05-28,12:00:57.381,3,4,move source stage took ,0
+2010-05-28,12:00:59.806,1,2,tip shucking took ,2.598
+2010-05-28,12:01:01.227,3,4,aspirate took ,3.846
+2010-05-28,12:01:04.761,3,4,dispense took ,3.534
+2010-05-28,12:01:07.130,,,changing tips 1  2   took ,7.323
+2010-05-28,12:01:07.130,1,2,move source stage took ,0
+2010-05-28,12:01:07.357,3,4,tip shucking took ,2.596
+2010-05-28,12:01:10.974,1,2,aspirate took ,3.844
+2010-05-28,12:01:14.524,1,2,dispense took ,3.55
+2010-05-28,12:01:14.713,,,changing tips 3  4   took ,7.356
+2010-05-28,12:01:14.713,3,4,move source stage took ,0
+2010-05-28,12:01:17.122,1,2,tip shucking took ,2.598
+2010-05-28,12:01:18.560,3,4,aspirate took ,3.847
+2010-05-28,12:01:22.074,3,4,dispense took ,3.514
+2010-05-28,12:01:24.522,,,changing tips 1  2   took ,7.4
+2010-05-28,12:01:24.522,1,2,move source stage took ,0
+2010-05-28,12:01:24.670,3,4,tip shucking took ,2.596
+2010-05-28,12:01:28.371,,,changing tips 3   took ,3.701
+2010-05-28,12:01:28.395,1,2,aspirate took ,3.873
+2010-05-28,12:01:28.422,3,,move source stage took ,0
+2010-05-28,12:01:30.372,3,,aspirate took ,1.95
+2010-05-28,12:01:31.896,1,2,dispense took ,3.501
+2010-05-28,12:01:33.747,3,,dispense took ,1.825
+2010-05-28,12:01:34.494,1,2,tip shucking took ,2.598
+2010-05-28,12:01:35.045,3,,tip shucking took ,1.298
+2010-05-28,12:01:38.205,,,changing tips 1   took ,3.711
+2010-05-28,12:01:38.205,1,,move source stage took ,0
+2010-05-28,12:01:40.114,1,,aspirate took ,1.909
+2010-05-28,12:01:41.948,1,,dispense took ,1.834
+2010-05-28,12:01:43.246,1,,tip shucking took ,1.298
+2010-05-28,12:01:43.246,,,moving stage 3 to robot teachpoint took ,0
+2010-05-28,12:01:43.246,,,moving stage 2 to robot teachpoint took ,0
+2010-05-28,12:01:50.246,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 3 took ,7
+2010-05-28,12:01:50.246,,,robot loading plate NUNC 96 clear round well flat bottom from BB PM 2 took ,7
+2010-05-28,12:01:50.246,,,moving stage 1 to robot teachpoint took ,0
+2010-05-28,12:01:57.246,,,robot loading plate tipbox4 from BB PM 1 took ,7

@@ -1,0 +1,87 @@
+﻿<Window x:Class="BioNex.BumblebeeRandomHitpickGenerator.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:BioNex.BumblebeeRandomHitpickGenerator"
+    Title="Random Hitpick File Generator" Height="350" Width="300">
+    
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+        <ObjectDataProvider x:Key="OrderingItems">
+            <ObjectDataProvider.ObjectInstance>
+                <x:Array Type="sys:String">
+                    <sys:String>Row</sys:String>
+                    <sys:String>Column</sys:String>
+                    <sys:String>Random</sys:String>
+                </x:Array>
+            </ObjectDataProvider.ObjectInstance>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="PlateTypeItems">
+            <ObjectDataProvider.ObjectInstance>
+                <x:Array Type="local:PlateType">
+                    <local:PlateType>Plate96</local:PlateType>
+                    <local:PlateType>Plate384</local:PlateType>
+                    <local:PlateType>Random</local:PlateType>
+                </x:Array>
+            </ObjectDataProvider.ObjectInstance>
+        </ObjectDataProvider>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!-- labels -->
+        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">Number of source plates:</Label>
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Type of source plates:</Label>
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" IsEnabled="False">One source -> many dest:</Label>
+        <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Hits per 96 well source:</Label>
+        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Hits per 384 well source:</Label>
+        <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource LabelStyle}">Number of dest plates:</Label>
+        <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource LabelStyle}">Type of dest plates:</Label>
+        <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource LabelStyle}" IsEnabled="False">Dest plate ordering:</Label>
+        <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource LabelStyle}">Volume [mm]:</Label>
+        <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource LabelStyle}">Any dest?</Label>
+        <!-- options -->
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding NumberOfSourcePlates}" Width="50" HorizontalAlignment="Left" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="3" ItemsSource="{Binding Source={StaticResource PlateTypeItems}}" SelectedItem="{Binding SourcePlateType}" />
+        <CheckBox Grid.Row="2" Grid.Column="1" Margin="3" VerticalAlignment="Center" IsChecked="{Binding OneToMany}" IsEnabled="False"></CheckBox>
+        <!-- hits per 96 source -->
+        <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Margin="3">
+            <TextBox Width="50" Text="{Binding Source96Min}" HorizontalContentAlignment="Center" />
+            <TextBlock Margin="3">to</TextBlock>
+            <TextBox Width="50" Text="{Binding Source96Max}" HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <!-- hits per 384 source -->
+        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" Margin="3">
+            <TextBox Width="50" Text="{Binding Source384Min}" HorizontalContentAlignment="Center" />
+            <TextBlock Margin="3">to</TextBlock>
+            <TextBox Width="50" Text="{Binding Source384Max}" HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="3" Text="{Binding NumberOfDestPlates}" Width="50" HorizontalAlignment="Left" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Row="6" Grid.Column="1" Margin="3" ItemsSource="{Binding Source={StaticResource PlateTypeItems}}" SelectedItem="{Binding DestPlateType}" />
+        <!-- dest plate ordering -->
+        <ComboBox Grid.Row="7" Grid.Column="1" Margin="3" ItemsSource="{Binding Source={StaticResource OrderingItems}}" SelectedItem="{Binding DestPlateOrdering}" IsEnabled="False" />
+        <TextBox Grid.Row="8" Grid.Column="1" Margin="3" Text="{Binding Volume}" Width="50" HorizontalAlignment="Left" HorizontalContentAlignment="Center"></TextBox>
+        <CheckBox Grid.Row="9" Grid.Column="1" Margin="3" VerticalAlignment="Center" IsChecked="{Binding AnyDest}"></CheckBox>
+        <!-- create file -->
+        <Button Grid.Row="10" Grid.ColumnSpan="2" Margin="3" Command="{Binding CreateHitpickFileCommand}">Create Hitpick File</Button>
+    </Grid>
+</Window>

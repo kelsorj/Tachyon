@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="7447c402-5cbf-49b6-9a12-93bdd3701ae8" Name="BioNex Hive Integration Files" Language="1033" Version="1.0.0.0" Manufacturer="BioNex" UpgradeCode="3d704c0d-72dd-43f0-90c1-d03b5bb3b821">
+		<Package InstallerVersion="300" Compressed="yes" InstallPrivileges="elevated" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- this directory is defined for the application shortcut on the desktop -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="BioNex">
+          <Directory Id="INSTALLLOCATION" Name="Hive">
+          </Directory>
+        </Directory>
+      </Directory>
+		</Directory>
+
+    <ComponentGroup Id="ProductComponents">
+      <ComponentRef Id="CookComputing.XmlRpcV2.dll" />
+      <ComponentRef Id="HiveIntegration.dll" />
+      <ComponentRef Id="HiveIntegrationTestApp.exe"/>
+      <ComponentRef Id="log4net.dll"/>
+      <ComponentRef Id="log4net_LICENSE.txt"/>
+      <ComponentRef Id="log4net_NOTICE.txt"/>
+      <ComponentRef Id="Utils.dll"/>
+      <ComponentRef Id="XmlRpcGlue.dll"/>
+      <ComponentRef Id="chm"/>
+    </ComponentGroup>
+
+    <!-- add all of the file references - exe, dlls, etc. -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="CookComputing.XmlRpcV2.dll">
+        <File Id="CookComputing.XmlRpcV2.dll" Source="..\HiveIntegrationTestApp\bin\debug\CookComputing.XmlRpcV2.dll" />
+      </Component>
+      <Component Id="HiveIntegration.dll">
+        <File Id="HiveIntegration.dll" Source="..\HiveIntegrationTestApp\bin\debug\HiveIntegration.dll" />
+      </Component>
+      <Component Id="HiveIntegrationTestApp.exe">
+        <File Id="HiveIntegrationTestApp.exe" Source="..\HiveIntegrationTestApp\bin\debug\HiveIntegrationTestApp.exe" />
+      </Component>
+      <Component Id="log4net.dll">
+        <File Id="log4net.dll" Source="..\HiveIntegrationTestApp\bin\debug\log4net.dll" />
+      </Component>
+      <Component Id="log4net_LICENSE.txt">
+        <File Id="log4net_LICENSE.txt" Source="..\HiveIntegrationTestApp\bin\debug\log4net_LICENSE.txt" />
+      </Component>
+      <Component Id="log4net_NOTICE.txt">
+        <File Id="log4net_NOTICE.txt" Source="..\HiveIntegrationTestApp\bin\debug\log4net_NOTICE.txt" />
+      </Component>
+      <Component Id="Utils.dll">
+        <File Id="Utils.dll" Source="..\HiveIntegrationTestApp\bin\debug\Utils.dll" />
+      </Component>
+      <Component Id="XmlRpcGlue.dll">
+        <File Id="XmlRpcGlue.dll" Source="..\HiveIntegrationTestApp\bin\debug\XmlRpcGlue.dll" />
+      </Component>
+      <Component Id="chm">
+        <!-- no longer using bin folder because TeamCity locked it down -->
+        <!-- File Id="chm" Source="..\bin\html\index.chm" / -->
+        <File Id="chm" Source="c:\temp\hive\html\index.chm" />
+      </Component>      
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="Installer" Level="1">
+      <Feature Id="Main" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="ProductComponents" />
+      </Feature>
+      <!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+
+    <!-- change installer images here.  Search WiX documentation for "banner" -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Bitmaps\bionexbanner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Bitmaps\hivedialog.bmp"/>
+
+    <!-- .NET 4.0 detection / installation: search WiX documentation for ".NET" -->
+    <PropertyRef Id="NETFRAMEWORK40FULL" />
+    <Condition Message ="This application requires .NET Framework 4.0.  Please install the .NET Framework and then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <UI>
+      <!-- http://www.codeproject.com/Articles/21472/Creating-an-installer-using-Wix-v3-0-Votive-and-Vi -->
+      <UIRef Id="WixUI_InstallDir" />
+      <!-- override the default behavior for WixUI_InstallDir and skip the EULA page -->
+      <!-- http://stackoverflow.com/questions/597025/how-to-build-a-minimal-wix-installer-ui-without-a-license-page -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <!-- need this or you'll get error 2819 when running the installer: http://stackoverflow.com/questions/7349837/wix-installer-guidance -->
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    </UI>
+        
+  </Product>
+</Wix>

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManagerMockup", "DeviceManagerMockup\DeviceManagerMockup.csproj", "{BB2B27EE-14C9-4307-AF66-18B1A6115D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManagerMockupScreens", "DeviceManagerMockup\DeviceManagerMockupScreens\DeviceManagerMockupScreens.csproj", "{F4A6B67C-11C4-4FE9-A1E7-94CF41C398C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB2B27EE-14C9-4307-AF66-18B1A6115D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2B27EE-14C9-4307-AF66-18B1A6115D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2B27EE-14C9-4307-AF66-18B1A6115D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2B27EE-14C9-4307-AF66-18B1A6115D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4A6B67C-11C4-4FE9-A1E7-94CF41C398C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A6B67C-11C4-4FE9-A1E7-94CF41C398C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A6B67C-11C4-4FE9-A1E7-94CF41C398C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A6B67C-11C4-4FE9-A1E7-94CF41C398C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

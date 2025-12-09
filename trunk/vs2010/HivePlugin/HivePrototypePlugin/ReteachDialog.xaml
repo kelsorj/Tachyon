@@ -1,0 +1,79 @@
+﻿<Window x:Class="BioNex.HivePrototypePlugin.ReteachDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    Title="Reteach Options" Height="500" Width="450">
+    
+    <Window.Resources>
+        <utils:StringFormatter x:Key="PositionFormatConverter" />
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=OneWayToSource}" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+            <Button Margin="3" Click="ApplyAll_Click">Yes, apply offsets to all other teachpoints</Button>
+            <!-- Button Margin="3" Click="ApplySelected_Click">Please apply offsets to selected only</Button -->
+            <Button Margin="3" Click="DoNotApply_Click">I do not want to apply any more offsets</Button>
+        </StackPanel>
+        <TextBlock DockPanel.Dock="Bottom" TextWrapping="Wrap" Text="{Binding ReteachUserPrompt}"></TextBlock>
+        <!-- start teachpoint change summary grid -->
+        <ListView DockPanel.Dock="Top" ItemsSource="{Binding ReteachPreview}" SelectionMode="Multiple">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Old X">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=OldX, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Old Y">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=OldY, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Old Z">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=OldZ, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="New X">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Background="LightGray" Text="{Binding Path=NewX, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="New Y">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Background="LightGray" Text="{Binding Path=NewY, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="New Z">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Background="LightGray" Text="{Binding Path=NewZ, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!-- end teachpoint change summary grid -->
+    </DockPanel>
+</Window>

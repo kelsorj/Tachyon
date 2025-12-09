@@ -1,0 +1,71 @@
+﻿<Window x:Class="BioNex.SynapsisPrototype.DeviceManagerEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Device Manager Editor"
+    Height="500" Width="786" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+
+    <GroupBox BorderBrush="Orange" Header="Devices and Properties">
+        <DockPanel Margin="0,6,0,6">
+            <DockPanel DockPanel.Dock="Left">
+                <UniformGrid Columns="1" DockPanel.Dock="Bottom">
+                    <Button Margin="3" Command="{Binding AddNewDeviceCommand}">Add New Device</Button>
+                    <Button Margin="3" Command="{Binding DeleteDeviceCommand}">Delete Device</Button>
+                </UniformGrid>
+                <!-- device name, disabled, company, product name-->
+                <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Devices}" MinWidth="200" AutoGenerateColumns="False" CanUserDeleteRows="False"
+                      CurrentCellChanged="DeviceDataGrid_CurrentCellChanged" SelectionChanged="DeviceDataGrid_SelectionChanged"
+                      BeginningEdit="DeviceDataGrid_BeginningEdit" CellEditEnding="DeviceDataGrid_CellEditEnding" PreparingCellForEdit="DeviceDataGrid_PreparingCellForEdit"
+                      AlternatingRowBackground="Gainsboro" AlternationCount="2" PreviewKeyDown="DeviceDataGrid_PreviewKeyDown">
+                    <DataGrid.Columns>
+                        <!-- I would have done it this way, but the problem is that when I try to get the Header value of the cell at
+                             run time, it's null.  It only gives me the header text if it is defined in XAML. -->
+                        <!--
+                        <DataGridTextColumn Header="{Binding DeviceNameHeader, Mode=OneWay}" Binding="{Binding Path=InstanceName}" />
+                        <DataGridCheckBoxColumn Header="{Binding DisableHeader, Mode=OneWay}" Binding="{Binding Path=Disabled}" />
+                        <DataGridTextColumn Header="{Binding ProductNameHeader, Mode=OneWay}" Binding="{Binding Path=ProductName}" />
+                        <DataGridTextColumn Header="{Binding ManufacturerNameHeader, Mode=OneWay}" Binding="{Binding Path=CompanyName}" />
+                        -->
+                        <DataGridTextColumn Header="Device Name" Binding="{Binding Path=InstanceName}" />
+                        <DataGridCheckBoxColumn Header="Disabled" Binding="{Binding Path=Disabled}" />
+                        <!--
+                        <DataGridTextColumn Header="Product name" Binding="{Binding Path=ProductName}" />
+                        <DataGridTextColumn Header="Manufacturer" Binding="{Binding Path=CompanyName}" />
+                        -->
+                        <DataGridTemplateColumn Header="Product Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=ProductName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Manufacturer">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=CompanyName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <GroupBox BorderBrush="Orange" Header="Device Properties" Margin="6">
+                <DockPanel>
+                    <UniformGrid Columns="1" DockPanel.Dock="Bottom">
+                        <Button Margin="3" Command="{Binding AddPropertyCommand}">Add Property</Button>
+                        <Button Margin="3" Command="{Binding DeletePropertyCommand}">Delete Property</Button>
+                    </UniformGrid>
+                    <!-- device properties -->
+                    <DataGrid DockPanel.Dock="Right" ItemsSource="{Binding Properties}" AutoGenerateColumns="False" CanUserDeleteRows="False"
+                              CurrentCellChanged="PropertiesDataGrid_CurrentCellChanged"
+                              SelectionChanged="PropertiesDataGrid_SelectionChanged" CellEditEnding="PropertiesDataGrid_CellEditEnding"
+                              AlternatingRowBackground="Gainsboro" AlternationCount="2" PreviewKeyDown="PropertiesDataGrid_PreviewKeyDown">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Property Name" Binding="{Binding Path=PropertyName}" />
+                            <DataGridTextColumn Header="Property Value" Binding="{Binding Path=PropertyValue}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </GroupBox>
+        </DockPanel>
+    </GroupBox>
+</Window>

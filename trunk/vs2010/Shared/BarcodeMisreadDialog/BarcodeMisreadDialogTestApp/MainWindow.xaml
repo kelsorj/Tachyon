@@ -1,0 +1,8 @@
+﻿<Window x:Class="BarcodeMisreadDialogTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button Click="Button_Click">Show Barcode Misread Dialog</Button>
+    </Grid>
+</Window>

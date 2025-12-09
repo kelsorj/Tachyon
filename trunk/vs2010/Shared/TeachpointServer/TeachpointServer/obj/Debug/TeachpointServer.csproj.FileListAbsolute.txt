@@ -1,0 +1,13 @@
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\TeachpointServer.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\TeachpointServer.pdb
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\CookComputing.XmlRpcV2.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\log4net.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\Teachpoints.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\XmlRpcGlue.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\Teachpoints.pdb
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\XmlRpcGlue.pdb
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\log4net.pdb
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\bin\Debug\log4net.xml
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\obj\Debug\TeachpointServer.dll
+C:\code\trunk\vs2010\Shared\TeachpointServer\TeachpointServer\obj\Debug\TeachpointServer.pdb

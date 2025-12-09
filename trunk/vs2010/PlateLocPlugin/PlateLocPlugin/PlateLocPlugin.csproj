@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F25FDBD4-0A89-48A6-95AE-18C86C5B9A96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlateLocPlugin</RootNamespace>
+    <AssemblyName>PlateLocPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="IWorksDriverLib">
+      <HintPath>..\plateloc_depends\IWorksDriverLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PlateLocLib">
+      <HintPath>..\plateloc_depends\PlateLocLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PlateLocPlugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\thirdparty\MEF2\src\ComponentModel\ComponentModel.csproj">
+      <Project>{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}</Project>
+      <Name>ComponentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\HeavyUtils\HeavyUtils\HeavyUtils.csproj">
+      <Project>{17DB2007-B1C0-442F-9229-B34204170EA4}</Project>
+      <Name>HeavyUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\IError\IError.csproj">
+      <Project>{F09F5A2A-4337-4A81-8599-B5B0E1E18ED5}</Project>
+      <Name>IError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\IWorksDriverExecutionStateMachine\IWorksDriverExecutionStateMachine.csproj">
+      <Project>{AA378DB8-320D-4734-AD49-F07E64DEAEBB}</Project>
+      <Name>IWorksDriverExecutionStateMachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Location\Location.csproj">
+      <Project>{75607E88-161B-47E3-8D85-5289E0BD6394}</Project>
+      <Name>Location</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\PlateWork\PlateWork.csproj">
+      <Project>{0E73947B-BE6E-4949-9F53-B4479DD3682C}</Project>
+      <Name>PlateWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\TaskListXMLParser\TaskListXMLParser.csproj">
+      <Project>{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}</Project>
+      <Name>TaskListXMLParser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y $(targetfilename) "$(ProjectDir)..\..\bin\$(configurationname)\plugins\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

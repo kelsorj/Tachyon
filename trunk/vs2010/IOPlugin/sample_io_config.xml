@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<IOConfiguration>
+  <HazardousBits>
+<!--
+    <HazardousBit>
+      <BitName>test bit</BitName>
+      <BitNumber>1</BitNumber>
+      <HazardousLogicLevel>1</HazardousLogicLevel>
+      <NotificationMessage>This bit is set.  Fix it!</NotificationMessage>
+    </HazardousBit>
+-->
+  </HazardousBits>
+  <InputNames>
+    <BitNameMapping>
+      <BitNumber>1</BitNumber>
+      <BitName>Cart Present Right Dock</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>2</BitNumber>
+      <BitName>Cart Present Left Dock</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>5</BitNumber>
+      <BitName>Reset Ready 1/2</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>6</BitNumber>
+      <BitName>Reset Ready 2/2</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>7</BitNumber>
+      <BitName>Left Dock Door Closed</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>8</BitNumber>
+      <BitName>Right Dock Door Closed</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>9</BitNumber>
+      <BitName>Disable Interlock</BitName>
+    </BitNameMapping>
+    <BitNameMapping>
+      <BitNumber>10</BitNumber>
+      <BitName>Interlocks Overridden</BitName>
+    </BitNameMapping>
+  </InputNames>
+  <OutputNames>
+  </OutputNames>
+</IOConfiguration>

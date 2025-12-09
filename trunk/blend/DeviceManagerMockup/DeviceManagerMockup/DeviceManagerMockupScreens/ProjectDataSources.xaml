@@ -1,0 +1,6 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:SampleData1="clr-namespace:Expression.Blend.SampleData.device_added">
+	<SampleData1:device_added x:Key="device_added" d:IsDataSource="True"/>
+	<!-- Resource dictionary entries should be defined here. -->
+</ResourceDictionary>

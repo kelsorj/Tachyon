@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationPreferences", "ApplicationPreferences.csproj", "{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryInterfaces", "..\LibraryInterfaces\LibraryInterfaces.csproj", "{96B9F9BF-63FD-43BE-A65F-F68D314129AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentModel", "..\..\..\..\thirdparty\MEF\src\ComponentModel\ComponentModel.csproj", "{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3946B54A-37C6-4901-9DCF-6BDFD18FD4F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

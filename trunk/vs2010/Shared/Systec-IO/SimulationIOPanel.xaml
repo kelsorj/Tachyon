@@ -1,0 +1,53 @@
+﻿<Window x:Class="Systec_IO.SimulationIOPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="392" d:DesignWidth="318" Title="Systec I/O Simulation Panel" SizeToContent="WidthAndHeight">
+    
+    <Window.Resources>
+        <Style TargetType="ToggleButton">
+            <Setter Property="Height" Value="48" />
+            <Setter Property="MinWidth" Value="48" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!-- inputs -->
+        <GroupBox Header="Inputs" Grid.Row="0">
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Inputs}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleButton Content="{Binding Label}" IsChecked="{Binding IsChecked}"></ToggleButton>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <!-- outputs -->
+        <GroupBox Header="Outputs" Grid.Row="1">
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Outputs}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleButton Content="{Binding Label}" IsChecked="{Binding IsChecked}"></ToggleButton>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+    </Grid>
+</Window>

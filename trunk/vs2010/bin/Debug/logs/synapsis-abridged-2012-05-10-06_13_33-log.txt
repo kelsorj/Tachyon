@@ -1,0 +1,110 @@
+2012-05-10-06_16_12.932 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7587901
+2012-05-10-06_16_12.950 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7766441
+2012-05-10-06_16_12.973 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7997026
+2012-05-10-06_16_12.996 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8226658
+2012-05-10-06_16_13.018 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8448409
+2012-05-10-06_16_13.041 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8677850
+2012-05-10-06_16_13.065 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8916720
+2012-05-10-06_16_13.087 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9139766
+2012-05-10-06_16_13.112 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9386703
+2012-05-10-06_16_13.135 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9616571
+2012-05-10-06_16_13.158 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9848679
+2012-05-10-06_16_13.182 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0088075
+2012-05-10-06_16_13.201 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0279182
+2012-05-10-06_16_13.224 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0507464
+2012-05-10-06_16_13.247 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0737058
+2012-05-10-06_16_13.271 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0977772
+2012-05-10-06_16_13.294 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1207119
+2012-05-10-06_16_13.317 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1439478
+2012-05-10-06_16_13.342 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1687472
+2012-05-10-06_16_13.367 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1937797
+2012-05-10-06_16_13.386 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.2126790
+2012-05-10-06_16_13.393 [8848] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-06_16_13.395 [7180] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-06_16_13.398 [6332] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-06_16_13.398 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-06_16_13.393 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-06_16_13.396 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-06_16_13.394 [1308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-06_16_13.394 [1272] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-06_16_13.412 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.48 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-06_19_47.950 [892] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_19_47.960 [892] DEBUG axis_3 - MoveAbsolute(455161 iu, ...) APOS= 409688 iu, delta= 45473 iu
+2012-05-10-06_19_47.965 [892] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 455161L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-06_19_47.980 [892] DEBUG axis_3 - MoveAbsolute(83.342, ...) in a condition where MC is not high, but TPOS == CPOS == 455161 IU, so motioncomplete_flag raised essentially
+2012-05-10-06_19_47.990 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_48.147 [892] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_19_48.158 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_48.358 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_48.558 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_48.761 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_48.963 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45473 IU
+2012-05-10-06_19_49.166 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_49.171 [892] DEBUG axis_3 - MoveAbsolute(83.342, ...) timed out after 1.019 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-06_19_49.181 [892] DEBUG axis_3 - MoveAbsolute(83.342mm=455161IU, move_complete=true, ...) CPOS = 455161, APOS = 409689, TPOS = 455161, Err = -45472, ERR = -8.326 mm
+2012-05-10-06_19_49.188 [892] DEBUG axis_3 - MoveAbsolute(83.342, move_complete=true, ...) called. use_trap=false
+2012-05-10-06_19_49.192 [892] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_19_49.202 [892] DEBUG axis_3 - MoveAbsolute(455161 iu, ...) APOS= 409689 iu, delta= 45472 iu
+2012-05-10-06_19_49.207 [892] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 455161L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-06_19_49.223 [892] DEBUG axis_3 - MoveAbsolute(83.342, ...) in a condition where MC is not high, but TPOS == CPOS == 455161 IU, so motioncomplete_flag raised essentially
+2012-05-10-06_19_49.234 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_49.392 [892] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_19_49.403 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_49.606 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_49.809 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_50.011 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_50.217 [892] DEBUG axis_3 - MoveAbsolute() dest: 83.342 mm, current: 75.016 mm, error: 8.326 mm = 45472 IU
+2012-05-10-06_19_50.400 [892] DEBUG axis_3 - MoveAbsolute(83.342, ...) timed out after 1.003 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-06_19_50.411 [892] DEBUG axis_3 - MoveAbsolute(83.342mm=455161IU, move_complete=true, ...) CPOS = 455161, APOS = 409689, TPOS = 455161, Err = -45472, ERR = -8.326 mm
+2012-05-10-06_19_50.417 [892] DEBUG axis_3 - MoveAbsolute(83.342, move_complete=true, ...) failed after 3 tries: MoveAbsolute(83.342, ...) timed out after 1.003 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-06_19_50.424 [892] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - MoveAbsolute(83.342, move_complete=true, ...) failed after 3 tries: MoveAbsolute(83.342, ...) timed out after 1.003 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively. on axis Z
+2012-05-10-06_19_50.438 [892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to reach position X:-0.0686829744737454 Y:-35.8137262283915 Z:83.3424682617188.
+BioNex.Shared.TechnosoftLibrary.AxisException: MoveAbsolute(83.342, move_complete=true, ...) failed after 3 tries: MoveAbsolute(83.342, ...) timed out after 1.003 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively. on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.LLSensorModel.MoveRelativeToTeachpoint(Double x, Double y, Double z, Boolean wait_for_move_complete)
+2012-05-10-06_20_03.258 [2220] DEBUG axis_3 - "CACC = 1.09227; CSPD = 191.14667; CPOS = 385823L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-06_20_03.373 [2220] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_20_03.381 [2220] DEBUG axis_3 - MoveAbsolute(70.646, move_complete=true, ...) Done in 130ms.
+2012-05-10-06_20_03.391 [2220] DEBUG axis_3 - MoveAbsolute(70.646mm=385823IU, move_complete=true, ...) FINALLY CPOS = 385823, APOS = 385829, TPOS = 385823, Err = 6, ERR = 0.001 mm, IQ = -0.778 A
+2012-05-10-06_20_03.443 [888] DEBUG axis_3 - MoveAbsolute(70.147, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_20_03.445 [888] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_20_03.449 [888] DEBUG axis_3 - "CACC = 1.09227; CSPD = 191.14667; CPOS = 383098L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-06_20_03.563 [888] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_20_03.574 [888] DEBUG axis_3 - MoveAbsolute(70.147, move_complete=true, ...) Done in 131ms.
+2012-05-10-06_20_03.587 [888] DEBUG axis_3 - MoveAbsolute(70.147mm=383098IU, move_complete=true, ...) FINALLY CPOS = 383098, APOS = 383095, TPOS = 383098, Err = -3, ERR = -0.001 mm, IQ = 0.644 A
+2012-05-10-06_20_03.666 [7700] DEBUG axis_3 - MoveAbsolute(69.647, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_20_03.674 [7700] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_20_03.677 [7700] DEBUG axis_3 - "CACC = 1.09227; CSPD = 191.14667; CPOS = 380365L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-06_20_03.794 [7700] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_20_03.805 [7700] DEBUG axis_3 - MoveAbsolute(69.647, move_complete=true, ...) Done in 139ms.
+2012-05-10-06_20_03.817 [7700] DEBUG axis_3 - MoveAbsolute(69.647mm=380365IU, move_complete=true, ...) FINALLY CPOS = 380365, APOS = 380364, TPOS = 380365, Err = -1, ERR = 0.000 mm, IQ = 0.163 A
+2012-05-10-06_21_42.524 [6632] DEBUG axis_3 - MoveAbsolute(69.147, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_21_42.533 [6632] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_21_42.538 [6632] DEBUG axis_3 - "CACC = 1.09227; CSPD = 191.14667; CPOS = 377634L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-06_21_42.653 [6632] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_21_42.664 [6632] DEBUG axis_3 - MoveAbsolute(69.147, move_complete=true, ...) Done in 140ms.
+2012-05-10-06_21_42.676 [6632] DEBUG axis_3 - MoveAbsolute(69.147mm=377634IU, move_complete=true, ...) FINALLY CPOS = 377634, APOS = 377632, TPOS = 377634, Err = -2, ERR = 0.000 mm, IQ = 0.517 A
+2012-05-10-06_21_47.225 [5768] DEBUG axis_3 - MoveAbsolute(24.147, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_21_47.230 [5768] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-06_21_47.236 [5768] DEBUG axis_3 - "CACC = 1.09227; CSPD = 191.14667; CPOS = 131874L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-06_21_48.711 [5768] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-06_21_48.721 [5768] DEBUG axis_3 - MoveAbsolute(24.147, move_complete=true, ...) Done in 1496ms.
+2012-05-10-06_21_48.732 [5768] DEBUG axis_3 - MoveAbsolute(24.147mm=131874IU, move_complete=true, ...) FINALLY CPOS = 131874, APOS = 131876, TPOS = 131874, Err = 2, ERR = 0.000 mm, IQ = 0.064 A
+2012-05-10-06_21_49.009 [9548] DEBUG axis_3 - MoveAbsolute(-20.853, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_21_49.013 [9548] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -20.853 because it is past the minimum travel limit of 0.000 on axis Z
+2012-05-10-06_21_49.018 [9548] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Z : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -20.853 because it is past the minimum travel limit of 0.000 on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()
+2012-05-10-06_21_50.312 [3200] DEBUG axis_3 - MoveAbsolute(-20.853, move_complete=true, ...) called. use_trap=true
+2012-05-10-06_21_50.316 [3200] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -20.853 because it is past the minimum travel limit of 0.000 on axis Z
+2012-05-10-06_21_50.322 [3200] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Z : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -20.853 because it is past the minimum travel limit of 0.000 on axis Z
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()

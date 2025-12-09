@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Units used in file -->
+<!-- velocity: mm/s, deg/s -->
+<!-- acceleration: mm/s^2, deg/s^2 -->
+<!-- jerk: IU -->
+<!-- encoder_lines: actual lines/rev on encoder wheel (not quad)-->
+<!-- gear_ratio: load mm / motor rev, load deg / mot rev-->
+<!-- min_limit: mm, deg -->
+<!-- max_limit: mm, deg -->
+<!-- move_done_window: mm, deg -->
+<!-- settling time: milliseconds -->
+<!-- slow_loop_servo_time_sec: seconds -->
+<MotorSettings>
+    <axes>
+        <axis name="X">
+            <id>1</id>
+            <velocity>100.0</velocity>
+            <acceleration>1600.0</acceleration>
+            <jerk>20</jerk>
+            <encoder_lines>2048</encoder_lines>
+            <gear_ratio>19.9962</gear_ratio>
+            <min_limit>-7</min_limit>
+            <max_limit>7</max_limit>
+            <move_done_window>0.05</move_done_window>
+            <settling_time>50</settling_time>
+            <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+            <firmware_major>1</firmware_major>
+            <firmware_minor>2</firmware_minor>
+        </axis>
+        <axis name="Y">
+            <id>2</id>
+            <velocity>100.0</velocity>
+            <acceleration>1600.0</acceleration>
+            <jerk>20</jerk>
+            <encoder_lines>2048</encoder_lines>
+            <gear_ratio>2.5</gear_ratio>
+            <min_limit>-145</min_limit>
+            <max_limit>5</max_limit>
+            <move_done_window>0.05</move_done_window>
+            <settling_time>50</settling_time>
+            <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+            <firmware_major>1</firmware_major>
+            <firmware_minor>1</firmware_minor>
+        </axis>
+        <axis name="Z">
+            <id>3</id>
+            <velocity>35.0</velocity>
+            <acceleration>200</acceleration>
+            <jerk>40</jerk>
+            <encoder_lines>2048</encoder_lines>
+            <gear_ratio>1.5</gear_ratio>
+            <min_limit>0</min_limit>
+            <max_limit>85</max_limit>
+            <move_done_window>0.05</move_done_window>
+            <settling_time>50</settling_time>
+            <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+            <firmware_major>1</firmware_major>
+            <firmware_minor>1</firmware_minor>
+        </axis>
+
+        <axis name="Theta">
+            <id>4</id>
+            <velocity>200.0</velocity>
+            <acceleration>1600</acceleration>
+            <jerk>40</jerk>
+            <encoder_lines>5000</encoder_lines>
+            <gear_ratio>36</gear_ratio>
+            <min_limit>-185</min_limit>
+            <max_limit>365</max_limit>
+            <move_done_window>0.05</move_done_window>
+            <settling_time>50</settling_time>
+            <slow_loop_servo_time_sec>0.001</slow_loop_servo_time_sec>
+            <firmware_major>0</firmware_major>
+            <firmware_minor>0</firmware_minor>
+        </axis>
+
+    </axes>
+</MotorSettings>

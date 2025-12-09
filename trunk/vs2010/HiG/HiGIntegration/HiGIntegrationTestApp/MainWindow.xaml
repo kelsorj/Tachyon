@@ -1,0 +1,19 @@
+﻿<Window x:Class="HiGIntegrationTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+        xmlns:local="clr-namespace:HiGIntegrationTestApp"
+        Title="HiG Integration Driver Test Application
+        " Height="430" Width="556"
+        x:Name="root" ResizeMode="NoResize">
+
+    <Grid>
+        <TabControl x:Name="Tabs">
+            <TabItem>
+                <TabItem.Header>
+                    <Button Command="{Binding AddHigCommand}" DataContext="{Binding ElementName=root}">Add Another HiG</Button>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

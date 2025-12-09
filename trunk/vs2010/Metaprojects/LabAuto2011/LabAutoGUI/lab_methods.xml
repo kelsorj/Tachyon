@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LabMethodConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LabMethods>
+    <LabMethod>
+      <Name>250uL</Name>
+      <SourceLabware>96 half height</SourceLabware>
+      <DestinationLabware>96 half height</DestinationLabware>
+      <LiquidProfile>250 deep source to nunc dest</LiquidProfile>
+      <VolumeUl>250</VolumeUl>
+      <AspirateDistanceFromBottomMm>2</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>2</DispenseDistanceFromBottomMm>
+    </LabMethod>
+    <LabMethod>
+      <Name>10uL</Name>
+      <SourceLabware>96 half height</SourceLabware>
+      <DestinationLabware>Greiner 384 781101 clear drafted square well</DestinationLabware>
+      <LiquidProfile>10 deep source to greiner dest</LiquidProfile>
+      <VolumeUl>10</VolumeUl>
+      <AspirateDistanceFromBottomMm>2</AspirateDistanceFromBottomMm>
+      <DispenseDistanceFromBottomMm>2</DispenseDistanceFromBottomMm>
+    </LabMethod>
+  </LabMethods>
+</LabMethodConfiguration>

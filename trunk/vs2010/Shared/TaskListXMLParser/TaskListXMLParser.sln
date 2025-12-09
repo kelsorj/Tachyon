@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskListXMLParser", "TaskListXMLParser.csproj", "{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskListXMLParserTests", "TaskListXMLParserTests\TaskListXMLParserTests.csproj", "{51034113-BA15-4F13-9FC6-C2B92FBDF56B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryInterfaces", "..\LibraryInterfaces\LibraryInterfaces.csproj", "{96B9F9BF-63FD-43BE-A65F-F68D314129AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Deployment|Any CPU = Deployment|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Deployment|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Deployment|Any CPU.Build.0 = Debug|Any CPU
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Deployment|Any CPU.ActiveCfg = Debug|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Deployment|Any CPU.Build.0 = Debug|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51034113-BA15-4F13-9FC6-C2B92FBDF56B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Deployment|Any CPU.ActiveCfg = Deployment|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Deployment|Any CPU.Build.0 = Deployment|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

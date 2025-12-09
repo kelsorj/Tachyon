@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Teachpoints>
+  <teachpoint name="BB stage 1">
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </teachpoint>
+  <teachpoint name="BB stage 2">
+    <x>1</x>
+    <y>1</y>
+    <z>1</z>
+  </teachpoint>
+  <teachpoint name="BB stage 3">
+    <x>2</x>
+    <y>2</y>
+    <z>2</z>
+  </teachpoint>
+</Teachpoints>

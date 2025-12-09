@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="BioNex.HivePrototypePlugin.MiniJogControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="JogIncrements">
+            <ObjectDataProvider.ObjectInstance>
+                <x:Array Type="sys:Double">
+                    <sys:Double>0.01</sys:Double>
+                    <sys:Double>0.02</sys:Double>
+                    <sys:Double>0.05</sys:Double>
+                    <sys:Double>0.1</sys:Double>
+                    <sys:Double>0.2</sys:Double>
+                    <sys:Double>0.5</sys:Double>
+                    <sys:Double>1</sys:Double>
+                    <sys:Double>2</sys:Double>
+                    <sys:Double>5</sys:Double>
+                    <sys:Double>10</sys:Double>
+                    <sys:Double>20</sys:Double>
+                    <sys:Double>50</sys:Double>
+                    <sys:Double>100</sys:Double>
+                    <sys:Double>200</sys:Double>
+                    <sys:Double>500</sys:Double>
+                </x:Array>
+            </ObjectDataProvider.ObjectInstance>
+        </ObjectDataProvider>
+        <Style x:Key="AxisNameStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="JogButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </UserControl.Resources>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+                       
+            <!-- X -->
+            <TextBlock Grid.Row="0" Style="{StaticResource AxisNameStyle}">X:</TextBlock>
+            <Button Command="{Binding JogXNegativeCommand}" Grid.Row="0" Grid.Column="1" Style="{StaticResource JogButtonStyle}">Left</Button>
+            <ComboBox Grid.Row="0" Grid.Column="2" ItemsSource="{Binding Source={StaticResource JogIncrements}}" Text="{Binding XIncrement, Mode=TwoWay}" Margin="3" IsEditable="True" />
+            <Button Command="{Binding JogXPositiveCommand}" Grid.Row="0" Grid.Column="3" Style="{StaticResource JogButtonStyle}">Right</Button>
+            <!-- Y -->
+            <TextBlock Grid.Row="1" Style="{StaticResource AxisNameStyle}">Y:</TextBlock>
+            <Button Command="{Binding JogYOutCommand}" Grid.Row="1" Grid.Column="1" Style="{StaticResource JogButtonStyle}">Towards Plate</Button>
+            <ComboBox Grid.Row="1" Grid.Column="2" Margin="3" IsEditable="True" ItemsSource="{Binding Source={StaticResource JogIncrements}}" Text="{Binding YIncrement, Mode=TwoWay}"></ComboBox>
+            <Button Command="{Binding JogYInCommand}" Grid.Row="1" Grid.Column="3" Style="{StaticResource JogButtonStyle}">Away from Plate</Button>
+            <!-- Z -->
+            <TextBlock Grid.Row="2" Style="{StaticResource AxisNameStyle}">Z:</TextBlock>
+        <Button Command="{Binding JogZDownCommand}" Grid.Row="2" Grid.Column="1" Style="{StaticResource JogButtonStyle}" ToolTip="{Binding JogZToolTip}" ToolTipService.ShowOnDisabled="True">Down</Button>
+            <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Source={StaticResource JogIncrements}}" Text="{Binding ZIncrement, Mode=TwoWay}" Margin="3" IsEditable="True" />
+        <Button Command="{Binding JogZUpCommand}" Grid.Row="2" Grid.Column="3" Style="{StaticResource JogButtonStyle}" ToolTip="{Binding JogZToolTip}" ToolTipService.ShowOnDisabled="True">Up</Button>
+            <!-- #240 theta override -->
+            <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsChecked="{Binding OverrideThetaCheck, Mode=TwoWay}" Margin="8,0,0,0">
+                Override Theta position checking before allowing X and Z axes to move
+            </CheckBox>
+        </Grid>
+</UserControl>

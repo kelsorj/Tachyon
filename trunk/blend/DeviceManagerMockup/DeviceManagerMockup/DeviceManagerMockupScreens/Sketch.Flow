@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SchemaVersion="2">
+  <SketchFlowGuid>1b93016b-da15-46a9-bba4-5c7373bd7648</SketchFlowGuid>
+  <StartScreen>DeviceManagerMockupScreens.Screen_1</StartScreen>
+  <Screens>
+    <Screen>
+      <Type>Navigation</Type>
+      <ClassName>DeviceManagerMockupScreens.Screen_1</ClassName>
+      <DisplayName>Device Manager</DisplayName>
+      <FileName>Screen 1.xaml</FileName>
+      <Annotations />
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <VisualTag>0</VisualTag>
+    </Screen>
+    <Screen>
+      <Type>Composition</Type>
+      <ClassName>DeviceManagerMockupScreens.Screen_2</ClassName>
+      <DisplayName>Create New Device</DisplayName>
+      <FileName>Screen 2.xaml</FileName>
+      <Annotations />
+      <Position>
+        <X>78</X>
+        <Y>69</Y>
+      </Position>
+      <VisualTag>1</VisualTag>
+    </Screen>
+    <Screen>
+      <Type>Navigation</Type>
+      <ClassName>DeviceManagerMockupScreens.Copy_of_Device_Manager</ClassName>
+      <DisplayName>Device Created</DisplayName>
+      <FileName>Copy of Device Manager.xaml</FileName>
+      <Annotations />
+      <Position>
+        <X>127</X>
+        <Y>-3</Y>
+      </Position>
+      <VisualTag>0</VisualTag>
+    </Screen>
+  </Screens>
+  <Connections>
+    <Connection>
+      <Source>DeviceManagerMockupScreens.Screen_1</Source>
+      <Target>DeviceManagerMockupScreens.Screen_2</Target>
+      <Type>Composition</Type>
+      <TransitionType>None</TransitionType>
+      <VisualTag>1</VisualTag>
+    </Connection>
+    <Connection>
+      <Source>DeviceManagerMockupScreens.Screen_2</Source>
+      <Target>DeviceManagerMockupScreens.Copy_of_Device_Manager</Target>
+      <Type>Navigation</Type>
+      <TransitionType>Fade</TransitionType>
+      <VisualTag>0</VisualTag>
+    </Connection>
+  </Connections>
+  <BrandingText>Microsoft SketchFlow Prototype</BrandingText>
+  <RuntimeOptions>
+    <HideNavigation>false</HideNavigation>
+    <HideFlowGraph>false</HideFlowGraph>
+    <HideAnnotationAndInk>false</HideAnnotationAndInk>
+    <DisableInking>false</DisableInking>
+    <HideDesignTimeAnnotations>false</HideDesignTimeAnnotations>
+  </RuntimeOptions>
+  <VisualTags>
+    <VisualTag>
+      <Name>Navigation</Name>
+      <Color>FF1E2AD6</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Component</Name>
+      <Color>FF178F11</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Yellow</Name>
+      <Color>FFFEC600</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Orange</Name>
+      <Color>FFF06000</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Red</Name>
+      <Color>FFCC0202</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Violet</Name>
+      <Color>FF780099</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>Gray</Name>
+      <Color>FF6B6B6B</Color>
+    </VisualTag>
+    <VisualTag>
+      <Name>White</Name>
+      <Color>FFFFFFFF</Color>
+    </VisualTag>
+  </VisualTags>
+  <ViewState>
+    <Zoom>0.75</Zoom>
+    <Center>
+      <X>164.73636363636345</X>
+      <Y>7.9700336700335157</Y>
+    </Center>
+  </ViewState>
+</Data>

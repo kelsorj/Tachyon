@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="c6cf2482-9ed6-41b2-acab-dcd3fee01c90" Name="Synapsis" Language="1033" Version="1.0.0.0" Manufacturer="Installer" UpgradeCode="3e4b77a4-9973-4227-b595-67e63346f490">
+		<Package InstallerVersion="200" Compressed="yes" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- directory structure for application -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- this directory is defined for the application shortcut on the desktop -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="BioNex">
+          <Directory Id="INSTALLLOCATION" Name="Synapsis">
+            <Directory Id="PluginsFolder" Name="plugins" />
+            <Directory Id="LogsFolder" Name="logs">
+              <Component Id="ComponentCreateFolderLogs" Guid="4FD8FB25-FDC4-4373-9108-3FACF45A0A78">
+                <CreateFolder>
+                  <Permission GenericAll="yes" User="Authenticated Users" />
+                </CreateFolder>
+              </Component>
+            </Directory>
+            <Directory Id="ConfigFolder" Name="config">
+              <Component Id="ComponentCreateFolderConfig" Guid="A8A0CFCB-1344-44A1-8662-D542AD1DD675">
+                <CreateFolder>
+                  <Permission GenericAll="yes" User="Authenticated Users" />
+                </CreateFolder>
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      <!-- this creates the folder within the start menu for hosting shortcuts -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="BioNex" />
+      </Directory>
+    </Directory>
+
+    <ComponentGroup Id="ProductComponents">
+      <!-- folder permissions -->
+      <ComponentRef Id="ComponentCreateFolderLogs"/>
+      <ComponentRef Id="ComponentCreateFolderConfig"/>
+      <!-- files to add -->
+      <ComponentRef Id="BarcodeMisreadDialog.dll" />
+      <ComponentRef Id="BioNexGuiControls.dll" />
+      <ComponentRef Id="BioNexSplash.dll" />
+      <ComponentRef Id="CanDongleWrapper.dll" />
+      <ComponentRef Id="chord.wav" />
+      <ComponentRef Id="Combinatorics.dll"/>
+      <ComponentRef Id="CookComputing.XmlRpcV2.dll" />
+      <ComponentRef Id="DeviceInterface.dll" />
+      <ComponentRef Id="DeviceManagerDatabase.dll" />
+      <ComponentRef Id="ErrorDialog.dll" />
+      <ComponentRef Id="Exception.dll" />
+      <ComponentRef Id="FileHelpers.dll" />
+      <ComponentRef Id="Galasoft.MvvmLight.Extras.WPF4.dll" />
+      <ComponentRef Id="Galasoft.MvvmLight.WPF4.dll" />
+      <ComponentRef Id="HeavyUtils.dll" />
+      <ComponentRef Id="HiveHardware.dll" />
+      <ComponentRef Id="IError.dll" />
+      <ComponentRef Id="InventoryManagement.dll" />
+      <ComponentRef Id="LabwareDatabase.dll" />
+      <ComponentRef Id="LibraryInterfaces.dll" />
+      <ComponentRef Id="LiquidProfileLibrary.dll" />
+      <ComponentRef Id="Location.dll" />
+      <ComponentRef Id="log4net_LICENSE.txt"/>
+      <ComponentRef Id="log4net_NOTICE.txt"/>
+      <ComponentRef Id="log4net.dll" />
+      <ComponentRef Id="logging.xml" />
+      <ComponentRef Id="MicroscanLibrary.dll" />
+      <ComponentRef Id="Microsoft.WindowsAPICodePack.dll" />
+      <ComponentRef Id="PathFinding.dll" />
+      <ComponentRef Id="PlateDefs.dll" />
+      <!-- todo: figure out why platemover dll needs to be in debug, and cannot be in debug\plugins-->
+      <ComponentRef Id="PlateMoverPlugin.dll" />
+      <ComponentRef Id="PlateScheduler.dll" />
+      <ComponentRef Id="PlateWork.dll" />
+      <ComponentRef Id="PluginManager.dll" />
+      <ComponentRef Id="preferences.xml" />
+      <ComponentRef Id="SMTPReporting.dll" />
+      <ComponentRef Id="SQLite.Interop.dll" />
+      <ComponentRef Id="Stateless.dll" />
+      <ComponentRef Id="StateMachineExecutor.dll" />
+      <ComponentRef Id="Synapsis.exe" />
+      <ComponentRef Id="synapsis_log.s3db" />
+      <ComponentRef Id="synapsis_pipette_log.s3db" />
+      <ComponentRef Id="SynapsisPreferences.dll" />
+      <ComponentRef Id="SynapsisPrototype.exe.config" />      
+      <ComponentRef Id="Systec_IO.dll" />
+      <ComponentRef Id="System.ComponentModel.Composition.Codeplex.dll" />
+      <ComponentRef Id="System.Data.SQLite.dll" />
+      <ComponentRef Id="System.Windows.Interactivity.dll" />
+      <ComponentRef Id="tada.wav" />
+      <ComponentRef Id="TaskListXMLParser.dll" />
+      <ComponentRef Id="Teachpoints.dll" />
+      <ComponentRef Id="TeachpointServer.dll" />
+      <ComponentRef Id="TechnosoftLibraryMT.dll" />
+      <ComponentRef Id="ThreadsafeMessenger.dll" />
+      <ComponentRef Id="TML_lib.dll" />
+      <ComponentRef Id="tmlcomm.dll" />
+      <ComponentRef Id="UcanDotNET.dll" />
+      <ComponentRef Id="Utils.dll" />
+      <ComponentRef Id="WPFToolkit.dll" />
+      <ComponentRef Id="XmlRpcGlue.dll" />
+      <ComponentRef Id="ProductShortcut" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="PluginComponents">
+      <ComponentRef Id="DockMonitorPlugin.dll" />
+      <ComponentRef Id="HiveExecutor.dll" />
+      <ComponentRef Id="HiveIntegration.dll" />
+      <ComponentRef Id="HiveIntegrationGUI.dll" />
+      <ComponentRef Id="HivePrototypePlugin.dll" />
+      <ComponentRef Id="IOPlugin.dll" />
+      <ComponentRef Id="OmronG9SXPlugin.dll" />
+    </ComponentGroup>
+
+    <!-- add all of the file references - exe, dlls, etc. -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="Synapsis.exe" Guid="8D285EE5-A823-449b-8F02-EE5523839C60">
+        <!-- main exe -->
+        <File Id="SynapsisPrototype.exe" Source="..\..\..\..\vs2010\bin\Debug\SynapsisPrototype.exe" KeyPath="yes">
+          <Shortcut Id="DesktopExeLink" Directory="DesktopFolder" Name="Synapsis" WorkingDirectory="INSTALLDIR" Icon="synapsis.exe" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <!-- referenced dlls -->
+      <Component Id="BarcodeMisreadDialog.dll">
+        <File Id="BarcodeMisreadDialog.dll" Source="..\..\..\..\vs2010\bin\Debug\BarcodeMisreadDialog.dll" />
+      </Component>
+      <Component Id="BioNexGuiControls.dll">
+        <File Id="BioNexGuiControls.dll" Source="..\..\..\..\vs2010\bin\debug\BioNexGuiControls.dll" />
+      </Component>
+      <Component Id="BioNexSplash.dll">
+        <File Id="BioNexSplash.dll" Source="..\..\..\..\vs2010\bin\debug\BioNexSplash.dll" />
+      </Component>
+      <Component Id="CanDongleWrapper.dll">
+        <File Id="CanDongleWrapper.dll" Source="..\..\..\..\vs2010\bin\debug\CanDongleWrapper.dll" />
+      </Component>
+      <Component Id="chord.wav">
+        <File Id="chord.wav" Source="..\..\..\..\vs2010\bin\Debug\chord.wav" />
+      </Component>
+      <Component Id="Combinatorics.dll">
+        <File Id="Combinatorics.dll" Source="..\..\..\..\vs2010\bin\Debug\Combinatorics.dll" />
+      </Component>
+      <Component Id="CookComputing.XmlRpcV2.dll">
+        <File Id="CookComputing.XmlRpcV2.dll" Source="..\..\..\..\vs2010\bin\debug\CookComputing.XmlRpcV2.dll" />
+      </Component>
+      <Component Id="DeviceInterface.dll">
+        <File Id="DeviceInterface.dll" Source="..\..\..\..\vs2010\bin\Debug\DeviceInterface.dll" />
+      </Component>
+      <Component Id="DeviceManagerDatabase.dll">
+        <File Id="DeviceManagerDatabase.dll" Source="..\..\..\..\vs2010\bin\Debug\DeviceManagerDatabase.dll" />
+      </Component>
+      <Component Id="ErrorDialog.dll">
+        <File Id="ErrorDialog.dll" Source="..\..\..\..\vs2010\bin\Debug\ErrorDialog.dll" />
+      </Component>
+      <Component Id="Exception.dll">
+        <File Id="Exception.dll" Source="..\..\..\..\vs2010\bin\debug\Exception.dll" />
+      </Component>
+      <Component Id="FileHelpers.dll">
+        <File Id="FileHelpers.dll" Source="..\..\..\..\vs2010\bin\Debug\FileHelpers.dll" />
+      </Component>
+      <Component Id="Galasoft.MvvmLight.Extras.WPF4.dll">
+        <File Id="Galasoft.MvvmLight.Extras.WPF4.dll" Source="..\..\..\..\vs2010\bin\Debug\Galasoft.MvvmLight.Extras.WPF4.dll" />
+      </Component>
+      <Component Id="Galasoft.MvvmLight.WPF4.dll">
+        <File Id="Galasoft.MvvmLight.WPF4.dll" Source="..\..\..\..\vs2010\bin\Debug\Galasoft.MvvmLight.WPF4.dll" />
+      </Component>
+      <Component Id="HeavyUtils.dll">
+        <File Id="HeavyUtils.dll" Source="..\..\..\..\vs2010\bin\debug\HeavyUtils.dll" />
+      </Component>
+      <!-- another instance where we have to have a DLL in the debug folder instead of debug\plugins -->
+      <Component Id="HiveHardware.dll">
+        <File Id="HiveHardware.dll" Source="..\..\..\..\vs2010\bin\debug\HiveHardware.dll" />
+      </Component>
+      <Component Id="IError.dll">
+        <File Id="IError.dll" Source="..\..\..\..\vs2010\bin\debug\IError.dll" />
+      </Component>
+      <Component Id="InventoryManagement.dll">
+        <File Id="InventoryManagement.dll" Source="..\..\..\..\vs2010\bin\Debug\InventoryManagement.dll" />
+      </Component>
+      <Component Id="LabwareDatabase.dll">
+        <File Id="LabwareDatabase.dll" Source="..\..\..\..\vs2010\bin\Debug\LabwareDatabase.dll" />
+      </Component>
+      <Component Id="LibraryInterfaces.dll">
+        <File Id="LibraryInterfaces.dll" Source="..\..\..\..\vs2010\bin\Debug\LibraryInterfaces.dll" />
+      </Component>
+      <Component Id="LiquidProfileLibrary.dll">
+        <File Id="LiquidProfileLibrary.dll" Source="..\..\..\..\vs2010\bin\Debug\LiquidProfileLibrary.dll" />
+      </Component>
+      <Component Id="Location.dll">
+        <File Id="Location.dll" Source="..\..\..\..\vs2010\bin\Debug\Location.dll" />
+      </Component>
+      <Component Id="log4net.dll">
+        <File Id="log4net.dll" Source="..\..\..\..\vs2010\bin\Debug\log4net.dll" />
+      </Component>
+      <Component Id="log4net_LICENSE.txt">
+        <File Id="log4net_LICENSE.txt" Source="..\..\..\..\vs2010\bin\Debug\log4net_LICENSE.txt" />
+      </Component>
+      <Component Id="log4net_NOTICE.txt">
+        <File Id="log4net_NOTICE.txt" Source="..\..\..\..\vs2010\bin\Debug\log4net_NOTICE.txt" />
+      </Component>
+      <Component Id="logging.xml">
+        <File Id="logging.xml" Source="..\..\..\..\vs2010\bin\Debug\logging.xml" />
+      </Component>
+      <Component Id="MicroscanLibrary.dll">
+        <File Id="MicroscanLibrary.dll" Source="..\..\..\..\vs2010\bin\Debug\MicroscanLibrary.dll" />
+      </Component>
+      <Component Id="Microsoft.WindowsAPICodePack.dll">
+        <File Id="Microsoft.WindowsAPICodePack.dll" Source="..\..\..\..\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll" />
+      </Component>
+      <Component Id="PathFinding.dll">
+        <File Id="PathFinding.dll" Source="..\..\..\..\vs2010\bin\Debug\PathFinding.dll" />
+      </Component>
+      <Component Id="PlateDefs.dll">
+        <File Id="PlateDefs.dll" Source="..\..\..\..\vs2010\bin\Debug\PlateDefs.dll" />
+      </Component>
+      <Component Id="PlateScheduler.dll">
+        <File Id="PlateScheduler.dll" Source="..\..\..\..\vs2010\bin\Debug\PlateScheduler.dll" />
+      </Component>
+      <Component Id="PlateMoverPlugin.dll">
+        <File Id="PlateMoverPlugin.dll" Source="..\..\..\..\vs2010\bin\debug\PlateMoverPlugin.dll" />
+      </Component>
+      <Component Id="PlateWork.dll">
+        <File Id="PlateWork.dll" Source="..\..\..\..\vs2010\bin\debug\PlateWork.dll" />
+      </Component>
+      <Component Id="PluginManager.dll">
+        <File Id="PluginManager.dll" Source="..\..\..\..\vs2010\bin\debug\PluginManager.dll" />
+      </Component>
+      <Component Id="preferences.xml">
+        <File Id="preferences.xml" Source="..\..\..\..\vs2010\bin\debug\preferences.xml" />
+      </Component>
+      <Component Id="SMTPReporting.dll">
+        <File Id="SMTPReporting.dll" Source="..\..\..\..\vs2010\bin\debug\SmtpReporting.dll" />
+      </Component>
+      <Component Id="SQLite.Interop.dll">
+        <File Id="SQLite.Interop.dll" Source="..\..\..\..\vs2010\bin\Debug\SQLite.Interop.dll" />
+      </Component>
+      <Component Id="Stateless.dll">
+        <File Id="Stateless.dll" Source="..\..\..\..\vs2010\bin\Debug\Stateless.dll" />
+      </Component>
+      <Component Id="StateMachineExecutor.dll">
+        <File Id="StateMachineExecutor.dll" Source="..\..\..\..\vs2010\bin\Debug\StateMachineExecutor.dll" />
+      </Component>
+      <Component Id="synapsis_log.s3db">
+        <File Id="synapsis_log.s3db" Source="..\..\..\..\vs2010\bin\Debug\synapsis_log.s3db" />
+      </Component>
+      <Component Id="synapsis_pipette_log.s3db">
+        <File Id="synapsis_pipette_log.s3db" Source="..\..\..\..\vs2010\bin\Debug\synapsis_pipette_log.s3db" />
+      </Component>
+      <Component Id="SynapsisPreferences.dll">
+        <File Id="SynapsisPreferences.dll" Source="..\..\..\..\vs2010\bin\Debug\SynapsisPreferences.dll" />
+      </Component>
+      <Component Id="SynapsisPrototype.exe.config">
+        <File Id="SynapsisPrototype.exe.config" Source="..\..\..\..\vs2010\bin\Debug\SynapsisPrototype.exe.config" />
+      </Component>
+      <Component Id="Systec_IO.dll">
+        <File Id="Systec_IO.dll" Source="..\..\..\..\vs2010\bin\Debug\Systec_IO.dll" />
+      </Component>
+      <Component Id="System.ComponentModel.Composition.Codeplex.dll">
+        <File Id="System.ComponentModel.Composition.Codeplex.dll" Source="..\..\..\..\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll" />
+      </Component>
+      <Component Id="System.Data.SQLite.dll">
+        <File Id="System.Data.SQLite.dll" Source="..\..\..\..\vs2010\bin\Debug\System.Data.SQLite.dll" />
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll">
+        <File Id="System.Windows.Interactivity.dll" Source="..\..\..\..\vs2010\bin\Debug\System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="tada.wav">
+        <File Id="tada.wav" Source="..\..\..\..\vs2010\bin\Debug\tada.wav" />
+      </Component>
+      <Component Id="TaskListXMLParser.dll">
+        <File Id="TaskListXMLParser.dll" Source="..\..\..\..\vs2010\bin\debug\TaskListXmlParser.dll" />
+      </Component>
+      <Component Id="Teachpoints.dll">
+        <File Id="Teachpoints.dll" Source="..\..\..\..\vs2010\bin\Debug\Teachpoints.dll" />
+      </Component>
+      <Component Id="TeachpointServer.dll">
+        <File Id="TeachpointServer.dll" Source="..\..\..\..\vs2010\bin\debug\TeachpointServer.dll" />
+      </Component>
+      <Component Id="TechnosoftLibraryMT.dll">
+        <File Id="TechnosoftLibraryMT.dll" Source="..\..\..\..\vs2010\bin\Debug\TechnosoftLibraryMT.dll" />
+      </Component>
+      <Component Id="ThreadsafeMessenger.dll">
+        <File Id="ThreadsafeMessenger.dll" Source="..\..\..\..\vs2010\bin\Debug\ThreadsafeMessenger.dll" />
+      </Component>
+      <Component Id="TML_lib.dll">
+        <File Id="TML_lib.dll" Source="..\..\..\..\..\thirdparty\technosoft\TML_lib-mt.dll" />
+      </Component>
+      <Component Id="tmlcomm.dll">
+        <File Id="tmlcomm.dll" Source="..\..\..\..\..\thirdparty\technosoft\tmlcomm-mt.dll" />
+      </Component>
+      <Component Id="UcanDotNET.dll">
+        <File Id="UcanDotNET.dll" Source="..\..\..\..\vs2010\bin\Debug\UcanDotNET.dll" />
+      </Component>
+      <Component Id="Utils.dll">
+        <File Id="Utils.dll" Source="..\..\..\..\vs2010\bin\Debug\Utils.dll" />
+      </Component>
+      <Component Id="WPFToolkit.dll">
+        <File Id="WPFToolkit.dll" Source="..\..\..\..\vs2010\bin\Debug\WPFToolkit.dll" />
+      </Component>
+      <Component Id="XmlRpcGlue.dll">
+        <File Id="XmlRpcGlue.dll" Source="..\..\..\..\vs2010\bin\debug\XmlRpcGlue.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="PluginsFolder">
+      <Component Id="DockMonitorPlugin.dll">
+        <File Id="DockMonitorPlugin.dll" Source="..\..\..\..\vs2010\bin\debug\plugins\DockMonitorPlugin.dll" />
+      </Component>
+      <Component Id="HiveExecutor.dll">
+        <File Id="HiveExecutor.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\HiveExecutor.dll" />
+      </Component>
+      <Component Id="HiveIntegration.dll">
+        <File Id="HiveIntegration.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\HiveIntegration.dll" />
+      </Component>
+      <Component Id="HiveIntegrationGUI.dll">
+        <File Id="HiveIntegrationGUI.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\HiveIntegrationGUI.dll" />
+      </Component>
+      <Component Id="HivePrototypePlugin.dll">
+        <File Id="HivePrototypePlugin.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\HivePrototypePlugin.dll" />
+      </Component>
+      <Component Id="IOPlugin.dll">
+        <File Id="IOPlugin.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\IOPlugin.dll" />
+      </Component>
+      <Component Id="OmronG9SXPlugin.dll">
+        <File Id="OmronG9SXPlugin.dll" Source="..\..\..\..\vs2010\bin\Debug\plugins\OmronG9SXPlugin.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- create shortcuts -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ProductShortcut" Guid="FC06674E-C8EF-4bc6-9AC7-FAE4137147C5">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Synapsis"
+                  Description="Automation software package for BioNex Hive"
+                  Target="[INSTALLLOCATION]SynapsisPrototype.exe"
+                  WorkingDirectory="INSTALLDIR" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <!-- only one feature, which should install everything -->
+    <Feature Id="ProductFeature" Title="Complete" Level="1">
+      <Feature Id="Main" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="ProductComponents" />
+      </Feature>
+      <Feature Id="Plugins" Level="1">
+        <ComponentGroupRef Id="PluginComponents" />
+      </Feature>
+    </Feature>
+
+    <!-- change installer images here.  Search WiX documentation for "banner" -->
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Bitmaps\bionexbanner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Bitmaps\hivedialog.bmp"/>
+
+    <!-- .NET 4.0 detection / installation: search WiX documentation for ".NET" -->
+    <PropertyRef Id="NETFRAMEWORK40FULL" />
+    <Condition Message ="This application requires .NET Framework 4.0.  Please install the .NET Framework and then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <UI>
+      <!-- http://www.codeproject.com/Articles/21472/Creating-an-installer-using-Wix-v3-0-Votive-and-Vi -->
+      <UIRef Id="WixUI_InstallDir" />
+      <!-- override the default behavior for WixUI_InstallDir and skip the EULA page -->
+      <!-- http://stackoverflow.com/questions/597025/how-to-build-a-minimal-wix-installer-ui-without-a-license-page -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    </UI>
+
+    <Icon Id="synapsis.exe" SourceFile="..\..\..\..\vs2010\bin\Debug\SynapsisPrototype.exe"/>
+  </Product>
+</Wix>

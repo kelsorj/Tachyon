@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="BioNex.LiquidLevelDevice.VolumeMapPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bnx="clr-namespace:BioNex.Shared.BioNexGuiControls;assembly=BioNexGuiControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="360" d:DesignWidth="448"
+             >
+    <DockPanel>
+        <GroupBox DockPanel.Dock="Top" Header="Labware" BorderBrush="Orange" >
+            <StackPanel>
+                <ComboBox Name="LabwareCombo" DockPanel.Dock="Right" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />                          
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Measurement Sensitivity" BorderBrush="Orange" >
+                        <ComboBox Name="LabwareSensitivityCombo" />
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Capture Offset" BorderBrush="Orange" >
+                        <TextBox Name="LabwareCaptureOffset"></TextBox>
+                    </GroupBox>
+                </Grid>
+            </StackPanel>
+            </GroupBox>
+        <Grid DockPanel.Dock="Right">
+            <GroupBox Name="OriginalGroupbox" BorderBrush="Orange" >
+                <StackPanel>
+                    <GroupBox Header="Data Set" BorderBrush="Orange" >
+                        <ComboBox Grid.Column="1" Name="DataSetCombo" />
+                    </GroupBox>
+                    <Button Margin="3" Command="{Binding AddVolumeMapCommand}">Add</Button>
+                    <Button Margin="3" Name="DataSetDelete" Command="{Binding DeleteVolumeMapCommand}">Delete</Button>
+                    <CheckBox Margin="3" FlowDirection="RightToLeft" Name="DataSetEnabled">Enabled</CheckBox>
+                    <GroupBox Header="Min Volume" BorderBrush="Orange" >
+                        <TextBox Name="DataSetMinVolume"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Max Volume" BorderBrush="Orange" >
+                        <TextBox Name="DataSetMaxVolume"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Order of Fit" BorderBrush="Orange" >
+                        <ComboBox Name="DataSetFitOrder" />
+                    </GroupBox>
+                    <Button Margin="3" Name="AbortScanButton" Command="{Binding AbortScanCommand}" Visibility="Collapsed" >Abort Scan</Button>
+                </StackPanel>
+            </GroupBox>
+            <!-- groupbox hack to get rid of the empty gap where the header usually is -->
+            <GroupBox Focusable="False" Panel.ZIndex="-1" 
+                Width="{Binding ActualWidth, ElementName=OriginalGroupbox}" 
+                Height="{Binding ActualHeight, ElementName=OriginalGroupbox}" 
+                IsEnabled="{Binding IsEnabled, ElementName=OriginalGroupbox}"
+                RenderTransformOrigin="0.5,0.5"
+                BorderBrush="Orange" >
+                <GroupBox.RenderTransform>
+                    <ScaleTransform ScaleX="-1"/>
+                </GroupBox.RenderTransform>
+            </GroupBox>
+            <!-- end hack -->
+        </Grid>
+        <DockPanel>
+            <TextBlock Name="Correlation" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="3">Correlation: 0.00</TextBlock>
+            <bnx:DataGraphControl Name="Graph" Margin="3" DockPanel.Dock="Top"/>
+        </DockPanel>            
+    </DockPanel>
+</UserControl>

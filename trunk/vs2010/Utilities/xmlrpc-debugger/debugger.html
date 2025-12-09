@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+-->
+<head>
+<title>XMLRPC Debugger</title>
+<meta name="robots" content="index,nofollow" />
+<script type="text/javascript" language="Javascript">
+  var host;
+  var port;
+  var path;
+  var action = ''; // 'list', 'execute', 'signature', 'help'
+  var method;
+  var methodpayload;
+  var debuglvl = 0; // 0-2
+</script>
+
+<!-- load json-xmlrpc-lib base library -->
+<script type="text/javascript" src="rpc.js"></script>
+
+<style type="text/css">
+<!--
+/* header */
+html {overflow: -moz-scrollbars-vertical;}
+body {font-family: Verdana, Arial, Helvetica; font-size: 8pt; padding: 0; margin: 0;}
+#controller {background-color: #EEEEEE; padding: 0.5em;}
+#action {padding: 1em;}
+h1 {font-size: 12pt; margin: 0.5em;}
+h2 {font-size: 10pt; display: inline; vertical-align: top;}
+h3 {font-size: 10pt; border-bottom: 1px solid gray;}
+table {border: 1px solid gray; margin-bottom: 0.5em; padding: 0.25em; width: 100%;}
+#methodpayload {display: inline;}
+td {vertical-align: top; font-family: Verdana, Arial, Helvetica; font-size: 8pt;}
+.labelcell {text-align: right;}
+/* body */
+#resptbl th {background-color: navy; color: white; padding: 0.5em;}
+#resptbl td {padding: 0.5em; font-family: monospace;}
+#resptbl td form {margin: 0;}
+#response {padding: 1em; margin-top: 1em; background-color: #DDDDDD; border: 1px solid gray; white-space: pre; font-family: monospace;}
+.oddrow {background-color: #EEEEEE;}
+.evidence {color: blue;}
+#jscode { background-color: #EEEEEE; padding: 1em; margin-top: 1em; }
+#log { padding: 1em; background-color: #EEEEEE; border: 1px dashed silver; font-family: monospace;}
+#log h3 { color: red; border-bottom: none; font-size: 150%;}
+-->
+</style>
+
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function verifylibs()
+{
+    var _rpc = {};
+    try{ _rpc = xmlrpc; }catch(err){}
+    if (typeof(xmlrpc) != 'function')
+    {
+        //document.getElementByID('action').style.display = 'none';
+        document.getElementById('log').innerHTML =
+            '<h3>ERROR</h3>\n'+
+            'The xmlrpc class has not been loaded. '+
+            'Please make sure that the file rpc.js is installed in '+
+            'the same directory as the debugger';
+        document.frmaction.execute.disabled = true;
+        return;
+    }
+
+    document.frmaction.execute.disabled = false;
+    document.getElementById('log').style.display = 'none';
+}
+
+  /// verify that user has set the necessary values, and set (some) global varsaccordingly
+  function verifyserver()
+  {
+    if (document.frmaction.host.value == '' || document.frmaction.port.value == '')
+    {
+      alert('Please insert a server name or address and a port');
+      return false;
+    }
+    if (document.frmaction.path.value == '' || document.frmaction.path.value.substring(0, 1) != '/') // weird IE7 will not accept .value[0]...
+      document.frmaction.path.value = '/' + document.frmaction.path.value;
+
+    host = document.frmaction.host.value;
+    port = document.frmaction.port.value;
+    path = document.frmaction.path.value;
+
+    //  grab action from the form
+    action = '';
+    for (counter = 0; counter < document.frmaction.action.length; counter++)
+        if (document.frmaction.action[counter].checked)
+        {
+          action = document.frmaction.action[counter].value;
+          break;
+        }
+
+    // we assume that the caller has already taken care of setting the method into the form
+    if (document.frmaction.method.value == '' && (action == 'execute' || action == 'signatue' || action =='help'))
+    {
+      alert('Please insert a method name');
+      return false;
+    }
+
+    if (action == 'list')
+    {
+      method = 'system.listMethods';
+      methodpayload = [];
+    }
+    else if (action == 'signature')
+    {
+      method = 'system.methodSignature'
+      methodpayload = [document.frmaction.method.value];
+    }
+    else if (action == 'help')
+    {
+      method = 'system.methodHelp'
+      methodpayload = [document.frmaction.method.value];
+    }
+    else // action = 'execute'
+    {
+      method = document.frmaction.method.value;
+      var payload = document.frmaction.methodpayload.value.trim();
+      if(payload == '')
+        methodpayload = []; //;
+      else
+      {
+        methodpayload = eval('[' + payload + ']');
+      }
+    }
+    return true;
+  }
+    function toggle_log()
+    {
+        if (debuglvl > 0)
+        {
+          document.getElementById('log').style.display = 'block';
+          document.getElementById('log').innerHTML = '<h2>Debug info:</h2><br />\n';
+        }
+        else
+        {
+          document.getElementById('log').style.display = 'none';
+          document.getElementById('log').innerHTML = '';
+        }
+    }
+
+
+  function executeaction()
+  {
+    if(!verifyserver())
+        return;
+
+    toggle_log();
+    xmlrpc_debug_log('starting xmlrpc action\n');
+
+    // use action & values generated by VerifyServer
+
+    var server = port == ''
+               ? 'http://' + host + path
+               : 'http://' + host + ':' + port + path;
+
+    switch (action) {
+      case 'signature':
+        var actionname = 'Signature of method \'' + methodpayload + '\'';
+        break;
+
+      case 'help':
+        var actionname = 'Help for method \'' + methodpayload + '\'';
+        break;
+
+      case 'list':
+        var actionname = 'List of available methods ';
+        break;
+
+      case 'execute':
+        var actionname = 'Execution of method \'' + method + '\'';
+        break;
+
+      default: // give a warning
+        var actionname = '[ERROR: unknown action] "' + action + '"';
+    }
+
+    document.getElementById('actiontitle').innerHTML = actionname + " on server '" + server + "' ...";
+
+    try
+    {
+
+        xmlrpc(server, method, methodpayload,
+            function(ret){xmlrpc_debug_log("success, return value was: <BR \>" + resultToString(ret));},
+            function(err){xmlrpc_debug_log("error, return value was: <BR \>" + resultToString(err));},
+            function(){;}
+            );
+
+    }catch(e){
+        xmlrpc_debug_log(e);
+    }
+
+    return
+  }
+
+  function resultToString(result)
+  {
+    var out = "";
+
+    if( typeof(result) == "object")
+    {
+        for( x in result)
+        {
+          out += "&nbsp;&nbsp;&nbsp;&nbsp;" + x + ": '" + result[x] + "'<BR \>";
+
+        }
+    }
+    else out = "&nbsp;&nbsp;&nbsp;&nbsp;'" + result + "'";
+    return out;
+  }
+
+  // set an action into the form controls
+  function setaction(anaction, amethod, apayload)
+  {
+    if (amethod !== undefined)
+      document.frmaction.method.value = amethod;
+    if (apayload !== undefined)
+      document.frmaction.methodpayload.value = base64_decode(apayload);
+    switch(anaction)
+    {
+      case 'execute':
+        document.frmaction.method.disabled = false;
+        document.frmaction.methodpayload.disabled = false;
+        document.frmaction.action[2].checked = true;
+        document.frmaction.methodpayload.rows = 10;
+        displaydialogeditorbtn(true);
+        break;
+      case 'signature':
+      case 'help':
+      case 'list':
+        document.frmaction.method.disabled = true;
+        document.frmaction.methodpayload.disabled = true;
+        document.frmaction.action[0].checked = true;
+        document.frmaction.methodpayload.rows = 1;
+        displaydialogeditorbtn(false);
+        break;
+    }
+  }
+
+  function switchaction()
+  {
+    // reset html layout depending on action to be taken
+    for (var counter = 0; counter < document.frmaction.action.length; counter++)
+        if (document.frmaction.action[counter].checked)
+            action = document.frmaction.action[counter].value;
+    if (action == 'execute')
+    {
+        document.frmaction.methodpayload.disabled = false;
+        displaydialogeditorbtn(true);
+        document.frmaction.method.disabled = false;
+        document.frmaction.methodpayload.rows = 10;
+    }
+    else
+    {
+        document.frmaction.methodpayload.rows = 1;
+        document.frmaction.methodpayload.disabled = true;
+        displaydialogeditorbtn(false);
+        document.frmaction.method.disabled = action == 'list';
+    }
+  }
+
+  function switchdebug()
+  {
+    debuglvl = document.frmaction.debug.value;
+    toggle_log();
+  }
+
+  // only display link to dialog for visual editing of parameters if the appropriate mode is set
+  function displaydialogeditorbtn(show)
+  {
+    if (show && ((typeof base64_decode) == 'function'))
+    {
+      document.getElementById('methodpayloadbtn').innerHTML = '[<a href="#" onclick="activateeditor(); return false;">Edit</a>]';
+    }
+    else
+    {
+      document.getElementById('methodpayloadbtn').innerHTML = '';
+    }
+  }
+
+  // open dialog box for visual editing of payload parameters
+  function activateeditor()
+  {
+      var url = 'visualeditor.html?type=' + wstype;
+      var wnd = window.open(url, '_blank', 'width=750, height=400, location=0, resizable=1, menubar=0, scrollbars=1');
+  }
+
+  // if javascript version of the lib is found, allow it to send us params for payload textarea
+  function buildparams(base64data)
+  {
+    if (typeof base64_decode == 'function')
+    {
+      if (base64data == '0') // workaround for bug in base64_encode...
+        document.getElementById('methodpayload').value = '';
+      else
+        document.getElementById('methodpayload').value = base64_decode(base64data);
+    }
+  }
+
+  function xmlrpc_debug_log(data) {
+    document.getElementById('log').innerHTML += data + '<br />';
+  }
+//-->
+</script>
+</head>
+<body onload="switchaction(); switchdebug(); verifylibs();">
+
+<div id="controller">
+<h1>XMLRPC Debugger</h1>
+<noscript>
+WARNING: this page is completely useless without javascript support.<br />Please use a javascript-enabled browser
+</noscript>
+<form name="frmaction" method="get" action="">
+
+<table id="serverblock">
+<tr>
+<td><h2>Target server</h2></td>
+<td class="labelcell">Address:</td><td><input type="text" name="host" value="192.168.2.160" /></td>
+<td class="labelcell">Port:</td><td><input type="text" name="port" value="6789" size="5" maxlength="5" /></td>
+<td class="labelcell">Path:</td><td><input type="text" name="path" value="/jemsdata" /></td>
+</tr>
+</table>
+
+<table id="actionblock">
+<tr>
+<td><h2>Action</h2></td>
+<td>List available methods<input type="radio" name="action" value="list" checked="checked" onclick="switchaction();" /></td>
+<td>Method signature<input type="radio" name="action" value="signature" onclick="switchaction();" /></td>
+<td>Method help<input type="radio" name="action" value="help" onclick="switchaction();" /></td>
+<td>Execute method<input type="radio" name="action" value="execute" onclick="switchaction();" /></td>
+</tr>
+</table>
+<table id="methodblock">
+<tr>
+    <td><h2>Method</h2></td>
+    <td class="labelcell">Name:</td><td><input type="text" name="method" value="" /></td>
+    <td class="labelcell">Payload:<br /><div id="methodpayloadbtn"></div></td><td><textarea id="methodpayload" name="methodpayload" rows="1" cols="40"></textarea></td>
+    <td>
+        <input type="submit" name="execute" value="Execute" onclick="executeaction(); return false;"/>
+    </td>
+</tr>
+</table>
+
+<table id="optionsblock">
+<tr>
+<td><h2>Client options</h2></td>
+<td class="labelcell">Show debug info:</td><td><select name="debug" onchange="switchdebug();">
+<option value="0" >No</option>
+<option value="1" selected="selected">Yes</option>
+<option value="2">More</option>
+</select>
+</td>
+</tr>
+</table>
+
+</form>
+</div>
+
+<div id="action">
+<h3 id="actiontitle">Instructions on usage of the debugger:</h3>
+<div id="log"></div>
+<div id="results">
+<ol>
+<li>Run a 'list available methods' action against desired server</li>
+<li>If list of methods appears, click on 'Method signature' or 'Method help' for desired method</li>
+<li>To run method: click on 'load method synopsis' for desired method. This will load a skeleton for method call parameters in the form above. Complete all xmlrpc values with appropriate data and click 'Execute'</li>
+</ol>
+
+<h3>Example:</h3>
+<p>
+Server Address: localhost<br/>
+Path: /debugger.html
+</p>
+<h3>Changelog</h3>
+<ul>
+</ul>
+</div>
+</div>
+
+</body>
+</html>

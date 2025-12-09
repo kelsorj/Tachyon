@@ -1,0 +1,59 @@
+﻿<Window x:Class="HiGIntegrationTestApp.EepromSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EEPROM Settings" Height="212" Width="318" ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Width="75" Margin="3" Command="{Binding OkCommand}">OK</Button>
+            <Button Width="75" Margin="3" Command="{Binding CancelCommand}">Cancel</Button>
+        </StackPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="80" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- door open position -->            
+            <TextBlock Grid.Row="0" Grid.Column="0">Door open position [counts]:</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DoorOpenPosition, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <!-- door closed position -->
+            <TextBlock Grid.Row="1" Grid.Column="0">Door closed position [counts]:</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DoorClosedPosition, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <!-- bucket 1 position -->
+            <TextBlock Grid.Row="2" Grid.Column="0">Bucket 1 position [counts]:</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Bucket1Position, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <!-- bucket 2 offset -->
+            <TextBlock Grid.Row="3" Grid.Column="0">Bucket 2 offset [counts]:</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Bucket2Offset, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <!-- imbalance threshold -->
+            <TextBlock Grid.Row="4" Grid.Column="0">Imbalance threshold [counts]:</TextBlock>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding ImbalanceThreshold, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ImbalanceEnabled}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding ImbalanceToolTip}"></TextBox>
+                <Button Grid.Column="1" Margin="3" Command="{Binding CalibrateImbalanceCommand}" IsEnabled="{Binding ImbalanceEnabled}" Content="Calibrate" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding CalibrateToolTip}" />
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

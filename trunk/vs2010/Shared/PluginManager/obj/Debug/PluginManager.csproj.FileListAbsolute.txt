@@ -1,0 +1,16 @@
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\PluginManager.dll
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\PluginManager.pdb
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\log4net.dll
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.ComponentModel.Composition.Codeplex.dll
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\Utils.dll
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.Data.SQLite.dll
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.ComponentModel.Composition.Codeplex.xml
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\Utils.pdb
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\log4net.pdb
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\log4net.xml
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.Data.SQLite.pdb
+C:\code\trunk\vs2010\Shared\PluginManager\bin\Debug\System.Data.SQLite.xml
+C:\code\trunk\vs2010\Shared\PluginManager\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\PluginManager\obj\Debug\PluginManager.dll
+C:\code\trunk\vs2010\Shared\PluginManager\obj\Debug\PluginManager.pdb

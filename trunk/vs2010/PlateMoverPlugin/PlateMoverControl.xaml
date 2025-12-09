@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="BioNex.PlateMover.PlateMoverControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioNex.PlateMover"
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             mc:Ignorable="d" 
+             x:Name="root"
+             Height="Auto" Width="Auto">
+    
+    <UserControl.Resources>
+        <utils:StringFormatter x:Key="PositionConverter" />
+        <utils:AngleFormatter x:Key="AngleConverter" />
+        <utils:NegativeFormatter x:Key="Negater" />
+        <local:OffsetFormatter x:Key="Offsetter" />
+    </UserControl.Resources>
+    
+    <Canvas Width="{Binding TrackLength}" Height="200" DataContext="{Binding ElementName=root}">
+        <!-- the long axis is static, just the plate mover upper portion moves -->
+        <Rectangle Name="LongPart" Width="{Binding TrackLength}" Height="120" Canvas.Top="20" Canvas.Left="10" RadiusX="5" RadiusY="5" Visibility="{Binding YVisibility}">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Color="LightGray" Offset="0"/>
+                        <GradientStop Color="Silver" Offset="0.5"/>
+                        <GradientStop Color="LightGray" Offset="1"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <!-- orange end cap on left side of track -->
+        <Rectangle Width="10" Height="{Binding ElementName=LongPart, Path=Height}" Canvas.Top="20" Canvas.Left="10" RadiusX="5" RadiusY="5" Fill="Orange" Visibility="{Binding YVisibility}"></Rectangle>
+        <!-- orange end cap on right side of track -->
+        <Rectangle Width="10" Height="{Binding ElementName=LongPart, Path=Height}" Canvas.Top="20" Canvas.Left="{Binding TrackLength}" RadiusX="5" RadiusY="5" Fill="Orange" Visibility="{Binding YVisibility}"></Rectangle>
+        <!-- track outline -->
+        <Border BorderBrush="DarkGray" BorderThickness="1" Width="{Binding TrackLength}" Height="120" Canvas.Top="20" Canvas.Left="10" CornerRadius="5" Visibility="{Binding YVisibility}" />
+        <!-- plate stage bottom -->
+        <local:StageControl Canvas.Left="{Binding Y, Converter={StaticResource Offsetter}}" Canvas.Top="0" />
+        <!-- plate stage -->
+        <local:PlateControl Canvas.Left="{Binding Y, Converter={StaticResource Offsetter}}" Canvas.Top="18">
+            <!-- make sure we rotate about the center.  use origin so we can specify rotation at the exact center w/o knowing size -->
+            <!-- didn't work, not sure why not.  using CenterX and CenterY for now -->
+            <!-- local:Plate RenderTransformOrigin="0.5,0.5" / -->
+            <local:PlateControl.RenderTransform>
+                <RotateTransform Angle="{Binding R, Mode=OneWay, Converter={StaticResource Negater}}" CenterX="40" CenterY="62.5" />
+            </local:PlateControl.RenderTransform>
+        </local:PlateControl>
+        <!-- position readouts -->
+        <!-- angle -->
+        <Label Canvas.Left="{Binding Y, Converter={StaticResource Offsetter}}" Canvas.Top="64" Width="80" HorizontalContentAlignment="Center" Content="{Binding R, Converter={StaticResource AngleConverter}, ConverterParameter='\{0:0.00\}°'}" FontSize="20" FontWeight="Bold" Visibility="{Binding RVisibility}"></Label>
+        <!-- Y -->
+        <Label Canvas.Left="{Binding Y, Converter={StaticResource Offsetter}}" Canvas.Top="165" Width="Auto" HorizontalContentAlignment="Center" Content="{Binding Y, Converter={StaticResource PositionConverter}, ConverterParameter='\{0:0.000\}mm'}" FontSize="20" FontWeight="Bold" Foreground="DarkGreen" Visibility="{Binding YVisibility}"></Label>
+    </Canvas>
+</UserControl>

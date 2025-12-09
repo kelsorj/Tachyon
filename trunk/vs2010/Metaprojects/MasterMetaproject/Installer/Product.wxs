@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="585dbd96-584e-4a7e-adf2-8a3a9d95dff8" Name="Installer" Language="1033" Version="1.0.0.0" Manufacturer="Installer" UpgradeCode="bb1bf97e-fcb3-44ee-b3f1-f1c076a4b571">
+		<Package InstallerVersion="200" Compressed="yes" />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <!-- directory structure for application -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- this directory is defined for the application shortcut on the desktop -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- this creates the application folder for the exe underneath c:\Program Files -->
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="BioNex">
+          <Directory Id="INSTALLLOCATION" Name="Synapsis">
+            <Directory Id="PluginsFolder" Name="plugins" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <!-- this creates the folder within the start menu for hosting shortcuts -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="BioNex" />
+      </Directory>
+		</Directory>
+
+    <!-- this list should be common to all installations-->
+    <ComponentGroup Id="ProductComponents">
+      <ComponentRef Id="AlphaHardware.dll" />
+      <ComponentRef Id="BarcodeMisreadDialog.dll" />
+      <ComponentRef Id="BioNexGuiControls.dll" />
+      <ComponentRef Id="BumblebeeAlpha.Configuration.dll"/>
+      <ComponentRef Id="BumblebeeAlpha.Teachpoints.dll" />
+      <ComponentRef Id="BumblebeeMessenger.dll" />
+      <ComponentRef Id="chord.wav" />
+      <ComponentRef Id="CookComputing.XmlRpcV2.dll" />
+      <ComponentRef Id="DeviceInterface.dll" />
+      <ComponentRef Id="DeviceManagerDatabase.dll" />
+      <!-- BEGIN bumblebee only? -->
+      <ComponentRef Id="DispatcherInterface.dll" />
+      <ComponentRef Id="DualChannelDispatcher.dll" />
+      <ComponentRef Id="DualDisposableTipSplitScheduler.dll" />
+      <!-- END bumblebee only? -->
+      <ComponentRef Id="ErrorDialog.dll" />
+      <ComponentRef Id="Exception.dll" />
+      <ComponentRef Id="FileHelpers.dll" />
+      <ComponentRef Id="Galasoft.MvvmLight.dll" />
+      <ComponentRef Id="Galasoft.MvvmLight.Extras.dll" />
+      <ComponentRef Id="HeavyUtils.dll" />
+      <ComponentRef Id="HitpickXMLReader.dll" />
+      <ComponentRef Id="HitpickXMLWriter.dll" />
+      <ComponentRef Id="IndependentChannelDispatcher.dll" />
+      <ComponentRef Id="InventoryManagement.dll" />
+      <!-- BEGIN bumblebee only? -->
+      <ComponentRef Id="IronPython.dll" />
+      <ComponentRef Id="IronPython.Modules.dll" />
+      <!-- END bumblebee only? -->
+      <ComponentRef Id="ITechnosoftConnectionSharer.dll" />
+      <ComponentRef Id="LabwareCloudXmlRpcClient.dll" />
+      <ComponentRef Id="LabwareCloudXmlRpcServer.dll" />
+      <ComponentRef Id="LabwareDatabase.dll" />
+      <ComponentRef Id="LEDControl.dll" />
+      <ComponentRef Id="LibraryInterfaces.dll" />
+      <ComponentRef Id="LiquidProfileLibrary.dll" />
+      <ComponentRef Id="log4net.dll" />
+      <ComponentRef Id="logging.xml" />
+      <ComponentRef Id="MicroscanLibrary.dll" />
+      <!-- BEGIN bumblebee only? -->
+      <ComponentRef Id="Microsoft.Dynamic.dll" />
+      <ComponentRef Id="Microsoft.Scripting.Core.dll" />
+      <ComponentRef Id="Microsoft.Scripting.dll" />
+      <ComponentRef Id="Microsoft.Scripting.ExtensionAttribute.dll" />
+      <!-- END bumblebee only? -->
+      <ComponentRef Id="PlateDefs.dll" />
+      <!-- BEGIN bumblebee only? -->
+      <ComponentRef Id="SchedulerInterface.dll" />
+      <!-- END bumblebee only? -->
+      <ComponentRef Id="SendPowerLossMessage.exe" />
+      <ComponentRef Id="SMTPReporting.dll" />
+      <!-- this wasn't in the original installer, so we need to check if this is really required or not.  Not sure why it's in bin/debug right now -->
+      <ComponentRef Id="SQLite.Interop.dll" />
+      <ComponentRef Id="Stateless.dll" />
+      <ComponentRef Id="synapsis_log.s3db" />
+      <ComponentRef Id="synapsis_pipette_log.s3db" />
+      <ComponentRef Id="SynapsisPrototype.exe" />
+      <ComponentRef Id="SynapsisPrototype.exe.config" />
+      <ComponentRef Id="Systec_IO.dll" />
+      <ComponentRef Id="System.ComponentModel.Composition.Codeplex.dll" />
+      <ComponentRef Id="System.Data.SQLite.dll" />
+      <ComponentRef Id="System.Windows.Interactivity.dll" />
+      <ComponentRef Id="tada.wav" />
+      <ComponentRef Id="TaskListXMLParser.dll" />
+      <ComponentRef Id="Teachpoints.dll" />
+      <ComponentRef Id="TechnosoftLibrary.dll" />
+      <ComponentRef Id="test_hitpick.xsd" />
+      <ComponentRef Id="TML_lib.dll" />
+      <ComponentRef Id="tmlcom2.dll" />
+      <ComponentRef Id="tmlcomm.dll" />
+      <ComponentRef Id="tmllib2.dll" />
+      <ComponentRef Id="UcanDotNET.dll" />
+      <!-- this control is not used anywhere, and should actually be moved into the BioNexGuiControls assembly -->
+      <ComponentRef Id="UpDownControl.dll" />
+      <ComponentRef Id="Utils.dll" />
+      <ComponentRef Id="WPFToolkit.dll" />
+      <ComponentRef Id="XmlRpcGlue.dll" />
+      <ComponentRef Id="ProductShortcut" />
+    </ComponentGroup>
+
+    <!-- this list only has device plugins -->
+    <ComponentGroup Id="PluginComponents">
+      <ComponentRef Id="BPS140Plugin.dll" />
+      <ComponentRef Id="BumblebeePlugin.dll" />
+      <ComponentRef Id="HivePrototypePlugin.dll" />
+      <ComponentRef Id="IOPlugin.dll" />
+      <ComponentRef Id="KeyenceSZ01SPlugin.dll" />
+      <ComponentRef Id="ChristmasTreePlugin.dll" />
+    </ComponentGroup>
+    
+    <!-- this list should only contain customer-specific assemblies, i.e. GUI plugins -->
+    <ComponentGroup Id="CustomerSpecificComponents">
+      <ComponentRef Id="IWorksCommandServer.dll" />
+    </ComponentGroup>
+
+    <!-- add all of the file references - exe, dlls, etc. -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="SynapsisPrototype.exe" Guid="8D285EE5-A823-449b-8F02-EE5523839C60">
+        <!-- main exe -->
+        <File Id="SynapsisPrototype.exe" Source="..\..\..\vs2010\bin\Deployment\SynapsisPrototype.exe" KeyPath="yes">
+          <Shortcut Id="DesktopExeLink" Directory="DesktopFolder" Name="Synapsis" WorkingDirectory="INSTALLDIR" Icon="synapsisprototype.exe" IconIndex="0" Advertise="yes" />
+        </File>
+      </Component>
+      <!-- referenced dlls -->
+      <Component Id="AlphaHardware.dll" Guid="16AFE6A5-F8C4-43a1-B260-74E6B11EA935">
+        <File Id="AlphaHardware.dll" Source="..\..\..\vs2010\bin\Deployment\AlphaHardware.dll" />
+      </Component>
+      <Component Id="SynapsisPrototype.exe.config" Guid="4933884A-F5EA-49a6-8F6C-383E88A19B14">
+        <File Id="SynapsisPrototype.exe.config" Source="..\..\..\vs2010\bin\Deployment\SynapsisPrototype.exe.config" />
+      </Component>
+      <Component Id="BarcodeMisreadDialog.dll" Guid="0C6C8FF5-2901-4354-ADE5-2E2452631EB5">
+        <File Id="BarcodeMisreadDialog.dll" Source="..\..\..\vs2010\bin\Deployment\BarcodeMisreadDialog.dll" />
+      </Component>
+      <Component Id="BioNexGuiControls.dll" Guid="4CCE78BC-FB50-48B6-90A9-84448263647F">
+        <File Id="BioNexGuiControls.dll" Source="..\..\..\vs2010\bin\Deployment\BioNexGuiControls.dll" />
+      </Component>
+      <Component Id="BumblebeeAlpha.Configuration.dll" Guid="518E8480-4672-4dde-BBE5-7A8A2B21FDD1">
+        <File Id="BumblebeeAlpha.Configuration.dll" Source="..\..\..\vs2010\bin\Deployment\BumblebeeAlpha.Configuration.dll" />
+      </Component>
+      <Component Id="BumblebeeAlpha.Teachpoints.dll" Guid="4210E333-348C-4b23-9315-10C386189B0B">
+        <File Id="BumblebeeAlpha.Teachpoints.dll" Source="..\..\..\vs2010\bin\Deployment\BumblebeeAlpha.Teachpoints.dll" />
+      </Component>
+      <Component Id="BumblebeeMessenger.dll" Guid="6475D1A2-A696-427b-B771-DF37FB22E0B0">
+        <File Id="BumblebeeMessenger.dll" Source="..\..\..\vs2010\bin\Deployment\BumblebeeMessenger.dll" />
+      </Component>
+      <Component Id="chord.wav" Guid="3583B57A-C560-4cae-BB87-A30414B1901E">
+        <File Id="chord.wav" Source="..\..\..\vs2010\bin\Deployment\chord.wav" />
+      </Component>
+      <Component Id="CookComputing.XmlRpcV2.dll" Guid="9D20F89F-6932-439D-816D-22AA7CF93C17">
+        <File Id="CookComputing.XmlRpcV2.dll" Source="..\..\..\vs2010\bin\Deployment\CookComputing.XmlRpcV2.dll" />
+      </Component>
+      <Component Id="DeviceInterface.dll" Guid="8782C46D-9C0D-4a1b-AB1F-71A6399843DB">
+        <File Id="DeviceInterface.dll" Source="..\..\..\vs2010\bin\Deployment\DeviceInterface.dll" />
+      </Component>
+      <Component Id="DeviceManagerDatabase.dll" Guid="A91CD738-6EB5-4771-846D-AEA2B1A15B5D">
+        <File Id="DeviceManagerDatabase.dll" Source="..\..\..\vs2010\bin\Deployment\DeviceManagerDatabase.dll" />
+      </Component>
+      <Component Id="DispatcherInterface.dll" Guid="83D4216A-53D5-4848-B0B7-8313323F801F">
+        <File Id="DispatcherInterface.dll" Source="..\..\..\vs2010\bin\Deployment\DispatcherInterface.dll" />
+      </Component>
+      <Component Id="DualChannelDispatcher.dll" Guid="67A081EE-683A-41B2-83B1-EA7792A5C43F">
+        <File Id="DualChannelDispatcher.dll" Source="..\..\..\vs2010\bin\Deployment\DualChannelDispatcher.dll" />
+      </Component>
+      <Component Id="DualDisposableTipSplitScheduler.dll" Guid="B10B2F4B-8ECD-4e3c-A621-C7872E136875">
+        <File Id="DualDisposableTipSplitScheduler.dll" Source="..\..\..\vs2010\bin\Deployment\DualDisposableTipSplitScheduler.dll" />
+      </Component>
+      <Component Id="ErrorDialog.dll" Guid="8150DB85-501F-4d03-9556-662BB55F6D3B">
+        <File Id="ErrorDialog.dll" Source="..\..\..\vs2010\bin\Deployment\ErrorDialog.dll" />
+      </Component>
+      <Component Id="Exception.dll" Guid="274D3A6F-39A7-4F0B-8E3A-CC235F941D3C">
+        <File Id="Exception.dll" Source="..\..\..\vs2010\bin\Deployment\Exception.dll" />
+      </Component>
+      <Component Id="FileHelpers.dll" Guid="CCB07EE3-DE45-41df-A4FB-408B22BF79DE">
+        <File Id="FileHelpers.dll" Source="..\..\..\vs2010\bin\Deployment\FileHelpers.dll" />
+      </Component>
+      <Component Id="Galasoft.MvvmLight.dll" Guid="1D5873B4-08A5-4481-9B79-3543A0D01A06">
+        <File Id="Galasoft.MvvmLight.dll" Source="..\..\..\vs2010\bin\Deployment\Galasoft.MvvmLight.dll" />
+      </Component>
+      <Component Id="Galasoft.MvvmLight.Extras.dll" Guid="75EFEB5D-5773-4ae0-B1CD-AC32EADB4CD1">
+        <File Id="Galasoft.MvvmLight.Extras.dll" Source="..\..\..\vs2010\bin\Deployment\Galasoft.MvvmLight.Extras.dll" />
+      </Component>
+      <Component Id="HeavyUtils.dll" Guid="E45F48D8-4CEB-4594-98DA-946AECC21EF1">
+        <File Id="HeavyUtils.dll" Source="..\..\..\vs2010\bin\Deployment\HeavyUtils.dll" />
+      </Component>
+      <Component Id="HitpickXMLReader.dll" Guid="B4299ED1-8E8A-42c7-AE4F-FBC1D2594381">
+        <File Id="HitpickXMLReader.dll" Source="..\..\..\vs2010\bin\Deployment\HitpickXMLReader.dll" />
+      </Component>
+      <Component Id="HitpickXMLWriter.dll" Guid="BD9858EB-8219-4c60-9C95-1A180FD837FB">
+        <File Id="HitpickXMLWriter.dll" Source="..\..\..\vs2010\bin\Deployment\HitpickXMLWriter.dll" />
+      </Component>
+      <Component Id="IndependentChannelDispatcher.dll" Guid="{1629A1D6-9DFE-4653-A9B0-60146939C954}">
+        <File Id="IndependentChannelDispatcher.dll" Source="..\..\..\vs2010\bin\Deployment\IndependentChannelDispatcher.dll" />
+      </Component>
+      <Component Id="InventoryManagement.dll" Guid="0B44F362-E416-4a97-AD2A-8D649EC84FFC">
+        <File Id="InventoryManagement.dll" Source="..\..\..\vs2010\bin\Deployment\InventoryManagement.dll" />
+      </Component>
+      <Component Id="IronPython.dll" Guid="FE331868-B80D-4C98-9AA7-322D0B3939E8">
+        <File Id="IronPython.dll" Source="..\..\..\vs2010\bin\Deployment\IronPython.dll" />
+      </Component>
+      <Component Id="IronPython.Modules.dll" Guid="B8B7F67A-F0AB-43A5-98CC-DB9F6B5B5AE3">
+        <File Id="IronPython.Modules.dll" Source="..\..\..\vs2010\bin\Deployment\IronPython.Modules.dll" />
+      </Component>
+      <Component Id="ITechnosoftConnectionSharer.dll" Guid="583D3C27-8C20-4511-BE52-8F1317FE1A68">
+        <File Id="ITechnosoftConnectionSharer.dll" Source="..\..\..\vs2010\bin\Deployment\ITechnosoftConnectionSharer.dll" />
+      </Component>
+      <Component Id="IWorksCommandServer.dll" Guid="1EA6D7E6-3DFF-45A0-9082-5BEA6DC25E2B">
+        <File Id="IWorksCommandServer.dll" Source="..\..\..\vs2010\bin\Deployment\IWorksCommandServer.dll" />
+      </Component>
+      <Component Id="LabwareCloudXmlRpcClient.dll" Guid="0735541D-C38D-4B06-8563-ADC1BB1ABEED">
+        <File Id="LabwareCloudXmlRpcClient.dll" Source="..\..\..\vs2010\bin\Deployment\LabwareCloudXmlRpcClient.dll" />
+      </Component>
+      <Component Id="LabwareCloudXmlRpcServer.dll" Guid="8EE53778-4E9E-40B0-BD54-1B03616E9F02">
+        <File Id="LabwareCloudXmlRpcServer.dll" Source="..\..\..\vs2010\bin\Deployment\LabwareCloudXmlRpcServer.dll" />
+      </Component>
+      <Component Id="LabwareDatabase.dll" Guid="8D9A4C00-F175-4a3e-9B83-07EDBD03305D">
+        <File Id="LabwareDatabase.dll" Source="..\..\..\vs2010\bin\Deployment\LabwareDatabase.dll" />
+      </Component>
+      <Component Id="LEDControl.dll" Guid="3CDFF3EC-25A4-4a02-9E90-4A9FE34534D2">
+        <File Id="LEDControl.dll" Source="..\..\..\vs2010\bin\Deployment\LEDControl.dll" />
+      </Component>
+      <Component Id="LibraryInterfaces.dll" Guid="3A79D6C7-D765-4566-B9DA-58F2D899F79F">
+        <File Id="LibraryInterfaces.dll" Source="..\..\..\vs2010\bin\Deployment\LibraryInterfaces.dll" />
+      </Component>
+      <Component Id="LiquidProfileLibrary.dll" Guid="E497F357-DA58-49cb-A14B-EB3870457247">
+        <File Id="LiquidProfileLibrary.dll" Source="..\..\..\vs2010\bin\Deployment\LiquidProfileLibrary.dll" />
+      </Component>
+      <Component Id="log4net.dll" Guid="186848F9-05CF-43e7-9D95-FAE6ABA4C9EC">
+        <File Id="log4net.dll" Source="..\..\..\vs2010\bin\Deployment\log4net.dll" />
+      </Component>
+      <Component Id="logging.xml" Guid="D0A47AFF-D138-4359-9E01-646A0D95AE78">
+        <File Id="logging.xml" Source="..\..\..\vs2010\bin\Deployment\logging.xml" />
+      </Component>
+      <Component Id="MicroscanLibrary.dll" Guid="4E70070D-AC1D-4414-BADB-D1F55D38EB9A">
+        <File Id="MicroscanLibrary.dll" Source="..\..\..\vs2010\bin\Deployment\MicroscanLibrary.dll" />
+      </Component>
+      <Component Id="Microsoft.Dynamic.dll" Guid="C3E931EA-3B61-4D8A-8883-BF486DF2690F">
+        <File Id="Microsoft.Dynamic.dll" Source="..\..\..\vs2010\bin\Deployment\Microsoft.Dynamic.dll" />
+      </Component>
+      <Component Id="Microsoft.Scripting.Core.dll" Guid="16936406-F624-4E53-B4DF-EC0B95C53868">
+        <File Id="Microsoft.Scripting.Core.dll" Source="..\..\..\vs2010\bin\Deployment\Microsoft.Scripting.Core.dll" />
+      </Component>
+      <Component Id="Microsoft.Scripting.dll" Guid="03B32D4E-399D-47CB-963C-A49180AC20C9">
+        <File Id="Microsoft.Scripting.dll" Source="..\..\..\vs2010\bin\Deployment\Microsoft.Scripting.dll" />
+      </Component>
+      <Component Id="Microsoft.Scripting.ExtensionAttribute.dll" Guid="AF034692-14FA-427A-B52C-5322E59E9F56">
+        <File Id="Microsoft.Scripting.ExtensionAttribute.dll" Source="..\..\..\vs2010\bin\Deployment\Microsoft.Scripting.ExtensionAttribute.dll" />
+      </Component>
+      <!-- need to change this to reference lab_methods.xml in pioneer 1 from now on -->
+      <Component Id="pioneer_config.xml" Guid="BB028996-6BFC-4d27-86E6-4AC3F5FA67E2">
+        <File Id="pioneer_config.xml" Source="..\..\..\vs2010\bin\Deployment\pioneer_config.xml" />
+      </Component>
+      <Component Id="PioneerCSVConverter.dll" Guid="70292480-E094-43ef-B3E9-158B834AC1AF">
+        <File Id="PioneerCSVConverter.dll" Source="..\..\..\vs2010\bin\Deployment\PioneerCSVConverter.dll" />
+      </Component>
+      <Component Id="PioneerOutputFilePlugin.dll" Guid="143C8961-D5D9-434a-960F-E24059B57AC9">
+        <File Id="PioneerOutputFilePlugin.dll" Source="..\..\..\vs2010\bin\Deployment\PioneerOutputFilePlugin.dll" />
+      </Component>
+      <Component Id="PlateDefs.dll" Guid="AD816C46-6406-449b-85FD-ECA83B5FBAE7">
+        <File Id="PlateDefs.dll" Source="..\..\..\vs2010\bin\Deployment\PlateDefs.dll" />
+      </Component>
+      <Component Id="SchedulerInterface.dll" Guid="0D6A4BCD-B339-4ec2-8848-623601235F8B">
+        <File Id="SchedulerInterface.dll" Source="..\..\..\vs2010\bin\Deployment\SchedulerInterface.dll" />
+      </Component>
+      <Component Id="SendPowerLossMessage.exe" Guid="42457586-AF0F-4712-9C25-F695B2521FC2">
+        <File Id="SendPowerLossMessage.exe" Source="..\..\..\vs2010\bin\Deployment\SendPowerLossMessage.exe" />
+      </Component>
+      <Component Id="SMTPReporting.dll" Guid="D1C07636-6AEA-4FB8-9012-217F7304BA5C">
+        <File Id="SMTPReporting.dll" Source="..\..\..\vs2010\bin\Deployment\SMTPReporting.dll" />
+      </Component>
+      <Component Id="SQLite.Interop.dll" Guid="6B1E38E7-F096-424F-8B05-09197B6B013E">
+        <File Id="SQLite.Interop.dll" Source="..\..\..\vs2010\bin\Deployment\SQLite.Interop.dll" />
+      </Component>
+      <Component Id="Stateless.dll" Guid="2234B020-0BDF-4525-9001-9296C996689B">
+        <File Id="Stateless.dll" Source="..\..\..\vs2010\bin\Deployment\Stateless.dll" />
+      </Component>
+      <Component Id="synapsis_log.s3db" Guid="F1CE48A5-BE49-4f7b-BEF8-4B78585EE1EB">
+        <File Id="synapsis_log.s3db" Source="..\..\..\vs2010\bin\Deployment\synapsis_log.s3db" />
+      </Component>
+      <Component Id="synapsis_pipette_log.s3db" Guid="0B01273D-FCAD-41a3-85AE-B7535C63CCFC">
+        <File Id="synapsis_pipette_log.s3db" Source="..\..\..\vs2010\bin\Deployment\synapsis_pipette_log.s3db" />
+      </Component>
+      <Component Id="Systec_IO.dll" Guid="B96B0B2E-74C0-4012-A140-D5A756185FDA">
+        <File Id="Systec_IO.dll" Source="..\..\..\vs2010\bin\Deployment\Systec-IO.dll" />
+      </Component>
+      <Component Id="System.ComponentModel.Composition.Codeplex.dll" Guid="3C71A4DB-199A-4739-92D6-9DBE0E12CE39">
+        <File Id="System.ComponentModel.Composition.Codeplex.dll" Source="..\..\..\vs2010\bin\Deployment\System.ComponentModel.Composition.Codeplex.dll" />
+      </Component>
+      <Component Id="System.Data.SQLite.dll" Guid="ACC930A3-D4B6-406c-8C3B-4B6D05CED237">
+        <File Id="System.Data.SQLite.dll" Source="..\..\..\vs2010\bin\Deployment\System.Data.SQLite.dll" />
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll" Guid="18580719-70A0-4a4c-97AC-38B761C310D5">
+        <File Id="System.Windows.Interactivity.dll" Source="..\..\..\vs2010\bin\Deployment\System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="tada.wav" Guid="48A8F43A-274E-405d-9ECC-4585377DE3BC">
+        <File Id="tada.wav" Source="..\..\..\vs2010\bin\Deployment\tada.wav" />
+      </Component>
+      <Component Id="TaskListXMLParser.dll" Guid="04353D80-5BAC-413F-A38E-A63E55D5AA0E">
+        <File Id="TaskListXMLParser.dll" Source="..\..\..\vs2010\bin\Deployment\TaskListXMLParser.dll" />
+      </Component>
+      <Component Id="Teachpoints.dll" Guid="786DAF1F-BC17-45fa-8345-EBF89AD3F15C">
+        <File Id="Teachpoints.dll" Source="..\..\..\vs2010\bin\Deployment\Teachpoints.dll" />
+      </Component>
+      <Component Id="TechnosoftLibrary.dll" Guid="DE02BB54-A5F7-47a7-9737-88A3E8B13499">
+        <File Id="TechnosoftLibrary.dll" Source="..\..\..\vs2010\bin\Deployment\TechnosoftLibrary.dll" />
+      </Component>
+      <Component Id="test_hitpick.xsd" Guid="91A94B72-5BA0-4430-B144-1E6D7BF636E0">
+        <File Id="test_hitpick.xsd" Source="..\..\..\vs2010\bin\Deployment\test_hitpick.xsd" />
+      </Component>
+      <Component Id="TML_lib.dll" Guid="7353ECC3-5369-40b1-A332-2D383C4BC8D0">
+        <File Id="TML_lib.dll" Source="..\..\..\vs2010\bin\Deployment\TML_lib.dll" />
+      </Component>
+      <Component Id="tmlcom2.dll" Guid="CCDF40DD-779D-4dcb-BCE2-EE9E140D85F7">
+        <File Id="tmlcom2.dll" Source="..\..\..\vs2010\bin\Deployment\tmlcom2.dll" />
+      </Component>
+      <Component Id="tmlcomm.dll" Guid="9E9CB9FB-0AA7-4821-96B8-7F646FB5FE26">
+        <File Id="tmlcomm.dll" Source="..\..\..\vs2010\bin\Deployment\tmlcomm.dll" />
+      </Component>
+      <Component Id="tmllib2.dll" Guid="FEECFD3D-A69B-429d-B2A3-98EDA55A8E60">
+        <File Id="tmllib2.dll" Source="..\..\..\vs2010\bin\Deployment\tmllib2.dll" />
+      </Component>
+      <Component Id="UcanDotNET.dll" Guid="9CEB45DA-7115-457a-9A2B-176C7ED4FD44">
+        <File Id="UcanDotNET.dll" Source="..\..\..\vs2010\bin\Deployment\UcanDotNET.dll" />
+      </Component>
+      <Component Id="UpDownControl.dll" Guid="51514F60-AC26-43A2-852B-A85B873FCCC7">
+        <File Id="UpDownControl.dll" Source="..\..\..\vs2010\bin\Deployment\UpDownControl.dll" />
+      </Component>
+      <Component Id="Utils.dll" Guid="D93BAD89-7B73-4017-B29E-FD47F21CB04E">
+        <File Id="Utils.dll" Source="..\..\..\vs2010\bin\Deployment\Utils.dll" />
+      </Component>
+      <Component Id="WPFToolkit.dll" Guid="EE5E7C97-A1A5-45bd-B63E-558A3D665DB5">
+        <File Id="WPFToolkit.dll" Source="..\..\..\vs2010\bin\Deployment\WPFToolkit.dll" />
+      </Component>
+      <Component Id="XmlRpcGlue.dll" Guid="C3F9387A-A407-42C3-937E-89B0B99E3AE6">
+        <File Id="XmlRpcGlue.dll" Source="..\..\..\vs2010\bin\Deployment\XmlRpcGlue.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="PluginsFolder">
+      <Component Id="BPS140Plugin.dll" Guid="431B2F89-3997-4b88-B0B9-14107CDAB28D">
+        <File Id="BPS140Plugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\BPS140Plugin.dll" />
+      </Component>
+      <Component Id="BumblebeePlugin.dll" Guid="576DD27B-64B6-4b7c-8D41-6169D82A2472">
+        <File Id="BumblebeePlugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\BumblebeePlugin.dll" />
+      </Component>
+      <Component Id="HivePrototypePlugin.dll" Guid="25C4BD7F-7EAE-4f21-8433-9FC363EDA000">
+        <File Id="HivePrototypePlugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\HivePrototypePlugin.dll" />
+      </Component>
+      <Component Id="IOPlugin.dll" Guid="E3A0C2AD-37EB-4f3b-9823-ABF808A18B83">
+        <File Id="IOPlugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\IOPlugin.dll" />
+      </Component>
+      <Component Id="KeyenceSZ01SPlugin.dll" Guid="9251D167-9BD9-4d1d-92A1-7E5DA01968EB">
+        <File Id="KeyenceSZ01SPlugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\KeyenceSZ01SPlugin.dll" />
+      </Component>
+      <Component Id="ChristmasTreePlugin.dll" Guid="A67B9BA8-E9FF-4be2-91FE-8DC10BEF3FC9">
+        <File Id="ChristmasTreePlugin.dll" Source="..\..\..\vs2010\bin\Deployment\plugins\ChristmasTreePlugin.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- create shortcuts -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ProductShortcut" Guid="FC06674E-C8EF-4bc6-9AC7-FAE4137147C5">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Synapsis"
+                  Description="Automation software package for BioNex Bumblebee + Hive"
+                  Target="[INSTALLLOCATION]SynapsisPrototype.exe"
+                  WorkingDirectory="INSTALLLOCATION" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+
+    <Feature Id="ProductFeature" Title="Installer" Level="1">
+      <Feature Id="Main" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="ProductComponents" />
+      </Feature>
+      <Feature Id="Plugins" Level="1">
+        <ComponentGroupRef Id="PluginComponents" />
+      </Feature>
+			<!-- Note: The following ComponentGroupRef is required to pull in generated authoring from project references. -->
+			<ComponentGroupRef Id="Product.Generated" />
+		</Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <UIRef Id="WixUI_InstallDir" />
+    <Icon Id="synapsisprototype.exe" SourceFile="..\..\..\vs2010\bin\Deployment\SynapsisPrototype.exe"/>
+	</Product>
+</Wix>

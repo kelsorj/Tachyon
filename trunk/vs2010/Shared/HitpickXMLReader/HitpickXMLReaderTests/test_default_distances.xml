@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<transfer_overview>
+  <default_liquid_class_id>1</default_liquid_class_id>
+  <aspirate_script></aspirate_script>
+  <dispense_script></dispense_script>
+  <aspirate_distance_from_well_bottom_mm>1</aspirate_distance_from_well_bottom_mm>
+  <dispense_distance_from_well_bottom_mm>2</dispense_distance_from_well_bottom_mm>
+  <!-- all plates get listed here first -->
+  <!-- source plates -->
+  <sources>
+    <source>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>S00001</barcode>
+    </source>
+    <source>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>S00002</barcode>
+    </source>
+  </sources>
+  <!-- destination plates-->
+  <destinations>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>D00001</barcode>
+      <usable_wells>A1:H12</usable_wells>
+    </destination>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>D00002</barcode>
+      <usable_wells>A2,B5,C3,D6,E9</usable_wells>
+    </destination>
+  </destinations>
+  <!-- transfers list out the source -> dest relationships -->
+  <transfers>
+    <transfer>
+      <!-- liquid_class_id is optional -->
+      <liquid_class_id>my liquid class</liquid_class_id>
+      <source>
+        <barcode>S00001</barcode>
+        <well>A1</well>
+      </source>
+      <destination>
+        <barcode>D00001</barcode>
+        <well>any</well>
+      </destination>
+      <transfer_volume units="ul">10</transfer_volume>
+      <!-- current_volume is optional -->
+      <current_volume units="ul">20</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>S00001</barcode>
+        <well>B6</well>
+      </source>
+      <destination>
+        <barcode>D00001</barcode>
+        <well>any</well>
+      </destination>
+      <transfer_volume units="ul">10</transfer_volume>
+      <current_volume units="ul">20</current_volume>
+    </transfer>
+    <transfer>
+      <source>
+        <barcode>S00002</barcode>
+        <well>B5</well>
+      </source>
+      <destination>
+        <barcode>D00002</barcode>
+        <well>B5</well>
+      </destination>
+      <transfer_volume units="ul">10</transfer_volume>
+      <current_volume units="ul">20</current_volume>
+    </transfer>
+  </transfers>
+</transfer_overview>

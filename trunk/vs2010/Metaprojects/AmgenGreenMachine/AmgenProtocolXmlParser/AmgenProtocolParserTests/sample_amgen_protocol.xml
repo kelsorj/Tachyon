@@ -1,0 +1,221 @@
+<protocol plate="96_Costar3365">
+  <!-- start protocol analysis from ParseXML in Main.vb -->
+  <!-- ******************************************************************************************************************* -->
+  <!-- stackplate ends up getting turned into something like this: -->
+  <!-- //stackplate -->
+  <!-- stacker.stackplate(<source="input"><dest="1"><barcode="false"><noblock=true>-->
+  <stackplate>
+    <source>input</source>
+    <dest>1</dest>
+    <barcode>false</barcode>
+  </stackplate>
+  <!-- once it's converted to the stacker.stackplate command, TheMainEngine processes it via AddCommands -->
+  <!-- AddCommands processes the strings "pump1", "pump2", "pump3", "tt", and "stacker" -->
+  <!-- for stacker.stackplate, entire string is put into log, then string is passed to Stacker object -->
+  <!-- Stacker object parses out the task, in this case "stackplate", then parses its parameters -->
+  <!-- these parameters then result in setting certain member variables, and finally StackPlate gets called -->
+  <!-- StackPlate uses the values of these parameters to generate a command string, which then is set over the serial port -->
+  <!-- ******************************************************************************************************************* -->
+  <!-- //prime -->
+  <!-- tt.movez(<axis={travelz}> -->
+  <!-- tt.movex(<axis={washx}> -->
+  <!-- tt.movey(<axis={washy}> -->
+  <!-- tt.movez(<axis={washz}><speed={ZDownSpeed}>) -->
+  <!-- (start loop over cycles parameter) -->
+  <!--   start(timer2) -->
+  <!--   pump1.trans(<volume=500><speed={XMPtransferSpeed}><noblock=true>) -->
+  <!--   pump3.trans(<volume=500><speed={XEtransferSpeed}><noblock=true>) -->
+  <!--   pump2.trans(<volume=500><speed={XMPtransferSpeed}>) -->
+  <!--   pause for timer2 wait<{timer2}> minutes -->
+  <!-- (end loop over cycles parameter) -->
+  <!-- pump1.asp(<valve=1><volume=400><speed={XMPtransferSpeed}><noblock=true>) -->
+  <!-- pump2.asp(<valve=1><volume=500><speed={XMPtransferSpeed}>) -->
+  <!-- tt.movez(<axis={travelz}><speed={ZDownSpeed}>) -->
+  <!-- tt.movey(<axis={wastey}>) -->
+  <!-- tt.movez(<axis={wastez}><speed={ZDownSpeed}>) -->
+  <!-- tt.movez(<axis={travelz}><speed={ZDownSpeed}>) -->
+  <prime>
+    <cycles>1</cycles>
+  </prime>
+  <!-- tt command gets sent to TT object -->
+  <!-- individual Move* methods get called and passed parameters -->
+  <!-- command string is created and sent over the serial port -->
+  <!-- pump1, pump2, and pump3 commands get sent to Pump1, Pump2, and Pump3 objects, respectively -->
+  <!-- based on pump task, different methods get called (Aspirate, Transfer, AspirateMicro, etc) -->
+  <!-- command string is created in these functions and gets sent over the serial port -->
+  <!-- ******************************************************************************************************************* -->
+  <!-- //aspirate column {column} -->
+  <!-- (if airgap != 0) -->
+  <!--   pump1.asp(<valve=2><volume={airgap}><speed={loadSpeed}>) -->
+  <!-- (end if) -->
+  <!-- tt.movex(<axis={xPos}>) -->
+  <!-- tt.movey(<axis={yPos}>) -->
+  <!-- tt.movez(<axis={dispenseZ}>) -->
+  <!-- tt.movez(<axis={zPos}><speed={ZDownSpeed}>) -->
+  <!-- pump1.asp(<valve=2><volume={volume}><speed={speed}>) -->
+  <!-- pump1.disp(<valve=2><volume=0.3><speed={speed}>) -->
+  <!-- tt.movez(<axis={dispenseZ}><speed={ZUpSpeed}) -->
+  <!-- tt.movez(<axis={overPlatez}>) -->
+  <aspirate>
+    <column>A1</column>
+    <speed>200</speed>
+    <volume>50.3</volume>
+    <airgap>0</airgap>
+    <height>2.8</height>
+  </aspirate>
+  <!-- ******************************************************************************************************************* -->
+  <!-- //dispense column {column} -->
+  <!-- (if going to waste or wash) -->
+  <!--   tt.movez(<axis={travelz}>) -->
+  <!-- (end if going to waste or wash) -->
+  <!-- tt.movex(<axis={xPos}>) -->
+  <!-- tt.movey(<axis={yPos}>) -->
+  <!-- tt.movez(<axis={zPos}><speed={ZDownSpeed}>) -->
+  <!-- pump1.{disp|dispmicro}(<valve=2><volume={volume1}><speed={speed1}>) -->
+  <!-- pump2.disp(<valve=2><volume={volume2}><speed={speed2}>) -->
+  <!-- (if going to waste or wash) -->
+  <!-- tt.movez(<axis={travelz}>) -->
+  <!-- (else) -->
+  <!-- tt.movez(<axis={dispensez}><speed={ZUpSpeed}>) -->
+  <!-- (end if going to waste or wash) -->
+  <!-- tt.movez(<axis={endPoint}>) -->
+  <dispense>
+    <column>A2</column>
+    <speed1>400</speed1>
+    <volume1>33.6</volume1>
+    <speed2>800</speed2>
+    <volume2>66.4</volume2>
+    <height>4.1</height>
+  </dispense>
+  <!-- ******************************************************************************************************************* -->
+  <dispense>
+    <column>A3</column>
+    <speed1>400</speed1>
+    <volume1>19.1</volume1>
+    <speed2>800</speed2>
+    <volume2>80.9</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A4</column>
+    <speed1>400</speed1>
+    <volume1>13.5</volume1>
+    <speed2>800</speed2>
+    <volume2>86.5</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A5</column>
+    <speed1>400</speed1>
+    <volume1>11.0</volume1>
+    <speed2>800</speed2>
+    <volume2>139.0</volume2>
+    <height>4.1</height>
+  </dispense>
+  <!-- ******************************************************************************************************************* -->
+  <!-- //wash -->
+  <!-- tt.movez(<axis={travelz}>) -->
+  <!-- tt.movex(<axis={washx}>) -->
+  <!-- tt.movey(<axis={washy}>) -->
+  <!-- tt.movez(<axis={washz}><speed={ZDownSpeed}>) -->
+  <!-- (start loop over cycles parameter) -->
+  <!--   start(timer3) -->
+  <!--   pump1.trans(<volume=500><speed={XMPtransferSpeed}><noblock=true>) -->
+  <!--   pump3.trans(<volume=500><speed={XEtransferSpeed}><noblock=true>) -->
+  <!--   pump2.trans(<volume=500><speed={XMPtransferSpeed}>) -->
+  <!--   pause for timer3 wait<{timer3}> minutes -->
+  <!-- (end loop over cycles parameter) -->
+  <!-- tt.movez(<axis={travelz}><speed={ZDownSpeed}>) -->
+  <!-- tt.movey(<axis={wastey}>) -->
+  <!-- tt.movez(<axis={wastez}><speed={ZDownSpeed}>) -->
+  <!-- tt.movez(<axis={travelz}><speed={ZDownSpeed}>) -->
+  <wash>
+    <cycles>1</cycles>
+  </wash>
+  <!-- ******************************************************************************************************************* -->
+  <!-- //mix -->
+  <!-- tt.movex(<axis={xPos}>) -->
+  <!-- tt.movey(<axis={yPos}>) -->
+  <!-- pump1.asp(<valve=2><volume={MixAirGap}><speed={loadSpeed}>) -->
+  <!-- tt.movez(<axis={dispensez}>) -->
+  <!-- (start loop over cycles parameter) -->
+  <!--   tt.movez(<axis={zPos}><speed={ZDownSpeed}>) -->
+  <!--   pump1.asp(<valve=2><volume={volume}><speed={speed}>) -->
+  <!--   tt.relmovez(<dist={deltaz}>) -->
+  <!--   pump1.disp(<valve=2><volume={volume}><speed={speed}>) -->
+  <!-- (end loop over cycles parameter) -->
+  <!-- tt.movez(<axis={dispensez}><speed={ZUpSpeed}>) -->
+  <!-- tt.movez(<axis={overPlatez}>) -->
+  <mix>
+    <cycles>5</cycles>
+    <column>A5</column>
+    <volume>75</volume>
+    <speed>800</speed>
+    <height>1.8</height>
+    <deltaz>-1.8</deltaz>
+  </mix>
+  <!-- ******************************************************************************************************************* -->
+  <wash>
+    <cycles>2</cycles>
+  </wash>
+  <prime>
+    <cycles>1</cycles>
+  </prime>
+  <aspirate>
+    <column>A5</column>
+    <speed>400</speed>
+    <volume>50.3</volume>
+    <airgap>0</airgap>
+    <height>2.8</height>
+  </aspirate>
+  <dispense>
+    <column>A6</column>
+    <speed1>400</speed1>
+    <volume1>36.7</volume1>
+    <speed2>800</speed2>
+    <volume2>63.3</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A7</column>
+    <speed1>400</speed1>
+    <volume1>30.0</volume1>
+    <speed2>800</speed2>
+    <volume2>70.0</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A8</column>
+    <speed1>400</speed1>
+    <volume1>28.7</volume1>
+    <speed2>800</speed2>
+    <volume2>71.3</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A9</column>
+    <speed1>400</speed1>
+    <volume1>16.3</volume1>
+    <speed2>800</speed2>
+    <volume2>83.7</volume2>
+    <height>4.1</height>
+  </dispense>
+  <dispense>
+    <column>A10</column>
+    <speed1>400</speed1>
+    <volume1>7.0</volume1>
+    <speed2>800</speed2>
+    <volume2>93.0</volume2>
+    <height>4.1</height>
+  </dispense>
+  <stackplate>
+    <source>1</source>
+    <dest>output</dest>
+    <barcode>false</barcode>
+  </stackplate>
+  <!-- ******************************************************************************************************************* -->
+  <!-- this is like a post-protocol process, something that can be handled in ProtocolComplete -->
+  <wash>
+    <cycles>2</cycles>
+  </wash>
+</protocol>

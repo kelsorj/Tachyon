@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;NoClearLCD">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!-- background
+		<div style="width:480px; height:272; position:absolute; left:0px; top:0px; z-index:1;">
+			<img src="images/background.jpg" width="480" height="272">
+		</div>
+		-->
+		<!-- page title -->
+		<div style="width:50px; height:15px; position:absolute; left:7px; top:2px; z-index:1;">
+			<img src="images/main.png" width="50" height="15">
+		</div>
+		<!-- lower nav bar -->
+		<div style="width:480px; height:72; position:absolute; left:50px; top:180px; z-index:2;" class="styleMenu">
+			<applet code="FunctionButton.class" width="84" height="84" name="Main" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="upImage" value="images/settings.png">
+			<param name="downImage" value="images/settings.png">
+			</applet>
+			<applet code="FunctionButton.class" width="84" height="84" name="Program Setup" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="upImage" value="images/settings.png">
+			<param name="downImage" value="images/settings.png">
+			</applet>
+			<applet code="FunctionButton.class" width="84" height="84" name="Diagnostics" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="upImage" value="images/settings.png">
+			<param name="downImage" value="images/settings.png">
+			</applet>
+			<applet code="CustomButton.class" width="84" height="84" name="Setup" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="upImage" value="images/settings.png">
+			<param name="downImage" value="images/settings.png">
+			</applet>
+		</div>
+
+		<!-- actual functionality here -->
+		<div style="position:absolute; width:200px; height:200px; left:5px; top:22; position:absolute; z-index:1;">
+			<applet code="List.class" width="200" height="175">
+			<param name="options" value="Dispense 1,Dispense 2,Dispense 3,Dispense 4,a really long dispense,Dispense 99,Aspirate 1,Aspirate 2,Wash 1536,just a couple more,make me scroll!,make me scroll!!!">
+			<param name="fontSize" value="4">
+			<param name="selectionColor" value="blue">
+			<param name="selectionFontColor" value="yellow">
+			<param name="href" value="Amulet:NOP()">
+			</applet>
+		</div>
+		<div style="position:absolute; width:160px; height:60px; left:250px; top:22; z-index:1;">
+			<!-- run program button -->
+			<applet code="CustomButton.class" width="220" height="60">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="upImage" value="images/run.png">
+			<param name="downImage" value="images/run.png">
+			</applet>
+		</div>
+		<div style="position:absolute; width:160px; height:60px; left:250px; top:87; z-index:1;">
+			<!-- edit program button -->
+			<applet code="FunctionButton.class" width="220" height="60">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="label" value="Edit">
+			<param name="borderColor" value="black">
+			<param name="fillColor" value="blue">
+			<param name="fontColor" value="white">
+			<param name="fontStyle" value="bold">
+			<param name="fontSize" value="4">
+			</applet>
+		</div>
+	</body>
+</html>
+

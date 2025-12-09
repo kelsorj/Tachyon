@@ -1,0 +1,58 @@
+﻿<Window x:Class="BioNex.Shared.BarcodeMisreadDialog.BarcodeMisread"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Barcode Misreads Dialog" Height="648" Width="660" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" FontWeight="Bold" Background="Red" Visibility="{Binding ImageErrorVisibility}">Could not save images for all plates.  Please review the log and reinventory if necessary.</TextBlock>
+        <!-- set ScrollViewer.CanContentScroll="False" to enable smooth scrolling.  This is okay if there aren't a lot of items. -->
+        <ListView ItemsSource="{Binding Barcodes}" Grid.Row="1" ScrollViewer.CanContentScroll="False">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Location Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=TeachpointName}" HorizontalAlignment="Right" Margin="5"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Image" Width="200" x:Name="image_column">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=ImagePath}" Margin="5">
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                            <RotateTransform Angle="90" CenterX="0" CenterY="0" />
+                                            <TranslateTransform X="{Binding ElementName=image_column, Path=Width}" />
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Manual Barcode Entry">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=NewBarcode, UpdateSourceTrigger=PropertyChanged}" MinWidth="100" Margin="5"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Plate Presence">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=NoPlatePresent, UpdateSourceTrigger=PropertyChanged}" Margin="5">No plate is in this location</CheckBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!-- ok button -->
+        <Button Grid.Row="2" Margin="3" Command="{Binding BarcodesResolvedCommand}">Done resolving misread barcodes</Button>
+    </Grid>
+</Window>

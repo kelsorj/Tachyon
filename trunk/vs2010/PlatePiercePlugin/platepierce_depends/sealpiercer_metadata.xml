@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ASCII' ?>
+<Velocity11 file='MetaData' md5sum='2c27f8f2f767282f7595886521edd734' version='1.0' >
+	<MetaData >
+		<Device Description='Seal Piercer' DynamicLocations='0' HardwareManufacturer='Agilent Technologies' HasBarcodeReader='1' Ignore='0' MiscAttributes='0' Name='Seal Piercer' PreferredTab='Plate Handling' RegistryName='PlatePierce2\Profiles' >
+			<Parameters >
+				<Parameter Name='Profile' Scriptable='1' Style='0' Type='2' />
+			</Parameters>
+			<Locations >
+				<Location Group='0' MaxStackHeight='460' Name='Stage' Offset='0' Type='1' />
+			</Locations>
+			<StorageDimensions DirectStorageAccess='0' />
+			<RobotMetaData ReachesExternalLocations='1' />
+		</Device>
+		<Versions >
+			<Version Author='Agilent Technologies' Company='Agilent Technologies' Date='Mar 31th, 2007' Name='Seal Piercer' Version='8.0.0' />
+		</Versions>
+		<Commands >
+			<Command Compiler='10' Description='Pierce the seal on a microplate' Editor='2' Name='Pierce Plate' NextTaskToExecute='1' RequiresRefresh='0' TaskRequiresLocation='1' VisibleAvailability='1' >
+				<Parameters >
+					<Parameter Name='Piercing pressure' Scriptable='1' Style='0' Type='8' Units='psi' Value='75' >
+						<Ranges >
+							<Range Value='20' />
+							<Range Value='120' />
+						</Ranges>
+					</Parameter>
+				</Parameters>
+			</Command>
+		</Commands>
+	</MetaData>
+</Velocity11>

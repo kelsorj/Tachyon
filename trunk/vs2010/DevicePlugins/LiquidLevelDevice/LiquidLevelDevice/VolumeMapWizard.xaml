@@ -1,0 +1,32 @@
+﻿<Window x:Class="BioNex.LiquidLevelDevice.VolumeMapWizard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="300" Width="300">
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Margin="3" Command="{Binding CommandCancel}" >Cancel</Button>
+            <Button Grid.Column="2" Margin="3" Command="{Binding CommandBeginScan}" >Begin Scan</Button>
+        </Grid>
+        <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Details}" AutoGenerateColumns="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" CanUserAddRows="false">
+<!--                              SelectionChanged="PropertiesDataGrid_SelectionChanged" CellEditEnding="PropertiesDataGrid_CellEditEnding" PreviewKeyDown="PropertiesDataGrid_PreviewKeyDown"> -->
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Column">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Column}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Reference Volume" Binding="{Binding Path=Volume}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

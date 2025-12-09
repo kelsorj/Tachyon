@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!-- lower nav bar -->
+		<table width="480" height="272" bgColor="White">
+			<tr><td>
+					<applet code="FunctionButton.class" width="80" height="40">
+					<param name="buttonType" value="spring-loaded" />
+					<param name="href" value="Amulet:UART.invokeRPC(0)" />
+					<param name="label" value="RPC0" />
+					</applet>
+			</td></tr>
+			<tr><td>
+					<applet code="FunctionButton.class" width="80" height="40">
+					<param name="buttonType" value="spring-loaded" />
+					<param name="href" value="Amulet:UART.byte(0).setValue(0xFF)" />
+					<param name="label" value="byte0" />
+					</applet>
+			</td></tr>
+			<tr><td>
+					<applet code="FunctionButton.class" width="80" height="40">
+					<param name="buttonType" value="spring-loaded" />
+					<param name="href" value="Amulet:UART.word(0).setValue(1234)" />
+					<param name="label" value="word0" />
+					</applet>
+			</td></tr>
+			<tr><td>
+					<applet code="FunctionButton.class" width="80" height="40">
+					<param name="buttonType" value="spring-loaded" />
+					<param name="href" value="Amulet:UART.string(0).setValue('this is a test')" />
+					<param name="label" value="string0" />
+					</applet>
+			</td></tr>
+			<tr><td>
+					<a href="CompileMe.html">Return to Main Menu</a>
+			</td></tr>
+		</table>
+	</body>
+</html>
+

@@ -1,0 +1,22 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+  <StackPanel>
+    <TextBox Name="selection">1</TextBox>
+    <Image>
+      <Image.Style>
+        <Style>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=selection, Path=Text}" Value="1">
+              <Setter Property="Image.Source" Value="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\success.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=selection, Path=Text}" Value="0">
+              <Setter Property="Image.Source" Value="C:\Code\trunk\vs2008\HivePrototypePlugin\Images\fail.png" />
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Image.Style>
+    </Image>
+  </StackPanel>
+</Page>

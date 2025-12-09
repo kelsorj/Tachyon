@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<log4net>
+
+  <!-- 
+  Console appender is slow if you're debugging through VS.  
+  I recommend you don't turn it on unless you don't have a tail program to run...  
+  
+  <appender name="Console" type="log4net.Appender.ConsoleAppender">
+    <filter type="log4net.Filter.LevelRangeFilter">
+      <param name="LevelMin" value="INFO"/>
+      <param name="LevelMax" value="FATAL"/>
+    </filter>
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date{yyyy-MM-dd-HH_mm_ss.fff} [%thread] %-5level %logger - %message%newline" />
+    </layout>
+  </appender>
+-->
+  <appender name="File" type="log4net.Appender.FileAppender">
+    <file value="synapsis" />
+    <appendToFile value="true" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date{yyyy-MM-dd-HH_mm_ss.fff} [%thread] %-5level %logger - %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="LossyFile" type="log4net.Appender.FileAppender">
+    <file value="synapsis-abridged" />
+    <appendToFile value="true" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date{yyyy-MM-dd-HH_mm_ss.fff} [%thread] %-5level %logger - %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="LossyFileAppender" type="log4net.Appender.BufferingForwardingAppender">
+    <bufferSize value="30" />
+    <lossy value="true" />
+    <evaluator type="log4net.Core.LevelEvaluator">
+      <threshold value="ERROR" />
+    </evaluator>
+    <appender-ref ref="LossyFile" />
+  </appender>
+
+  <appender name="PipetteLogFile" type="log4net.Appender.FileAppender">
+    <file value="pipette" />
+    <appendToFile value="true" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date{yyyy-MM-dd-HH_mm_ss.fff} [%thread] %-5level %logger %property{DeviceName} %property{ChannelID} %property{SourceBarcode} %property{SourceWell} %property{DestinationBarcode} %property{DestinationWell} %property{Volume} - %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="sqlite" type="log4net.Appender.AdoNetAppender">
+    <bufferSize value="100" />
+    <connectionType value="System.Data.SQLite.SQLiteConnection, System.Data.SQLite, Version=1.0.74.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139" />
+    <connectionString value="Data Source=db/synapsis_log.s3db;Version=3;" />
+    <!-- commandText value="INSERT INTO Log (Date, Level, Thread, Logger, Message, Exception, File, Identity, Line, Location, Method, Ndc, Property, Type, Username) VALUES (@Date, @Level, @Thread, @Logger, @Message, @Exception, @File, @Identity, @Line, @Location, @Method, @Ndc, @Property, @Type, @Username)" /-->
+    <commandText value="INSERT INTO Log (Date, Level, Thread, Logger, Message, Exception) VALUES (@Date, @Level, @Thread, @Logger, @Message, @Exception)" />
+    <parameter>
+      <parameterName value="@Date" />
+      <dbType value="DateTime" />
+      <layout type="log4net.Layout.RawTimeStampLayout" />
+    </parameter>
+    <parameter>
+      <parameterName value="@Level" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%level" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Logger" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%logger" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Thread" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%thread" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Message" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%message" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Exception" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%exception" />
+      </layout>
+    </parameter>
+    <!-- the following parameters are optional for now -->
+    <!-- NOTE: File will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Identity will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Line will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Location will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Method will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Type will make the output very SLOW.  Use with caution. -->
+    <!-- NOTE: Username will make the output very SLOW.  Use with caution. -->
+    <!--
+    <parameter>
+      <parameterName value="@File" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%exception" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Identity" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%identity" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Line" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%line" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Location" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%location" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Method" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%method" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Ndc" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%ndc" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Property" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Type" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%type" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Username" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%username" />
+      </layout>
+    </parameter>
+    -->
+  </appender>
+
+  <appender name="PipetteLogDB" type="log4net.Appender.AdoNetAppender">
+    <bufferSize value="100" />
+    <connectionType value="System.Data.SQLite.SQLiteConnection, System.Data.SQLite, Version=1.0.74.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139" />
+    <connectionString value="Data Source=db/synapsis_pipette_log.s3db;Version=3;" />
+    <commandText value="INSERT INTO PipetteLog (Date, Level, Logger, Thread, Message, DeviceName, ChannelID, SourceBarcode, SourceWell, DestinationBarcode, DestinationWell, Volume) VALUES (@Date, @Level, @Logger, @Thread, @Message, @DeviceName, @ChannelID, @SourceBarcode, @SourceWell, @DestinationBarcode, @DestinationWell, @Volume)" />
+    <parameter>
+      <parameterName value="@Date" />
+      <dbType value="DateTime" />
+      <layout type="log4net.Layout.RawTimeStampLayout" />
+    </parameter>
+    <parameter>
+      <parameterName value="@Level" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%level" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Logger" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%logger" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Thread" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%thread" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Message" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%message" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@ChannelID" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{ChannelID}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@DeviceName" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{DeviceName}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@SourceBarcode" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{SourceBarcode}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@SourceWell" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{SourceWell}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@DestinationBarcode" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{DestinationBarcode}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@DestinationWell" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{DestinationWell}" />
+      </layout>
+    </parameter>
+    <parameter>
+      <parameterName value="@Volume" />
+      <dbType value="String" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%property{Volume}" />
+      </layout>
+    </parameter>
+  </appender>
+
+  <appender name="Memory" type="log4net.Appender.MemoryAppender">
+    <onlyFixPartialEventData value="true" />
+    <filter type="log4net.Filter.LevelRangeFilter">
+      <levelMin value="INFO" />
+      <levelMax value="FATAL" />
+    </filter>
+  </appender>
+
+  <appender name="PipetteLogMemory" type="log4net.Appender.MemoryAppender">
+    <onlyFixPartialEventData value="true" />
+  </appender>
+
+  <root>
+    <level value="DEBUG" />
+    <appender-ref ref="Console" />
+    <appender-ref ref="File" />
+    <appender-ref ref="sqlite" />
+    <appender-ref ref="Memory" />
+    <appender-ref ref="LossyFileAppender" />
+  </root>
+
+  <logger name="PipetteLogger">
+    <level value="DEBUG" />
+    <appender-ref ref="PipetteLogFile" />
+    <appender-ref ref="PipetteLogDB" />
+    <appender-ref ref="PipetteLogMemory" />
+  </logger>
+</log4net>

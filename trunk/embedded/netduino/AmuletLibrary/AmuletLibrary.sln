@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmuletLibrary", "AmuletLibrary.csproj", "{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFIDLibrary", "..\RFIDLibrary\RFIDLibrary.csproj", "{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortWrapper", "..\SerialPortWrapper\SerialPortWrapper.csproj", "{36DD39B2-A319-44E0-87F9-9105B4696A74}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7391AF-EFE3-4F78-ABAB-B19F7F88C0EB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0FA0A0-8F49-4C00-B4AD-E0BFE652FBD3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DD39B2-A319-44E0-87F9-9105B4696A74}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

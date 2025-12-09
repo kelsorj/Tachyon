@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bumblebee2DSimulatorControl", "Bumblebee2DSimulatorControl.csproj", "{5DE372B2-38CA-4867-94B3-7371BED67DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatorTestContainer", "SimulatorTestContainer\SimulatorTestContainer.csproj", "{CCDFC686-9F4A-4295-9946-A0FABB17EA3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "..\Shared\Utils\Utils.csproj", "{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabwareDatabase", "..\Shared\LabwareDatabase\LabwareDatabase.csproj", "{A26AF0A4-9532-40CB-9554-A9510467636F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bumblebee2DSimulatorControl.ViewModel", "Bumblebee2DSimulatorControl.ViewModel\Bumblebee2DSimulatorControl.ViewModel.csproj", "{C71D2351-4F11-4B20-8978-FAAF5D683214}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryInterfaces", "..\Shared\LibraryInterfaces\LibraryInterfaces.csproj", "{96B9F9BF-63FD-43BE-A65F-F68D314129AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DE372B2-38CA-4867-94B3-7371BED67DA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE372B2-38CA-4867-94B3-7371BED67DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE372B2-38CA-4867-94B3-7371BED67DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE372B2-38CA-4867-94B3-7371BED67DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDFC686-9F4A-4295-9946-A0FABB17EA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDFC686-9F4A-4295-9946-A0FABB17EA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDFC686-9F4A-4295-9946-A0FABB17EA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDFC686-9F4A-4295-9946-A0FABB17EA3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26AF0A4-9532-40CB-9554-A9510467636F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26AF0A4-9532-40CB-9554-A9510467636F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26AF0A4-9532-40CB-9554-A9510467636F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26AF0A4-9532-40CB-9554-A9510467636F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71D2351-4F11-4B20-8978-FAAF5D683214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71D2351-4F11-4B20-8978-FAAF5D683214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71D2351-4F11-4B20-8978-FAAF5D683214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71D2351-4F11-4B20-8978-FAAF5D683214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B9F9BF-63FD-43BE-A65F-F68D314129AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

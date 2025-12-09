@@ -1,0 +1,5 @@
+C:\code\trunk\vs2010\Shared\PathFinding\PathFinding\bin\Debug\PathFinding.dll
+C:\code\trunk\vs2010\Shared\PathFinding\PathFinding\bin\Debug\PathFinding.pdb
+C:\code\trunk\vs2010\Shared\PathFinding\PathFinding\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\PathFinding\PathFinding\obj\Debug\PathFinding.dll
+C:\code\trunk\vs2010\Shared\PathFinding\PathFinding\obj\Debug\PathFinding.pdb

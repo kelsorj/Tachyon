@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="TeachpointUserControl.RobotTeachpointControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="27" Width="535">
+    <Grid ButtonBase.Click="CommonButton_Click">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Center" Name="label_stage">Stage X</Label>
+        <Button Grid.Column="1" Margin="3" Name="button_robot_teach">Teach Here</Button>
+        <Button Grid.Column="2" Margin="3" Name="button_robot_move">Move Here</Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,107 @@
+﻿<Window x:Class="JEMSServerTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        d:DesignHeight="350" d:DesignWidth="526" SizeToContent="WidthAndHeight"
+        Title="MainWindow" 
+        >
+    
+    <Window.Resources>
+        <x:Array Type="{x:Type sys:String}" x:Key="AvailableFates">
+            <sys:String>Unknown Fate</sys:String>
+            <sys:String>Hold</sys:String>
+            <sys:String>Trash</sys:String>
+            <sys:String>Fate 1</sys:String>
+            <sys:String>Fate 2</sys:String>
+            <sys:String>Fate 3</sys:String>
+        </x:Array>
+    </Window.Resources>
+    
+    <DockPanel>
+        <GroupBox Header="RPC Connection" BorderBrush="Orange" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="3">Remote Host:</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1"  Margin="3" Text="{Binding HostName}"></TextBox>
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="3">Remote Port:</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="3"  Margin="3" Text="{Binding RemotePort}"></TextBox>
+                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Margin="3">Listen Port:</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="3"  Margin="3" Text="{Binding ListenPort}"></TextBox>
+                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Margin="3" Command="{Binding ReconnectCommand}">Reconnect</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Plate Fates" BorderBrush="Orange" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!-- fate -->
+                <TextBlock Grid.Column="0" HorizontalAlignment="Right" Margin="3">Fate:</TextBlock>
+                <ComboBox Grid.Column="1" ItemsSource="{StaticResource AvailableFates}" SelectedItem="{Binding Fate}" Margin="3"></ComboBox>
+                <Button Grid.Column="2" Margin="3" Command="{Binding SetAllFatesCommand}">Set Fate on Selected Plates</Button>
+                <Button Grid.Column="3" Margin="3" Command="{Binding EndBatchCommand}">End Batch</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Connection Status" BorderBrush="Orange" DockPanel.Dock="Bottom">
+            <Grid>
+                <Rectangle Fill="{Binding ConnectionStatusColor}"/>
+                <TextBlock Text="{Binding ConnectionStatusText}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="Goldenrod"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Inventory" BorderBrush="Orange" DockPanel.Dock="Top">
+            <DockPanel>
+                <Button DockPanel.Dock="Bottom" Command="{Binding ClearInventoryCommand}" Margin="3">Clear Inventory</Button>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <TextBlock Margin="3">Selected Rows:</TextBlock>
+                    <TextBlock Margin="3" Text="{Binding SelectedRows}" />
+                </StackPanel>
+                <DataGrid Name="InventoryGrid" DockPanel.Dock="Top" ItemsSource="{Binding InventoryView}" AutoGenerateColumns="False"
+                          AlternatingRowBackground="Gainsboro" AlternationCount="2" SelectionChanged="InventoryGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <!-- plate barcode, don't allow editing -->
+                        <DataGridTemplateColumn Header="Plate Barcode">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Barcode}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Fate">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{StaticResource AvailableFates}" SelectedItem="{Binding Path=Fate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Hive Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=HiveName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </GroupBox>
+    </DockPanel>
+</Window>

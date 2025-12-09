@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<CalibrationConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Slope>1.0222451690528891</Slope>
+  <Intercept>1.2046074725901388</Intercept>
+  <Correlation>0.99995255399220162</Correlation>
+</CalibrationConfig>

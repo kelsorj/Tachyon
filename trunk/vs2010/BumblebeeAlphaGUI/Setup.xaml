@@ -1,0 +1,41 @@
+﻿<Window x:Class="BioNex.BumblebeeAlphaGUI.Setup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Setup" Height="253" Width="451"
+    Loaded="Window_Loaded" WindowStyle="ToolWindow" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Topmost="True">
+    <Grid>
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom">
+                <Button Style="{StaticResource OKCancelButton}" Name="button_ok" Click="button_ok_Click" IsDefault="True">OK</Button>
+                <Button Style="{StaticResource OKCancelButton}" Name="button_cancel" Click="button_cancel_Click" IsCancel="True">Cancel</Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Motor settings file:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="text_motor_settings_path"></TextBox>
+                    <Button Grid.Row="0" Grid.Column="2" Margin="3" Name="button_select_motor_settings" Click="button_select_motor_settings_Click">...</Button>
+                    <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Hardware config file:</Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Name="text_hardware_config_path"></TextBox>
+                    <Button Grid.Row="1" Grid.Column="2" Margin="3" Name="button_select_hardware_config" Click="button_select_hardware_config_Click">...</Button>
+                    <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Servo controller setup folder:</Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" Name="text_tsm_setup_folder"></TextBox>
+                    <Button Grid.Row="2" Grid.Column="2" Margin="3" Name="button_select_tsm_setup_folder" Click="button_select_tsm_setup_folder_Click">...</Button>
+                    <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">Teachpoint file:</Label>
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="text_teachpoint_path"></TextBox>
+                    <Button Grid.Row="3" Grid.Column="2" Margin="3" Click="button_select_teachpoint_path_Click">...</Button>
+                </Grid>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Preferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PreferenceProperties>
+    <PreferenceProperty>
+      <Name>Low battery threshold percentage</Name>
+      <Value>10</Value>
+      <Type>integer</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Christmas Tree I/O device name</Name>
+      <Value>IODevice</Value>
+      <Type>string</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Password protect diagnostics</Name>
+      <Value>false</Value>
+      <Type>boolean</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Pre-protocol message filename</Name>
+      <Value>pre-protocol-message.txt</Value>
+      <Type>string</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Return tip box to original location</Name>
+      <Value>true</Value>
+      <Type>boolean</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Robot disable reset bit</Name>
+      <Value>3</Value>
+      <Type>integer</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Run forever</Name>
+      <Value>false</Value>
+      <Type>boolean</Type>
+    </PreferenceProperty>
+    <PreferenceProperty>
+      <Name>Selected customer GUI</Name>
+      <Value />
+      <Type>string</Type>
+    </PreferenceProperty>
+  </PreferenceProperties>
+</Preferences>

@@ -1,0 +1,11 @@
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\CanDongleWrapper.dll
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\CanDongleWrapper.pdb
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\log4net.dll
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\UcanDotNET.dll
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\UcanDotNET.pdb
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\UcanDotNET.xml
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\log4net.pdb
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\bin\Debug\log4net.xml
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\obj\Debug\CanDongleWrapper.dll
+C:\code\trunk\vs2010\Shared\CanDongleWrapper\obj\Debug\CanDongleWrapper.pdb

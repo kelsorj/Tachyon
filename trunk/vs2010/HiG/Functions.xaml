@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="BioNex.Hig.Functions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             d:DesignHeight="395" d:DesignWidth="365" Height="Auto" Width="Auto">
+   
+    <UserControl.Resources>
+        <utils:StringFormatter x:Key="PositionFormatConverter" />
+        <Style x:Key="NumberStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="Green" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily" Value="Lucida Sans Typewriter" />
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="MinHeight" Value="50" />
+        </Style>
+        <!-- http://mark-dot-net.blogspot.com/2007/07/creating-custom-wpf-button-template-in.html -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="11px"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <!-- Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" /-->
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                        <GradientStop Color="#FFFFD190" Offset="0.2"/>
+                        <GradientStop Color="Orange" Offset="0.85"/>
+                        <GradientStop Color="#FFFFD190" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Margin="3">
+            <!-- acceleration -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" Text="Acceleration:" VerticalAlignment="Center" />
+                <TextBox Margin="3" Text="{Binding Accel, Mode=TwoWay}" VerticalContentAlignment="Center" MinWidth="40" />
+                <TextBlock VerticalAlignment="Center" Text="%" />
+            </StackPanel>
+            <Slider Minimum="1" Maximum="100" Value="{Binding Accel, Mode=TwoWay}" Margin="3" />
+            <!-- deceleration -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" Text="Deceleration:" VerticalAlignment="Center" />
+                <TextBox Margin="3" Text="{Binding Decel, Mode=TwoWay}" VerticalContentAlignment="Center" MinWidth="40" />
+                <TextBlock VerticalAlignment="Center" Text="%" />
+            </StackPanel>
+            <Slider Minimum="1" Maximum="100" Value="{Binding Decel, Mode=TwoWay}" Margin="3" />
+            <!-- max gs -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" Text="Maximum Gs:" />
+                <TextBox Margin="3" Text="{Binding DesiredGs, Mode=TwoWay}" MinWidth="50" />
+            </StackPanel>
+            <Slider Minimum="250" Maximum="5000" Value="{Binding DesiredGs, Mode=TwoWay}" Margin="3" />
+            <!-- spin time -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="3" Text="Spin time:" VerticalAlignment="Center" />
+                <TextBox Margin="3" Text="{Binding SpinTimeSeconds, Mode=TwoWay}" VerticalContentAlignment="Center" MinWidth="40" />
+                <TextBlock VerticalAlignment="Center" Text="s" />
+                <!-- estimated cycle time -->
+                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                    <TextBlock Margin="3" Text="Estimated cycle time:" VerticalAlignment="Center" />
+                    <TextBlock Margin="3" Text="{Binding EstimatedCycleTimeSeconds, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.0\}'}" VerticalAlignment="Center" />
+                    <TextBlock VerticalAlignment="Center" Text="s" />
+                </StackPanel>
+            </StackPanel>
+            <Slider Minimum="1" Maximum="60" Value="{Binding SpinTimeSeconds}" Margin="3" Name="SpinTimeSlider" />
+
+            <!-- button panel below -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="64" />
+                    <ColumnDefinition MaxWidth="64" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!-- spin and abort -->
+                <Button Grid.Column="0" Grid.RowSpan="3" Margin="3" Command="{Binding SpinCommand}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding SpinCommandToolTip}" HorizontalContentAlignment="Center">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center">
+                            <Grid>
+                                <Image Source="Images/spin.png"></Image>
+                            </Grid>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="Black">Spin</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="1" Grid.RowSpan="3" Margin="3" Command="{Binding AbortSpinCommand}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding AbortSpinCommandToolTip}" HorizontalContentAlignment="Center">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center">
+                            <Grid>
+                                <Image Source="Images/stop.png" Opacity="0.7"></Image>
+                            </Grid>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="Black">Abort</TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <!-- bucket position indicators -->
+                <utils:StatusIndicator Grid.Column="2" Grid.Row="0" Height="25" Margin="3" IndicatorText="At Bucket 1" IndicatorTextColor="Goldenrod" OutlineWidth="100" OutlineHeight="25" OutlineColor="Gray" OutlineRadius="3" FillColor="{Binding AtBucket1Color}" OutlineBorderThickness="1" />
+                <utils:StatusIndicator Grid.Column="3" Grid.Row="0" Height="25" Margin="3" IndicatorText="At Bucket 2" IndicatorTextColor="Goldenrod" OutlineWidth="100" OutlineHeight="25" OutlineColor="Gray" OutlineRadius="3" FillColor="{Binding AtBucket2Color}" OutlineBorderThickness="1" />
+                <Button Grid.Column="2" Grid.Row="1" Margin="3" Command="{Binding OpenDoorToBucket1Command}" Content="Present Bucket 1" />
+                <Button Grid.Column="3" Grid.Row="1" Margin="3" Command="{Binding OpenDoorToBucket2Command}" Content="Present Bucket 2" />
+                <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="3" Command="{Binding CloseDoorCommand}" Content="Close Shield" />
+            </Grid>
+        </StackPanel>
+        <GroupBox DockPanel.Dock="Top" Header="G Readout">
+            <TextBlock Style="{StaticResource NumberStyle}" Text="{Binding CurrentGs, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0\}'}"></TextBlock>
+        </GroupBox>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,20 @@
+unpressed keys:
+
+start with 40x40 image, transparent background
+select all
+select -> rounded rectangle -> 30%
+fill with black, 100% opacity
+select -> shrink -> 2 pixels
+change foreground to 9c9fa0
+change background to ffffff
+select gradient tool and drag vertically down, now have a black border around a gradient button
+filters -> light and shadows -> drop shadow
+offset x = 0, y = 2, blur radius = 4, black, opacity = 40, allow resizing
+
+now you have a 44x44 image
+
+pressed keys:
+start with a 40x80 image, transparent background
+do everything the same up until gradient fill, where you drag vertically up instead
+
+key font is Sans Bold, 30px, #000000

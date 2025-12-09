@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="BioNex.SynapsisPrototype.LogPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:BioNex.SynapsisPrototype.ViewModel"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    Height="Auto" Width="Auto">
+    <TabControl TabStripPlacement="Left">
+        <TabItem Header="Main Log" MinHeight="50">
+            <DataGrid ItemsSource="{Binding MainLog}" AutoGenerateColumns="False" Name="log_datagrid" SelectedCellsChanged="log_datagrid_SelectedCellsChanged"  KeyUp="datagrid_KeyUp" LoadingRow="log_datagrid_LoadingRow">
+            <!-- DataGrid ItemsSource="{Binding MainLog}" AutoGenerateColumns="False" Name="log_datagrid" KeyUp="datagrid_KeyUp" -->
+                <DataGrid.Columns>
+                    <!-- timestamp -->
+                    <DataGridTemplateColumn Header="Timestamp">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Timestamp}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- level -->
+                    <DataGridTemplateColumn Header="Level">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Level}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- error message -->
+                    <DataGridTemplateColumn Header="Message">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Message}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        <!-- #252 remove for now 
+        <TabItem Header="Query Main Log" MinHeight="50">
+            <wpftk:DataGrid>
+            </wpftk:DataGrid>
+        </TabItem>
+        -->
+        <TabItem Header="Pipette Log" MinHeight="50">
+            <!-- DataGrid ItemsSource="{Binding PipetteLog}" AutoGenerateColumns="False" Name="pipette_log_datagrid" SelectedCellsChanged="datagrid_SelectedCellsChanged" KeyUp="datagrid_KeyUp" -->
+            <DataGrid ItemsSource="{Binding PipetteLog}" AutoGenerateColumns="False" Name="pipette_log_datagrid" KeyUp="datagrid_KeyUp">
+                <DataGrid.Columns>
+                    <!-- timestamp -->
+                    <DataGridTemplateColumn Header="Timestamp">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Timestamp}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- level -->
+                    <DataGridTemplateColumn Header="Level">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Level}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- error message -->
+                    <DataGridTemplateColumn Header="Message">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Message}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- device -->
+                    <DataGridTemplateColumn Header="Device">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DeviceName}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- channel -->
+                    <DataGridTemplateColumn Header="Channel ID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ChannelID}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- source barcode  -->
+                    <DataGridTemplateColumn Header="Source Barcode">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SourceBarcode}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- source well  -->
+                    <DataGridTemplateColumn Header="Source Well">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SourceWell}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- dest barcode  -->
+                    <DataGridTemplateColumn Header="Dest. Barcode">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DestinationBarcode}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- dest well -->
+                    <DataGridTemplateColumn Header="Dest. Well">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DestinationWell}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!-- volume -->
+                    <DataGridTemplateColumn Header="Volume, uL">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Volume}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        <!-- #252 remove for now 
+        <TabItem Header="Query Pipette Log" MinHeight="50">
+            <wpftk:DataGrid>
+            </wpftk:DataGrid>
+        </TabItem>
+        -->
+    </TabControl>
+</UserControl>

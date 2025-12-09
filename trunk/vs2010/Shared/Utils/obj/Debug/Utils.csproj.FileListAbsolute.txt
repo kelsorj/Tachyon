@@ -1,0 +1,16 @@
+C:\code\trunk\vs2010\Shared\Utils\bin\Debug\Utils.dll
+C:\code\trunk\vs2010\Shared\Utils\bin\Debug\Utils.pdb
+C:\code\trunk\vs2010\Shared\Utils\bin\Debug\System.Data.SQLite.dll
+C:\code\trunk\vs2010\Shared\Utils\bin\Debug\System.Data.SQLite.pdb
+C:\code\trunk\vs2010\Shared\Utils\bin\Debug\System.Data.SQLite.xml
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\DeviceDiagnosticsPanelHost.baml
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\HourglassWindow.baml
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\StatusIndicator.baml
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\DeviceDiagnosticsPanelHost.g.cs
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\HourglassWindow.g.cs
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\StatusIndicator.g.cs
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\Utils_MarkupCompile.cache
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\Utils.g.resources
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\Utils.dll
+C:\code\trunk\vs2010\Shared\Utils\obj\Debug\Utils.pdb

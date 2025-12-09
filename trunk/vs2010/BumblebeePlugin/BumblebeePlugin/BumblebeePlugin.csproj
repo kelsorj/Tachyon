@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{42651A2F-13ED-4838-A003-305DFFA6939A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BioNex.BumblebeePlugin</RootNamespace>
+    <AssemblyName>BumblebeePlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.WPF4">
+      <HintPath>..\..\..\..\thirdparty\MvvmLightToolkit\bin\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\thirdparty\log4net\net40\build\bin\net\1.0\debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoTeachEverything.xaml.cs">
+      <DependentUpon>AutoTeachEverything.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bumblebee.cs" />
+    <Compile Include="Diagnostics.xaml.cs">
+      <DependentUpon>Diagnostics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MainModel.cs" />
+    <Compile Include="MoveTeach.xaml.cs">
+      <DependentUpon>MoveTeach.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServoStatus.xaml.cs">
+      <DependentUpon>ServoStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Toolbar.xaml.cs">
+      <DependentUpon>Toolbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Commands.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ToolTips.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\thirdparty\MEF2\src\ComponentModel\ComponentModel.csproj">
+      <Project>{1BBA5101-D4F0-48B8-A5D6-7B23A099DCE3}</Project>
+      <Name>ComponentModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\thirdparty\Stateless\source_and_examples\Stateless\Stateless.csproj">
+      <Project>{A15EEC02-60EC-4705-A58B-A6ECD55A9628}</Project>
+      <Name>Stateless</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BumblebeeAlphaGUI\AlphaHardware\BBHardware.csproj">
+      <Project>{8E879387-82E2-407F-B90A-B589FDF210B8}</Project>
+      <Name>BBHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BumblebeeAlphaGUI\BumblebeeAlpha.Configuration\Bumblebee.Configuration.csproj">
+      <Project>{B0A539B6-3931-4839-8BC1-53285920BCE0}</Project>
+      <Name>Bumblebee.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BumblebeeAlphaGUI\BumblebeeAlpha.Teachpoints\Bumblebee.Teachpoints.csproj">
+      <Project>{4D0DC99F-009B-4CE4-B2B0-8C6C3B42BE30}</Project>
+      <Name>Bumblebee.Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\DeviceInterface\DeviceInterface.csproj">
+      <Project>{C11032AE-E7CA-4B7F-B672-1CC2EB904578}</Project>
+      <Name>DeviceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\ErrorDialog\ErrorDialog.csproj">
+      <Project>{923BA357-4D7B-4080-ABDC-095633012F8E}</Project>
+      <Name>ErrorDialog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\HeavyUtils\HeavyUtils\HeavyUtils.csproj">
+      <Project>{17DB2007-B1C0-442F-9229-B34204170EA4}</Project>
+      <Name>HeavyUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\IError\IError.csproj">
+      <Project>{F09F5A2A-4337-4A81-8599-B5B0E1E18ED5}</Project>
+      <Name>IError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\LabwareDatabase\LabwareDatabase.csproj">
+      <Project>{A26AF0A4-9532-40CB-9554-A9510467636F}</Project>
+      <Name>LabwareDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\LibraryInterfaces\LibraryInterfaces.csproj">
+      <Project>{96B9F9BF-63FD-43BE-A65F-F68D314129AF}</Project>
+      <Name>LibraryInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Location\Location.csproj">
+      <Project>{75607E88-161B-47E3-8D85-5289E0BD6394}</Project>
+      <Name>Location</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\PlateWork\PlateWork.csproj">
+      <Project>{0E73947B-BE6E-4949-9F53-B4479DD3682C}</Project>
+      <Name>PlateWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\StateMachineExecutor\StateMachineExecutor.csproj">
+      <Project>{816CCF54-B823-4ECC-929E-0AFA71CF2A97}</Project>
+      <Name>StateMachineExecutor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\TaskListXMLParser\TaskListXMLParser.csproj">
+      <Project>{A2B509A4-B734-4CBE-B4B2-A39F5ADADBF3}</Project>
+      <Name>TaskListXMLParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Teachpoints\Teachpoints.csproj">
+      <Project>{4FF11887-7EAE-467F-82AE-5E91FF318923}</Project>
+      <Name>Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\TechnosoftLibrary\TechnosoftLibrary.csproj">
+      <Project>{1BEB833E-1D00-4886-BE2C-A150B88BBCA9}</Project>
+      <Name>TechnosoftLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\ThreadsafeMessenger\ThreadsafeMessenger.csproj">
+      <Project>{07561CFE-43B4-45BF-AE9B-4D2C1813B21B}</Project>
+      <Name>ThreadsafeMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Utils\Utils.csproj">
+      <Project>{C14C6F19-386A-4A2B-BBB5-0395551D4EF1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeDispatcher\BumblebeeDispatcher.csproj">
+      <Project>{F7FCABBC-8061-4C71-B5A3-C7B52BC3A05A}</Project>
+      <Name>BumblebeeDispatcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeSchedulers\DualDisposableTipScheduler\DualDisposableTipSplitScheduler.csproj">
+      <Project>{52AA23BA-3FD8-4E1B-B16E-B577FB0FCAA1}</Project>
+      <Name>DualDisposableTipSplitScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeSchedulers\SchedulerInterface\SchedulerInterface.csproj">
+      <Project>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</Project>
+      <Name>SchedulerInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bionex_logo.png" />
+    <Resource Include="Images\connect_me.png" />
+    <Resource Include="Images\disconnect.png" />
+    <Resource Include="Images\fail.png" />
+    <Resource Include="Images\home.png" />
+    <Resource Include="Images\left.png" />
+    <Resource Include="Images\right.png" />
+    <Resource Include="Images\select_device.png" />
+    <Resource Include="Images\servos_off.png" />
+    <Resource Include="Images\servos_on.png" />
+    <Resource Include="Images\success.png" />
+    <Resource Include="Images\telemetry_off.png" />
+    <Resource Include="Images\telemetry_on2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AutoTeachEverything.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Diagnostics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MoveTeach.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ServoStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Toolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\stop.png">
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--  <Import Project="$(WORK_FOLDER)\thirdparty\wix30\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+ -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild" Condition=" '$(Configuration)' == 'Deployment' ">
+    <FileUpdate Files="Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$1.$2.$3.$(build_vcs_number_1)" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /i/y stateless.dll "..\..\..\..\bin\$(configurationname)\"
+xcopy /i/y $(targetfilename) "..\..\..\..\bin\$(configurationname)\plugins\"
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

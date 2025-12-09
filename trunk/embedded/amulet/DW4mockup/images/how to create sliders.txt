@@ -1,0 +1,18 @@
+slider channel:
+
+new image, 240x10, transparent background
+select all
+select -> rounded rectangle, 90% radius
+fill with 454c4e
+select -> shrink, 1px
+linear gradient fill with foreground = 9c9fa0, background 000000, extend a little past the bottom so there's no white
+image -> canvas size, 240x40, y offset = 15
+
+slider handle:
+new image, 40x40, transparent background
+draw 40x40 circle
+fill with 454c4e
+select -> shrink, 2px
+radial gradient fill with foreground = 9c9fa0, background 000000, drag UL -> LR
+select -> shrink, 1px
+radial gradient fill with foreground = 9c9fa0, background 000000, drag LR -> UL

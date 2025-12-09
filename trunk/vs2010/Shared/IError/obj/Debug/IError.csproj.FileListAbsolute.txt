@@ -1,0 +1,5 @@
+C:\code\trunk\vs2010\Shared\IError\bin\Debug\IError.dll
+C:\code\trunk\vs2010\Shared\IError\bin\Debug\IError.pdb
+C:\code\trunk\vs2010\Shared\IError\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\IError\obj\Debug\IError.dll
+C:\code\trunk\vs2010\Shared\IError\obj\Debug\IError.pdb

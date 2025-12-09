@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<transfer_overview>
+  <default_liquid_class_id>1</default_liquid_class_id>
+  <aspirate_script></aspirate_script>
+  <dispense_script></dispense_script>
+  <aspirate_distance_from_well_bottom_mm>0</aspirate_distance_from_well_bottom_mm>
+  <dispense_distance_from_well_bottom_mm>0</dispense_distance_from_well_bottom_mm>
+  <!-- all plates get listed here first -->
+  <sources>
+    <source>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>S00001</barcode>
+    </source>
+  </sources>
+  <!-- destination plates-->
+  <destinations>
+    <destination>
+      <labware_id>NUNC 96 clear round well flat bottom</labware_id>
+      <barcode>D00002</barcode>
+      <usable_wells>any</usable_wells>
+    </destination>
+  </destinations>
+  <!-- transfers list out the source -> dest relationships -->
+  <transfers>
+    <transfer>
+      <source>
+        <barcode>S00001</barcode>
+        <!-- F14 is INVALID -->
+        <well>F14</well>
+      </source>
+      <destination>
+        <barcode>D00002</barcode>
+        <well>B5</well>
+      </destination>
+      <transfer_volume units="ul">10</transfer_volume>
+      <current_volume units="ul">20</current_volume>
+      <aspirate_script></aspirate_script>
+      <dispense_script></dispense_script>
+    </transfer>
+  </transfers>
+</transfer_overview>

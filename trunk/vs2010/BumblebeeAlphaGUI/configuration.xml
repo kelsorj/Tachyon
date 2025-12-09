@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DeviceConfiguration>
+  <Device>
+    <Name>Hive</Name>
+    <RelativePath>Hive</RelativePath>
+  </Device>
+  <Device>
+    <Name>Speedy Robot</Name>
+    <RelativePath>Speedy Robot</RelativePath>
+  </Device>
+</DeviceConfiguration>

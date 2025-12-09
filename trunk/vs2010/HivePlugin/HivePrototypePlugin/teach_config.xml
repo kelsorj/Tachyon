@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<AutoTeachConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Panels>
+        <Panel>
+            <Name>test panel</Name>
+            <Origin>
+            <X>0</X>
+            <Y>0</Y>
+            <Z>0</Z>
+            </Origin>
+            <RackCount>5</RackCount>
+            <SlotCount>12</SlotCount>
+            <SlotXSpacing>106</SlotXSpacing>
+            <SlotZSpacing>40</SlotZSpacing>
+        </Panel>
+    </Panels>
+    <XSensorInputBitIndex>0</XSensorInputBitIndex>
+    <YSensorInputBitIndex>0</YSensorInputBitIndex>
+    <ZSensorInputBitIndex>0</ZSensorInputBitIndex>
+    <ZOffsetForTeachingY>0</ZOffsetForTeachingY>
+    <XOffsetForTeachingY>0</XOffsetForTeachingY>
+    <ZOffsetForTeachingX>0</ZOffsetForTeachingX>
+    <YOffsetForTeachingX>0</YOffsetForTeachingX>
+
+    <XSensorConstTerm>0</XSensorConstTerm>
+    <YSensorConstTerm>0</YSensorConstTerm>
+    <ZSensorConstTerm>0</ZSensorConstTerm>
+    <ZSensorFirstOrderTerm>0</ZSensorFirstOrderTerm>
+    <ZSensorSecondOrderTerm>0</ZSensorSecondOrderTerm>
+
+    <AutoTeachFileName>where do you want the teachpoint file to go.xml</AutoTeachFileName>
+</AutoTeachConfiguration>

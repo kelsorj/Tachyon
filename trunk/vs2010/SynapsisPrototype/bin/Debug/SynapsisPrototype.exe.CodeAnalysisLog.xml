@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio 10.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="10.0">
+ <Targets>
+  <Target Name="C:\code\trunk\vs2010\SynapsisPrototype\bin\Debug\SynapsisPrototype.exe">
+   <Modules>
+    <Module Name="synapsisprototype.exe">
+     <Namespaces>
+      <Namespace Name="BioNex.SynapsisPrototype.ViewModel">
+       <Types>
+        <Type Name="LogPanelViewModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2012-05-09 04:03:37Z" FixCategory="Breaking">
+           <Issue Name="IDisposableReimplementation" Certainty="95" Level="Error">Remove IDisposable from the list of interfaces implemented by 'LogPanelViewModel' and override the base class Dispose implementation instead.</Issue>
+          </Message>
+         </Messages>
+         <Members>
+          <Member Name="#System.IDisposable.Dispose()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2012-05-09 04:03:37Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\code\trunk\vs2010\SynapsisPrototype\ViewModel" File="LogPanelViewModel.cs" Line="165">Modify 'LogPanelViewModel.IDisposable.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
+             <Issue Name="RenameDispose" Certainty="95" Level="Error" Path="C:\code\trunk\vs2010\SynapsisPrototype\ViewModel" File="LogPanelViewModel.cs" Line="165">Rename 'LogPanelViewModel.IDisposable.Dispose()' to 'Dispose' and ensure that it is declared as public and sealed.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="SynapsisViewModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(BioNex.SynapsisPrototype.Model.SynapsisModel,BioNex.Shared.PlateWork.IPlateScheduler,BioNex.Shared.PlateWork.IRobotScheduler,BioNex.SynapsisPrototype.ViewModel.AbortPauseResumeStateMachine,BioNex.Shared.IError.IError,SMTPReporting.SMTPReporter)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2012-05-09 04:03:37Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\code\trunk\vs2010\SynapsisPrototype\ViewModel" File="SynapsisViewModel.cs" Line="555">'SynapsisViewModel.SynapsisViewModel(SynapsisModel, IPlateScheduler, IRobotScheduler, AbortPauseResumeStateMachine, IError, SMTPReporter)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;SynapsisViewModel..ctor(SynapsisModel, IPlateScheduler, IRobotScheduler, AbortPauseResumeStateMachine, IError, SMTPReporter)&#xD;&#xA;SynapsisViewModel.set_MenuVisibility(Visibility):Void&#xD;&#xA;ViewModelBase.RaisePropertyChanged(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#CustomerProtocolComplete(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-05-09 04:03:37Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="C:\code\trunk\vs2010\SynapsisPrototype\ViewModel" File="SynapsisViewModel.cs" Line="435">In method 'SynapsisViewModel.CustomerProtocolComplete(object, EventArgs)', call System.IDisposable.Dispose on object 'player' before all references to it are out of scope.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000">
+   <Name>Dispose objects before losing scope</Name>
+   <Description>If a disposable object is not explicitly disposed before all references to it are out of scope, the object will be disposed at some indeterminate time when the garbage collector runs the finalizer of the object. Because an exceptional event might occur that will prevent the finalizer of the object from running, the object should be explicitly disposed instead.</Description>
+   <Resolution Name="NonExceptionEdge">In method {0}, call System.IDisposable.Dispose on object {1} before all references to it are out of scope.</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182289(VS.100).aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="10.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Do not call overridable methods in constructors</Name>
+   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
+   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182331(VS.100).aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
+   <File Name="usagerules.dll" Version="10.0.0.0" />
+  </Rule>
+  <Rule TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063">
+   <Name>Implement IDisposable correctly</Name>
+   <Description>All IDisposable types should implement the Dispose pattern correctly.</Description>
+   <Resolution Name="DisposeImplementation">Modify {0} so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Resolution>
+   <Resolution Name="IDisposableReimplementation">Remove IDisposable from the list of interfaces implemented by {0} and override the base class Dispose implementation instead.</Resolution>
+   <Resolution Name="RenameDispose">Rename {0} to 'Dispose' and ensure that it is declared as public and sealed.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms244737(VS.100).aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Error</MessageLevel>
+   <File Name="designrules.dll" Version="10.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>

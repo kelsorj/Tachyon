@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+	
+	<body>
+		<table width="480" height="272" background="images/bionex_logo_translucent.png" class="styleTable">
+			<!-- BYTE SLIDER -->
+			<tr>
+				<td colspan="4">
+					<font size="4">This byte slider modifies byte 0 in the internal RAM.  It cannot be modified by the host</font>
+				</td>
+			</tr>
+			<tr>
+				<td width="30">
+					<font size="4">0</font>
+				</td>
+				<td width="240" align="right">
+					<applet code="CustomSlider.class" width="240" height="40" name="byte_slider">
+					<param name="channelImage" value="images/slider_channel_240.png">
+					<param name="handleImage" value="images/slider_handle.png">
+					<param name="handleTrackingImage" value="images/slider_handle_down.png">
+					<param name="initialCondition" value="0">
+					<param name="min" value="0">
+					<param name="max" value="255">
+					<param name="href" value="Amulet:internalRAM.byte(0).setValue()">
+					<param name="hrefEvent" value="onChange">
+					<param name="transparency" value="true">
+					</applet>
+				</td>
+				<td width="60">
+					<font size="4">255</font>
+				</td>
+				<td width="60">
+					<applet code="NumericField.class" width="50" height="30" name="text_byte_slider">
+					<param name="border" value="1">
+					<param name="fontSize" value="4">
+					<param name="href" value="Amulet:document.byte_slider.value()">
+					<param name="updateRate" value="0.1">
+					<param name="printf" value="%3i">
+					<param name="min" value="0">
+					<param name="max" value="255">
+					<param name="minFld" value="0">
+					<param name="maxFld" value="255">
+					</applet>
+				</td>
+			</tr>
+			<!-- WORD SLIDER -->
+			<tr>
+				<td colspan="4">
+					<font size="4">This word slider modifies byte 0 in the internal RAM.  It cannot be modified by the host</font>
+				</td>
+			</tr>
+			<tr>
+				<td width="30">
+					<font size="4">0</font>
+				</td>
+				<td width="240" align="right">
+					<applet code="CustomSlider.class" width="240" height="40" name="word_slider">
+					<param name="channelImage" value="images/slider_channel_240.png">
+					<param name="handleImage" value="images/slider_handle.png">
+					<param name="handleTrackingImage" value="images/slider_handle_down.png">
+					<param name="initialCondition" value="0">
+					<param name="min" value="0">
+					<param name="max" value="65535">
+					<param name="href" value="Amulet:internalRAM.word(0).setValue()">
+					<param name="hrefEvent" value="onChange">
+					<param name="transparency" value="true">
+					</applet>
+				</td>
+				<td width="80">
+					<font size="4">65535</font>
+				</td>
+				<td width="80">
+					<applet code="NumericField.class" width="80" height="30" name="text_word_slider">
+					<param name="border" value="1">
+					<param name="fontSize" value="4">
+					<param name="href" value="Amulet:document.word_slider.value()">
+					<param name="updateRate" value="0.1">
+					<param name="printf" value="%5i">
+					<param name="min" value="0">
+					<param name="max" value="65535">
+					<param name="minFld" value="0">
+					<param name="maxFld" value="65535">
+					</applet>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+

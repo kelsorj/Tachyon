@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;NoClearLCD">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!-- background
+		<div style="width:480px; height:272; position:absolute; left:0px; top:0px; z-index:1;">
+			<img src="images/background.jpg" width="480" height="272">
+		</div>
+		-->
+		<!-- page title -->
+		<div style="width:50px; height:15px; position:absolute; left:7px; top:2px; z-index:1;">
+			<img src="images/diagnostics.png" width="50" height="15">
+		</div>
+		<!-- lower nav bar -->
+		<div style="width:480px; height:35; position:absolute; left:16px; top:222px; z-index:1;" class="styleMenu">
+			<applet code="FunctionButton.class" width="100" height="35" name="Main" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="index.html">
+			<param name="label" value="Main">
+			<param name="borderColor" value="black">
+			<param name="fillColor" value="gray">
+			</applet>
+			<applet code="FunctionButton.class" width="145" height="35" name="Program Setup" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="page_template.html">
+			<param name="label" value="Program Setup">
+			<param name="borderColor" value="black">
+			<param name="fillColor" value="gray">
+			</applet>
+			<applet code="FunctionButton.class" width="105" height="35" name="Diagnostics" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="diagnostics.html">
+			<param name="label" value="Diagnostics">
+			<param name="borderColor" value="black">
+			<param name="fillColor" value="gray">
+			</applet>
+			<applet code="FunctionButton.class" width="100" height="35" name="Setup" align="bottom">
+			<param name="buttonType" value="SPRING-LOADED">
+			<param name="href" value="page_template.html">
+			<param name="label" value="Setup">
+			<param name="borderColor" value="black">
+			<param name="fillColor" value="gray">
+			</applet>
+		</div>
+
+		<!-- actual functionality here -->
+		<div style="position:absolute; width:200px; height:200px; left:5px; top:22; position:absolute; z-index:1;">
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,14 @@
+start with 40x40 image, transparent background
+select all
+select -> rounded rectangle -> 30%
+change foreground to 407dce
+change background to 72d2e8
+select gradient tool and drag vertically down
+filters -> light and shadows -> drop shadow
+offset x = 0, y = 2, blur radius = 4, black, opacity = 40, allow resizing
+
+now you have a 44x44 image
+drag in icons from explorer
+
+pressed keys:
+change brightness to -50

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TeachpointUserControl.WashTeachpointControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="28" Width="427">
+    <Grid Name="washgrid" ButtonBase.Click="CommonButton_Click">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Wash:</Label>
+        <Button Grid.Row="0" Grid.Column="1" Margin="3" Name="button_wash_teach_here">Teach Here</Button>
+        <Button Grid.Row="0" Grid.Column="2" Margin="3" Name="button_wash_move_above">Move Above</Button>
+        <Button Grid.Row="0" Grid.Column="3" Margin="3" Name="button_wash_move_here">Move Here</Button>
+    </Grid>
+</UserControl>

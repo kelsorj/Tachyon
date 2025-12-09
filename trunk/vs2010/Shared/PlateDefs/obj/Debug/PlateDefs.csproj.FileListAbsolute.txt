@@ -1,0 +1,14 @@
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\PlateDefs.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\PlateDefs.pdb
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\LibraryInterfaces.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\TaskListXMLParser.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\Utils.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\System.Data.SQLite.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\Utils.pdb
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\LibraryInterfaces.pdb
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\TaskListXMLParser.pdb
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\System.Data.SQLite.pdb
+C:\code\trunk\vs2010\Shared\PlateDefs\bin\Debug\System.Data.SQLite.xml
+C:\code\trunk\vs2010\Shared\PlateDefs\obj\Debug\ResolveAssemblyReference.cache
+C:\code\trunk\vs2010\Shared\PlateDefs\obj\Debug\PlateDefs.dll
+C:\code\trunk\vs2010\Shared\PlateDefs\obj\Debug\PlateDefs.pdb

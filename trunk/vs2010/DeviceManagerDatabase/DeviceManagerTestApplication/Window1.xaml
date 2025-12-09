@@ -1,0 +1,10 @@
+﻿<Window x:Class="DeviceManagerTestApplication.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="Device Manager Test Application" Height="414" Width="623">
+    
+    <Grid>
+        <ListBox ItemsSource="{Binding Devices}" />
+    </Grid>
+</Window>

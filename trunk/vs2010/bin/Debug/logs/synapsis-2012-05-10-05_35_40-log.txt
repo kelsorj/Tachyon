@@ -1,0 +1,923 @@
+2012-05-10-05_35_40.379 [5308] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-10-05_35_40.419 [5308] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-10-05_35_41.702 [5308] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-10-05_35_41.752 [5308] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-10-05_35_41.764 [5308] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-10-05_35_42.129 [5308] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-10-05_35_42.150 [5308] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-10-05_35_42.157 [5308] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-10-05_35_42.686 [5308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Connected to BeeSure 'Liquid Level Sensor'
+2012-05-10-05_35_42.692 [5308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Serial number '(null)'
+2012-05-10-05_35_42.701 [5308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - X Axis firmware version '1.2'
+2012-05-10-05_35_42.710 [5308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Y Axis firmware version '1.1'
+2012-05-10-05_35_42.719 [5308] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Z Axis firmware version '1.1'
+2012-05-10-05_35_42.810 [5308] DEBUG BioNex.SynapsisPrototype.ViewModel.SynapsisViewModel - C:\code\trunk\vs2010\bin\Debug\BarcodeMisreadDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexGuiControls.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\BioNexSplash.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Bumblebee.Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CanDongleWrapper.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\chord.wav version 
+C:\code\trunk\vs2010\bin\Debug\Combinatorics.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\CookComputing.XmlRpcV2.dll version 0.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceInterface.pdb version 
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\DeviceManagerDatabase.pdb version 
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\ErrorDialog.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Exception.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\FileHelpers.dll version 2.0.0.0
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll version 3.0.0.29165
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.dll version 3.0.0.29166
+C:\code\trunk\vs2010\bin\Debug\GalaSoft.MvvmLight.WPF4.xml version 
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.dll version 1.0.0.9999
+C:\code\trunk\vs2010\bin\Debug\HeavyUtils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\HitpickXMLReader.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\HiveHardware.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IError.pdb version 
+C:\code\trunk\vs2010\bin\Debug\InventoryManagement.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksCommandServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\IWorksDriverExecutionStateMachine.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcClient.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareCloudXmlRpcServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LabwareDatabase.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\LibraryInterfaces.pdb version 
+C:\code\trunk\vs2010\bin\Debug\LiquidProfileLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Location.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.dll version 1.2.10.0
+C:\code\trunk\vs2010\bin\Debug\log4net.pdb version 
+C:\code\trunk\vs2010\bin\Debug\log4net.xml version 
+C:\code\trunk\vs2010\bin\Debug\logging.xml version 
+C:\code\trunk\vs2010\bin\Debug\MicroscanLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.dll version 1.1.0.0
+C:\code\trunk\vs2010\bin\Debug\Microsoft.WindowsAPICodePack.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PathFinding.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\pipette version 
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateDefs.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PlateMoverPlugin.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateScheduler.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PlateWork.pdb version 
+C:\code\trunk\vs2010\bin\Debug\PluginManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\PluginManager.pdb version 
+C:\code\trunk\vs2010\bin\Debug\preferences.xml version 
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SMTPReporting.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SQLite.Interop.DLL version 1.0.66.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.dll version 2.2.1.1
+C:\code\trunk\vs2010\bin\Debug\Stateless.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Stateless.xml version 
+C:\code\trunk\vs2010\bin\Debug\StateMachineExecutor.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\synapsis version 
+C:\code\trunk\vs2010\bin\Debug\synapsis-abridged version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPreferences.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype - Shortcut.lnk version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.CodeAnalysisLog.xml version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.exe.lastcodeanalysissucceeded version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.pdb version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe version 10.0.30319.1
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.config version 
+C:\code\trunk\vs2010\bin\Debug\SynapsisPrototype.vshost.exe.manifest version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\synapsis_pipette_log.s3db version 
+C:\code\trunk\vs2010\bin\Debug\Systec_IO.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.ComponentModel.Composition.Codeplex.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.dll version 1.0.74.0
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.pdb version 
+C:\code\trunk\vs2010\bin\Debug\System.Data.SQLite.xml version 
+C:\code\trunk\vs2010\bin\Debug\System.Windows.Interactivity.dll version 2.0.20310.0
+C:\code\trunk\vs2010\bin\Debug\tada.wav version 
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TaskListXMLParser.pdb version 
+C:\code\trunk\vs2010\bin\Debug\Teachpoints.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TeachpointServer.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibrary.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TechnosoftLibraryMT.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\test_hitpick.xsd version 
+C:\code\trunk\vs2010\bin\Debug\ThreadsafeMessenger.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\TipBoxManager.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\tmlcomm-mt.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\tmlcomm.dll version 3, 2, 2, 2
+C:\code\trunk\vs2010\bin\Debug\TML_lib-mt.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\TML_lib.dll version 2, 0, 1, 3
+C:\code\trunk\vs2010\bin\Debug\UcanDotNET.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\Utils.pdb version 
+C:\code\trunk\vs2010\bin\Debug\WPFToolkit.dll version 3.5.30731.0
+C:\code\trunk\vs2010\bin\Debug\XmlRpcGlue.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelDevice.dll version 1.0.0.0
+C:\code\trunk\vs2010\bin\Debug\plugins\LiquidLevelSensingGUI.dll version 1.0.0.0
+
+2012-05-10-05_38_26.402 [7928] DEBUG axis_3 - Home(wait_for_complete=true) called.
+2012-05-10-05_38_27.440 [Axis homing] DEBUG axis_3 - SetAxisTimeout(300) called.
+2012-05-10-05_38_28.704 [Axis homing] DEBUG axis_3 - HomingThread() finished successfully at APOS=-12 with ELPOSL=1769
+2012-05-10-05_38_28.711 [Axis homing] DEBUG axis_2 - Home(wait_for_complete=true) called.
+2012-05-10-05_38_29.742 [Axis homing] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-10-05_38_35.010 [Axis homing] DEBUG axis_2 - HomingThread() finished successfully at APOS=2 with ELPOSL=305
+2012-05-10-05_38_35.015 [Axis homing] DEBUG axis_1 - Home(wait_for_complete=true) called.
+2012-05-10-05_38_36.045 [Axis homing] DEBUG axis_1 - SetAxisTimeout(300) called.
+2012-05-10-05_38_41.964 [Axis homing] DEBUG axis_1 - HomingThread() finished successfully at APOS=-2 with ELPOSL=488
+2012-05-10-05_38_41.986 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_38_41.993 [Axis homing] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_38_42.003 [Axis homing] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= -12 iu, delta= 12 iu
+2012-05-10-05_38_42.008 [Axis homing] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_38_42.015 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_38_42.520 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_38_42.523 [Axis homing] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_38_42.531 [Axis homing] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= 3 iu, delta= -3 iu
+2012-05-10-05_38_42.534 [Axis homing] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_38_42.541 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 21ms.
+2012-05-10-05_38_42.546 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_38_42.549 [Axis homing] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_38_42.555 [Axis homing] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= 0 iu, delta= 0 iu
+2012-05-10-05_38_42.558 [Axis homing] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_38_42.565 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 19ms.
+2012-05-10-05_38_42.570 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_38_42.573 [Axis homing] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_38_42.582 [Axis homing] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_38_42.591 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_38_42.602 [Axis homing] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -12, TPOS = 0, Err = -12, ERR = -0.002 mm, IQ = 1.023 A
+2012-05-10-05_38_42.607 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_38_42.610 [Axis homing] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_38_42.619 [Axis homing] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_38_42.628 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_38_42.639 [Axis homing] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 2, TPOS = 0, Err = 2, ERR = 0.005 mm, IQ = -0.073 A
+2012-05-10-05_38_42.644 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_38_42.647 [Axis homing] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_38_42.656 [Axis homing] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_38_42.665 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_38_42.676 [Axis homing] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = -0.453 A
+2012-05-10-05_43_00.615 [4452] DEBUG axis_2 - MoveAbsolute(-45.000, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_00.621 [4452] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_00.627 [4452] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -147456L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_01.164 [4452] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_43_01.175 [4452] DEBUG axis_2 - MoveAbsolute(-45.000, move_complete=true, ...) Done in 560ms.
+2012-05-10-05_43_01.188 [4452] DEBUG axis_2 - MoveAbsolute(-45.000mm=-147456IU, move_complete=true, ...) FINALLY CPOS = -147456, APOS = -147453, TPOS = -147456, Err = 3, ERR = 0.001 mm, IQ = 0.132 A
+2012-05-10-05_43_01.496 [1472] DEBUG axis_2 - MoveAbsolute(-90.000, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_01.500 [1472] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_01.507 [1472] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -294911L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_02.042 [1472] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_43_02.051 [1472] DEBUG axis_2 - MoveAbsolute(-90.000, move_complete=true, ...) Done in 555ms.
+2012-05-10-05_43_02.062 [1472] DEBUG axis_2 - MoveAbsolute(-90.000mm=-294911IU, move_complete=true, ...) FINALLY CPOS = -294911, APOS = -294905, TPOS = -294911, Err = 6, ERR = 0.002 mm, IQ = 0.317 A
+2012-05-10-05_43_02.316 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_02.321 [5452] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_43_02.327 [5452] DEBUG axis_2 - "CACC = 5.24288; CSPD = 327.68000; CPOS = -442366L; CPA; MODE PP; UPD; !MC;"
+2012-05-10-05_43_02.851 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, ...) in a condition where MC is not high, but TPOS == CPOS == -442366 IU, so motioncomplete_flag raised essentially
+2012-05-10-05_43_02.862 [5452] DEBUG axis_2 - MoveAbsolute(-134.999, move_complete=true, ...) Done in 546ms.
+2012-05-10-05_43_02.875 [5452] DEBUG axis_2 - MoveAbsolute(-134.999mm=-442366IU, move_complete=true, ...) FINALLY CPOS = -442366, APOS = -442359, TPOS = -442366, Err = 7, ERR = 0.002 mm, IQ = 0.095 A
+2012-05-10-05_43_03.562 [4432] DEBUG axis_2 - MoveAbsolute(-180.001, move_complete=true, ...) called. use_trap=true
+2012-05-10-05_43_03.569 [4432] ERROR BioNex.Shared.TechnosoftLibrary.IAxis - Cannot move to -180.001 because it is past the minimum travel limit of -145.000 on axis Y
+2012-05-10-05_43_03.580 [4432] ERROR BioNex.LiquidLevelDevice.EngineeringPanel - LiquidLevelDevice: Error while moving Y : BioNex.Shared.TechnosoftLibrary.AxisException: Cannot move to -180.001 because it is past the minimum travel limit of -145.000 on axis Y
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.CheckSoftLimits(Double mm)
+   at BioNex.Shared.TechnosoftLibrary.TSAxis.MoveAbsoluteHelper(Double mm, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap)
+   at BioNex.Shared.TechnosoftLibrary.IAxis.MoveAbsolute(Double mm_or_ul, Double velocity, Double acceleration, Int32 jerk, Int32 jerk_min, Boolean wait_for_move_complete, Double move_done_window_mm, Int16 settling_time_ms, Boolean use_TS_MC, Boolean use_trap, Boolean ignore_motion_parameters)
+   at BioNex.LiquidLevelDevice.EngineeringPanel.<>c__DisplayClass39.<RelativeMove>b__37()
+2012-05-10-05_45_13.014 [5308] DEBUG axis_2 - TurnAxisOnIfNecessary(blocking=True) called via Enable() for axis 2
+2012-05-10-05_45_13.028 [5308] DEBUG axis_2 - Before turning on axis 2, MER is: 0
+2012-05-10-05_45_13.033 [5308] DEBUG axis_2 - Axis 2 is not on, so turning on automatically
+2012-05-10-05_45_13.038 [5308] DEBUG axis_2 - Y enabling axis
+2012-05-10-05_45_13.045 [Axis servo enable] DEBUG axis_2 - CallAxisOnTMLFunction() calling my_axison
+2012-05-10-05_45_13.336 [Axis servo enable] DEBUG axis_2 - func_my_axison took 282.016 ms to raise func_done flag. Sleeping another 1000ms for extra care.
+2012-05-10-05_45_18.564 [9884] DEBUG axis_2 - Home(wait_for_complete=true) called.
+2012-05-10-05_45_19.595 [Axis homing] DEBUG axis_2 - SetAxisTimeout(300) called.
+2012-05-10-05_45_34.627 [Axis homing] DEBUG axis_2 - HomingThread() finished successfully at APOS=0 with ELPOSL=315
+2012-05-10-05_49_17.249 [2988] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Creating
+2012-05-10-05_49_17.262 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Starting
+2012-05-10-05_49_17.266 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0015052
+2012-05-10-05_49_17.639 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.3749510
+2012-05-10-05_49_17.651 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_17.660 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_17.667 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -1 iu, delta= -53 iu
+2012-05-10-05_49_17.669 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_17.675 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 24ms.
+2012-05-10-05_49_17.678 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_17.679 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_17.685 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= 0 iu, delta= -87863 iu
+2012-05-10-05_49_17.687 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_17.694 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 16ms.
+2012-05-10-05_49_17.697 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_17.698 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_17.703 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= -11 iu, delta= 11 iu
+2012-05-10-05_49_17.704 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_17.717 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 20ms.
+2012-05-10-05_49_17.720 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_17.721 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_17.726 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_17.731 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) Done in 11ms.
+2012-05-10-05_49_17.737 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133mm=-54IU, move_complete=true, ...) FINALLY CPOS = -54, APOS = -54, TPOS = -54, Err = 0, ERR = 0.001 mm, IQ = -0.809 A
+2012-05-10-05_49_17.740 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_17.741 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_18.058 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_18.070 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) Done in 330ms.
+2012-05-10-05_49_18.083 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814mm=-87863IU, move_complete=true, ...) FINALLY CPOS = -87863, APOS = -87843, TPOS = -87863, Err = 20, ERR = 0.006 mm, IQ = -1.326 A
+2012-05-10-05_49_18.090 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_18.095 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_18.106 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_18.117 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_18.130 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -11, TPOS = 0, Err = -11, ERR = -0.002 mm, IQ = 0.974 A
+2012-05-10-05_49_18.135 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:00.8706596
+2012-05-10-05_49_18.145 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-10-05_49_18.145 [5904] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-10-05_49_18.146 [7672] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-10-05_49_18.146 [7288] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-10-05_49_18.146 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-10-05_49_18.146 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-10-05_49_18.148 [5832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-10-05_49_18.260 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-10-05_49_18.265 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_18.267 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_18.277 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -57 iu, delta= 3 iu
+2012-05-10-05_49_18.280 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_18.293 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 28ms.
+2012-05-10-05_49_18.299 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_18.302 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_18.312 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -87844 iu, delta= -19 iu
+2012-05-10-05_49_18.315 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_18.325 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 26ms.
+2012-05-10-05_49_18.332 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_18.334 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_18.342 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(436299 iu, ...) APOS= -11 iu, delta= 436310 iu
+2012-05-10-05_49_18.345 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 436299L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_18.355 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) Done in 23ms.
+2012-05-10-05_49_18.358 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:01.0933350
+2012-05-10-05_49_18.384 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1195465
+2012-05-10-05_49_18.407 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1424412
+2012-05-10-05_49_18.430 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1654462
+2012-05-10-05_49_18.453 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1884298
+2012-05-10-05_49_18.475 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2103718
+2012-05-10-05_49_18.498 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2334816
+2012-05-10-05_49_18.521 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2565304
+2012-05-10-05_49_18.543 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2784835
+2012-05-10-05_49_18.566 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3015081
+2012-05-10-05_49_18.588 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3234077
+2012-05-10-05_49_18.611 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3465165
+2012-05-10-05_49_18.634 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3694029
+2012-05-10-05_49_18.656 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3915063
+2012-05-10-05_49_18.678 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4135163
+2012-05-10-05_49_18.702 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4374545
+2012-05-10-05_49_18.724 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4594193
+2012-05-10-05_49_18.745 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4805425
+2012-05-10-05_49_18.766 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5014493
+2012-05-10-05_49_18.787 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5223990
+2012-05-10-05_49_18.808 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5433444
+2012-05-10-05_49_18.825 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5603662
+2012-05-10-05_49_18.845 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5803477
+2012-05-10-05_49_18.862 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5974132
+2012-05-10-05_49_18.883 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6183968
+2012-05-10-05_49_18.901 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6363536
+2012-05-10-05_49_18.920 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6553805
+2012-05-10-05_49_18.938 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6734146
+2012-05-10-05_49_18.958 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6933817
+2012-05-10-05_49_18.975 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7104663
+2012-05-10-05_49_18.994 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7293829
+2012-05-10-05_49_19.012 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7474593
+2012-05-10-05_49_19.033 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7684048
+2012-05-10-05_49_19.055 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7904999
+2012-05-10-05_49_19.078 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8135324
+2012-05-10-05_49_19.099 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8345248
+2012-05-10-05_49_19.121 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8564752
+2012-05-10-05_49_19.143 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8784809
+2012-05-10-05_49_19.163 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8985364
+2012-05-10-05_49_19.185 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9204886
+2012-05-10-05_49_19.207 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9424483
+2012-05-10-05_49_19.224 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9595566
+2012-05-10-05_49_19.247 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9825537
+2012-05-10-05_49_19.271 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0065483
+2012-05-10-05_49_19.294 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0294914
+2012-05-10-05_49_19.314 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0495116
+2012-05-10-05_49_19.336 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0714424
+2012-05-10-05_49_19.359 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0944246
+2012-05-10-05_49_19.377 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1125662
+2012-05-10-05_49_19.398 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1335475
+2012-05-10-05_49_19.421 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1564669
+2012-05-10-05_49_19.442 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1775859
+2012-05-10-05_49_19.465 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2004737
+2012-05-10-05_49_19.485 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2204682
+2012-05-10-05_49_19.508 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2435421
+2012-05-10-05_49_19.532 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2675763
+2012-05-10-05_49_19.555 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2905487
+2012-05-10-05_49_19.578 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3134286
+2012-05-10-05_49_19.600 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3356270
+2012-05-10-05_49_19.622 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3575489
+2012-05-10-05_49_19.643 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3785824
+2012-05-10-05_49_19.667 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4025122
+2012-05-10-05_49_19.691 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4264882
+2012-05-10-05_49_19.712 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4476268
+2012-05-10-05_49_19.732 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4675320
+2012-05-10-05_49_19.752 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.4877057
+2012-05-10-05_49_19.757 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_19.757 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_19.758 [7672] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_19.759 [8828] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_19.759 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_19.764 [9424] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_19.764 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_19.764 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_19.795 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.82 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_49_19.797 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:02.5325722
+2012-05-10-05_49_19.801 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_19.802 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_19.808 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 257660 iu, delta= -257660 iu
+2012-05-10-05_49_19.809 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_19.815 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 14ms.
+2012-05-10-05_49_20.318 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_20.323 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_20.333 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= -55 iu, delta= 55 iu
+2012-05-10-05_49_20.338 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_20.348 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 30ms.
+2012-05-10-05_49_20.355 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_20.360 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_20.369 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= -87845 iu, delta= 87845 iu
+2012-05-10-05_49_20.372 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_20.381 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 26ms.
+2012-05-10-05_49_20.387 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_20.390 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_20.400 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_20.410 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_20.618 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_20.823 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_21.028 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_21.224 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_21.405 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.564 mm, error: 50.564 mm = 276147 IU
+2012-05-10-05_49_21.410 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) timed out after 1.007 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-05_49_21.422 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) CPOS = 0, APOS = 276147, TPOS = 276150, Err = 276147, ERR = 50.564 mm
+2012-05-10-05_49_21.429 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_21.434 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_21.444 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 276147 iu, delta= -276147 iu
+2012-05-10-05_49_21.449 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_23.125 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_23.137 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 1708ms.
+2012-05-10-05_49_23.150 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = 0.169 A
+2012-05-10-05_49_23.157 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_23.162 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_23.173 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_23.184 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_23.197 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -1, TPOS = 0, Err = -1, ERR = -0.002 mm, IQ = 0.489 A
+2012-05-10-05_49_23.204 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_23.209 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_23.220 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_23.231 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_23.244 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -6, TPOS = 0, Err = -6, ERR = -0.002 mm, IQ = 0.746 A
+2012-05-10-05_49_23.247 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:05.9831006
+2012-05-10-05_49_23.252 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[1]: Ending normally, elapsed = 0:00:00:05.9883541
+2012-05-10-05_49_31.464 [3464] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Creating
+2012-05-10-05_49_31.469 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Starting
+2012-05-10-05_49_31.473 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0000498
+2012-05-10-05_49_31.813 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 121: '{0M11029531}' does not match config regex.
+2012-05-10-05_49_32.333 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 121 Timed out while waiting for '{'.  Received 14 bytes : '0270202010061}' so far.  Timeout period was 500 ms 
+2012-05-10-05_49_32.339 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_121 timed out, try #1
+2012-05-10-05_49_32.447 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_121 succeeded after 2 tries
+2012-05-10-05_49_32.451 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.9776800
+2012-05-10-05_49_32.462 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_32.467 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_32.477 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -2 iu, delta= -52 iu
+2012-05-10-05_49_32.482 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_32.491 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_49_32.498 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_32.503 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_32.513 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -6 iu, delta= -87857 iu
+2012-05-10-05_49_32.517 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_32.527 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_49_32.534 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_32.538 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_32.548 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 0 iu, delta= 0 iu
+2012-05-10-05_49_32.552 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_32.562 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 28ms.
+2012-05-10-05_49_32.569 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_32.573 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_32.584 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_32.605 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) Done in 36ms.
+2012-05-10-05_49_32.618 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133mm=-54IU, move_complete=true, ...) FINALLY CPOS = -54, APOS = -54, TPOS = -54, Err = 0, ERR = 0.001 mm, IQ = -0.547 A
+2012-05-10-05_49_32.625 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_32.629 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_32.882 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_32.893 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) Done in 268ms.
+2012-05-10-05_49_32.906 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814mm=-87863IU, move_complete=true, ...) FINALLY CPOS = -87863, APOS = -87843, TPOS = -87863, Err = 20, ERR = 0.006 mm, IQ = -1.099 A
+2012-05-10-05_49_32.913 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_32.918 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_32.929 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_32.940 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_32.953 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = 0.169 A
+2012-05-10-05_49_32.958 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:01.4845700
+2012-05-10-05_49_33.021 [8828] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-10-05_49_33.021 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-10-05_49_33.023 [7544] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-10-05_49_33.024 [9424] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-10-05_49_33.025 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-10-05_49_33.036 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-10-05_49_33.037 [5832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-10-05_49_33.066 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-10-05_49_33.072 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_33.074 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_33.080 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -51 iu, delta= -3 iu
+2012-05-10-05_49_33.082 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_33.088 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 16ms.
+2012-05-10-05_49_33.093 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_33.095 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_33.102 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -87845 iu, delta= -18 iu
+2012-05-10-05_49_33.104 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_33.110 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 17ms.
+2012-05-10-05_49_33.115 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_33.117 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_33.124 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(436299 iu, ...) APOS= 0 iu, delta= 436299 iu
+2012-05-10-05_49_33.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 436299L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_33.133 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) Done in 18ms.
+2012-05-10-05_49_33.135 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:01.6615979
+2012-05-10-05_49_33.235 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7614101
+2012-05-10-05_49_33.259 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7854540
+2012-05-10-05_49_33.282 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8084758
+2012-05-10-05_49_33.303 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8293919
+2012-05-10-05_49_33.325 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8514395
+2012-05-10-05_49_33.347 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8734667
+2012-05-10-05_49_33.369 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8954552
+2012-05-10-05_49_33.392 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9184067
+2012-05-10-05_49_33.414 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9404222
+2012-05-10-05_49_33.437 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9633369
+2012-05-10-05_49_33.459 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9854907
+2012-05-10-05_49_33.482 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0085208
+2012-05-10-05_49_33.504 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0305014
+2012-05-10-05_49_33.526 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0523941
+2012-05-10-05_49_33.549 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0754764
+2012-05-10-05_49_33.571 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0974970
+2012-05-10-05_49_33.593 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1194250
+2012-05-10-05_49_33.616 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1425040
+2012-05-10-05_49_33.640 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1665102
+2012-05-10-05_49_33.662 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1884261
+2012-05-10-05_49_33.689 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2154154
+2012-05-10-05_49_33.712 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2385046
+2012-05-10-05_49_33.734 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2604373
+2012-05-10-05_49_33.757 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2834935
+2012-05-10-05_49_33.780 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3064302
+2012-05-10-05_49_33.804 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3305160
+2012-05-10-05_49_33.827 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3535135
+2012-05-10-05_49_33.849 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3754355
+2012-05-10-05_49_33.871 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3975050
+2012-05-10-05_49_33.894 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4204611
+2012-05-10-05_49_33.916 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4424357
+2012-05-10-05_49_33.938 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4644261
+2012-05-10-05_49_33.962 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4885333
+2012-05-10-05_49_33.984 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5104673
+2012-05-10-05_49_34.007 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5334803
+2012-05-10-05_49_34.031 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5574255
+2012-05-10-05_49_34.054 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5804338
+2012-05-10-05_49_34.076 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6024293
+2012-05-10-05_49_34.101 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6274525
+2012-05-10-05_49_34.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6524380
+2012-05-10-05_49_34.150 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6764949
+2012-05-10-05_49_34.172 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6984416
+2012-05-10-05_49_34.196 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7225250
+2012-05-10-05_49_34.220 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7465224
+2012-05-10-05_49_34.243 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7695223
+2012-05-10-05_49_34.267 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7935313
+2012-05-10-05_49_34.292 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8185336
+2012-05-10-05_49_34.315 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8415167
+2012-05-10-05_49_34.339 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8654103
+2012-05-10-05_49_34.363 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.8893946
+2012-05-10-05_49_34.386 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9124704
+2012-05-10-05_49_34.410 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9364780
+2012-05-10-05_49_34.434 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9604056
+2012-05-10-05_49_34.457 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.9834576
+2012-05-10-05_49_34.479 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0054768
+2012-05-10-05_49_34.503 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0294686
+2012-05-10-05_49_34.526 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:03.0525090
+2012-05-10-05_49_34.545 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:03.0719148
+2012-05-10-05_49_34.548 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_34.549 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_34.550 [5904] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_34.551 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_34.552 [7672] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_34.553 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_34.555 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_34.559 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_34.571 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.43 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_49_34.575 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:03.1014179
+2012-05-10-05_49_34.580 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_34.582 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_34.590 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 258029 iu, delta= -258029 iu
+2012-05-10-05_49_34.591 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_34.597 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 17ms.
+2012-05-10-05_49_35.100 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_35.105 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_35.115 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= -51 iu, delta= 51 iu
+2012-05-10-05_49_35.120 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_35.129 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_49_35.136 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_35.145 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_35.155 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= -87845 iu, delta= 87845 iu
+2012-05-10-05_49_35.160 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_35.170 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 34ms.
+2012-05-10-05_49_35.177 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_35.182 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_35.193 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_35.203 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.424 mm, error: 50.424 mm = 275382 IU
+2012-05-10-05_49_35.407 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.424 mm, error: 50.424 mm = 275382 IU
+2012-05-10-05_49_35.612 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.424 mm, error: 50.424 mm = 275382 IU
+2012-05-10-05_49_35.818 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.424 mm, error: 50.424 mm = 275382 IU
+2012-05-10-05_49_36.023 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 50.424 mm, error: 50.424 mm = 275382 IU
+2012-05-10-05_49_36.208 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) timed out after 1.011 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-05_49_36.218 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) CPOS = 0, APOS = 275382, TPOS = 275386, Err = 275382, ERR = 50.424 mm
+2012-05-10-05_49_36.225 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_36.229 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_36.238 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 275382 iu, delta= -275382 iu
+2012-05-10-05_49_36.240 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_37.903 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) in a condition where MC is not high, but TPOS == CPOS == 0 IU, so motioncomplete_flag raised essentially
+2012-05-10-05_49_37.914 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 1689ms.
+2012-05-10-05_49_37.927 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -2, TPOS = 0, Err = -2, ERR = 0.000 mm, IQ = 0.133 A
+2012-05-10-05_49_37.934 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_37.939 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_37.950 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_37.960 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 26ms.
+2012-05-10-05_49_37.973 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 4, TPOS = 0, Err = 4, ERR = 0.010 mm, IQ = 0.513 A
+2012-05-10-05_49_37.980 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_37.984 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_37.995 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_38.006 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 26ms.
+2012-05-10-05_49_38.019 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -5, TPOS = 0, Err = -5, ERR = -0.002 mm, IQ = 0.746 A
+2012-05-10-05_49_38.023 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:06.5504029
+2012-05-10-05_49_38.028 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[2]: Ending normally, elapsed = 0:00:00:06.5548111
+2012-05-10-05_49_50.586 [8188] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Creating
+2012-05-10-05_49_50.591 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Starting
+2012-05-10-05_49_50.596 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0000488
+2012-05-10-05_49_50.785 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 123: '{0BD82}' does not match config regex.
+2012-05-10-05_49_50.786 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 121: '{0BD82}' does not match config regex.
+2012-05-10-05_49_50.788 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 120: '{0BD82}' does not match config regex.
+2012-05-10-05_49_50.790 [7288] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 127: '{0BD82}' does not match config regex.
+2012-05-10-05_49_50.790 [5904] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 124: '{0BD82}' does not match config regex.
+2012-05-10-05_49_50.834 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.2386317
+2012-05-10-05_49_50.839 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_50.841 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_50.847 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -2 iu, delta= -52 iu
+2012-05-10-05_49_50.849 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_50.856 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 17ms.
+2012-05-10-05_49_50.860 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_50.862 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_50.869 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -5 iu, delta= -87858 iu
+2012-05-10-05_49_50.871 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_50.879 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 19ms.
+2012-05-10-05_49_50.886 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_50.890 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_50.900 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 0 iu, delta= 0 iu
+2012-05-10-05_49_50.904 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_50.912 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 26ms.
+2012-05-10-05_49_50.917 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_50.920 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_50.929 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_50.938 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) Done in 21ms.
+2012-05-10-05_49_50.951 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133mm=-54IU, move_complete=true, ...) FINALLY CPOS = -54, APOS = -53, TPOS = -54, Err = 1, ERR = 0.004 mm, IQ = -0.970 A
+2012-05-10-05_49_50.958 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_50.963 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_51.237 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_51.249 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) Done in 291ms.
+2012-05-10-05_49_51.262 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814mm=-87863IU, move_complete=true, ...) FINALLY CPOS = -87863, APOS = -87844, TPOS = -87863, Err = 19, ERR = 0.006 mm, IQ = -1.292 A
+2012-05-10-05_49_51.268 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_51.271 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_51.282 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_51.292 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 24ms.
+2012-05-10-05_49_51.304 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = 0.268 A
+2012-05-10-05_49_51.308 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:00.7120772
+2012-05-10-05_49_51.395 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-10-05_49_51.399 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-10-05_49_51.408 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-10-05_49_51.423 [7288] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-10-05_49_51.445 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-10-05_49_51.453 [9656] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-10-05_49_51.455 [1832] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-10-05_49_51.455 [5904] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-10-05_49_51.469 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_51.473 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_51.482 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -58 iu, delta= 4 iu
+2012-05-10-05_49_51.485 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_51.495 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 26ms.
+2012-05-10-05_49_51.501 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_51.505 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_51.516 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -87845 iu, delta= -18 iu
+2012-05-10-05_49_51.520 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_51.531 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 30ms.
+2012-05-10-05_49_51.538 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_51.542 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_51.552 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(436299 iu, ...) APOS= 0 iu, delta= 436299 iu
+2012-05-10-05_49_51.555 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 436299L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_51.565 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) Done in 27ms.
+2012-05-10-05_49_51.569 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:00.9732309
+2012-05-10-05_49_51.593 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:00.9971440
+2012-05-10-05_49_51.616 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.0201681
+2012-05-10-05_49_51.638 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.0420128
+2012-05-10-05_49_51.661 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.0650983
+2012-05-10-05_49_51.697 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1011121
+2012-05-10-05_49_51.719 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1231090
+2012-05-10-05_49_51.740 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1441470
+2012-05-10-05_49_51.760 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1641113
+2012-05-10-05_49_51.782 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.1860212
+2012-05-10-05_49_51.803 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2070108
+2012-05-10-05_49_51.824 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2281178
+2012-05-10-05_49_51.846 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2501105
+2012-05-10-05_49_51.868 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2720376
+2012-05-10-05_49_51.890 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.2941271
+2012-05-10-05_49_51.914 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3181365
+2012-05-10-05_49_51.937 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3411281
+2012-05-10-05_49_51.958 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3620693
+2012-05-10-05_49_51.980 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.3840420
+2012-05-10-05_49_52.002 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4060878
+2012-05-10-05_49_52.026 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4300949
+2012-05-10-05_49_52.049 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4531255
+2012-05-10-05_49_52.071 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4751182
+2012-05-10-05_49_52.093 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4971831
+2012-05-10-05_49_52.116 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5201500
+2012-05-10-05_49_52.139 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5431364
+2012-05-10-05_49_52.161 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5651356
+2012-05-10-05_49_52.183 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5873582
+2012-05-10-05_49_52.208 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6120914
+2012-05-10-05_49_52.229 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6331160
+2012-05-10-05_49_52.246 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6501387
+2012-05-10-05_49_52.267 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6710981
+2012-05-10-05_49_52.289 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6931313
+2012-05-10-05_49_52.312 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7161624
+2012-05-10-05_49_52.334 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7381025
+2012-05-10-05_49_52.355 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7591145
+2012-05-10-05_49_52.378 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7820893
+2012-05-10-05_49_52.402 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8061383
+2012-05-10-05_49_52.427 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8312109
+2012-05-10-05_49_52.448 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8520781
+2012-05-10-05_49_52.471 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8751558
+2012-05-10-05_49_52.495 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8991517
+2012-05-10-05_49_52.519 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9231584
+2012-05-10-05_49_52.541 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9451483
+2012-05-10-05_49_52.565 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9692066
+2012-05-10-05_49_52.588 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9921451
+2012-05-10-05_49_52.612 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0161485
+2012-05-10-05_49_52.637 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0411266
+2012-05-10-05_49_52.660 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0641065
+2012-05-10-05_49_52.684 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0881537
+2012-05-10-05_49_52.708 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1121445
+2012-05-10-05_49_52.731 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1350578
+2012-05-10-05_49_52.754 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1580787
+2012-05-10-05_49_52.776 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1800877
+2012-05-10-05_49_52.795 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1991309
+2012-05-10-05_49_52.818 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2221564
+2012-05-10-05_49_52.841 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2451517
+2012-05-10-05_49_52.866 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2701749
+2012-05-10-05_49_52.889 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2931687
+2012-05-10-05_49_52.912 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3160597
+2012-05-10-05_49_52.934 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3381646
+2012-05-10-05_49_52.953 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3571738
+2012-05-10-05_49_52.977 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3812265
+2012-05-10-05_49_52.998 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.4023191
+2012-05-10-05_49_53.002 [9424] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_49_53.003 [6864] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_49_53.003 [8816] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_49_53.004 [10160] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_49_53.004 [6648] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_49_53.005 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_49_53.008 [8828] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_49_53.009 [7544] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_49_53.036 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 7.90 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_49_53.037 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:02.4418148
+2012-05-10-05_49_53.040 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_53.041 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_53.046 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 262830 iu, delta= -262830 iu
+2012-05-10-05_49_53.047 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_53.052 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 12ms.
+2012-05-10-05_49_53.555 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_53.560 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_53.571 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= -57 iu, delta= 57 iu
+2012-05-10-05_49_53.576 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_53.586 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 31ms.
+2012-05-10-05_49_53.593 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_49_53.598 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_53.608 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= -87845 iu, delta= 87845 iu
+2012-05-10-05_49_53.613 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_53.623 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 30ms.
+2012-05-10-05_49_53.630 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_53.634 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_53.644 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_53.654 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.612 mm, error: 51.612 mm = 281871 IU
+2012-05-10-05_49_53.856 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.612 mm, error: 51.612 mm = 281872 IU
+2012-05-10-05_49_54.069 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.612 mm, error: 51.612 mm = 281872 IU
+2012-05-10-05_49_54.274 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.612 mm, error: 51.612 mm = 281872 IU
+2012-05-10-05_49_54.479 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.612 mm, error: 51.612 mm = 281872 IU
+2012-05-10-05_49_54.664 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) timed out after 1.016 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-05_49_54.675 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) CPOS = 0, APOS = 281872, TPOS = 281883, Err = 281872, ERR = 51.612 mm
+2012-05-10-05_49_54.683 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_54.687 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_49_54.697 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 281872 iu, delta= -281872 iu
+2012-05-10-05_49_54.702 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_49_56.408 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_49_56.420 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 1737ms.
+2012-05-10-05_49_56.433 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -1, TPOS = 0, Err = -1, ERR = 0.000 mm, IQ = -0.136 A
+2012-05-10-05_49_56.444 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_56.449 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_49_56.460 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_49_56.471 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_56.484 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 3, TPOS = 0, Err = 3, ERR = 0.007 mm, IQ = 0.149 A
+2012-05-10-05_49_56.491 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_49_56.496 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_49_56.507 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_49_56.518 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_49_56.532 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -5, TPOS = 0, Err = -5, ERR = -0.002 mm, IQ = 0.710 A
+2012-05-10-05_49_56.537 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:05.9411432
+2012-05-10-05_49_56.541 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[3]: Ending normally, elapsed = 0:00:00:05.9458092
+2012-05-10-05_51_05.686 [5656] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Creating
+2012-05-10-05_51_05.689 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Starting
+2012-05-10-05_51_05.691 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state Start via trigger Start, elapsed = 0:00:00:00.0000307
+2012-05-10-05_51_05.728 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 121: '{0RV02020109}' does not match config regex.
+2012-05-10-05_51_05.729 [768] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 120: '{0BD82}' does not match config regex.
+2012-05-10-05_51_05.729 [8660] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 124: '{0M11028328}' does not match config regex.
+2012-05-10-05_51_05.730 [9336] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: response from port 127: '{0M11027933}' does not match config regex.
+2012-05-10-05_51_06.226 [8948] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 123 Timed out while waiting for '{'.  Received 9 bytes : '02010071}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.228 [5156] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 122 Timed out while waiting for '{'.  Received 9 bytes : '02010061}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.229 [9928] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 125 Timed out while waiting for '{'.  Received 9 bytes : '02010061}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.231 [8948] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_123 timed out, try #1
+2012-05-10-05_51_06.235 [5156] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_122 timed out, try #1
+2012-05-10-05_51_06.240 [9928] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_125 timed out, try #1
+2012-05-10-05_51_06.245 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 121 Timed out while waiting for '{'.  Received 1 bytes : '}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.247 [9336] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 127 Timed out while waiting for '{'.  Received 14 bytes : '0270202010071}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.249 [8660] DEBUG BioNex.LiquidLevelDevice.LevelSensorCANOpen - LevelSensorCANOpen::ReadToCAN CAN Node 124 Timed out while waiting for '{'.  Received 14 bytes : '0270202010063}' so far.  Timeout period was 500 ms 
+2012-05-10-05_51_06.251 [9336] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_127 timed out, try #1
+2012-05-10-05_51_06.263 [8660] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_124 timed out, try #1
+2012-05-10-05_51_06.268 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_121 timed out, try #1
+2012-05-10-05_51_06.337 [8948] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_123 succeeded after 2 tries
+2012-05-10-05_51_06.342 [5156] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_122 succeeded after 2 tries
+2012-05-10-05_51_06.342 [9928] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_125 succeeded after 2 tries
+2012-05-10-05_51_06.357 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_121 succeeded after 2 tries
+2012-05-10-05_51_06.362 [9336] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_127 succeeded after 2 tries
+2012-05-10-05_51_06.364 [8660] DEBUG BioNex.LiquidLevelDevice.LevelSensor - CAN_2_124 succeeded after 2 tries
+2012-05-10-05_51_06.371 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state Init via trigger MoveToSafeStart, elapsed = 0:00:00:00.6800011
+2012-05-10-05_51_06.379 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_06.383 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_51_06.393 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -3 iu, delta= -51 iu
+2012-05-10-05_51_06.397 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_06.406 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 27ms.
+2012-05-10-05_51_06.412 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_06.416 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_51_06.425 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -5 iu, delta= -87858 iu
+2012-05-10-05_51_06.429 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_06.438 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 26ms.
+2012-05-10-05_51_06.445 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_06.449 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_06.459 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 0 iu, delta= 0 iu
+2012-05-10-05_51_06.464 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 10; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_06.472 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 27ms.
+2012-05-10-05_51_06.479 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_06.483 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_51_06.493 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_51_06.503 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=true, ...) Done in 24ms.
+2012-05-10-05_51_06.515 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133mm=-54IU, move_complete=true, ...) FINALLY CPOS = -54, APOS = -57, TPOS = -54, Err = -3, ERR = -0.006 mm, IQ = -0.419 A
+2012-05-10-05_51_06.522 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_06.526 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_51_06.801 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_51_06.813 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=true, ...) Done in 291ms.
+2012-05-10-05_51_06.826 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814mm=-87863IU, move_complete=true, ...) FINALLY CPOS = -87863, APOS = -87846, TPOS = -87863, Err = 17, ERR = 0.005 mm, IQ = -1.197 A
+2012-05-10-05_51_06.833 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_06.838 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_06.849 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_51_06.860 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_51_06.873 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = 0.108 A
+2012-05-10-05_51_06.878 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state MoveToSafeStart via trigger StartZMotion, elapsed = 0:00:00:01.1866891
+2012-05-10-05_51_06.938 [9928] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 start periodic read
+2012-05-10-05_51_06.945 [7824] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 start periodic read
+2012-05-10-05_51_06.951 [768] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 start periodic read
+2012-05-10-05_51_06.951 [5156] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 start periodic read
+2012-05-10-05_51_06.964 [8948] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 start periodic read
+2012-05-10-05_51_06.968 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 start periodic read
+2012-05-10-05_51_06.981 [9336] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 start periodic read
+2012-05-10-05_51_06.981 [9856] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 start periodic read
+2012-05-10-05_51_06.993 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_06.998 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_51_07.008 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-54 iu, ...) APOS= -54 iu, delta= 0 iu
+2012-05-10-05_51_07.013 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = -54L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_07.022 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(-0.133, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_51_07.028 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_07.031 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_51_07.039 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-87863 iu, ...) APOS= -87847 iu, delta= -16 iu
+2012-05-10-05_51_07.042 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 10; CACC = 5.24288; CSPD = 327.68000; CPOS = -87863L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_07.052 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(-26.814, move_complete=false, ...) Done in 24ms.
+2012-05-10-05_51_07.057 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_07.060 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_07.074 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(436299 iu, ...) APOS= 0 iu, delta= 436299 iu
+2012-05-10-05_51_07.078 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 436299L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_07.088 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(79.889, move_complete=false, ...) Done in 31ms.
+2012-05-10-05_51_07.091 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state StartZMotion via trigger ReadSensors, elapsed = 0:00:00:01.3995920
+2012-05-10-05_51_07.175 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.4834241
+2012-05-10-05_51_07.198 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5064161
+2012-05-10-05_51_07.222 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5304279
+2012-05-10-05_51_07.245 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5534860
+2012-05-10-05_51_07.267 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5754480
+2012-05-10-05_51_07.289 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.5975207
+2012-05-10-05_51_07.311 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6194203
+2012-05-10-05_51_07.334 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6425245
+2012-05-10-05_51_07.357 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6654853
+2012-05-10-05_51_07.378 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.6864215
+2012-05-10-05_51_07.400 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7085156
+2012-05-10-05_51_07.422 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7304906
+2012-05-10-05_51_07.445 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7534235
+2012-05-10-05_51_07.468 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.7765486
+2012-05-10-05_51_07.492 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8005344
+2012-05-10-05_51_07.515 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8235450
+2012-05-10-05_51_07.537 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8454274
+2012-05-10-05_51_07.560 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8684627
+2012-05-10-05_51_07.583 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.8915403
+2012-05-10-05_51_07.605 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9136517
+2012-05-10-05_51_07.627 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9353996
+2012-05-10-05_51_07.650 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9585433
+2012-05-10-05_51_07.672 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:01.9805211
+2012-05-10-05_51_07.695 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0034331
+2012-05-10-05_51_07.717 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0255123
+2012-05-10-05_51_07.740 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0486579
+2012-05-10-05_51_07.762 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0704877
+2012-05-10-05_51_07.784 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.0925246
+2012-05-10-05_51_07.806 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1145145
+2012-05-10-05_51_07.827 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1354400
+2012-05-10-05_51_07.849 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1575346
+2012-05-10-05_51_07.872 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.1804670
+2012-05-10-05_51_07.894 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2024630
+2012-05-10-05_51_07.915 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2234419
+2012-05-10-05_51_07.938 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2465010
+2012-05-10-05_51_07.959 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2676466
+2012-05-10-05_51_07.983 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.2916286
+2012-05-10-05_51_08.007 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3155058
+2012-05-10-05_51_08.031 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3395246
+2012-05-10-05_51_08.055 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3635183
+2012-05-10-05_51_08.079 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.3875161
+2012-05-10-05_51_08.102 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4104439
+2012-05-10-05_51_08.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4345343
+2012-05-10-05_51_08.150 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4584446
+2012-05-10-05_51_08.174 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.4824439
+2012-05-10-05_51_08.198 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5066660
+2012-05-10-05_51_08.223 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5315799
+2012-05-10-05_51_08.247 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5555512
+2012-05-10-05_51_08.270 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.5785636
+2012-05-10-05_51_08.295 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6035571
+2012-05-10-05_51_08.319 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6275321
+2012-05-10-05_51_08.342 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6505678
+2012-05-10-05_51_08.366 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6745736
+2012-05-10-05_51_08.389 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.6974711
+2012-05-10-05_51_08.413 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7215788
+2012-05-10-05_51_08.437 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7455538
+2012-05-10-05_51_08.461 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7695386
+2012-05-10-05_51_08.484 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger ReadSensors, elapsed = 0:00:00:02.7924356
+2012-05-10-05_51_08.505 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state ReadSensors via trigger StopZMotion, elapsed = 0:00:00:02.8141351
+2012-05-10-05_51_08.511 [5156] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 1 stop periodic read
+2012-05-10-05_51_08.512 [8660] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 5 stop periodic read
+2012-05-10-05_51_08.513 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 0 stop periodic read
+2012-05-10-05_51_08.514 [2504] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 4 stop periodic read
+2012-05-10-05_51_08.514 [8976] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 7 stop periodic read
+2012-05-10-05_51_08.515 [9992] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 6 stop periodic read
+2012-05-10-05_51_08.519 [8840] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 2 stop periodic read
+2012-05-10-05_51_08.519 [6956] DEBUG BioNex.LiquidLevelDevice.LLSensorModel - Sensor 3 stop periodic read
+2012-05-10-05_51_08.546 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] ERROR LLSLabwareSafetyCheckStateMachine - Collision Avoider: Detected something at height of 8.42 mm, this is taller than the labware height of 0.00 mm - aborting operation
+2012-05-10-05_51_08.548 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state StopZMotion via trigger MoveToSafeEnd, elapsed = 0:00:00:02.8567260
+2012-05-10-05_51_08.552 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_08.553 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_08.558 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 260728 iu, delta= -260728 iu
+2012-05-10-05_51_08.559 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_08.565 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=false, ...) Done in 13ms.
+2012-05-10-05_51_09.068 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_09.073 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_51_09.084 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0 iu, ...) APOS= -55 iu, delta= 55 iu
+2012-05-10-05_51_09.089 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - "TJERK = 10; CACC = 0.65548; CSPD = 40.96778; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_09.099 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=false, ...) Done in 31ms.
+2012-05-10-05_51_09.106 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) called. use_trap=false
+2012-05-10-05_51_09.111 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_51_09.121 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0 iu, ...) APOS= -87847 iu, delta= 87847 iu
+2012-05-10-05_51_09.126 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - "TJERK = 20; CACC = 5.24288; CSPD = 327.68000; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_09.135 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=false, ...) Done in 29ms.
+2012-05-10-05_51_09.142 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_09.147 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_09.158 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - motioncomplete_flag raised.
+2012-05-10-05_51_09.169 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.159 mm, error: 51.159 mm = 279398 IU
+2012-05-10-05_51_09.374 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.159 mm, error: 51.159 mm = 279398 IU
+2012-05-10-05_51_09.579 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.159 mm, error: 51.159 mm = 279398 IU
+2012-05-10-05_51_09.783 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.159 mm, error: 51.159 mm = 279398 IU
+2012-05-10-05_51_09.985 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute() dest: 0.000 mm, current: 51.159 mm, error: 51.159 mm = 279398 IU
+2012-05-10-05_51_10.170 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) timed out after 1.007 seconds waiting for motion complete using Mode PSC (S-CURVE). Calling again recursively.
+2012-05-10-05_51_10.181 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) CPOS = 0, APOS = 279399, TPOS = 279399, Err = 279399, ERR = 51.159 mm
+2012-05-10-05_51_10.188 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_10.193 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 3
+2012-05-10-05_51_10.203 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0 iu, ...) APOS= 279399 iu, delta= -279399 iu
+2012-05-10-05_51_10.208 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - "TJERK = 40; CACC = 1.09227; CSPD = 191.14667; CPOS = 0L; CPA; MODE PSC; SRB ACR, 0xFFFE, 0x0000; UPD; !MC;"
+2012-05-10-05_51_11.893 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, ...) in a condition where MC is not high, but TPOS == CPOS == 0 IU, so motioncomplete_flag raised essentially
+2012-05-10-05_51_11.904 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000, move_complete=true, ...) Done in 1716ms.
+2012-05-10-05_51_11.917 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_3 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 0, TPOS = 0, Err = 0, ERR = 0.000 mm, IQ = -0.270 A
+2012-05-10-05_51_11.924 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_11.929 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 1
+2012-05-10-05_51_11.940 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - motioncomplete_flag raised.
+2012-05-10-05_51_11.951 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000, move_complete=true, ...) Done in 27ms.
+2012-05-10-05_51_11.963 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_1 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = 3, TPOS = 0, Err = 3, ERR = 0.007 mm, IQ = 0.586 A
+2012-05-10-05_51_11.969 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) called. use_trap=false
+2012-05-10-05_51_11.973 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - TurnAxisOnIfNecessary(true) called via MoveAbsoluteHelper() for axis 2
+2012-05-10-05_51_11.983 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - motioncomplete_flag raised.
+2012-05-10-05_51_11.997 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000, move_complete=true, ...) Done in 28ms.
+2012-05-10-05_51_12.009 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG axis_2 - MoveAbsolute(0.000mm=0IU, move_complete=true, ...) FINALLY CPOS = 0, APOS = -5, TPOS = 0, Err = -5, ERR = -0.002 mm, IQ = 0.710 A
+2012-05-10-05_51_12.013 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Leaving state MoveToSafeEnd via trigger Done, elapsed = 0:00:00:06.3220020
+2012-05-10-05_51_12.017 [State machine [LLSLabwareSafetyCheckStateMachine] starting thread] DEBUG LLSLabwareSafetyCheckStateMachine - LLSLabwareSafetyCheckStateMachine[4]: Ending normally, elapsed = 0:00:00:06.3260323

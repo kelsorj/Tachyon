@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="transfer_overview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="default_liquid_class_id" type="xs:string" />
+        <xs:element name="aspirate_script" />
+        <xs:element name="dispense_script" />
+        <xs:element name="aspirate_distance_from_well_bottom_mm" type="xs:double" />
+        <xs:element name="dispense_distance_from_well_bottom_mm" type="xs:double" />
+        <xs:element name="tasks" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="source_plate_tasks"  minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="prehitpick_tasks"  minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="posthitpick_tasks"  minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="destination_plate_tasks">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="prehitpick_tasks"  minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="posthitpick_tasks"  minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sources">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="source">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="labware_id" type="xs:string" />
+                    <xs:element name="barcode" type="xs:string" />
+                    <xs:element minOccurs="0" name="prehitpick_tasks" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="posthitpick_tasks" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="variables" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="variable" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="value" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="destinations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="destination">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="labware_id" type="xs:string" />
+                    <xs:element name="barcode" type="xs:string" />
+                    <xs:element name="usable_wells" type="xs:string" />
+                    <xs:element minOccurs="0" name="posthitpick_tasks" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="task" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="device_type" type="xs:string" />
+                                <xs:element name="command" type="xs:string" />
+                                <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="parameter" minOccurs="0">
+                                        <xs:complexType>
+                                          <xs:attribute name="name" type="xs:string" use="required" />
+                                          <xs:attribute name="value" type="xs:string" use="required" />
+                                          <xs:attribute name="variable" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="variables" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="variable" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="value" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="transfers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="transfer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="liquid_class_id" type="xs:string" minOccurs="0" />
+                    <xs:element name="source">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="barcode" type="xs:string" />
+                          <xs:element name="well" type="xs:string" />
+                          <xs:element name="aspirate_distance_from_well_bottom_mm" type="xs:double" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="dispense_distance_from_well_bottom_mm" type="xs:double" minOccurs="0" maxOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="destination">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="barcode" type="xs:string" />
+                          <xs:element name="well" type="xs:string" />
+                          <xs:element name="aspirate_distance_from_well_bottom_mm" type="xs:double" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="dispense_distance_from_well_bottom_mm" type="xs:double" minOccurs="0" maxOccurs="1" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="transfer_volume">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:double">
+                            <xs:attribute name="units" type="xs:string" use="required" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="current_volume">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:double">
+                            <xs:attribute name="units" type="xs:string" use="required" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="aspirate_script" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="dispense_script" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

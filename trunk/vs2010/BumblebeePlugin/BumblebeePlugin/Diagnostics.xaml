@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="BioNex.BumblebeePlugin.GUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tsm="clr-namespace:BioNex.Shared.TechnosoftLibrary;assembly=TechnosoftLibrary"
+    xmlns:my="clr-namespace:BioNex.BumblebeePlugin" Height="Auto" KeyUp="UserControl_KeyUp" PreviewKeyUp="UserControl_PreviewKeyUp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- toolbar -->
+            <RowDefinition Height="90"></RowDefinition>
+            <!-- tab control -->
+            <RowDefinition></RowDefinition>
+            <!-- servo status -->
+            <RowDefinition MaxHeight="150"></RowDefinition>
+            <!-- home bumblebee -->
+            <RowDefinition MaxHeight="50"></RowDefinition>
+            <!--
+            <RowDefinition Height="3" /> (for splitter)
+            <RowDefinition />            (for log)
+            -->
+        </Grid.RowDefinitions>
+        <!-- toolbar -->
+        <my:Toolbar x:Name="diagnostics_toolbar" Grid.Row="0" Loaded="diagnostics_toolbar_Loaded" Unloaded="diagnostics_toolbar_Unloaded" />
+        <!-- tab control -->
+        <TabControl Grid.Row="1">
+            <!-- jog / teach -->
+            <TabItem Header="Move / Teach">
+                <my:MoveTeach />
+            </TabItem>
+            <!-- maintenance panel -->
+            <TabItem Header="Maintenance" Visibility="{Binding MaintenanceTabVisibility}">
+                <DockPanel>
+                    <GroupBox DockPanel.Dock="Left" Header="Engineering Functions">
+                        <StackPanel Orientation="Vertical">
+                            <Button Command="{Binding ReloadMotorSettingsCommand}">Reload Motor Settings</Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <tsm:CycleTester DockPanel.Dock="Right"  x:Name="cycler" Height="Auto" Width="Auto" />    
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+        <!-- servo status -->
+        <my:ServoStatus Grid.Row="2" Height="Auto" Width="Auto" />
+        <!-- home bumblebee -->
+        <Button Grid.Row="3" Margin="3" Command="{Binding HomeDeviceCommand}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Images/home.png" Width="16" Margin="3"/>
+                    <TextBlock Margin="3">Home Bumblebee</TextBlock>                
+                </StackPanel>
+            </Button.Content>            
+        </Button>
+        <!--
+        (for splitter)
+        <GridSplitter Grid.Row="2" Height="3" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
+        (for log)
+        <RichTextBox Grid.Row="3">
+            <FlowDocument>
+                <Paragraph Margin="5" FontSize="10pt" LineHeight="10pt" LineStackingStrategy="BlockLineHeight" />
+            </FlowDocument>
+        </RichTextBox>
+        -->
+    </Grid>
+</UserControl>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F912B50C-5107-4CF9-AED4-15FF2BF754B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpanningScheduler</RootNamespace>
+    <AssemblyName>SpanningScheduler</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Activities">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Workflow.Runtime">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.WorkflowServices">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SpanningScheduler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\PlateStorageInterface\PlateStorageInterface.csproj">
+      <Project>{BE7D9FB9-CEB7-4DBD-9366-0973969A93D7}</Project>
+      <Name>PlateStorageInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\RobotInterface\RobotInterface.csproj">
+      <Project>{9BB933C5-46F8-4095-BFEF-2FE13D8BAAFF}</Project>
+      <Name>RobotInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Teachpoints\Teachpoints.csproj">
+      <Project>{4FF11887-7EAE-467F-82AE-5E91FF318923}</Project>
+      <Name>Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\TechnosoftLibrary\TechnosoftLibrary.csproj">
+      <Project>{1BEB833E-1D00-4886-BE2C-A150B88BBCA9}</Project>
+      <Name>TechnosoftLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlphaHardware\AlphaHardware.csproj">
+      <Project>{56C2A737-97EE-4C3D-863C-28B68DE996A2}</Project>
+      <Name>AlphaHardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeAlpha.Teachpoints\BumblebeeAlpha.Teachpoints.csproj">
+      <Project>{F677C21C-A622-44AF-AAE0-4E7B9915F7D8}</Project>
+      <Name>BumblebeeAlpha.Teachpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumblebeeAlphaGUI.Model\BumblebeeAlphaGUI.Model.csproj">
+      <Project>{7AA86CC0-3ED7-4138-A394-F3390CCF7170}</Project>
+      <Name>BumblebeeAlphaGUI.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HitpickXMLReader\HitpickXMLReader.csproj">
+      <Project>{DB6D45A3-3E63-40B0-B12C-22AD728BF5B0}</Project>
+      <Name>HitpickXMLReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlateDefs\PlateDefs.csproj">
+      <Project>{69A5ACD4-AA27-47C7-B095-D52B249DF3A5}</Project>
+      <Name>PlateDefs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchedulerInterface\SchedulerInterface.csproj">
+      <Project>{9E7B6D9B-FAFE-4893-A20F-04C6728D2354}</Project>
+      <Name>SchedulerInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

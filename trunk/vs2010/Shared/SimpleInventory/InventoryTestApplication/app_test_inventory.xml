@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Inventory>
+  <Plate>
+    <Barcode>S001</Barcode>
+    <Location>teachpoint 1</Location>
+  </Plate>
+  <Plate>
+    <Barcode>S002</Barcode>
+    <Location>teachpoint 2</Location>
+  </Plate>
+</Inventory>

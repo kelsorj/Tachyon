@@ -1,0 +1,66 @@
+﻿<Window x:Class="BioNex.Shared.LabwareDatabase.LabwareEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Labware Editor"
+    Height="458" Width="668">
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <!-- split first column into two sections, one for labware, another for device filter-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <!-- RowDefinition /-->
+            </Grid.RowDefinitions>
+            <GroupBox Header="Labware" Grid.Row="0" BorderBrush="Orange">
+                <DockPanel>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding ReloadLabwareCommand}">Reload Labware Database</Button>
+                    <Separator DockPanel.Dock="Bottom"></Separator>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding DeleteLabwareCommand}" ToolTip="{Binding DeleteLabwareToolTip}">Delete</Button>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding CreateLabwareCopyCommand}" ToolTip="{Binding CreateLabwareCopyToolTip}">Create Copy</Button>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding RenameLabwareCommand}">Rename</Button>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding CreateLidCommand}" ToolTip="{Binding CreateLidToolTip}">Create Lid Labware</Button>
+                    <Button DockPanel.Dock="Bottom" Margin="3" Command="{Binding NewLabwareCommand}" ToolTip="Creates a new labware item">New</Button>                    
+                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Labwares}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedLabware, Mode=OneWayToSource}"/>
+                </DockPanel>
+            </GroupBox>
+            <!--
+            <GroupBox Header="Relevant Devices" Grid.Row="1" BorderBrush="Orange">
+                <ListBox Name="LabwareListBox" ItemsSource="{Binding Devices}" SelectionMode="Multiple" />
+            </GroupBox>
+            -->
+        </Grid>
+        <!-- grid splitter -->
+        <GridSplitter Grid.Column="1" ResizeDirection="Columns" Width="5" />
+        <!-- labware properties-->
+        <GroupBox Header="Labware Properties" Grid.Column="2" BorderBrush="Orange">
+            <DockPanel>
+                <TextBox DockPanel.Dock="Bottom" BorderBrush="Orange" BorderThickness="1" Margin="3" Text="{Binding LabwareNotes, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock DockPanel.Dock="Bottom" Margin="3">Notes:</TextBlock>
+                <DataGrid DockPanel.Dock="Bottom" AutoGenerateColumns="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" ItemsSource="{Binding LabwareProperties}"
+                      SelectionChanged="DataGrid_SelectionChanged" CellEditEnding="DataGrid_CellEditEnding" CanUserDeleteRows="False" Margin="3">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Property Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Property Value" Binding="{Binding Value}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>

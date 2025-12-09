@@ -1,0 +1,15 @@
+<UserControl x:Class="BioNex.IOPlugin.InputLEDView"
+    x:Name="root"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:led="clr-namespace:BioNex.Shared.BioNexGuiControls;assembly=BioNexGuiControls"
+    Height="Auto" Width="Auto">
+    <Grid DataContext="{Binding ElementName=root}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <led:LED Grid.Row="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" LEDSize="30" LEDColor="{Binding InputColor}" />
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding InputLabel}" />
+    </Grid>
+</UserControl>

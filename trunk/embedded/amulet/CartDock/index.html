@@ -1,0 +1,160 @@
+<html>
+	<head>
+		<meta name="Amulet" content="DualFrameBuffer;">
+		<link rel="StyleSheet" href="style.css" type="text/css" media="screen">
+	</head>
+
+	<body>
+		<!--
+		<div style="width:480px; height:272; position:absolute; left:0px; z-index:0;">
+			<img src="images/bionex_logo.png" width="176" height="176">
+		</div>
+		-->
+		<!-- lower nav bar -->
+		<table width="480" height="272" bgColor="Gray">
+			<tr><td align="center" colspan="2"><font size="18">BioNex Cart Dock Controller</font></td></tr>
+			<tr>
+				<td>
+					<table width="205" height="243">
+						<tr>
+							<td align="left">
+								<applet code="FunctionButton.class" width="200" height="84" name="Reinventory" align="bottom" />
+								<param name="buttonType" value="SPRING-LOADED" />
+								<param name="href" value="index.html" />
+								<!--
+								<param name="upImage" value="images/edit_button.png">
+								<param name="downImage" value="images/edit_button_pressed.png">
+								-->
+								<param name="label" value="Reinventory Cart" />
+								<param name="fillColor" value="Teal" /> <!--Amulet:InternalRAM.color(0).value()" /-->
+								</applet>
+							</td>
+						</tr>
+						<tr>
+							<td align="left">
+								<applet code="FunctionButton.class" width="200" height="84" name="Unlock" align="bottom" />
+								<param name="buttonType" value="SPRING-LOADED" />
+								<param name="href" value="index.html" />
+								<!--
+								<param name="upImage" value="images/run_button.png">
+								<param name="downImage" value="images/run_button_pressed.png">
+								-->
+								<param name="label" value="Request to Unlock Cart" />
+								<param name="fillColor" value="Maroon" /> <!--Amulet:InternalRAM.color(1).value()" /-->
+								</applet>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td align="left">
+					<applet code="StringField.class" name="Line1" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(1).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line2" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(2).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line3" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(3).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line4" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(4).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line5" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(5).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line6" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(6).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line7" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(7).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line8" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(8).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line9" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(9).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line10" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(10).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line11" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(11).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line12" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(12).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line13" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(13).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line14" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(14).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+					<applet code="StringField.class" name="Line15" width="240" height="14">
+				       		<param name="fillColor" value="White" />
+						<param name="fontSize" value="1" />
+						<param name="href" value="Amulet:InternalRAM.string(15).value()" />
+						<param name="printf" value="%25s" />
+						<param name="horizontalAlign" value="left" />
+					</applet>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+

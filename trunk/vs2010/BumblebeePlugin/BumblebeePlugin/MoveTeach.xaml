@@ -1,0 +1,547 @@
+﻿<UserControl x:Class="BioNex.BumblebeePlugin.MoveTeach"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:BioNex.BumblebeePlugin"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils">
+
+    <UserControl.Resources>
+        <x:Array x:Key="Increments" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>20.0</sys:Double>
+            <sys:Double>50.0</sys:Double>
+            <sys:Double>100.0</sys:Double>
+            <sys:Double>200.0</sys:Double>
+        </x:Array>
+        <x:Array x:Key="IncrementsTo20" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>20.0</sys:Double>
+        </x:Array>
+        <x:Array x:Key="ThetaIncrements" Type="sys:Double">
+            <sys:Double>0.01</sys:Double>
+            <sys:Double>0.02</sys:Double>
+            <sys:Double>0.05</sys:Double>
+            <sys:Double>0.1</sys:Double>
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>5.0</sys:Double>
+            <sys:Double>10.0</sys:Double>
+            <sys:Double>15.0</sys:Double>
+            <sys:Double>30.0</sys:Double>
+            <sys:Double>45.0</sys:Double>
+            <sys:Double>60.0</sys:Double>
+            <sys:Double>90.0</sys:Double>
+            <sys:Double>180.0</sys:Double>
+        </x:Array>
+        <utils:StringFormatter x:Key="PositionFormatConverter" />
+        <ControlTemplate x:Key="ULPopupTemplate">
+            <Border Background="White" BorderBrush="Black" Padding="5" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Vertical">
+                    <Button Command="{Binding MoveToULCommand}" CommandParameter="5">5mm</Button>
+                    <Button Command="{Binding MoveToULCommand}" CommandParameter="10">10mm</Button>
+                    <Button Command="{Binding MoveToULCommand}" CommandParameter="15">15mm</Button>
+                    <Button Command="{Binding MoveToULCommand}" CommandParameter="20">20mm</Button>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="LRPopupTemplate">
+            <Border Background="White" BorderBrush="Black" Padding="5" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Vertical">
+                    <Button Command="{Binding MoveToLRCommand}" CommandParameter="5">5mm</Button>
+                    <Button Command="{Binding MoveToLRCommand}" CommandParameter="10">10mm</Button>
+                    <Button Command="{Binding MoveToLRCommand}" CommandParameter="15">15mm</Button>
+                    <Button Command="{Binding MoveToLRCommand}" CommandParameter="20">20mm</Button>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ULPopupControlTemplate" TargetType="ContentControl">
+            <Grid Name="MyControl">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+                <Popup Name="MyPopup" StaysOpen="True" Placement="Relative">
+                    <ContentControl Template="{StaticResource ULPopupTemplate}"/>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger SourceName="MyControl" Property="UIElement.IsMouseOver" Value="True">
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="True"/>
+                </Trigger>
+                <!--
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition SourceName="MyControl" Property="UIElement.IsMouseOver" Value="False" />
+                        <Condition SourceName="MyPopup" Property="UIElement.IsMouseOver" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="False" />
+                </MultiTrigger>
+                -->
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="LRPopupControlTemplate" TargetType="ContentControl">
+            <Grid Name="MyControl">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+                <Popup Name="MyPopup" StaysOpen="True" Placement="Relative">
+                    <ContentControl Template="{StaticResource LRPopupTemplate}"/>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger SourceName="MyControl" Property="UIElement.IsMouseOver" Value="True">
+                    <Setter TargetName="MyPopup" Property="Popup.IsOpen" Value="True"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel ToolTipService.ShowOnDisabled="True">
+        <Label DockPanel.Dock="Top">Please select the channel and stage/tip-shuttle that you would like to teach:</Label>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>Channel:</Label>
+            <ComboBox ItemsSource="{Binding ChannelList}" Text="{Binding SelectedChannelID, Mode=OneWayToSource}" SelectedIndex="0" Margin="3" Width="40"></ComboBox>
+            <Label>Stage/Tip-Shuttle:</Label>
+            <ComboBox ItemsSource="{Binding StageList}" Text="{Binding SelectedStageID, Mode=OneWayToSource}" SelectedIndex="0" Margin="3" Width="40" SelectionChanged="StageList_ComboBox_SelectionChanged"></ComboBox>
+            <Button Command="{Binding ReturnChannelHomeCommand}">Return channel to home position</Button>
+            <Button Command="{Binding ReturnAllChannelsHomeCommand}">Return all channels to home position</Button>
+            <Button Command="{Binding ShuckAllTipsOffCommand}">Shuck all tips off</Button>
+            <Button Command="{Binding TestCommand}">Stop diagnostic dispatcher</Button>
+            <Button Command="{Binding TestCommand2}" Content="{Binding ServiceToggleButtonContent}" />
+            <!-- #244 hide this feature for now
+            <Button Command="{Binding AutoTeachEverythingCommand}" ToolTip="{Binding AutoTeachEverythingToolTip}">Estimate all other channel teachpoints</Button>
+            -->
+            <Button Command="{Binding TestCommand3}" Content="Cycle tips" />
+            <Button Command="{Binding TestCommand4}" Content="Test command 4" />
+        </StackPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <!-- stage and channel jogging here -->
+                <ColumnDefinition Width="65*"/>
+                <!-- teach UL/LR here -->
+                <ColumnDefinition Width="15*"/>
+                <!-- move to, press on/off tests here -->
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <!-- teach robot stuff-->
+                    <RowDefinition Height="Auto" MaxHeight="50"/>
+                    <!-- position readouts -->
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24*"/>
+                    <ColumnDefinition Width="18*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Channel side -->
+                <Grid Grid.Row="0" Grid.Column="0" Margin="3">
+                    <Grid.RowDefinitions>
+                        <!-- Channel header -->
+                        <RowDefinition Height="28"></RowDefinition>
+                        <!-- Channel Jog controls -->
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray">Channel</Label>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border CornerRadius="5" Padding="3" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" HorizontalAlignment="Center">W</Label>
+                                    <Button Grid.Row="1" MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="W" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Aspirate</Button>
+                                    <ComboBox Grid.Row="2" ItemsSource="{StaticResource Increments}" Text="{Binding JogIncrements.W}" Margin="3"></ComboBox>
+                                    <Button Grid.Row="3" MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="W" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Dispense</Button>
+                                </Grid>
+                            </Border>
+                            <Border CornerRadius="5" Padding="3" Grid.Column="1" BorderThickness="1" BorderBrush="DarkGray">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" HorizontalAlignment="Center">Z</Label>
+                                    <Button Grid.Row="1" MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="Z" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Jog Up</Button>
+                                    <ComboBox ItemsSource="{StaticResource IncrementsTo20}" Text="{Binding JogIncrements.Z}" Grid.Row="2" Margin="3"></ComboBox>
+                                    <Button Grid.Row="3" MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="Z" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Jog Down</Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Border Grid.Column="1" VerticalAlignment="Center" CornerRadius="5" Padding="3" Grid.Row="1" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3">X</Label>
+                                <Button MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="X" Grid.Row="1" Grid.Column="0" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Jog Left</Button>
+                                <ComboBox MaxHeight="23" Grid.Row="1" Grid.Column="1" MinWidth="50" ItemsSource="{StaticResource Increments}" Text="{Binding JogIncrements.X}" Margin="3"></ComboBox>
+                                <Button Command="{Binding JogPositiveCommand}" CommandParameter="X" Grid.Row="1" Grid.Column="2" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Jog Right</Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <!-- Stage side -->
+                <Grid Grid.Row="0" Grid.Column="1" Margin="3">
+                    <Grid.RowDefinitions>
+                        <!-- stage header -->
+                        <RowDefinition Height="28"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Content="{Binding StageTypeString}"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6*"></ColumnDefinition>
+                            <ColumnDefinition Width="{Binding HasRAxisGridLength12}"></ColumnDefinition>
+                            <ColumnDefinition Width="{Binding HasABAxisGridLength06}"></ColumnDefinition>
+                            <ColumnDefinition Width="{Binding HasABAxisGridLength06}"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid>
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label HorizontalAlignment="Center">Y</Label>
+                                    <Button MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="Y" Grid.Row="1" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Jog Away</Button>
+                                    <ComboBox ItemsSource="{StaticResource Increments}" Text="{Binding JogIncrements.Y}" Grid.Row="2" Margin="3"></ComboBox>
+                                    <Button MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="Y" Grid.Row="3" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Jog Towards</Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="1" Visibility="{Binding HideIfTipShuttle}" VerticalAlignment="Center" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3">Theta</Label>
+                                <Button MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="R" Grid.Row="1" Grid.Column="0" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Rotate CCW</Button>
+                                <ComboBox MaxHeight="23" Grid.Row="1" Grid.Column="1" MinWidth="50" ItemsSource="{StaticResource ThetaIncrements}" Text="{Binding JogIncrements.R}" Margin="3"></ComboBox>
+                                <Button Command="{Binding JogNegativeCommand}" CommandParameter="R" Grid.Row="1" Grid.Column="2" Margin="3" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Rotate CW</Button>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="2" Visibility="{Binding HideIfNotTipShuttle}" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid>
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label HorizontalAlignment="Center">Plenum</Label>
+                                    <Button MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="A" Grid.Row="1" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Jog Up</Button>
+                                    <ComboBox ItemsSource="{StaticResource IncrementsTo20}" Text="{Binding JogIncrements.A}" Grid.Row="2" Margin="3"></ComboBox>
+                                    <Button MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="A" Grid.Row="3" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Jog Down</Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="3" Visibility="{Binding HideIfNotTipShuttle}" CornerRadius="5" Padding="3" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid>
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label HorizontalAlignment="Center">Bath</Label>
+                                    <Button MinHeight="50" Command="{Binding JogPositiveCommand}" CommandParameter="B" Grid.Row="1" ToolTip="{Binding JogPositiveToolTip}" ToolTipService.ShowOnDisabled="True">Jog Up</Button>
+                                    <ComboBox ItemsSource="{StaticResource IncrementsTo20}" Text="{Binding JogIncrements.B}" Grid.Row="2" Margin="3"></ComboBox>
+                                    <Button MinHeight="50" Command="{Binding JogNegativeCommand}" CommandParameter="B" Grid.Row="3" ToolTip="{Binding JogNegativeToolTip}" ToolTipService.ShowOnDisabled="True">Jog Down</Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <!-- Stage / robot teaching-->
+                <UniformGrid Visibility="{Binding HideIfNotTipShuttle}" Grid.Row="1" Grid.ColumnSpan="2" Rows="1" Margin="3">
+                    <Button Command="{Binding TeachWasherPositionCommand}">Teach Washer Position</Button>
+                    <Button Command="{Binding MoveToWasherPositionCommand}">Move to Washer Position</Button>
+                    <Button Command="{Binding ReloadTeachpointsCommand}">Reload Teachpoints</Button>
+                </UniformGrid>
+                <UniformGrid Visibility="{Binding HideIfTipShuttle}" Grid.Row="1" Grid.ColumnSpan="2" Rows="1" Margin="3">
+                    <Button Command="{Binding TeachLandscapePositionCommand}" ToolTip="{Binding TeachRobotPickupTooltip}" ToolTipService.ShowOnDisabled="True">Teach Landscape Position Here</Button>
+                    <Button Command="{Binding TeachPortraitPositionCommand}" ToolTip="{Binding TeachRobotPickupTooltip}" ToolTipService.ShowOnDisabled="True">Teach Portrait Position Here</Button>
+                    <Button Command="{Binding MoveToLandscapePositionCommand}">Move to Landscape Position</Button>
+                    <Button Command="{Binding MoveToPortraitPositionCommand}">Move to Portrait Position</Button>
+                    <Button Command="{Binding ReloadTeachpointsCommand}">Reload Teachpoints</Button>
+                </UniformGrid>
+
+                <!-- position readouts go here -->
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Name="grid_positions">
+                    <StackPanel Orientation="Horizontal">
+                        <Label VerticalContentAlignment="Center">X:</Label>
+                        <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.X, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label VerticalContentAlignment="Center">Z:</Label>
+                        <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.Z, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label VerticalContentAlignment="Center">W:</Label>
+                        <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.W, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label VerticalContentAlignment="Center">Y:</Label>
+                        <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.Y, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label Visibility="{Binding HideIfTipShuttle}" VerticalContentAlignment="Center">Theta:</Label>
+                        <TextBox Visibility="{Binding HideIfTipShuttle}" Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.R, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label Visibility="{Binding HideIfNotTipShuttle}" VerticalContentAlignment="Center">Plenum:</Label>
+                        <TextBox Visibility="{Binding HideIfNotTipShuttle}" Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.A, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                        <Label Visibility="{Binding HideIfNotTipShuttle}" VerticalContentAlignment="Center">Bath:</Label>
+                        <TextBox Visibility="{Binding HideIfNotTipShuttle}" Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding CurrentChannelAndStagePositions.B, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" MinWidth="80" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            
+            <!-- Teaching side -->
+            <Grid Grid.Column="1" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="100"></RowDefinition>
+                    <!-- teach UL -->
+                    <RowDefinition MaxHeight="30"></RowDefinition>
+                    <!-- move above / move to -->
+                    <RowDefinition MinHeight="100"></RowDefinition>
+                    <!-- teach LR -->
+                    <RowDefinition MaxHeight="30"></RowDefinition>
+                    <!-- move above / move to -->
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Margin="3" Command="{Binding TeachULCommand}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Label HorizontalContentAlignment="Center">Teach</Label>
+                            <Canvas Height="30" Width="50">
+                                <Rectangle Height="30" Width="50" Stroke="LightGray" StrokeThickness="2"></Rectangle>
+                                <Ellipse Height="4" Width="4" Stroke="Red" Fill="Red" StrokeThickness="2" Canvas.Top="2" Canvas.Left="2"></Ellipse>
+                            </Canvas>
+                            <Label HorizontalContentAlignment="Center">Upper Left</Label>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <UniformGrid Grid.Row="1" Rows="1">
+                    <ContentControl Template="{StaticResource ULPopupControlTemplate}">
+                        <Button Content="Move Above" />
+                    </ContentControl>
+                    <Button Command="{Binding MoveToULCommand}" CommandParameter="0">Move To
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Label>Currently taught positions:</Label>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>X:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedULTeachpoint.X, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>Y:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedULTeachpoint.Y, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>Z:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedULTeachpoint.Z, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>R:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedULTeachpoint.R, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
+                </UniformGrid>
+                <Button Grid.Row="2" Command="{Binding TeachLRCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Vertical">
+                            <Label HorizontalContentAlignment="Center">Teach</Label>
+                            <Canvas Height="30" Width="50">
+                                <Rectangle Height="30" Width="50" Stroke="LightGray" StrokeThickness="2"></Rectangle>
+                                <Ellipse Height="4" Width="4" Stroke="Red" Fill="Red" StrokeThickness="2" Canvas.Top="24" Canvas.Left="44"></Ellipse>
+                            </Canvas>
+                            <Label HorizontalContentAlignment="Center">Lower Right</Label>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <UniformGrid Grid.Row="3" Rows="1">
+                    <ContentControl Template="{StaticResource LRPopupControlTemplate}">
+                        <Button Content="Move Above" />
+                    </ContentControl>
+                    <Button Command="{Binding MoveToLRCommand}" CommandParameter="0">Move To
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <Label>Currently taught positions:</Label>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>X:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedLRTeachpoint.X, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>Y:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedLRTeachpoint.Y, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>Z:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedLRTeachpoint.Z, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                    <Label>R:</Label>
+                                    <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=SelectedLRTeachpoint.R, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
+                </UniformGrid>
+            </Grid>
+
+            <!-- move to, press on/off tests here -->
+            <Grid Visibility="{Binding HideIfTipShuttle}" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding MoveAboveTipShuckerCommand}" ToolTip="{Binding MoveAboveTipShuckToolTip}">Move Above Tip Shucker</Button>
+                <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding MoveToWashCommand}" Content="Move To Tip Shucker">
+                    <Button.ToolTip>
+                        <StackPanel Orientation="Vertical">
+                            <Label>Currently taught positions:</Label>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>X:</Label>
+                                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=CurrentWashTeachpoint.X, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                                <Label>Z:</Label>
+                                <TextBox Background="Black" Foreground="Green" FontWeight="Bold" FontSize="16" TextAlignment="Center" Text="{Binding Path=CurrentWashTeachpoint.Z, Converter={StaticResource PositionFormatConverter}, ConverterParameter='\{0:0.000\}'}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+                <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding TeachWashStationCommand}" ToolTip="{Binding TeachTipShuckToolTip}">Teach Tip Shucker</Button>
+                <Button Grid.Row="3" Grid.ColumnSpan="1" Command="{Binding PressTipOnCommand}" CommandParameter="True" ToolTip="{Binding PressTipOnToolTip}">Press Tip On</Button>
+                <Button Grid.Row="4" Grid.ColumnSpan="1" Command="{Binding PressTipOnCommand}" CommandParameter="False" ToolTip="{Binding PressTipOnToolTip}">Press Tip On Hard</Button>
+                <Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding ShuckTipOffCommand}" ToolTip="{Binding ShuckTipOffToolTip}">Shuck Tip Off</Button>
+                <Button Grid.Row="6" Grid.ColumnSpan="2" Command="{Binding RandomTipTestCommand}" ToolTip="{Binding RandomTipTestToolTip}">Random Tip Test</Button>
+                <GroupBox Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Header="Tip Name">
+                    <TextBox Text="{Binding TipName}"></TextBox>
+                </GroupBox>
+            </Grid>
+            <Grid Visibility="{Binding HideIfNotTipShuttle}" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Row="0" Header="Tip Handling">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding LoadTipShuttleCommand}">Load tip shuttle</Button>
+                        <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Command="{Binding UnloadTipShuttleCommand}">Unload tip shuttle</Button>
+                        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding WashTipsCommand}">Wash tips</Button>
+                        <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Command="{Binding WashTipsCommand}" CommandParameter="debug">Wash tips (in steps)</Button>
+                        <Label Grid.Row="2" Grid.Column="0">Row:</Label>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ShuttleRowList}"></ComboBox>
+                        <Label Grid.Row="2" Grid.Column="2">Column:</Label>
+                        <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding ShuttleColumnList}"></ComboBox>
+                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">Press Tip On</Button>
+                        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">Shuck Tip Off</Button>
+                    </Grid>
+                </GroupBox>
+                <Grid Grid.Row="1" Background="LightGray">
+                    <GroupBox Header="Plenum Teachpoints">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Fully up</Label>
+                            <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="plenum-retracted" Grid.Row="0" Grid.Column="1">Teach</Button>
+                            <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="plenum-retracted" Grid.Row="0" Grid.Column="2">Move to</Button>
+                            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Wash</Label>
+                            <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="plenum-wash" Grid.Row="1" Grid.Column="1">Teach</Button>
+                            <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="plenum-wash" Grid.Row="1" Grid.Column="2">Move to</Button>
+                            <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Dry</Label>
+                            <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="plenum-dry" Grid.Row="2" Grid.Column="1">Teach</Button>
+                            <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="plenum-dry" Grid.Row="2" Grid.Column="2">Move to</Button>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+                <GroupBox Grid.Row="2" Header="Bath Teachpoints">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Fully down</Label>
+                        <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="bath-retracted" Grid.Row="0" Grid.Column="1">Teach</Button>
+                        <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="bath-retracted" Grid.Row="0" Grid.Column="2">Move to</Button>
+                        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Wash</Label>
+                        <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="bath-wash" Grid.Row="1" Grid.Column="1">Teach</Button>
+                        <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="bath-wash" Grid.Row="1" Grid.Column="2">Move to</Button>
+                        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Dry</Label>
+                        <Button Command="{Binding TeachTipWasherTeachpointCommand}" CommandParameter="bath-dry" Grid.Row="2" Grid.Column="1">Teach</Button>
+                        <Button Command="{Binding MoveToTipWasherTeachpointCommand}" CommandParameter="bath-dry" Grid.Row="2" Grid.Column="2">Move to</Button>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</UserControl>

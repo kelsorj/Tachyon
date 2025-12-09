@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="BioNex.GreenMachine.GreenMachineSystemPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             mc:Ignorable="d" 
+             d:DesignHeight="430" d:DesignWidth="207">
+    <StackPanel Orientation="Vertical">
+        <!-- robot -->
+        <utils:StatusIndicator x:Name="RobotIndicator"
+                                OutlineColor="Gray"
+                                OutlineHeight="50"
+                                OutlineRadius="10"
+                                OutlineWidth="125"
+                                FillColor="White"
+                                FillHeight="{Binding Path=OutlineHeight}"
+                                FillRadius="{Binding Path=OutlineRadius}"
+                                FillWidth="{Binding Path=OutlineWidth}"
+                                IndicatorText="Syringe XYZ"
+                                FontSize="20" Margin="3" />
+        <!-- pumps -->
+        <utils:StatusIndicator OutlineColor="{Binding ElementName=RobotIndicator, Path=OutlineColor}"
+                                OutlineHeight="{Binding ElementName=RobotIndicator, Path=OutlineHeight}"
+                                OutlineRadius="{Binding ElementName=RobotIndicator, Path=OutlineRadius}"
+                                OutlineWidth="{Binding ElementName=RobotIndicator, Path=OutlineWidth}"
+                                FillColor="{Binding Pump1StatusColor}"
+                                FillHeight="{Binding ElementName=RobotIndicator, Path=FillHeight}"
+                                FillRadius="{Binding ElementName=RobotIndicator, Path=FillRadius}"
+                                FillWidth="{Binding ElementName=RobotIndicator, Path=FillWidth}"
+                                IndicatorText="Pump 1"
+                                FontSize="{Binding ElementName=RobotIndicator, Path=FontSize}"
+                                Margin="3" />
+        <utils:StatusIndicator OutlineColor="{Binding ElementName=RobotIndicator, Path=OutlineColor}"
+                                OutlineHeight="{Binding ElementName=RobotIndicator, Path=OutlineHeight}"
+                                OutlineRadius="{Binding ElementName=RobotIndicator, Path=OutlineRadius}"
+                                OutlineWidth="{Binding ElementName=RobotIndicator, Path=OutlineWidth}"
+                                FillColor="{Binding Pump2StatusColor}"
+                                FillHeight="{Binding ElementName=RobotIndicator, Path=FillHeight}"
+                                FillRadius="{Binding ElementName=RobotIndicator, Path=FillRadius}"
+                                FillWidth="{Binding ElementName=RobotIndicator, Path=FillWidth}"
+                                IndicatorText="Pump 2"
+                                FontSize="{Binding ElementName=RobotIndicator, Path=FontSize}"
+                                Margin="3" />
+        <utils:StatusIndicator OutlineColor="{Binding ElementName=RobotIndicator, Path=OutlineColor}"
+                                OutlineHeight="{Binding ElementName=RobotIndicator, Path=OutlineHeight}"
+                                OutlineRadius="{Binding ElementName=RobotIndicator, Path=OutlineRadius}"
+                                OutlineWidth="{Binding ElementName=RobotIndicator, Path=OutlineWidth}"
+                                FillColor="{Binding Pump3StatusColor}"
+                                FillHeight="{Binding ElementName=RobotIndicator, Path=FillHeight}"
+                                FillRadius="{Binding ElementName=RobotIndicator, Path=FillRadius}"
+                                FillWidth="{Binding ElementName=RobotIndicator, Path=FillWidth}"
+                                IndicatorText="Pump 3"
+                                FontSize="{Binding ElementName=RobotIndicator, Path=FontSize}"
+                                Margin="3" />
+    </StackPanel>
+</UserControl>

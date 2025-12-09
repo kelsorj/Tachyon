@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestList name="All Tests" id="80f5ba66-2b41-4659-ba7e-9ca73d386bb1" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <Description>Every test in the alpha GUI</Description>
+    <TestLinks>
+      <TestLink id="bbaf7c0e-b4cb-c572-2ad2-b3b12b9e1696" name="TestReadMotorSettings" storage="..\shared\technosoftlibrary\testmotorsettingsxml\bin\debug\testmotorsettingsxml.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="43c03e9b-5b69-452d-b8e3-c88aea897d99" name="TestLoadHardwareConfigurationOK" storage="alphahardware\testalphahardware\bin\debug\testalphahardware.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="fc86ed60-0b7f-0a57-53f7-b427ba163b56" name="TestLoadHardwareConfigurationBad" storage="alphahardware\testalphahardware\bin\debug\testalphahardware.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <RunConfiguration id="8a02d6d5-db8b-4aed-b8b2-433b33e4017e" name="TestRunConfig1" storage="localtestrun.testrunconfig" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestList>
+  <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    <TestLinks>
+      <TestLink id="60fc1abb-5f69-d6be-05e4-2ef60fd6c17b" name="TestMoreThan140CharacterTweet" storage="..\shared\reportinginterface\reportingplugintests\bin\debug\reportingplugintests.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="9ae161fd-0284-c38d-7044-197e1ebbf601" name="TestExtractRanges" storage="..\shared\utils\utilstests\bin\debug\utilstests.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="6a98fede-62f7-a0c0-d06e-ecf385a775d7" name="TestAddRange" storage="..\shared\utils\utilstests\bin\debug\utilstests.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+</TestLists>

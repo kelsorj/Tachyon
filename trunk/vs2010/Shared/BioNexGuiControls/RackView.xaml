@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="BioNex.Shared.BioNexGuiControls.RackView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+    Height="Auto" Width="Auto">
+
+    <UserControl.Resources>
+        <utils:StringPlus0Formatter x:Key="NumberFormatConverter" />
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding Path=RackNumber, Converter={StaticResource NumberFormatConverter}, ConverterParameter='Rack \{0\}'}"></TextBlock>
+        <StackPanel x:Name="rack_stack_panel">
+
+        </StackPanel>
+        <ComboBox ItemsSource="{Binding PlateTypeView}" IsSynchronizedWithCurrentItem="True" Visibility="{Binding PlateTypeVisibility}"></ComboBox>
+    </StackPanel>
+</UserControl>

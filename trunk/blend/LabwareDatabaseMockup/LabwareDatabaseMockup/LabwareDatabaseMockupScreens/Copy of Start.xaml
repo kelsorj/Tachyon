@@ -1,0 +1,72 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	xmlns:ps="clr-namespace:Microsoft.Expression.Prototyping.SketchControls;assembly=Microsoft.Expression.Prototyping.SketchControls" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:pb="clr-namespace:Microsoft.Expression.Prototyping.Behavior;assembly=Microsoft.Expression.Prototyping.Interactivity" x:Name="Screen_1_Name"
+	x:Class="LabwareDatabaseMockupScreens.Copy_of_Start"
+	Width="640" Height="480">
+
+	<Grid x:Name="LayoutRoot" Background="White">
+		<TextBlock HorizontalAlignment="Left" Margin="8,8,0,0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Width="106" Height="18" Text="Labware Editor"/>
+		<TextBlock HorizontalAlignment="Left" Margin="305,58,0,0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Width="5" Height="0" Text="v"/>
+		<TextBlock HorizontalAlignment="Left" Margin="63,127,0,0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Width="3" Height="0" Text="v"/>
+		<TextBlock HorizontalAlignment="Left" Margin="8,38.243,0,0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Available Labware"/>
+		<TextBlock HorizontalAlignment="Left" Margin="163,38.243,0,0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" RenderTransformOrigin="0.97,0.354" Text="Sort by:"/>
+		<ComboBox Margin="215.443,29.243,266.557,0" Style="{DynamicResource ComboBox-Sketch}" VerticalAlignment="Top" Height="28.756" SelectedIndex="1">
+			<ComboBoxItem Content="Number of wells"/>
+			<ComboBoxItem Content="Manufacturer"/>
+		</ComboBox>
+		<TabControl Margin="8,62,266.557,195" Style="{DynamicResource TabControl-Sketch}">
+			<TabItem Style="{DynamicResource TabItem-Sketch}" Header="Greiner">
+				<Grid>
+					<ListBox Style="{DynamicResource ListBox-Sketch}">
+						<ListBoxItem Style="{DynamicResource ListBoxItem-Sketch}" Content="Greiner 96 round well flat bottom clear"/>
+					</ListBox>
+				</Grid>
+			</TabItem>
+			<TabItem Style="{DynamicResource TabItem-Sketch}" Header="NUNC">
+				<ListBox Style="{DynamicResource ListBox-Sketch}">
+					<ListBoxItem Style="{DynamicResource ListBoxItem-Sketch}" Content="NUNC 96 deepwell"/>
+				</ListBox>
+			</TabItem>
+			<TabItem Style="{DynamicResource TabItem-Sketch}" Header="Rainin">
+				<ListBox Style="{DynamicResource ListBox-Sketch}">
+					<ListBoxItem Style="{DynamicResource ListBoxItem-Sketch}" Content="Rainin 96 300uL tip box"/>
+				</ListBox>
+			</TabItem>
+		</TabControl>
+		<TextBlock HorizontalAlignment="Left" Margin="8,0,0,171.243" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Bottom" Text="Properties"/>
+		<ps:SketchRectangleUC Margin="10,0,267,11" Style="{DynamicResource Rectangle-Sketch}" VerticalAlignment="Bottom" Height="153"/>
+		<Button HorizontalAlignment="Right" Margin="0,0,95,140.536" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Bottom" Width="158" Content="Create New">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="Click">
+					<pb:NavigateToScreenAction TargetScreen="LabwareDatabaseMockupScreens.Screen_1_1"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</Button>
+		<Button HorizontalAlignment="Right" Margin="0,0,95,85.608" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Bottom" Width="158" Content="Delete"/>
+		<Button HorizontalAlignment="Right" Margin="0,0,95,113.072" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Bottom" Width="158" Content="Rename"/>
+		<Button HorizontalAlignment="Right" Margin="0,0,95,58.144" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Bottom" Width="158" Content="Copy"/>
+		<Button HorizontalAlignment="Right" Margin="0,0,95,30.68" Style="{DynamicResource Button-Sketch}" VerticalAlignment="Bottom" Width="158" Content="Apply Changes"/>
+		<Grid Margin="14,0,267,11" VerticalAlignment="Bottom" Height="147.144">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.306*" />
+				<ColumnDefinition Width="0.694*" />
+			</Grid.ColumnDefinitions>
+			<TextBlock Grid.Row="0" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Name" d:LayoutOverrides="Width" Margin="0,0,-69.646,0"/>
+			<TextBlock Grid.Row="1" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Manufacturer" d:LayoutOverrides="Width" Margin="0,-0.029,-69.646,0"/>
+			<TextBlock Grid.Row="2" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Number of wells" d:LayoutOverrides="Width" Margin="0,-0.029,-69.646,0"/>
+			<TextBlock Grid.Row="3" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Column spacing" d:LayoutOverrides="Width" Margin="0,0,-69.646,0"/>
+			<TextBlock Grid.Row="4" Style="{DynamicResource BasicTextBlock-Sketch}" VerticalAlignment="Top" Text="Well spacing" d:LayoutOverrides="Width" Margin="0,0,-69.646,0"/>
+		</Grid>
+	</Grid>
+</UserControl>

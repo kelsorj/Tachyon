@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="BioNex.LiquidLevelDevice.ResultsSummaryContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="80">
+    <DockPanel>
+        <GroupBox Name="Coordinate" Header="(r,c)" BorderBrush="Orange" FontSize="10" Foreground="Orange" DockPanel.Dock="Top">
+            <TextBlock Name="Measurement" TextAlignment="Center" FontFamily="Segoe UI" FontSize="18" FontWeight="Bold" Foreground="CornflowerBlue">0.00</TextBlock>
+        </GroupBox>            
+    </DockPanel>
+</UserControl>

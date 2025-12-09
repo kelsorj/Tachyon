@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MotorSettings>
+  <axes>
+    <!-- X -->
+    <axis name="X1">
+      <id>11</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="X2">
+      <id>21</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="X3">
+      <id>31</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="X4">
+      <id>41</id>
+      <velocity>1</velocity>
+      <acceleration>2</acceleration>
+      <jerk>3</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>4</gear_ratio>
+      <min_limit>5</min_limit>
+      <max_limit>500</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <!-- Y -->
+    <axis name="Y1">
+      <id>12</id>
+      <velocity>1638.4</velocity>
+      <acceleration>6.5536</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>16384</counts_per_rev>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>400</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="Y2">
+      <id>22</id>
+      <velocity>1638.4</velocity>
+      <acceleration>6.5536</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>16384</counts_per_rev>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>400</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="Y3">
+      <id>32</id>
+      <velocity>1638.4</velocity>
+      <acceleration>6.5536</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>16384</counts_per_rev>
+      <gear_ratio>20</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>400</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <!-- Z -->
+    <axis name="Z1">
+      <id>13</id>
+      <velocity>1365.3</velocity>
+      <acceleration>250.6</acceleration>
+      <jerk>9</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="Z2">
+      <id>23</id>
+      <velocity>1365.3</velocity>
+      <acceleration>250.6</acceleration>
+      <jerk>9</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="Z3">
+      <id>33</id>
+      <velocity>1365.3</velocity>
+      <acceleration>250.6</acceleration>
+      <jerk>9</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="Z4">
+      <id>43</id>
+      <velocity>1365.3</velocity>
+      <acceleration>250.6</acceleration>
+      <jerk>9</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <!-- W -->
+    <axis name="W1">
+      <id>14</id>
+      <velocity>692</velocity>
+      <acceleration>1</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="W2">
+      <id>24</id>
+      <velocity>692</velocity>
+      <acceleration>1</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="W3">
+      <id>34</id>
+      <velocity>692</velocity>
+      <acceleration>1</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="W4">
+      <id>44</id>
+      <velocity>692</velocity>
+      <acceleration>1</acceleration>
+      <jerk>40</jerk>
+      <counts_per_rev>2048</counts_per_rev>
+      <gear_ratio>3</gear_ratio>
+      <min_limit>0</min_limit>
+      <max_limit>50</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <!-- R -->
+    <axis name="R1">
+      <id>15</id>
+      <velocity>65.1</velocity>
+      <acceleration>0.6655</acceleration>
+      <jerk>50</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="R2">
+      <id>25</id>
+      <velocity>65.1</velocity>
+      <acceleration>0.6655</acceleration>
+      <jerk>50</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+    <axis name="R3">
+      <id>35</id>
+      <velocity>65.1</velocity>
+      <acceleration>0.6655</acceleration>
+      <jerk>50</jerk>
+      <counts_per_rev>4096</counts_per_rev>
+      <gear_ratio>360</gear_ratio>
+      <min_limit>-720</min_limit>
+      <max_limit>720</max_limit>
+      <max_done_window>10</max_done_window>
+      <settling_time_ms>100</settling_time_ms>
+    </axis>
+  </axes>
+</MotorSettings>

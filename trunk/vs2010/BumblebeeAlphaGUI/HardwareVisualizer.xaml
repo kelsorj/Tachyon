@@ -1,0 +1,9 @@
+﻿<Window x:Class="BioNex.BumblebeeAlphaGUI.HardwareVisualizer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sim="clr-namespace:BioNex.Bumblebee2DSimulatorControl;assembly=Bumblebee2DSimulatorControl"
+    Title="HardwareVisualizer" Height="300" Width="300">
+    <Grid>
+        <sim:Simulation x:Name="visualizer" Width="Auto" Height="Auto" />
+    </Grid>
+</Window>

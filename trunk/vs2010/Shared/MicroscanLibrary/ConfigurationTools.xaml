@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="BioNex.Shared.Microscan.ConfigurationTools"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:utils="clr-namespace:BioNex.Shared.Utils;assembly=Utils"
+             xmlns:local="clr-namespace:BioNex.Shared.Microscan"
+             mc:Ignorable="d" 
+             Height="574" Width="868">
+
+    <UserControl.Resources>
+        <!-- ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Utils;component/BioNexStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary -->
+
+        <utils:ImageConverter x:Key="ImageConverter" />
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="BorderBrush" Value="Orange" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightJustified">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <x:Array Type="{x:Type sys:String}" x:Key="ConfigurationIndexList">
+            <sys:String>Default</sys:String>
+            <sys:String>Hive</sys:String>
+            <sys:String>BPS140</sys:String>
+            <sys:String>Dock cart ID</sys:String>
+            <sys:String>Dock cart storage</sys:String>
+            <sys:String>Kung Fu Bottom Location</sys:String>
+            <sys:String>7</sys:String>
+            <sys:String>8</sys:String>
+            <sys:String>9</sys:String>
+            <sys:String>10</sys:String>
+        </x:Array>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <GroupBox Header="Static Image Preview" DockPanel.Dock="Left">
+            <DockPanel>
+                <Button Command="{Binding TakeStaticImageCommand}" DockPanel.Dock="Bottom">Take Picture</Button>
+                <!-- image preview -->
+                <Viewbox Width="512" Height="384" DockPanel.Dock="Top">
+                    <Canvas Width="2048" Height="1536">
+                        <Image Canvas.Left="0" Canvas.Top="0" Opacity="0.2" Source="{Binding BigImagePath, Converter={StaticResource ImageConverter}}">
+                            <Image.RenderTransform>
+                                <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding PreviewXScale}" ScaleY="{Binding PreviewYScale}" />
+                            </Image.RenderTransform>
+                        </Image>
+                        <Image Canvas.Left="{Binding ColumnPointer}" Canvas.Top="{Binding RowPointer}" Source="{Binding ImagePath, Converter={StaticResource ImageConverter}}"/>
+                    </Canvas>
+                </Viewbox>
+                <!-- static settings -->
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
+                    <!-- image save time -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Last image save time:</TextBlock>
+                        <TextBlock Text="{Binding SaveImageTime}"></TextBlock>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <!-- image type -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <TextBlock Style="{StaticResource RightJustified}">Image format:</TextBlock>
+                            <ComboBox SelectedIndex="{Binding ImageFormatIndex}" Width="80">
+                                <ComboBoxItem>Bitmap</ComboBoxItem>
+                                <ComboBoxItem>JPEG</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        <!-- image compression -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                            <TextBlock Style="{StaticResource RightJustified}">Image Quality</TextBlock>
+                            <TextBox Text="{Binding ImageQuality}" Width="50"></TextBox>
+                        </StackPanel>
+                        <!-- calibration database -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="2">
+                            <TextBlock>Configuration index:</TextBlock>
+                            <ComboBox SelectedIndex="{Binding ConfigurationIndex}" ItemsSource="{StaticResource ConfigurationIndexList}" />
+                        </StackPanel>
+                        <!-- enable overview -->
+                        <StackPanel Orientation="Horizontal" Grid.Row="3">
+                            <TextBlock>Enable overview:</TextBlock>
+                            <CheckBox IsChecked="{Binding EnableOverview}"></CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </DockPanel>
+        </GroupBox>
+        <!-- dynamic imaging -->
+        <GroupBox DockPanel.Dock="Right" Header="Fly-by Image Previews">
+            <local:DynamicImaging x:Name="dynamic_imaging_control"></local:DynamicImaging>
+        </GroupBox>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,25 @@
+﻿<Window x:Class="BioNex.SynapsisPrototype.VersionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Synapsis Version Information" Height="Auto" Width="Auto">
+    <ListView ItemsSource="{Binding FileVersions}">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="Filename">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=FileName}" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="Version">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=FileVersion}" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</Window>

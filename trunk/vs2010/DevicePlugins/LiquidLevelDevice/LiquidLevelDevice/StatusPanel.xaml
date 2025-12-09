@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="BioNex.LiquidLevelDevice.StatusPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+            <Button Command="{Binding ConnectCommand}">Connect</Button>
+            <Button Command="{Binding DisconnectCommand}">Disconnect</Button>
+        </UniformGrid>
+        <Grid>
+            <GroupBox BorderBrush="Orange" Header="Sensors Overview" >
+                <ListView Name="sensor_list" ItemsSource="{Binding GridData, NotifyOnTargetUpdated=True}" TargetUpdated="OnGridDataUpdate">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Sensor" DisplayMemberBinding="{Binding SensorIndex}" />
+                            <GridViewColumn Header="Port/ID" DisplayMemberBinding="{Binding Port}" />
+                            <GridViewColumn Header="Enabled" DisplayMemberBinding="{Binding Enabled}" />
+                            <GridViewColumn Header="Connected" DisplayMemberBinding="{Binding Connected}" />
+                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status, NotifyOnTargetUpdated=True}" />
+                            <GridViewColumn Header="Last Raw Value" DisplayMemberBinding="{Binding LastRawValue}" />
+                            <GridViewColumn Header="Last Height" DisplayMemberBinding="{Binding LastHeight}" />
+                            <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding DistanceToSurface}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</UserControl>

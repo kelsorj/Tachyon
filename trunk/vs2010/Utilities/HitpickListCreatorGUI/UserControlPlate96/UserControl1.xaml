@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="BioNex.HitpickListCreatorGUI.UserControlPlate96.UserControl1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cp="clr-namespace:BioNex.HitpickListCreatorGUI.ColorPickerUserControl;assembly=ColorPickerUserControl"
+    Height="231" Width="364" Loaded="UserControl_Loaded">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!-- labware -->
+                <Label Grid.Row="0" Grid.Column="0" Margin="3">Labware:</Label>
+                <ComboBox Name="combo_labware" Grid.Row="0" Grid.Column="1" Margin="3" SelectionChanged="combo_labware_SelectionChanged"></ComboBox>
+            </Grid>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Left" Margin="3,30,3,0">
+            <Button Name="button_delete" Click="button_delete_Click">
+                <StackPanel>
+                    <Image Source="pack://application:,,,/UserControlPlate96;component/cancel.png" Height="32" Width="32"></Image>
+                    <Label>Delete Plate</Label>
+                </StackPanel>
+            </Button>
+            <cp:UserControl1 Name="colorpicker" ColorChanged="UserControl1_ColorChanged"></cp:UserControl1>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="3">
+            <DockPanel>
+                <Label DockPanel.Dock="Left" HorizontalContentAlignment="Right">Barcode:</Label>
+                <Button DockPanel.Dock="Right" Width="40" Name="button_apply" Click="button_apply_click">Apply</Button>
+                <TextBox Name="text_barcode"></TextBox>
+            </DockPanel>
+            <Canvas>
+                <Rectangle Canvas.Left="0" Canvas.Top="0" Stroke="Black" Height="170" Width="254" Fill="WhiteSmoke"></Rectangle>
+                <StackPanel Name="stackpanel_main" Orientation="Vertical" Margin="18,10,18,10"></StackPanel>
+            </Canvas>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

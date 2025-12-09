@@ -1,0 +1,15 @@
+﻿<Window x:Class="BioNex.Shared.ErrorHandling.ErrorDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Error Dialog" Height="300" Width="300" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <DockPanel>
+            <StackPanel Name="button_panel" DockPanel.Dock="Bottom">
+                <Expander Name="expander" Margin="3" Header="Details" Visibility="Hidden">
+                    <TextBlock Name="detailed_error_text" TextWrapping="Wrap" />
+                </Expander>
+            </StackPanel>
+            <TextBox Name="error_text" DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" AllowDrop="False" IsReadOnly="True" IsUndoEnabled="False" TextWrapping="Wrap">This is where the basic error information is displayed.</TextBox>
+        </DockPanel>
+    </Grid>
+</Window>

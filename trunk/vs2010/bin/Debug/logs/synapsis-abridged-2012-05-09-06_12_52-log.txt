@@ -1,0 +1,73 @@
+2012-05-09-06_12_52.945 [5892] INFO  BioNex.SynapsisPrototype.MainWindow - Window loaded
+2012-05-09-06_12_52.980 [5892] INFO  BioNex.SynapsisPrototype.MainWindow - Loading plugin DLLs
+2012-05-09-06_12_54.435 [5892] INFO  BioNex.SynapsisPrototype.DeviceManager - Loading devices from database
+2012-05-09-06_12_54.479 [5892] INFO  BioNex.SynapsisPrototype.DeviceManager - attempting to load device 'BeeSure' [Manufacturer: BioNex]
+2012-05-09-06_12_54.491 [5892] INFO  BioNex.SynapsisPrototype.DeviceManager - loaded device 'Liquid Level Sensor' [Manufacturer: BioNex, Product Name: BeeSure]
+2012-05-09-06_12_54.583 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Failed to open CAN connection to motors.
+BioNex.Shared.TechnosoftLibrary.TechnosoftException: Failed to open connection to device on channel 0
+   at BioNex.Shared.TechnosoftLibrary.TechnosoftConnection..ctor(String channel_name, Byte can_mfg_id, UInt32 baudrate)
+   at BioNex.LiquidLevelDevice.LLSensorModel.ReloadMotorSettings(Boolean simulate)
+2012-05-09-06_12_54.677 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 121.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_54.754 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 123.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_54.820 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 122.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_54.890 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 120.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_54.967 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 124.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_55.036 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 125.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_55.104 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 126.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
+2012-05-09-06_12_55.178 [5892] ERROR BioNex.LiquidLevelDevice.LLSensorModel - LiquidLevelDevice: Error opening port 127.
+System.Exception: CanDongleWrapper::Initialize Error - InitHardware returned 5 for adapter with device ID 1
+   at BioNex.Shared.CanDongleWrapper.Dongle.Initialize(ICanDongleDevice device)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.OpenCAN(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensorCANOpen.Open(Boolean reset_canbus)
+   at BioNex.LiquidLevelDevice.LevelSensor.Open(Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LevelSensor..ctor(Int32 can_device_id, Int32 id, Boolean simulate, Boolean reset_bus)
+   at BioNex.LiquidLevelDevice.LLSensorModel.<>c__DisplayClass2.<Connect>b__1(Int32 i)
