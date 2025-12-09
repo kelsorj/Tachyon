@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # Parse arguments
 parser = argparse.ArgumentParser(description='PF400 Backend Server')
 parser.add_argument('--sim', action='store_true', help='Run in simulator mode')
+parser.add_argument('--real', action='store_true', help='Run in real robot mode')
 parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
 parser.add_argument('--port', type=int, default=3061, help='Port to bind to')
 args = parser.parse_args()
@@ -21,6 +22,8 @@ args = parser.parse_args()
 # Set environment variable so main.py can access it
 if args.sim:
     os.environ['PF400_SIM_MODE'] = '1'
+if args.real:
+    os.environ['PF400_REAL_MODE'] = '1'
 
 # Import after setting environment
 from main import app

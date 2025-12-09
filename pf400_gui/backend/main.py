@@ -13,8 +13,10 @@ import argparse
 
 # Import ROS client
 from ros_client import PF400ROSClient
-# Import Real Robot driver
+# Import Real Robot drivers
 from pf400_driver import PF400Driver
+from pf400_sxl_driver import PF400SXLDriver
+from pf400_models import PF400Model, get_model_by_name, get_model_config
 # Import MongoDB integration
 import db as mongodb
 
@@ -72,6 +74,9 @@ class SpeedSettingsRequest(BaseModel):
 # Device name for this robot instance
 DEVICE_NAME = os.environ.get("DEVICE_NAME", "PF400-021")
 
+# Robot model (400SX or 400SXL)
+ROBOT_MODEL = os.environ.get("ROBOT_MODEL", "400SX")
+
 class SimClient:
     def __init__(self):
         # Add scripts to path to import driver
@@ -115,10 +120,30 @@ class SimClient:
         return False
 
 class RealClient:
-    def __init__(self, ip="192.168.10.69", port=10100):
-        self.driver = PF400Driver(ip, port)
+    def __init__(self, ip=None, port=10100, model: PF400Model = None):
+        # Get IP from environment or use default
+        if ip is None:
+            ip = os.environ.get("PF400_IP", "192.168.0.20")
+        # Get port from environment or use default
+        port = int(os.environ.get("PF400_ROBOT_PORT", port))
+        # Determine model
+        if model is None:
+            model = get_model_by_name(ROBOT_MODEL) or PF400Model.SX
+        
+        # Create appropriate driver based on model
+        if model == PF400Model.SXL:
+            self.driver = PF400SXLDriver(ip, port)
+            print(f"Using PF400SXL driver (with rail support)")
+        else:
+            self.driver = PF400Driver(ip, port)
+            print(f"Using PF400SX driver (standard)")
+        
+        self.model = model
+        self.model_config = get_model_config(model)
+        
         if self.driver.connect():
             print(f"Real Robot Client Initialized and Connected to {ip}:{port}")
+            print(f"Model: {model.value} - {self.model_config.description}")
             self.state = "READY"
         else:
             print(f"Real Robot Client Initialized but Connection Failed to {ip}:{port}")
@@ -143,7 +168,13 @@ class RealClient:
                 j4 = params.get("j4", 0)
                 grp = params.get("gripper", 0)
                 
-                success = self.driver.move_to_joints(j1, j2, j3, j4, grp)
+                # For SXL, also get J6 (rail) if provided
+                if isinstance(self.driver, PF400SXLDriver):
+                    j6 = params.get("j6", None) or params.get("rail", None)
+                    success = self.driver.move_to_joints(j1, j2, j3, j4, grp, j6)
+                else:
+                    success = self.driver.move_to_joints(j1, j2, j3, j4, grp)
+                
                 if success:
                     return {"status": "success", "message": "Move command sent"}
                 else:
@@ -246,7 +277,10 @@ async def startup_event():
     elif use_real:
         print("Starting in REAL ROBOT mode")
         try:
-            robot_client = RealClient()
+            # Get model from environment or use default
+            model_name = os.environ.get("ROBOT_MODEL", ROBOT_MODEL)
+            model = get_model_by_name(model_name) or PF400Model.SX
+            robot_client = RealClient(model=model)
         except Exception as e:
             print(f"Failed to initialize Real client: {e}")
     else:
@@ -579,6 +613,149 @@ async def get_device_info():
             return {"device": None, "message": f"Device '{DEVICE_NAME}' not found in database"}
     except Exception as e:
         print(f"Error getting device info: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============== Diagnostics API ==============
+
+@app.get("/diagnostics")
+async def get_diagnostics():
+    """Get comprehensive diagnostics information for the robot."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    # Check if driver supports diagnostics
+    if hasattr(robot_client, 'driver') and hasattr(robot_client.driver, 'get_diagnostics'):
+        try:
+            diagnostics = robot_client.driver.get_diagnostics()
+            # Add model info
+            if hasattr(robot_client, 'model'):
+                diagnostics["model"] = robot_client.model.value
+                diagnostics["model_config"] = robot_client.model_config.to_dict()
+            return diagnostics
+        except Exception as e:
+            print(f"Error getting diagnostics: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
+    else:
+        # Basic diagnostics for non-diagnostics-capable drivers
+        return {
+            "model": "unknown",
+            "connected": hasattr(robot_client, 'driver') and robot_client.driver.connected if hasattr(robot_client, 'driver') else False,
+            "state": robot_client.get_state(),
+            "message": "Full diagnostics not available for this driver"
+        }
+
+
+@app.get("/diagnostics/system-state")
+async def get_system_state():
+    """Get current system state."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    if hasattr(robot_client, 'driver') and hasattr(robot_client.driver, 'get_system_state'):
+        try:
+            return robot_client.driver.get_system_state()
+        except Exception as e:
+            print(f"Error getting system state: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
+    else:
+        return {
+            "state": robot_client.get_state(),
+            "connected": hasattr(robot_client, 'driver') and robot_client.driver.connected if hasattr(robot_client, 'driver') else False
+        }
+
+
+@app.get("/diagnostics/joints")
+async def get_joint_states():
+    """Get detailed joint state information."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    if hasattr(robot_client, 'driver') and hasattr(robot_client.driver, 'get_joint_states'):
+        try:
+            return robot_client.driver.get_joint_states()
+        except Exception as e:
+            print(f"Error getting joint states: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
+    else:
+        # Fallback to basic joint positions
+        try:
+            joints = robot_client.get_joint_positions()
+            return {"joints": joints}
+        except Exception as e:
+            print(f"Error getting joints: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/diagnostics/rail")
+async def get_rail_status():
+    """Get rail (J6) status for SXL models."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    if not isinstance(robot_client, RealClient) or not isinstance(robot_client.driver, PF400SXLDriver):
+        raise HTTPException(status_code=400, detail="Rail diagnostics only available for PF400SXL models")
+    
+    try:
+        joints = robot_client.driver.get_joint_positions()
+        rail_pos = joints.get("j6") or joints.get("rail", 0)
+        
+        return {
+            "rail_enabled": True,
+            "position_m": rail_pos,
+            "position_mm": rail_pos * 1000.0,
+            "position_percent": (rail_pos * 1000.0 / robot_client.driver.rail_length_mm) * 100.0,
+            "rail_length_mm": robot_client.driver.rail_length_mm,
+            "rail_length_m": robot_client.driver.rail_length_mm / 1000.0,
+            "limits": {
+                "min_mm": 0.0,
+                "max_mm": robot_client.driver.rail_length_mm,
+                "min_m": 0.0,
+                "max_m": robot_client.driver.rail_length_mm / 1000.0
+            }
+        }
+    except Exception as e:
+        print(f"Error getting rail status: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/diagnostics/jog-rail")
+async def jog_rail(distance_m: float, profile: int = 1):
+    """Jog the rail (J6) by a relative distance (SXL only)."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    if not isinstance(robot_client, RealClient) or not isinstance(robot_client.driver, PF400SXLDriver):
+        raise HTTPException(status_code=400, detail="Rail jogging only available for PF400SXL models")
+    
+    try:
+        success = robot_client.driver.jog_rail(distance_m, profile)
+        if success:
+            return {"status": "success", "message": f"Rail jogged by {distance_m}m"}
+        else:
+            raise HTTPException(status_code=500, detail="Rail jog failed")
+    except Exception as e:
+        print(f"Error jogging rail: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/diagnostics/move-rail")
+async def move_rail(position_m: float, profile: int = 1):
+    """Move rail (J6) to absolute position (SXL only)."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    if not isinstance(robot_client, RealClient) or not isinstance(robot_client.driver, PF400SXLDriver):
+        raise HTTPException(status_code=400, detail="Rail movement only available for PF400SXL models")
+    
+    try:
+        success = robot_client.driver.move_rail(position_m, profile)
+        if success:
+            return {"status": "success", "message": f"Rail moved to {position_m}m"}
+        else:
+            raise HTTPException(status_code=500, detail="Rail move failed")
+    except Exception as e:
+        print(f"Error moving rail: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

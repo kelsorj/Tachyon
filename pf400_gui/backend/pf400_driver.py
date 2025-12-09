@@ -1,3 +1,4 @@
+import os
 import socket
 import time
 import json
@@ -32,7 +33,12 @@ class PF400Driver:
         },
     }
     
-    def __init__(self, ip: str = "192.168.10.69", port: int = 10100):
+    def __init__(self, ip: str = None, port: int = 10100):
+        # Get IP from environment or use default
+        if ip is None:
+            ip = os.environ.get("PF400_IP", "192.168.0.20")
+        # Get port from environment or use default
+        port = int(os.environ.get("PF400_ROBOT_PORT", port))
         self.ip = ip
         self.port = port
         self.socket = None

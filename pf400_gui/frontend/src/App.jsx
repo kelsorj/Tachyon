@@ -21,7 +21,7 @@ function App() {
   const [newTpName, setNewTpName] = useState('')
   const [editingTp, setEditingTp] = useState(null)
 
-  const API_URL = "http://localhost:3062"
+  const API_URL = "http://localhost:3061"
 
   // Fetch joints periodically - uses recursive setTimeout to prevent request pileup
   useEffect(() => {

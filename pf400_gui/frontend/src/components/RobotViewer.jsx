@@ -16,7 +16,7 @@ function RobotModel({ joints, cartesian }) {
         loader.loadMeshCb = (path, manager, onComplete) => {
             const stlLoader = new STLLoader(manager)
             const cleanPath = path.replace(/^\/+/, '').replace(/.*meshes\//, 'meshes/')
-            const url = `http://localhost:3062/${cleanPath}`
+            const url = `http://localhost:3061/${cleanPath}`
             stlLoader.load(url, (geo) => {
                 const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0x9dcfe9, flatShading: false }))
                 onComplete(mesh)
@@ -25,7 +25,7 @@ function RobotModel({ joints, cartesian }) {
                 onComplete(new THREE.Mesh())
             })
         }
-        const urdfUrl = `http://localhost:3062/urdf/pf400Complete.urdf?t=${Date.now()}`
+        const urdfUrl = `http://localhost:3061/urdf/pf400Complete.urdf?t=${Date.now()}`
         loader.load(urdfUrl, (result) => {
             console.log('URDF loaded')
             

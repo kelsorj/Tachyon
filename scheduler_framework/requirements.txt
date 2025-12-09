@@ -1,0 +1,17 @@
+# Requirements for the Laboratory Automation Scheduler Framework
+
+# Core dependencies
+# (No external dependencies required - uses only Python standard library)
+
+# Optional: For better type checking
+# mypy>=1.0.0
+
+# Testing dependencies
+pytest>=7.0.0
+
+# Optional: For async testing (if needed in future)
+# pytest-asyncio>=0.21.0
+
+# Optional: For logging configuration
+# python-json-logger>=2.0.0
+
