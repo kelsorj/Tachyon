@@ -1,1 +1,5 @@
-pf400_gui/logs/backend-out.log
+# Log files
+logs/
+**/logs/
+*.log
+**/*.log
