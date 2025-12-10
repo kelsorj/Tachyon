@@ -77,15 +77,20 @@ function RobotModel({ joints, cartesian }) {
         // Force Matrix Update for World Position
         robot.updateMatrixWorld(true)
 
-        // Update Overlay
-        if (overlayRef.current && robot.links.palm) {
-            const palmPos = new THREE.Vector3()
-            robot.links.palm.getWorldPosition(palmPos)
-            overlayRef.current.position.copy(palmPos)
+        // Update Overlay - position at fixed offset from robot base
+        // Robot base is at [0, 0.225, 0] relative to the robot group
+        // Position axes overlay at a fixed offset from base, not from palm
+        if (overlayRef.current && robot) {
+            // Position at fixed offset from robot base (above the base, offset towards red cap/front)
+            // Offset in positive Z direction (towards red cap at +1000mm, where the arm extends) so Z arrows are visible
+            // Y position tracks J1 (vertical joint) so axes move up/down with the arm
+            const j1_m = joints?.j1 || 0 // J1 is in meters
+            const baseY = 0.225 // Robot base Y position
+            const offsetY = 0.15 // Fixed offset above base
+            overlayRef.current.position.set(0, baseY + offsetY + j1_m, 0.2) // Moves with J1
             
-            // Rotation: Face Outward from Base Z
-            const angle = Math.atan2(palmPos.x, palmPos.z)
-            overlayRef.current.rotation.y = angle
+            // Rotation: Face outward (keep rotation simple, or calculate from base if needed)
+            overlayRef.current.rotation.y = 0
         }
 
     }, [robot, joints])
