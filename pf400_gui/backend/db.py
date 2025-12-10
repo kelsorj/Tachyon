@@ -359,25 +359,18 @@ def get_device_connection(name: str) -> Optional[Dict[str, Any]]:
 
 
 def get_device_teachpoints(name: str) -> Dict[str, Any]:
-    """Get all teachpoints for a device.
-    
-    Uses 'gui_teachpoints' field to avoid conflict with legacy array-style teachpoints.
-    """
+    """Get all teachpoints for a device."""
     device = get_device_by_name(name)
     if device:
-        # Use gui_teachpoints field (dict style) for this GUI
-        teachpoints = device.get("gui_teachpoints", {})
+        teachpoints = device.get("teachpoints", {})
         if isinstance(teachpoints, dict):
             return teachpoints
+        # If it's an array (legacy format), return empty - we'll create fresh
     return {}
 
 
 def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[str, Any]) -> bool:
-    """Save or update a teachpoint for a device.
-    
-    Handles both array-style teachpoints (legacy) and dict-style teachpoints (new).
-    For this GUI, we use a separate field 'gui_teachpoints' to avoid conflicts.
-    """
+    """Save or update a teachpoint for a device."""
     try:
         db = get_db()
         print(f"save_teachpoint: device={device_name}, id={teachpoint_id}")
@@ -388,12 +381,12 @@ def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[
         if "created_at" not in teachpoint_data:
             teachpoint_data["created_at"] = datetime.utcnow()
         
-        # Use gui_teachpoints field to avoid conflict with legacy array-style teachpoints
+        # Save to teachpoints field
         result = db.devices.update_one(
             {"name": device_name},
             {
                 "$set": {
-                    f"gui_teachpoints.{teachpoint_id}": teachpoint_data,
+                    f"teachpoints.{teachpoint_id}": teachpoint_data,
                     "updated_at": datetime.utcnow()
                 },
                 "$setOnInsert": {
@@ -429,11 +422,10 @@ def delete_teachpoint(device_name: str, teachpoint_id: str) -> bool:
     try:
         db = get_db()
         
-        # Use gui_teachpoints field to match save_teachpoint
         result = db.devices.update_one(
             {"name": device_name},
             {
-                "$unset": {f"gui_teachpoints.{teachpoint_id}": ""},
+                "$unset": {f"teachpoints.{teachpoint_id}": ""},
                 "$set": {"updated_at": datetime.utcnow()}
             }
         )
