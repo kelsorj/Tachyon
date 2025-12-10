@@ -153,73 +153,71 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
             j6_m: J6 (rail) position in meters (optional, SXL only)
             profile: Motion profile ID
         """
-        # First move base 5 joints
-        success = super().move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, profile)
+        import sys
         
-        if not success:
-            return False
-        
-        # Then move rail (J6) if specified
-        # Use move_rail_raw directly with flag to prevent recursion
+        # Clamp rail position to limits if specified
         if j6_m is not None:
             position_mm = j6_m * 1000.0
-            # Clamp to rail limits
-            rail_min_mm = -self.rail_length_mm / 2.0
-            rail_max_mm = self.rail_length_mm / 2.0
+            rail_min_mm = -self.rail_length_mm / 2.0  # -1000mm
+            rail_max_mm = self.rail_length_mm / 2.0   # +1000mm
             if position_mm < rail_min_mm:
                 position_mm = rail_min_mm
+                j6_m = position_mm / 1000.0
             elif position_mm > rail_max_mm:
                 position_mm = rail_max_mm
-            # Pass _from_move_to_joints=True to prevent recursion
-            return self.move_rail_raw(position_mm, profile, _from_move_to_joints=True)
+                j6_m = position_mm / 1000.0
         
-        return True
+        sys.stderr.write(f"SXL move_to_joints: j1={j1_m}, j2={j2_rad}, j3={j3_rad}, j4={j4_rad}, gripper={gripper_m}, j6={j6_m}, profile={profile}\n")
+        sys.stderr.flush()
+        
+        # Call base class with j6_m - it will include J6 in the single movej command
+        success = super().move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, j6_m, profile)
+        
+        # Update stored rail position on success
+        if success and j6_m is not None:
+            self.rail_position_mm = j6_m * 1000.0
+        
+        return success
     
     def move_to_joints_raw(self, j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm=None, j6_mm=None, profile=1):
         """
         Move to absolute joint coordinates in robot native units (mm/deg).
         Includes J6 (rail) support.
         """
-        # Move base 5 joints
-        success = super().move_to_joints_raw(j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, profile)
+        import math
+        # Convert to SI units and call move_to_joints
+        j1_m = j1_mm / 1000.0
+        j2_rad = math.radians(j2_deg)
+        j3_rad = math.radians(j3_deg)
+        j4_rad = math.radians(j4_deg)
+        gripper_m = gripper_mm / 1000.0 if gripper_mm is not None else None
+        j6_m = j6_mm / 1000.0 if j6_mm is not None else None
         
-        if not success:
-            return False
-        
-        # Move rail if specified
-        if j6_mm is not None:
-            return self.move_rail_raw(j6_mm, profile)
-        
-        return True
+        return self.move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, j6_m, profile)
     
     def move_rail(self, position_m: float, profile: int = 1):
         """
-        Move rail (J6) to absolute position.
+        Move rail (J6) to absolute position while keeping other joints stationary.
         
         Args:
-            position_m: Rail position in meters (-rail_length_mm/2000 to +rail_length_mm/2000)
+            position_m: Rail position in meters (-1.0 to +1.0 for 2m rail)
             profile: Motion profile ID
         """
-        position_mm = position_m * 1000.0
-        
-        # Rail range is -1000mm to +1000mm (centered at 0, total 2000mm)
-        # Clamp to rail limits
-        rail_min_mm = -self.rail_length_mm / 2.0  # -1000mm
-        rail_max_mm = self.rail_length_mm / 2.0    # +1000mm
-        
-        if position_mm < rail_min_mm:
-            position_mm = rail_min_mm
-        elif position_mm > rail_max_mm:
-            position_mm = rail_max_mm
+        import sys
+        sys.stderr.write(f"move_rail: position={position_m}m, profile={profile}\n")
+        sys.stderr.flush()
         
         # Get current joint positions
         current = self.get_joint_positions()
         if not current:
+            sys.stderr.write("move_rail: Failed to get current joint positions\n")
+            sys.stderr.flush()
             return False
         
-        # Use move_to_joints with current positions + new rail position
-        # This avoids the circular dependency (move_rail -> move_rail_raw -> move_to_joints -> move_rail)
-        # by directly calling move_to_joints with all positions
+        sys.stderr.write(f"move_rail: current positions={current}\n")
+        sys.stderr.flush()
+        
+        # Move all joints to current positions + new rail position (j6_m will be clamped in move_to_joints)
         return self.move_to_joints(
             current.get("j1", 0),
             current.get("j2", 0),
@@ -230,89 +228,17 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
             profile
         )
     
-    def move_rail_raw(self, position_mm: float, profile: int = 1, _from_move_to_joints=False):
+    def move_rail_raw(self, position_mm: float, profile: int = 1):
         """
         Move rail (J6) to absolute position in mm.
         
         Args:
-            position_mm: Rail position in mm (-rail_length_mm/2 to +rail_length_mm/2)
+            position_mm: Rail position in mm (-1000 to +1000 for 2m rail)
             profile: Motion profile ID
-            _from_move_to_joints: Internal flag to prevent recursion
         """
-        # Rail range is -1000mm to +1000mm (centered at 0, total 2000mm)
-        # Clamp to rail limits
-        rail_min_mm = -self.rail_length_mm / 2.0  # -1000mm
-        rail_max_mm = self.rail_length_mm / 2.0    # +1000mm
-        
-        if position_mm < rail_min_mm:
-            position_mm = rail_min_mm
-        elif position_mm > rail_max_mm:
-            position_mm = rail_max_mm
-        
-        try:
-            if not self.connected:
-                import sys
-                sys.stderr.write("move_rail_raw: Robot not connected\n")
-                sys.stderr.flush()
-                return False
-                
-            # Set profile first
-            self.set_profile(profile)
-            
-            # If called from move_to_joints, we can't call move_to_joints again (would create loop)
-            # Since MoveJ with 6 joints doesn't work, we need to accept that rail can't move independently
-            if _from_move_to_joints:
-                import sys
-                sys.stderr.write(f"move_rail_raw: Called from move_to_joints, cannot move rail independently (MoveJ 6-joint not supported)\n")
-                sys.stderr.write(f"move_rail_raw: Rail position updated in state only: {position_mm}mm\n")
-                sys.stderr.flush()
-                # Update stored position but return False since we can't actually move it
-                self.rail_position_mm = position_mm
-                return False
-            
-            # Not called from move_to_joints, so we can use move_to_joints
-            # Get current positions and use move_to_joints with current positions + new rail
-            current = self.get_joint_positions()
-            if not current:
-                import sys
-                sys.stderr.write("move_rail_raw: Failed to get current joint positions\n")
-                sys.stderr.flush()
-                return False
-            
-            # Convert position_mm to meters
-            j6_m = position_mm / 1000.0
-            
-            import sys
-            sys.stderr.write(f"move_rail_raw: Moving rail to {position_mm}mm via move_to_joints with all joints\n")
-            sys.stderr.flush()
-            
-            # Use move_to_joints with current positions + new rail position
-            # Pass _from_move_to_joints=True to prevent recursion
-            result = self.move_to_joints(
-                current.get("j1", 0),
-                current.get("j2", 0),
-                current.get("j3", 0),
-                current.get("j4", 0),
-                current.get("gripper", 0),
-                j6_m,
-                profile
-            )
-            
-            if result:
-                self.rail_position_mm = position_mm
-                sys.stderr.write(f"move_rail_raw: Success, rail moved to {position_mm}mm\n")
-                sys.stderr.flush()
-            else:
-                sys.stderr.write(f"move_rail_raw: move_to_joints returned False\n")
-                sys.stderr.flush()
-            
-            return result
-                
-        except Exception as e:
-            print(f"Error moving rail: {e}")
-            import traceback
-            traceback.print_exc()
-            return False
+        # Convert mm to meters and call move_rail
+        position_m = position_mm / 1000.0
+        return self.move_rail(position_m, profile)
     
     def jog_rail(self, distance_m: float, profile: int = 1):
         """

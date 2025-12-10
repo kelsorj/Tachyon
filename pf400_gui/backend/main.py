@@ -342,8 +342,15 @@ async def jog_robot(req: JogRequest):
     try:
         success = False
         if req.axis:
+            # Special case for rail axis - route to jog_rail on SXL models
+            if req.axis.lower() == "rail":
+                if isinstance(robot_client, RealClient) and isinstance(robot_client.driver, PF400SXLDriver):
+                    print(f"Jog: Rail jog via axis='rail', distance={req.distance}m, profile={req.speed_profile}")
+                    success = robot_client.driver.jog_rail(req.distance, req.speed_profile)
+                else:
+                    raise HTTPException(status_code=501, detail="Rail jog only supported on PF400SXL")
             # Cartesian Jog
-            if hasattr(robot_client, "jog_cartesian"):
+            elif hasattr(robot_client, "jog_cartesian"):
                 success = robot_client.jog_cartesian(req.axis, req.distance, req.speed_profile)
             else:
                 raise HTTPException(status_code=501, detail="Cartesian jog not supported")

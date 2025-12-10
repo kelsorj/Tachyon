@@ -346,11 +346,11 @@ class PF400Driver:
         
         return response
     
-    def move_to_joints(self, j1_m, j2_rad, j3_rad, j4_rad, gripper_m=None, profile=1):
+    def move_to_joints(self, j1_m, j2_rad, j3_rad, j4_rad, gripper_m=None, j6_m=None, profile=1):
         """
         Move to joint coordinates (API compatible version).
         Converts SI units (m/rad) to robot units (mm/deg).
-        For SXL models, the move_joint function will automatically add J6 from current position.
+        For SXL models, j6_m specifies the rail position in meters.
         """
         try:
             # Convert to robot units
@@ -365,10 +365,12 @@ class PF400Driver:
             else:
                 j5_mm = self.get_gripper_length()
             
-            # Log the target position
-            
-            # Start with 5 joints - move_joint will add J6 for SXL models
+            # Build target - include J6 if specified (for SXL rail)
             target = [j1_mm, j2_deg, j3_deg, j4_deg, j5_mm]
+            if j6_m is not None:
+                j6_mm = j6_m * 1000.0
+                target.append(j6_mm)
+            
             response = self.move_joint(target, profile)
             
             # Check response - "0" means success
