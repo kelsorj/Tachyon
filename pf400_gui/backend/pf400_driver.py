@@ -397,6 +397,20 @@ class PF400Driver:
             traceback.print_exc()
             return False
     
+    def move_to_joints_raw(self, j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm=None, j6_mm=None, profile=1):
+        """
+        Move to absolute joint coordinates in robot native units (mm/deg).
+        This is a convenience method that converts to SI units and calls move_to_joints.
+        """
+        j1_m = j1_mm / 1000.0
+        j2_rad = math.radians(j2_deg)
+        j3_rad = math.radians(j3_deg)
+        j4_rad = math.radians(j4_deg)
+        gripper_m = gripper_mm / 1000.0 if gripper_mm is not None else None
+        j6_m = j6_mm / 1000.0 if j6_mm is not None else None
+        
+        return self.move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, j6_m, profile)
+    
     def move_cartesian(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1):
         """
         Move to Cartesian position (like working module).

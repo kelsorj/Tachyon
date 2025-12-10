@@ -538,14 +538,16 @@ async def save_current_position(name: str, description: str = "", id: str = None
         # j1 is in meters, convert to mm
         # j2, j3, j4 are in radians, convert to degrees
         # gripper is in meters, convert to mm
+        # j6 (rail) is in meters, convert to mm
         import math
         j1_mm = joints_dict.get('j1', 0) * 1000
         j2_deg = joints_dict.get('j2', 0) * 180 / math.pi
         j3_deg = joints_dict.get('j3', 0) * 180 / math.pi
         j4_deg = joints_dict.get('j4', 0) * 180 / math.pi
         gripper_mm = joints_dict.get('gripper', 0) * 1000
+        j6_mm = joints_dict.get('j6', 0) * 1000  # Rail position
         
-        joints_list = [j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, 0.0]
+        joints_list = [j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, j6_mm]
         
         # Use provided ID for updates, or generate new ID from name
         tp_id = id if id else name.lower().replace(" ", "_").replace("-", "_")
@@ -630,16 +632,18 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1):
         
         if tp.get("type") == "joints" and tp.get("joints"):
             joints = tp["joints"]
-            # joints is [j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, rail]
+            # joints is [j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, j6_mm/rail]
             # Use move_to_joints_raw which expects robot native units (mm/deg)
             if hasattr(robot_client, 'driver'):
+                j6_mm = joints[5] if len(joints) > 5 else None
                 success = robot_client.driver.move_to_joints_raw(
-                    joints[0],  # j1 mm
-                    joints[1],  # j2 deg
-                    joints[2],  # j3 deg
-                    joints[3],  # j4 deg
-                    joints[4],  # gripper mm
-                    speed_profile
+                    j1_mm=joints[0],
+                    j2_deg=joints[1],
+                    j3_deg=joints[2],
+                    j4_deg=joints[3],
+                    gripper_mm=joints[4],
+                    j6_mm=j6_mm,
+                    profile=speed_profile
                 )
                 if success:
                     return {"status": "success", "message": f"Moved to '{tp.get('name', teachpoint_id)}'"}
