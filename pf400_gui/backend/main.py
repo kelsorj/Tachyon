@@ -72,7 +72,7 @@ class SpeedSettingsRequest(BaseModel):
 
 
 # Device name for this robot instance
-DEVICE_NAME = os.environ.get("DEVICE_NAME", "PF400-021")
+DEVICE_NAME = os.environ.get("DEVICE_NAME", "PF400-015")
 
 # Robot model (400SX or 400SXL)
 ROBOT_MODEL = os.environ.get("ROBOT_MODEL", "400SX")
@@ -558,15 +558,21 @@ async def save_current_position(name: str, description: str = "", id: str = None
             "cartesian": cartesian_dict
         }
         
+        print(f"Calling mongodb.save_teachpoint for device={DEVICE_NAME}, tp_id={tp_id}")
         success = mongodb.save_teachpoint(DEVICE_NAME, tp_id, teachpoint_data)
+        print(f"mongodb.save_teachpoint returned: {success}")
         if success:
             action = "Updated" if id else "Saved"
             return {"status": "success", "message": f"{action} teachpoint '{name}'", "id": tp_id}
         else:
             raise HTTPException(status_code=500, detail="Failed to save teachpoint")
             
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"Error saving current position: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.delete("/teachpoints/{teachpoint_id}")

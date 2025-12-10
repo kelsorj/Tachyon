@@ -359,43 +359,68 @@ def get_device_connection(name: str) -> Optional[Dict[str, Any]]:
 
 
 def get_device_teachpoints(name: str) -> Dict[str, Any]:
-    """Get all teachpoints for a device."""
+    """Get all teachpoints for a device.
+    
+    Uses 'gui_teachpoints' field to avoid conflict with legacy array-style teachpoints.
+    """
     device = get_device_by_name(name)
     if device:
-        return device.get("teachpoints", {})
+        # Use gui_teachpoints field (dict style) for this GUI
+        teachpoints = device.get("gui_teachpoints", {})
+        if isinstance(teachpoints, dict):
+            return teachpoints
     return {}
 
 
 def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[str, Any]) -> bool:
-    """Save or update a teachpoint for a device."""
+    """Save or update a teachpoint for a device.
+    
+    Handles both array-style teachpoints (legacy) and dict-style teachpoints (new).
+    For this GUI, we use a separate field 'gui_teachpoints' to avoid conflicts.
+    """
     try:
         db = get_db()
+        print(f"save_teachpoint: device={device_name}, id={teachpoint_id}")
         
-        # Add timestamp
+        # Add timestamp and id to the data
         teachpoint_data["updated_at"] = datetime.utcnow()
+        teachpoint_data["id"] = teachpoint_id
         if "created_at" not in teachpoint_data:
             teachpoint_data["created_at"] = datetime.utcnow()
         
-        # Update the teachpoint in the device document
+        # Use gui_teachpoints field to avoid conflict with legacy array-style teachpoints
         result = db.devices.update_one(
             {"name": device_name},
             {
                 "$set": {
-                    f"teachpoints.{teachpoint_id}": teachpoint_data,
+                    f"gui_teachpoints.{teachpoint_id}": teachpoint_data,
                     "updated_at": datetime.utcnow()
+                },
+                "$setOnInsert": {
+                    "name": device_name,
+                    "created_at": datetime.utcnow()
                 }
-            }
+            },
+            upsert=True
         )
         
-        if result.modified_count > 0:
+        print(f"save_teachpoint: modified={result.modified_count}, upserted={result.upserted_id}, matched={result.matched_count}")
+        
+        if result.modified_count > 0 or result.upserted_id:
             print(f"Saved teachpoint '{teachpoint_id}' for {device_name}")
             return True
         else:
+            # Check if data was matched but not modified (same data)
+            if result.matched_count > 0:
+                print(f"Teachpoint '{teachpoint_id}' unchanged (same data)")
+                return True
             print(f"No document modified for teachpoint '{teachpoint_id}'")
             return False
             
     except Exception as e:
         print(f"Error saving teachpoint: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
@@ -404,10 +429,11 @@ def delete_teachpoint(device_name: str, teachpoint_id: str) -> bool:
     try:
         db = get_db()
         
+        # Use gui_teachpoints field to match save_teachpoint
         result = db.devices.update_one(
             {"name": device_name},
             {
-                "$unset": {f"teachpoints.{teachpoint_id}": ""},
+                "$unset": {f"gui_teachpoints.{teachpoint_id}": ""},
                 "$set": {"updated_at": datetime.utcnow()}
             }
         )
