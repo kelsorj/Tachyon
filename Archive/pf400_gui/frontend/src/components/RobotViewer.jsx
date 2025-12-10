@@ -16,7 +16,7 @@ function RobotModel({ joints, cartesian }) {
         loader.loadMeshCb = (path, manager, onComplete) => {
             const stlLoader = new STLLoader(manager)
             const cleanPath = path.replace(/^\/+/, '').replace(/.*meshes\//, 'meshes/')
-            const url = `http://localhost:3061/${cleanPath}`
+            const url = `http://localhost:3062/${cleanPath}`
             stlLoader.load(url, (geo) => {
                 const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0x9dcfe9, flatShading: false }))
                 onComplete(mesh)
@@ -25,7 +25,7 @@ function RobotModel({ joints, cartesian }) {
                 onComplete(new THREE.Mesh())
             })
         }
-        const urdfUrl = `http://localhost:3061/urdf/pf400Complete.urdf?t=${Date.now()}`
+        const urdfUrl = `http://localhost:3062/urdf/pf400Complete.urdf?t=${Date.now()}`
         loader.load(urdfUrl, (result) => {
             console.log('URDF loaded')
             
@@ -102,52 +102,9 @@ function RobotModel({ joints, cartesian }) {
 
     if (!robot) return null
 
-    // Calculate rail position (J6 in meters)
-    // The rail is 2m long, and J6 range is -1000mm to +1000mm (-1m to +1m)
-    // So the rail extends from -1m to +1m along X axis
-    // J6 value directly maps to X position
-    const railPosition = (joints?.j6 || joints?.rail || 0) // J6 is in meters, range -1 to +1
-    
     return (
         <group>
-            {/* Rail visualization - 2m long rail, rotated 90° in horizontal plane (around Y axis) */}
-            {/* Rail positioned at the base of the vertical element (J1) - slightly below ground level */}
-            {/* Rail width matches robot base width (~0.18m) and is centered on vertical column */}
-            {/* The rail is fixed in world space, extending from -1m to +1m along its length (Z after rotation) */}
-            {/* The rail's width (0.18m) extends from -0.09 to +0.09 in X, centered at x=0 */}
-            <group position={[0, -0.015, 0]} rotation={[0, Math.PI / 2, 0]}>
-                {/* Rail base/beam - originally along X, after 90° Y rotation it's along Z */}
-                {/* args: [length, height, width] - width is 0.18m, extends from -0.09 to +0.09 in X after rotation */}
-                {/* Position at x=0 (relative to group) to center it - the group is at world x=0 */}
-                <mesh position={[0, 0, 0]}>
-                    <boxGeometry args={[2.0, 0.05, 0.18]} />
-                    <meshStandardMaterial color={0xd0d0d0} metalness={0.3} roughness={0.7} />
-                </mesh>
-                {/* Rail end markers - different colors for -1000mm (blue) and +1000mm (red) ends */}
-                {/* Caps match rail width (0.18m) and are centered */}
-                {/* -1000mm end (negative end) - Blue */}
-                <mesh position={[-1.0, 0, 0]}>
-                    <boxGeometry args={[0.05, 0.08, 0.18]} />
-                    <meshStandardMaterial color={0x0066ff} />
-                </mesh>
-                {/* +1000mm end (positive end) - Red */}
-                <mesh position={[1.0, 0, 0]}>
-                    <boxGeometry args={[0.05, 0.08, 0.18]} />
-                    <meshStandardMaterial color={0xff0000} />
-                </mesh>
-                {/* Rail position indicator - shows current robot position on rail */}
-                {/* This moves along the rail's length (Z axis after rotation) */}
-                <mesh position={[0, 0.06, railPosition]}>
-                    <boxGeometry args={[0.1, 0.02, 0.1]} />
-                    <meshStandardMaterial color={0x00ff00} />
-                </mesh>
-            </group>
-            
-            {/* Robot positioned on rail - moves along X axis based on J6 */}
-            {/* Robot's vertical column is at x=railPosition, y=0.225 */}
-            {/* Rail is fixed at x=0, so when railPosition=0, robot column should align with rail center (x=0) */}
-            <group position={[railPosition, 0, 0]}>
-                <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
+            <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
             
             {/* Coordinated Overlay */}
             <group ref={overlayRef}>
@@ -194,12 +151,8 @@ function RobotModel({ joints, cartesian }) {
                         <div>J3: {((joints?.j3 || 0) * 180/Math.PI).toFixed(1)}°</div>
                         <div>J4: {((joints?.j4 || 0) * 180/Math.PI).toFixed(1)}°</div>
                         <div>Grp: {((joints?.gripper || 0) * 1000).toFixed(1)} mm</div>
-                        {(joints?.j6 !== undefined || joints?.rail !== undefined) && (
-                            <div>J6/Rail: {((joints?.j6 || joints?.rail || 0) * 1000).toFixed(1)} mm</div>
-                        )}
                     </div>
                 </Html>
-            </group>
             </group>
         </group>
     )

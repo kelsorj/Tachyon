@@ -1,0 +1,19 @@
+name: pf400
+services:
+  pf400:
+    container_name: pf400
+    image: ghcr.io/ad-sdl/pf400_module
+    network_mode: host
+    environment:
+      - USER_ID=${USER_ID:-1000}
+      - GROUP_ID=${GROUP_ID:-1000}
+      - PF400_IP=146.137.240.35
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - ghcr.io/ad-sdl/pf400_module:latest
+        - ghcr.io/ad-sdl/pf400_module:dev
+    command: python -m pf400_rest_node --node_definition definitions/pf400.node.yaml
+    volumes:
+      - ./definitions:/home/madsci/definitions/
