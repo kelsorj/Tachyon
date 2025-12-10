@@ -167,38 +167,6 @@ function RobotModel({ joints, cartesian }) {
                     <torusGeometry args={[0.25, 0.01, 8, 32, Math.PI]} />
                     <meshBasicMaterial color={0x391085} side={THREE.DoubleSide} />
                 </mesh>
-
-                {/* HUD - Attached to end effector overlay or just in scene? */}
-                {/* User asked for "HUD over the robot". Html component follows 3D position. */}
-                <Html position={[0.3, 0.3, 0]} center style={{ pointerEvents: 'none' }}>
-                    <div style={{ 
-                        background: 'rgba(0, 0, 0, 0.7)', 
-                        color: 'white', 
-                        padding: '8px', 
-                        borderRadius: '4px', 
-                        fontFamily: 'monospace', 
-                        fontSize: '12px',
-                        whiteSpace: 'pre',
-                        textAlign: 'left',
-                        minWidth: '150px',
-                        border: '1px solid #555'
-                    }}>
-                        <div style={{ borderBottom: '1px solid #555', marginBottom: '4px', fontWeight: 'bold' }}>Position (mm/deg)</div>
-                        <div>X: {(cartesian?.x || 0).toFixed(1)} mm</div>
-                        <div>Y: {(cartesian?.y || 0).toFixed(1)} mm</div>
-                        <div>Z: {(cartesian?.z || 0).toFixed(1)} mm</div>
-                        <div>Yaw: {(cartesian?.yaw || 0).toFixed(1)}°</div>
-                        <div style={{ borderBottom: '1px solid #555', margin: '4px 0', fontWeight: 'bold' }}>Joints</div>
-                        <div>J1: {((joints?.j1 || 0) * 1000).toFixed(1)} mm</div>
-                        <div>J2: {((joints?.j2 || 0) * 180/Math.PI).toFixed(1)}°</div>
-                        <div>J3: {((joints?.j3 || 0) * 180/Math.PI).toFixed(1)}°</div>
-                        <div>J4: {((joints?.j4 || 0) * 180/Math.PI).toFixed(1)}°</div>
-                        <div>Grp: {((joints?.gripper || 0) * 1000).toFixed(1)} mm</div>
-                        {(joints?.j6 !== undefined || joints?.rail !== undefined) && (
-                            <div>J6/Rail: {((joints?.j6 || joints?.rail || 0) * 1000).toFixed(1)} mm</div>
-                        )}
-                    </div>
-                </Html>
             </group>
             </group>
         </group>
@@ -223,6 +191,40 @@ export default function RobotViewer({ joints, cartesian }) {
                         <OrbitControls />
                     </Suspense>
                 </Canvas>
+                
+                {/* Position display - fixed in top-right corner */}
+                <div style={{ 
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    background: 'rgba(0, 0, 0, 0.75)', 
+                    color: 'white', 
+                    padding: '10px', 
+                    borderRadius: '6px', 
+                    fontFamily: 'monospace', 
+                    fontSize: '12px',
+                    whiteSpace: 'pre',
+                    textAlign: 'left',
+                    minWidth: '150px',
+                    border: '1px solid #555',
+                    pointerEvents: 'none',
+                    zIndex: 10
+                }}>
+                    <div style={{ borderBottom: '1px solid #555', marginBottom: '4px', fontWeight: 'bold' }}>Position (mm/deg)</div>
+                    <div>X: {(cartesian?.x || 0).toFixed(1)} mm</div>
+                    <div>Y: {(cartesian?.y || 0).toFixed(1)} mm</div>
+                    <div>Z: {(cartesian?.z || 0).toFixed(1)} mm</div>
+                    <div>Yaw: {(cartesian?.yaw || 0).toFixed(1)}°</div>
+                    <div style={{ borderBottom: '1px solid #555', margin: '4px 0', fontWeight: 'bold' }}>Joints</div>
+                    <div>J1: {((joints?.j1 || 0) * 1000).toFixed(1)} mm</div>
+                    <div>J2: {((joints?.j2 || 0) * 180/Math.PI).toFixed(1)}°</div>
+                    <div>J3: {((joints?.j3 || 0) * 180/Math.PI).toFixed(1)}°</div>
+                    <div>J4: {((joints?.j4 || 0) * 180/Math.PI).toFixed(1)}°</div>
+                    <div>Grp: {((joints?.gripper || 0) * 1000).toFixed(1)} mm</div>
+                    {(joints?.j6 !== undefined || joints?.rail !== undefined) && (
+                        <div>J6/Rail: {((joints?.j6 || joints?.rail || 0) * 1000).toFixed(1)} mm</div>
+                    )}
+                </div>
             </div>
         </div>
     )
