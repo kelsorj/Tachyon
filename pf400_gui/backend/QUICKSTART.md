@@ -92,3 +92,4 @@ curl http://localhost:3061/diagnostics/rail
 - Make sure you set `ROBOT_MODEL=400SXL` before starting
 - Or use `./run_sxl.sh` which sets it automatically
 
+

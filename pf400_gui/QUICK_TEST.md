@@ -107,3 +107,4 @@ Once basic tests pass:
 3. Test rail movement (SXL)
 4. Test diagnostics endpoints
 
+

@@ -16,3 +16,4 @@ else
     echo "Run 'source ~/.zshrc' or restart your terminal to use it"
 fi
 
+

@@ -133,3 +133,4 @@ See `examples/basic_usage.py` for a complete working example.
 3. Customize task scheduling logic in `PlateScheduler._schedule_task()`
 4. Add monitoring/logging for production use
 
+

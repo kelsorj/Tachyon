@@ -115,3 +115,4 @@ class DeviceManager:
         """Get all robots"""
         return list(self.robots.values())
 
+

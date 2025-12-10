@@ -52,3 +52,4 @@ echo "  1. Run: source ~/.zshrc  (or restart terminal)"
 echo "  2. Run: ./run_sxl.sh     (to start the server)"
 echo ""
 
+

@@ -110,3 +110,4 @@ class DiagnosticsInterface(ABC):
         """Clear error log"""
         pass
 
+
