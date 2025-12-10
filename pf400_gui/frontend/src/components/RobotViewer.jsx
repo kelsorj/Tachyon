@@ -111,42 +111,35 @@ function RobotModel({ joints, cartesian }) {
     return (
         <group>
             {/* Rail visualization - 2m long rail, rotated 90° in horizontal plane (around Y axis) */}
-            {/* Rail positioned at the base of the vertical element (J1) - slightly below ground level */}
-            {/* Rail width matches robot base width (~0.18m) and is centered on vertical column */}
-            {/* The rail is fixed in world space, extending from -1m to +1m along its length (Z after rotation) */}
-            {/* The rail's width (0.18m) extends from -0.09 to +0.09 in X, centered at x=0 */}
+            {/* After rotation, rail runs along world Z axis from -1m to +1m */}
+            {/* Rail width (~0.18m) extends in world X direction, centered at x=0 */}
             <group position={[0, -0.015, 0]} rotation={[0, Math.PI / 2, 0]}>
-                {/* Rail base/beam - originally along X, after 90° Y rotation it's along Z */}
-                {/* args: [length, height, width] - width is 0.18m, extends from -0.09 to +0.09 in X after rotation */}
-                {/* Position at x=0 (relative to group) to center it - the group is at world x=0 */}
+                {/* Rail base/beam - local X becomes world Z after rotation */}
                 <mesh position={[0, 0, 0]}>
                     <boxGeometry args={[2.0, 0.05, 0.18]} />
                     <meshStandardMaterial color={0xd0d0d0} metalness={0.3} roughness={0.7} />
                 </mesh>
-                {/* Rail end markers - different colors for -1000mm (blue) and +1000mm (red) ends */}
-                {/* Caps match rail width (0.18m) and are centered */}
-                {/* -1000mm end (negative end) - Blue */}
+                {/* Rail end markers - blue at -1000mm, red at +1000mm */}
+                {/* After rotation: local x=-1 → world z=-1, local x=+1 → world z=+1 */}
+                {/* Blue end (-1000mm) */}
                 <mesh position={[-1.0, 0, 0]}>
                     <boxGeometry args={[0.05, 0.08, 0.18]} />
                     <meshStandardMaterial color={0x0066ff} />
                 </mesh>
-                {/* +1000mm end (positive end) - Red */}
+                {/* Red end (+1000mm) */}
                 <mesh position={[1.0, 0, 0]}>
                     <boxGeometry args={[0.05, 0.08, 0.18]} />
                     <meshStandardMaterial color={0xff0000} />
                 </mesh>
-                {/* Rail position indicator - shows current robot position on rail */}
-                {/* This moves along the rail's length (Z axis after rotation) */}
-                <mesh position={[0, 0.06, railPosition]}>
+                {/* Rail position indicator - moves along rail length (local X = world Z) */}
+                <mesh position={[railPosition, 0.06, 0]}>
                     <boxGeometry args={[0.1, 0.02, 0.1]} />
                     <meshStandardMaterial color={0x00ff00} />
                 </mesh>
             </group>
             
-            {/* Robot positioned on rail - moves along X axis based on J6 */}
-            {/* Robot's vertical column is at x=railPosition, y=0.225 */}
-            {/* Rail is fixed at x=0, so when railPosition=0, robot column should align with rail center (x=0) */}
-            <group position={[railPosition, 0, 0]}>
+            {/* Robot positioned on rail - moves along Z axis (same direction as rail) */}
+            <group position={[0, 0, railPosition]}>
                 <primitive object={robot} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.225, 0]} dispose={null} />
             
             {/* Coordinated Overlay */}
