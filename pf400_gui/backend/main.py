@@ -673,6 +673,16 @@ async def get_device_info():
         print(f"Error getting device info: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/devices")
+async def get_all_devices():
+    """Get all devices from MongoDB."""
+    try:
+        devices = mongodb.get_all_devices()
+        return {"devices": devices}
+    except Exception as e:
+        print(f"Error getting all devices: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 # ============== Diagnostics API ==============
 
