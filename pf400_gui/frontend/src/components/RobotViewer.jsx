@@ -131,11 +131,6 @@ function RobotModel({ joints, cartesian }) {
                     <boxGeometry args={[0.05, 0.08, 0.18]} />
                     <meshStandardMaterial color={0xff0000} />
                 </mesh>
-                {/* Rail position indicator - moves along rail length (local X = world Z) */}
-                <mesh position={[railPosition, 0.06, 0]}>
-                    <boxGeometry args={[0.1, 0.02, 0.1]} />
-                    <meshStandardMaterial color={0x00ff00} />
-                </mesh>
             </group>
             
             {/* Robot positioned on rail - moves along Z axis (same direction as rail) */}
