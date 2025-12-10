@@ -47,6 +47,26 @@ TEST_BATCHES = [
         "files": ["tests/test_plate_scheduler.py"],
         "description": "Tests for PlateScheduler (main orchestrator)"
     },
+    {
+        "name": "Path Planner Edge Cases",
+        "files": ["tests/test_path_planner_edge_cases.py"],
+        "description": "Edge case tests for PathPlanner"
+    },
+    {
+        "name": "Robot Scheduler Edge Cases",
+        "files": ["tests/test_robot_scheduler_edge_cases.py"],
+        "description": "Edge case tests for RobotScheduler"
+    },
+    {
+        "name": "Plate Scheduler Edge Cases",
+        "files": ["tests/test_plate_scheduler_edge_cases.py"],
+        "description": "Edge case tests for PlateScheduler"
+    },
+    {
+        "name": "Active Plate Edge Cases",
+        "files": ["tests/test_active_plate_edge_cases.py"],
+        "description": "Edge case tests for ActivePlate"
+    },
 ]
 
 def run_batch(batch, verbose=False):
