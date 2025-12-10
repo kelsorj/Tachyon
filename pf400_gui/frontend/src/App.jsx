@@ -351,8 +351,8 @@ function App() {
               <select value={stepRail} onChange={e => setStepRail(+e.target.value)} style={{...selectStyle, width: 55}}>
                 {linearOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
-              <button style={btn(colors.left, '#fff', 35)} onClick={() => sendJog('rail', -1)}>◄</button>
-              <button style={btn(colors.right, '#000', 35)} onClick={() => sendJog('rail', 1)}>►</button>
+              <button style={btn('#0066ff', '#fff', 35)} onClick={() => sendJog('rail', 1)}>◄</button>
+              <button style={btn(colors.right, '#000', 35)} onClick={() => sendJog('rail', -1)}>►</button>
             </div>
           </div>
 
