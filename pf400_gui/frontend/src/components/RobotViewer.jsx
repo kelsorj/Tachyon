@@ -110,16 +110,17 @@ function RobotModel({ joints, cartesian }) {
     
     return (
         <group>
-            {/* Rail visualization - 2m long rail, rotated 90° in horizontal plane (around Y axis) */}
-            {/* After rotation, rail runs along world Z axis from -1m to +1m */}
+            {/* Rail visualization - extended to show full travel range including robot base width */}
+            {/* After rotation, rail runs along world Z axis from -1.1m to +1.1m (extended) */}
             {/* Rail width (~0.18m) extends in world X direction, centered at x=0 */}
+            {/* Actual travel limits are -1.0m to +1.0m (-1000mm to +1000mm) */}
             <group position={[0, -0.015, 0]} rotation={[0, Math.PI / 2, 0]}>
-                {/* Rail base/beam - local X becomes world Z after rotation */}
+                {/* Rail base/beam - extended to 2.4m to account for robot base width */}
                 <mesh position={[0, 0, 0]}>
-                    <boxGeometry args={[2.0, 0.05, 0.18]} />
+                    <boxGeometry args={[2.4, 0.05, 0.18]} />
                     <meshStandardMaterial color={0xd0d0d0} metalness={0.3} roughness={0.7} />
                 </mesh>
-                {/* Rail end markers - blue at -1000mm, red at +1000mm */}
+                {/* Rail end markers - blue at -1000mm, red at +1000mm (actual travel limits) */}
                 {/* After rotation: local x=-1 → world z=-1, local x=+1 → world z=+1 */}
                 {/* Blue end (-1000mm) */}
                 <mesh position={[-1.0, 0, 0]}>
