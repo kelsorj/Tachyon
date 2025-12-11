@@ -249,91 +249,41 @@ class PlanarMotorDriver:
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
+                # Use the raw bot call for better performance in a tight loop
                 status = bot.get_xbot_status(xbot_id)
                 if status.xbot_state in [pm.XBOTSTATE.XBOT_IDLE, pm.XBOTSTATE.XBOT_STOPPED]:
                     return True
             except Exception:
                 pass
             time.sleep(poll_interval)
-        return False
-    
+        return False   
+
     def move_to_xy(self, xbot_id: int, x: float, y: float,
                    max_speed: float = 1.0, max_acceleration: float = 10.0,
                    final_speed: float = 0.0,
                    path_type: Optional["pm.LINEARPATHTYPE"] = None,
                    wait: bool = True) -> bool:
         """
-        Move XBOT to absolute XY position using async_motion_si.
-
-        NOTE:
-        - We deliberately avoid linear_motion_si because the Python wrapper's
-          signature does not appear to match the installed DLL and causes
-          'No method matches given arguments' errors.
-        - async_motion_si is known to work (same pattern as circular_motion_app.py).
-        - max_speed / max_acceleration / final_speed are currently ignored by
-          this call; you can control speeds via PMC configuration instead.
+        [DROP-IN SUBSTITUTE] Move XBOT to absolute XY position using linear_motion_si.
         """
-        if not self.connected:
-            print("move_to_xy: Not connected")
-            return False
-
-        try:
-            # Log current state/position
-            status = self.get_xbot_status(xbot_id)
-            if status:
-                state = status.get("state", "UNKNOWN")
-                pos = status.get("position", {})
-                print(f"async_motion_si: xbot={xbot_id}, state={state}")
-                print(f"  Current: X={pos.get('x', 0):.4f}m, Y={pos.get('y', 0):.4f}m")
-                print(f"  Target:  X={x:.4f}m, Y={y:.4f}m")
-
-                # Make sure we start from an idle / stopped state
-                if state not in ["IDLE", "STOPPED"]:
-                    print("  Waiting for XBOT to be idle / stopped before motion...")
-                    if not self.wait_until_idle(xbot_id, timeout=10.0):
-                        print(f"async_motion_si: XBOT {xbot_id} did not become idle")
-                        return False
-
-            with self.lock:
-                # EXACT pattern from circular_motion_app.py
-                cmd_label = 1
-                print("  Sending async_motion_si command...")
-                bot.async_motion_si(
-                    cmd_label,
-                    pm.ASYNCOPTIONS.MOVEALL,
-                    [xbot_id],   # list of xbots
-                    [x],         # list of target X positions (m)
-                    [y],         # list of target Y positions (m)
-                )
-                print("  async_motion_si command sent")
-
-            if wait:
-                print("  Waiting for motion to complete...")
-                if not self.wait_until_idle(xbot_id, timeout=30.0):
-                    print("  async_motion_si: timed out waiting for idle")
-                    return False
-
-                final_status = self.get_xbot_status(xbot_id)
-                if final_status:
-                    fpos = final_status.get("position", {})
-                    print(f"  Final:   X={fpos.get('x', 0):.4f}m, Y={fpos.get('y', 0):.4f}m")
-
-            return True
-
-        except Exception as e:
-            import traceback
-            print(f"Error in async_motion_si move_to_xy: {e}")
-            print(traceback.format_exc())
-            return False
+        print(f"Absolute Linear Motion: XBOT {xbot_id} to X={x:.4f}m, Y={y:.4f}m")
+        
+        return self._linear_motion_base(
+            xbot_id=xbot_id,
+            x=x,
+            y=y,
+            mode=pm.POSITIONMODE.ABSOLUTE,
+            max_speed=max_speed,
+            max_accel=max_acceleration,
+            final_speed=final_speed,
+            wait=wait
+        )
 
     def linear_motion(self, xbot_id: int, x: float, y: float,
                       final_speed: float = 0.0, max_speed: float = 1.0,
                       max_acceleration: float = 10.0,
                       wait: bool = True) -> bool:
-        """
-        Compatibility wrapper: move using async_motion_si.
-        (Name kept so existing REST endpoints keep working.)
-        """
+        """Compatibility wrapper: calls move_to_xy (now using linear_motion_si)."""
         return self.move_to_xy(
             xbot_id=xbot_id,
             x=x,
@@ -360,98 +310,99 @@ class PlanarMotorDriver:
     def jog(self, xbot_id: int, axis: str, distance: float,
             max_speed: float = 0.5, max_acceleration: float = 5.0) -> bool:
         """
-        Jog XBOT along a single axis using linear_single_axis_motion_si (relative move).
-
-        Args:
-            xbot_id: XBOT ID
-            axis: 'x', 'y', 'z', 'rx', 'ry', or 'rz'
-            distance: distance to move (meters for translational axes, radians for rotational)
-            max_speed: max speed (m/s or rad/s)
-            max_acceleration: max acceleration (m/s^2 or rad/s^2)
+        [DROP-IN SUBSTITUTE] Jog XBOT along an axis using linear_motion_si (relative move).
+        
+        This method uses the preferred linear_motion_si function with POSITIONMODE.RELATIVE,
+        which is simpler and more reliable than the single-axis motion command for X/Y.
         """
         if not self.connected:
             print("Jog failed: Not connected")
             return False
-
-        # Map string axis -> pm.AXISNAMES enum
-        axis_lower = axis.lower()
-        axis_map = {
-            'x': pm.AXISNAMES.X_1,
-            'y': pm.AXISNAMES.Y_2,
-            'z': pm.AXISNAMES.Z_3,
-            'rx': pm.AXISNAMES.RX_4,
-            'ry': pm.AXISNAMES.RY_5,
-            'rz': pm.AXISNAMES.RZ_6,
-        }
-
-        if axis_lower not in axis_map:
-            print(f"Jog failed: Invalid axis '{axis}'. Use one of x, y, z, rx, ry, rz")
+            
+        if axis.lower() == 'x':
+            dx = distance
+            dy = 0.0
+        elif axis.lower() == 'y':
+            dx = 0.0
+            dy = distance
+        else:
+            # For Z/Rx/Ry/Rz, you would need SixDofMotionSI or the separate single-axis call.
+            print(f"Jog failed: Invalid axis '{axis}' for standard linear jog. Use 'x' or 'y'.")
             return False
 
-        axis_enum = axis_map[axis_lower]
+        print(f"Relative Jog Motion: XBOT {xbot_id} by dX={dx:.4f}m, dY={dy:.4f}m")
+
+        return self._linear_motion_base(
+            xbot_id=xbot_id, 
+            x=dx, 
+            y=dy, 
+            mode=pm.POSITIONMODE.RELATIVE, # Key change for jogging
+            max_speed=max_speed, 
+            max_accel=max_acceleration, 
+            final_speed=0.0,
+            wait=True
+        )
+
+    def _linear_motion_base(self, xbot_id: int, x: float, y: float, 
+                            mode: "pm.POSITIONMODE",
+                            max_speed: float, max_accel: float, 
+                            final_speed: float = 0.0,
+                            wait: bool = True) -> bool:
+        """
+        Internal method for linear motion using the 10-parameter LinearMotionSI 
+        required by this version of pmclib.
+        """
+        if not self.connected: return False
+        
+        cmd_id = 100 # Arbitrary Command ID
+        path_type = pm.LINEARPATHTYPE.DIRECT
+        # Add the missing parameter with a default value of 0.0 (straight line corners)
+        corner_radius = 0.0 
+        
+        # Always wait until the bot is idle/stopped before issuing a motion command
+        if not self.wait_until_idle(xbot_id, timeout=10.0):
+            print(f"Motion command failed: XBOT {xbot_id} is not idle.")
+            return False
 
         try:
-            # Optional: inspect current state
-            status = self.get_xbot_status(xbot_id)
-            if status:
-                state = status.get("state", "UNKNOWN")
-                pos = status.get("position", {})
-                print(f"XBOT {xbot_id} state: {state}")
-                print(f"XBOT {xbot_id} current: X={pos.get('x', 0):.4f}m, Y={pos.get('y', 0):.4f}m")
-
-                if state not in ["IDLE", "STOPPED"]:
-                    print("Jog: waiting for XBOT to be ready...")
-                    if not self.wait_until_idle(xbot_id, timeout=5.0):
-                        print(f"Jog failed: XBOT {xbot_id} not ready (state: {state})")
-                        return False
-
-            print("=== JOG COMMAND ===")
-            print(f"  Axis: {axis.upper()}, Distance: {distance:.4f}")
-            print(f"  Speed: {max_speed} m/s, Accel: {max_acceleration} m/s²")
-            print("===================")
-
             with self.lock:
-                cmd_label = 2  # separate label from main linear moves
-
-                # RELATIVE motion: distance is interpreted as delta from current position
-                result = bot.linear_single_axis_motion_si(
-                    cmd_label,
+                print(f"  Sending linear_motion_si (Mode: {mode}) command...")
+                
+                # CORRECTED 10-PARAMETER CALL: added corner_radius
+                result = bot.linear_motion_si(
+                    cmd_id,
                     xbot_id,
-                    pm.POSITIONMODE.RELATIVE,
-                    axis_enum,
-                    distance,          # targetPos (m or rad)
-                    0.0,               # finalSpeed
-                    max_speed,         # maxSpeed
-                    max_acceleration,  # maxAcceleration
-                    True,              # hasPriority (fence path)
+                    mode,               # 3: POSITIONMODE.ABSOLUTE or POSITIONMODE.RELATIVE
+                    path_type,          # 4: LINEARPATHTYPE.DIRECT
+                    x,                  # 5: targetX (m) or deltaX (m)
+                    y,                  # 6: targetY (m) or deltaY (m)
+                    final_speed,        # 7: final speed (m/s)
+                    max_speed,          # 8: max speed (m/s)
+                    max_accel,          # 9: max acceleration (m/s^2)
+                    corner_radius       # 10: REQUIRED positional argument
                 )
-
+                
             pmc_rtn = getattr(result, "PmcRtn", None)
-            travel_time = getattr(result, "travel_time", None) or getattr(result, "tTime", None)
-
-            print(f"  linear_single_axis_motion_si PMC rtn: {pmc_rtn}")
-            if travel_time is not None:
-                print(f"  Estimated travel time: {travel_time:.3f}s")
 
             if pmc_rtn is not None and pmc_rtn != pm.PMCRTN.ALLOK:
-                print(f"  Jog failed with PMC rtn: {pmc_rtn}")
+                print(f"linear_motion_si failed with PMC rtn: {pmc_rtn}")
                 return False
 
-            # Wait for jog to complete so UI can read back position
-            if not self.wait_until_idle(xbot_id, timeout=10.0):
-                print("  Jog: timed out waiting for idle")
-                return False
-
-            final_status = self.get_xbot_status(xbot_id)
-            if final_status:
-                fpos = final_status.get("position", {})
-                print(f"Jog complete: Final X={fpos.get('x', 0):.4f}m, Y={fpos.get('y', 0):.4f}m")
+            if wait:
+                if not self.wait_until_idle(xbot_id, timeout=30.0):
+                    print("linear motion: timed out waiting for idle")
+                    return False
+                
+                final_status = self.get_xbot_status(xbot_id)
+                if final_status:
+                    fpos = final_status.get("position", {})
+                    print(f"  Final Position: X={fpos.get('x', 0):.4f}m, Y={fpos.get('y', 0):.4f}m")
 
             return True
 
         except Exception as e:
             import traceback
-            print(f"Error in jog: {e}")
+            print(f"Error in linear motion: {e}")
             print(traceback.format_exc())
             return False
 
