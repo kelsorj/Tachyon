@@ -30,9 +30,13 @@ function DeviceDashboard() {
     }
   }
 
-  const getDeviceTypeIcon = (deviceTypeId) => {
-    // You can customize icons based on device type
-    // For now, using a generic robot icon for PF400
+  const getDeviceTypeIcon = (device) => {
+    // Customize icons based on device type or name
+    if (device.name?.toLowerCase().includes('planar') || 
+        device.product_name?.toLowerCase().includes('planar')) {
+      return '🔄'
+    }
+    // Default robot icon for PF400 and other robots
     return '🤖'
   }
 
@@ -55,8 +59,14 @@ function DeviceDashboard() {
     if (device.name?.startsWith('PF400') || device.device_type_id?.includes('pf400')) {
       return `/devices/${device.name}/diagnostics`
     }
+    // For Planar Motor devices
+    if (device.name?.toLowerCase().includes('planar') || 
+        device.product_name?.toLowerCase().includes('planar') ||
+        device.vendor?.toLowerCase().includes('planar')) {
+      return `/devices/${device.name}/diagnostics`
+    }
     // For other device types, you can add more routes here
-    return `/devices/${device.name}`
+    return `/devices/${device.name}/diagnostics`
   }
 
   if (loading) {
@@ -154,7 +164,7 @@ function DeviceDashboard() {
               >
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: 15 }}>
                   <div style={{ fontSize: '2.5em', marginRight: 15 }}>
-                    {getDeviceTypeIcon(device.device_type_id)}
+                    {getDeviceTypeIcon(device)}
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '1.3em', fontWeight: 'bold', marginBottom: 5 }}>

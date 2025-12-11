@@ -1,6 +1,6 @@
 """
 PF400 Driver - Based on working pf400_module-main implementation
-Uses raw sockets (since telnetlib was removed in Python 3.13+)
+Uses raw sockets (since telnetlib was removed in Python 3.13)
 """
 import os
 import socket

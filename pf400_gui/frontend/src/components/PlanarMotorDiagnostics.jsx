@@ -1,0 +1,409 @@
+import { useState, useEffect } from 'react'
+import PlanarMotorViewer from './PlanarMotorViewer'
+
+function PlanarMotorDiagnostics() {
+  const [xbots, setXbots] = useState({})
+  const [pmcStatus, setPmcStatus] = useState(null)
+  const [connected, setConnected] = useState(false)
+  const [logs, setLogs] = useState([])
+  const [selectedXbot, setSelectedXbot] = useState(1)
+  const [jogStep, setJogStep] = useState(0.010) // 10mm default
+  const [maxSpeed, setMaxSpeed] = useState(0.5)
+  const [maxAcceleration, setMaxAcceleration] = useState(5.0)
+  const [pmcIp, setPmcIp] = useState('192.168.10.100') // Will be updated from status
+
+  const API_URL = "http://localhost:3062"
+
+  // Fetch initial status to get PMC IP
+  useEffect(() => {
+    const fetchInitialStatus = async () => {
+      try {
+        const res = await fetch(`${API_URL}/status`)
+        if (res.ok) {
+          const data = await res.json()
+          if (data.pmc_ip) {
+            setPmcIp(data.pmc_ip)
+          }
+        }
+      } catch (e) {
+        // Silently ignore
+      }
+    }
+    fetchInitialStatus()
+  }, [])
+
+  // Fetch XBOT statuses periodically
+  useEffect(() => {
+    let isMounted = true
+    let timeoutId = null
+    
+    const fetchStatus = async () => {
+      if (!isMounted || !connected) return
+      
+      try {
+        const controller = new AbortController()
+        const timeoutAbort = setTimeout(() => controller.abort(), 2000)
+        
+        const [statusRes, xbotsRes] = await Promise.all([
+          fetch(`${API_URL}/xbots/status`, { signal: controller.signal }),
+          fetch(`${API_URL}/pmc/status`, { signal: controller.signal })
+        ])
+        clearTimeout(timeoutAbort)
+        
+        if (isMounted) {
+          if (statusRes.ok) {
+            const statusData = await statusRes.json()
+            setXbots(statusData.xbots || {})
+          }
+          if (xbotsRes.ok) {
+            const pmcData = await xbotsRes.json()
+            setPmcStatus(pmcData.status)
+          }
+        }
+      } catch (e) {
+        // Silently ignore errors
+      }
+      
+      if (isMounted && connected) {
+        timeoutId = setTimeout(fetchStatus, 500)
+      }
+    }
+    
+    if (connected) {
+      fetchStatus()
+    }
+    
+    return () => {
+      isMounted = false
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [connected])
+
+  // Connect to PMC
+  const handleConnect = async () => {
+    try {
+      const res = await fetch(`${API_URL}/connect`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ Connected to PMC. Found ${data.xbot_count || 0} XBOT(s)`)
+        setConnected(true)
+      } else {
+        const errorMsg = data.detail || data.message || 'Unknown error'
+        log(`✗ Failed to connect: ${errorMsg}`)
+        // Show more detailed error for network issues
+        if (errorMsg.includes('network') || errorMsg.includes('connect') || errorMsg.includes('reachable')) {
+          // Extract IP from error message if available, otherwise use current pmcIp state
+          const ipMatch = errorMsg.match(/192\.168\.\d+\.\d+/)
+          const displayIp = ipMatch ? ipMatch[0] : pmcIp
+          log(`  → Check that PMC is powered on and reachable at ${displayIp}`)
+        }
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Disconnect from PMC
+  const handleDisconnect = async () => {
+    try {
+      const res = await fetch(`${API_URL}/disconnect`, { method: 'POST' })
+      if (res.ok) {
+        log(`✓ Disconnected from PMC`)
+        setConnected(false)
+        setXbots({})
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Activate XBOTs
+  const handleActivate = async () => {
+    log(`→ Activating XBOTs...`)
+    try {
+      const res = await fetch(`${API_URL}/xbots/activate`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ XBOTs activated`)
+      } else {
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Levitate XBOT
+  const handleLevitate = async (xbotId) => {
+    log(`→ Levitating XBOT ${xbotId}...`)
+    try {
+      const res = await fetch(`${API_URL}/xbots/${xbotId}/levitate`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ XBOT ${xbotId} levitating`)
+      } else {
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Land XBOT
+  const handleLand = async (xbotId) => {
+    log(`→ Landing XBOT ${xbotId}...`)
+    try {
+      const res = await fetch(`${API_URL}/xbots/${xbotId}/land`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ XBOT ${xbotId} landing`)
+      } else {
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Stop XBOT
+  const handleStop = async (xbotId) => {
+    log(`→ Stopping XBOT ${xbotId}...`)
+    try {
+      const res = await fetch(`${API_URL}/xbots/${xbotId}/stop`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ XBOT ${xbotId} stopped`)
+      } else {
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Jog XBOT
+  const handleJog = async (axis, direction) => {
+    const distance = direction * jogStep
+    log(`→ Jogging XBOT ${selectedXbot} ${axis.toUpperCase()}: ${(distance * 1000).toFixed(1)}mm`)
+    
+    try {
+      const res = await fetch(`${API_URL}/xbots/${selectedXbot}/jog`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          xbot_id: selectedXbot,
+          axis: axis,
+          distance: distance,
+          max_speed: maxSpeed,
+          max_acceleration: maxAcceleration
+        })
+      })
+      const data = await res.json()
+      if (res.ok) {
+        log(`✓ Jog complete`)
+      } else {
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
+
+  const xbotIds = Object.keys(xbots).map(id => parseInt(id)).sort()
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: 10, boxSizing: 'border-box' }}>
+      <h1 style={{ margin: '0 0 10px 0', fontSize: '1.5em' }}>Planar Motor Control</h1>
+
+      <div style={{ display: 'flex', flex: 1, gap: 15, minHeight: 0 }}>
+        
+        {/* 3D VIEWER - Takes 70% of width */}
+        <div style={{ flex: 7, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
+          <PlanarMotorViewer xbots={xbots} />
+        </div>
+
+        {/* CONTROLS - Takes 30% of width */}
+        <div style={{ flex: 3, minWidth: 280, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          
+          {/* Connection Status */}
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Connection</div>
+            <div style={{ marginBottom: 8 }}>
+              <div>Status: <span style={{ color: connected ? '#52c41a' : '#ff4d4f' }}>{connected ? 'Connected' : 'Disconnected'}</span></div>
+              {pmcStatus && <div>PMC: {pmcStatus}</div>}
+            </div>
+            <div style={{ display: 'flex', gap: 5 }}>
+              {!connected ? (
+                <button 
+                  onClick={handleConnect}
+                  style={{ flex: 1, padding: '8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                  Connect
+                </button>
+              ) : (
+                <button 
+                  onClick={handleDisconnect}
+                  style={{ flex: 1, padding: '8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                  Disconnect
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* System Controls */}
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>System</div>
+            <button 
+              onClick={handleActivate}
+              style={{ width: '100%', padding: '8px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold', marginBottom: 5 }}
+            >
+              Activate XBOTs
+            </button>
+          </div>
+
+          {/* XBOT Selection */}
+          {xbotIds.length > 0 && (
+            <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+              <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>XBOT Selection</div>
+              <select 
+                value={selectedXbot} 
+                onChange={e => setSelectedXbot(parseInt(e.target.value))}
+                style={{ width: '100%', padding: '6px', borderRadius: 4, background: '#222', color: '#fff', border: '1px solid #444' }}
+              >
+                {xbotIds.map(id => (
+                  <option key={id} value={id}>XBOT {id}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* XBOT Controls */}
+          {xbotIds.length > 0 && (
+            <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+              <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>XBOT Controls</div>
+              <div style={{ display: 'flex', gap: 5, marginBottom: 5 }}>
+                <button 
+                  onClick={() => handleLevitate(selectedXbot)}
+                  style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
+                >
+                  Levitate
+                </button>
+                <button 
+                  onClick={() => handleLand(selectedXbot)}
+                  style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
+                >
+                  Land
+                </button>
+                <button 
+                  onClick={() => handleStop(selectedXbot)}
+                  style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
+                >
+                  Stop
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Jog Controls */}
+          {xbotIds.length > 0 && (
+            <>
+              <div style={{ background: '#222', borderRadius: 8, padding: 10 }}>
+                <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Jog Settings</div>
+                <div style={{ marginBottom: 8 }}>
+                  <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Step Size (mm)</div>
+                  <select 
+                    value={jogStep} 
+                    onChange={e => setJogStep(parseFloat(e.target.value))}
+                    style={{ width: '100%', padding: '4px', borderRadius: 4, background: '#333', color: '#fff', border: '1px solid #555' }}
+                  >
+                    <option value={0.001}>1</option>
+                    <option value={0.005}>5</option>
+                    <option value={0.010}>10</option>
+                    <option value={0.025}>25</option>
+                    <option value={0.050}>50</option>
+                  </select>
+                </div>
+                <div style={{ marginBottom: 8 }}>
+                  <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Max Speed (m/s)</div>
+                  <input 
+                    type="number"
+                    value={maxSpeed}
+                    onChange={e => setMaxSpeed(parseFloat(e.target.value) || 0.5)}
+                    step="0.1"
+                    min="0.1"
+                    max="2.0"
+                    style={{ width: '100%', padding: '4px', borderRadius: 4, background: '#333', color: '#fff', border: '1px solid #555' }}
+                  />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Max Acceleration (m/s²)</div>
+                  <input 
+                    type="number"
+                    value={maxAcceleration}
+                    onChange={e => setMaxAcceleration(parseFloat(e.target.value) || 5.0)}
+                    step="0.5"
+                    min="1.0"
+                    max="20.0"
+                    style={{ width: '100%', padding: '4px', borderRadius: 4, background: '#333', color: '#fff', border: '1px solid #555' }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ background: '#222', borderRadius: 8, padding: 10 }}>
+                <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Jog Controls</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5 }}>
+                  <div></div>
+                  <button 
+                    onClick={() => handleJog('y', 1)}
+                    style={{ padding: '10px', borderRadius: 4, background: '#95de64', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    ▲ Y+
+                  </button>
+                  <div></div>
+                  
+                  <button 
+                    onClick={() => handleJog('x', -1)}
+                    style={{ padding: '10px', borderRadius: 4, background: '#ff7875', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    ◄ X-
+                  </button>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8em' }}>Stop</div>
+                  <button 
+                    onClick={() => handleJog('x', 1)}
+                    style={{ padding: '10px', borderRadius: 4, background: '#ff7875', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    X+ ►
+                  </button>
+                  
+                  <div></div>
+                  <button 
+                    onClick={() => handleJog('y', -1)}
+                    style={{ padding: '10px', borderRadius: 4, background: '#a8071a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    ▼ Y-
+                  </button>
+                  <div></div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Logs */}
+          <div style={{ background: '#111', borderRadius: 4, padding: 8, fontSize: '0.75em', maxHeight: 120, overflowY: 'auto', flex: 1, minHeight: 0 }}>
+            {logs.length === 0 ? (
+              <div style={{ color: '#666', fontStyle: 'italic' }}>No logs yet</div>
+            ) : (
+              logs.map((l, i) => <div key={i}>{l}</div>)
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default PlanarMotorDiagnostics
+
