@@ -3,9 +3,9 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Grid, useGLTF, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Flyway dimensions: S3-AS-04-06 = 4x6 tiles * 60mm = 240mm x 360mm
+// Flyway dimensions: S3-AS-04-04 = 4x4 tiles * 60mm = 240mm x 240mm
 const FLYWAY_SIZE_X = 0.24   // PMC X dimension in meters (4 tiles)
-const FLYWAY_SIZE_Y = 0.36   // PMC Y dimension in meters (6 tiles)
+const FLYWAY_SIZE_Y = 0.24   // PMC Y dimension in meters (4 tiles)
 const FLYWAY_TOP_OFFSET = 0.08  // Height offset for XBOT
 
 // Coordinate mapping to match vendor display:
@@ -86,12 +86,10 @@ function FlywayModel({ flywayUrl }) {
     }, [clonedScene])
     
     // Position flyway so PMC (0,0) is at lower-left corner
-    // Model origin is at center, so shift by +half X and -half Y (since Y maps to -Z)
-    // PMC X -> Three.js +X (right)
-    // PMC Y -> Three.js -Z (up on screen)
+    // Rotate -90° X to lay flat, then position so corner is at origin
     return (
         <group position={[FLYWAY_SIZE_X / 2, 0, -FLYWAY_SIZE_Y / 2]}>
-            <primitive object={clonedScene} scale={1} />
+            <primitive object={clonedScene} scale={1} rotation={[-Math.PI / 2, 0, 0]} />
         </group>
     )
 }
