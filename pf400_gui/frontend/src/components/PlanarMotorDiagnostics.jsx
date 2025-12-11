@@ -23,6 +23,11 @@ function PlanarMotorDiagnostics() {
   const [newTeachpointName, setNewTeachpointName] = useState('')
   const [showTeachpointForm, setShowTeachpointForm] = useState(false)
 
+  // Reachable devices for linking (devices that can reach this motor)
+  const [reachableDevices, setReachableDevices] = useState([])
+  const [deviceTeachpoints, setDeviceTeachpoints] = useState({}) // teachpoints from other devices
+  const [linkingTeachpoint, setLinkingTeachpoint] = useState(null)
+
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
   // Fetch device info from MongoDB to get connection details
@@ -310,10 +315,54 @@ function PlanarMotorDiagnostics() {
     }
   }
 
-  // Fetch teachpoints on mount and when device changes
+  // Fetch devices that can reach this motor and their teachpoints
+  const fetchReachableDevices = async () => {
+    if (!deviceName) return
+    try {
+      // For planar motor, get devices that can reach it (opposite of PF400's reachable_devices)
+      // We need to check the "reachable_from" field or find devices that have this motor in reachable_devices
+      const devicesRes = await fetch(`${PF400_API_URL}/devices`)
+      if (devicesRes.ok) {
+        const devicesData = await devicesRes.json()
+        const devices = devicesData.devices || []
+
+        // Find devices that have this motor in their reachable_devices
+        const canReachThis = devices.filter(device =>
+          device.reachable_devices?.some(rd => rd.device_name === deviceName)
+        )
+
+        setReachableDevices(canReachThis)
+
+        // Fetch teachpoints for devices that can reach this motor
+        const deviceTps = {}
+        for (const device of canReachThis) {
+          try {
+            const tpRes = await fetch(`${PF400_API_URL}/devices/${device.name}/teachpoints`)
+            if (tpRes.ok) {
+              const tpData = await tpRes.json()
+              // Add device_name to each teachpoint for linking
+              const teachpointsWithDevice = (tpData.teachpoints || []).map(tp => ({
+                ...tp,
+                device_name: device.name
+              }))
+              deviceTps[device.name] = teachpointsWithDevice
+            }
+          } catch (e) {
+            console.error(`Failed to fetch teachpoints for ${device.name}:`, e)
+          }
+        }
+        setDeviceTeachpoints(deviceTps)
+      }
+    } catch (e) {
+      console.error('Failed to fetch reachable devices:', e)
+    }
+  }
+
+  // Fetch teachpoints and reachable devices on mount and when device changes
   useEffect(() => {
     if (deviceName && !loadingDevice) {
       fetchTeachpoints()
+      fetchReachableDevices()
     }
   }, [deviceName, loadingDevice])
 
@@ -372,14 +421,14 @@ function PlanarMotorDiagnostics() {
   // Delete teachpoint
   const handleDeleteTeachpoint = async (tpId, tpName) => {
     if (!confirm(`Delete teachpoint "${tpName}"?`)) return
-    
+
     log(`→ Deleting teachpoint "${tpName}"...`)
-    
+
     try {
       const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints/${tpId}`, {
         method: 'DELETE'
       })
-      
+
       if (res.ok) {
         log(`✓ Deleted teachpoint "${tpName}"`)
         fetchTeachpoints()
@@ -389,6 +438,41 @@ function PlanarMotorDiagnostics() {
       }
     } catch (e) {
       log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const startLinking = (localTp) => {
+    setLinkingTeachpoint(localTp)
+    log(`🔗 Select a teachpoint from reachable devices to link with ${localTp.name}`)
+  }
+
+  const completeLinking = async (targetTp) => {
+    if (!linkingTeachpoint) return
+
+    // Link the selected local teachpoint with the target teachpoint
+    try {
+      const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints/link`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source_teachpoint_id: linkingTeachpoint.id,
+          target_device: targetTp.device_name || 'unknown',
+          target_teachpoint_id: targetTp.id,
+          transfer_type: 'handoff'
+        })
+      })
+
+      if (res.ok) {
+        log(`🔗 Linked: ${linkingTeachpoint.name} ↔ ${targetTp.name}`)
+        setLinkingTeachpoint(null)
+        fetchTeachpoints() // Refresh to show linked status
+        fetchReachableDevices() // Refresh device teachpoints
+      } else {
+        const data = await res.json()
+        log(`✗ Failed to link: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error linking teachpoints: ${e.message}`)
     }
   }
 
@@ -681,6 +765,7 @@ function PlanarMotorDiagnostics() {
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {tp.name}
+                        {(tp.linked_to || tp.linked_from) && <span style={{ marginLeft: 4, color: '#52c41a' }}>🔗</span>}
                       </div>
                       {tp.position && (
                         <div style={{ fontSize: '0.8em', color: '#888' }}>
@@ -692,17 +777,33 @@ function PlanarMotorDiagnostics() {
                       <button
                         onClick={() => handleGotoTeachpoint(tp)}
                         disabled={!connected}
-                        style={{ 
-                          padding: '4px 8px', 
-                          borderRadius: 4, 
-                          background: connected ? '#1890ff' : '#444', 
-                          color: '#fff', 
-                          border: 'none', 
+                        style={{
+                          padding: '4px 8px',
+                          borderRadius: 4,
+                          background: connected ? '#1890ff' : '#444',
+                          color: '#fff',
+                          border: 'none',
                           cursor: connected ? 'pointer' : 'not-allowed',
                           fontSize: '0.8em'
                         }}
                       >
                         Go
+                      </button>
+                      <button
+                        onClick={() => startLinking(tp)}
+                        disabled={!reachableDevices.length}
+                        title={reachableDevices.length ? "Link this teachpoint to another device" : "No reachable devices available"}
+                        style={{
+                          padding: '4px 8px',
+                          borderRadius: 4,
+                          background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#52c41a') : '#444',
+                          color: '#fff',
+                          border: 'none',
+                          cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
+                          fontSize: '0.8em'
+                        }}
+                      >
+                        {linkingTeachpoint?.id === tp.id ? '🔗' : 'Link'}
                       </button>
                       <button
                         onClick={() => handleDeleteTeachpoint(tp.id, tp.name)}
@@ -715,6 +816,86 @@ function PlanarMotorDiagnostics() {
                 ))
               )}
             </div>
+          </div>
+
+          {/* Device Linking */}
+          <div style={{ background: '#1a1a2e', borderRadius: 4, padding: 8, marginBottom: 8 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Device Linking</div>
+
+            {/* Devices that can reach this motor */}
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>Devices that can reach this motor:</div>
+              {reachableDevices.length === 0 ? (
+                <div style={{ fontSize: '0.8em', color: '#666', fontStyle: 'italic' }}>
+                  No devices can reach this motor
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                  {reachableDevices.map(device => (
+                    <div key={device.name} style={{
+                      background: '#2a2a3e',
+                      borderRadius: 4,
+                      padding: '4px 8px',
+                      fontSize: '0.8em',
+                      color: '#69c0ff'
+                    }}>
+                      {device.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Teachpoint Linking */}
+            {reachableDevices.length > 0 && (
+              <div>
+                <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>
+                  {linkingTeachpoint
+                    ? `Select teachpoint to link with "${linkingTeachpoint.name}":`
+                    : 'Link Teachpoints: Click "Link" on a local teachpoint first'
+                  }
+                </div>
+                <div style={{ maxHeight: 200, overflowY: 'auto' }}>
+                  {Object.entries(deviceTeachpoints).map(([deviceName, deviceTps]) => (
+                    <div key={deviceName} style={{ marginBottom: 8 }}>
+                      <div style={{ fontSize: '0.8em', color: '#faad14', marginBottom: 4 }}>
+                        {deviceName} teachpoints:
+                      </div>
+                      {deviceTps.map(tp => (
+                        <div key={tp.id} style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          background: '#2a2a3e',
+                          borderRadius: 4,
+                          padding: '4px 8px',
+                          marginBottom: 2,
+                          fontSize: '0.8em'
+                        }}>
+                          <span>{tp.name}</span>
+                          <button
+                            onClick={() => completeLinking(tp)}
+                            disabled={!linkingTeachpoint}
+                            style={{
+                              padding: '2px 6px',
+                              borderRadius: 3,
+                              background: linkingTeachpoint ? '#52c41a' : '#666',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: linkingTeachpoint ? 'pointer' : 'not-allowed',
+                              fontSize: '0.7em'
+                            }}
+                            title={linkingTeachpoint ? `Link "${linkingTeachpoint.name}" with "${tp.name}"` : "Select a local teachpoint first"}
+                          >
+                            Link
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Logs */}

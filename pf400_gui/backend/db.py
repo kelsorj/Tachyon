@@ -359,18 +359,25 @@ def get_device_connection(name: str) -> Optional[Dict[str, Any]]:
 
 
 def get_device_teachpoints(name: str) -> Dict[str, Any]:
-    """Get all teachpoints for a device."""
+    """Get all GUI-managed teachpoints for a device.
+    
+    Note: Uses 'gui_teachpoints' field to avoid conflict with legacy 'teachpoints' 
+    array format used by some devices (e.g., PF400).
+    """
     device = get_device_by_name(name)
     if device:
-        teachpoints = device.get("teachpoints", {})
-        if isinstance(teachpoints, dict):
-            return teachpoints
-        # If it's an array (legacy format), return empty - we'll create fresh
+        # Use gui_teachpoints field for our GUI-managed teachpoints
+        gui_tps = device.get("gui_teachpoints", {})
+        if isinstance(gui_tps, dict):
+            return gui_tps
     return {}
 
 
 def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[str, Any]) -> bool:
-    """Save or update a teachpoint for a device."""
+    """Save or update a GUI-managed teachpoint for a device.
+    
+    Note: Uses 'gui_teachpoints' field to avoid conflict with legacy 'teachpoints' array.
+    """
     try:
         db = get_db()
         print(f"save_teachpoint: device={device_name}, id={teachpoint_id}")
@@ -381,12 +388,12 @@ def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[
         if "created_at" not in teachpoint_data:
             teachpoint_data["created_at"] = datetime.utcnow()
         
-        # Save to teachpoints field
+        # Save to gui_teachpoints field (avoids conflict with legacy teachpoints array)
         result = db.devices.update_one(
             {"name": device_name},
             {
                 "$set": {
-                    f"teachpoints.{teachpoint_id}": teachpoint_data,
+                    f"gui_teachpoints.{teachpoint_id}": teachpoint_data,
                     "updated_at": datetime.utcnow()
                 },
                 "$setOnInsert": {
@@ -400,7 +407,7 @@ def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[
         print(f"save_teachpoint: modified={result.modified_count}, upserted={result.upserted_id}, matched={result.matched_count}")
         
         if result.modified_count > 0 or result.upserted_id:
-            print(f"Saved teachpoint '{teachpoint_id}' for {device_name}")
+            print(f"Saved teachpoint '{teachpoint_id}' for {device_name} (gui_teachpoints)")
             return True
         else:
             # Check if data was matched but not modified (same data)
@@ -418,20 +425,20 @@ def save_teachpoint(device_name: str, teachpoint_id: str, teachpoint_data: Dict[
 
 
 def delete_teachpoint(device_name: str, teachpoint_id: str) -> bool:
-    """Delete a teachpoint from a device."""
+    """Delete a GUI-managed teachpoint from a device."""
     try:
         db = get_db()
         
         result = db.devices.update_one(
             {"name": device_name},
             {
-                "$unset": {f"teachpoints.{teachpoint_id}": ""},
+                "$unset": {f"gui_teachpoints.{teachpoint_id}": ""},
                 "$set": {"updated_at": datetime.utcnow()}
             }
         )
         
         if result.modified_count > 0:
-            print(f"Deleted teachpoint '{teachpoint_id}' from {device_name}")
+            print(f"Deleted teachpoint '{teachpoint_id}' from {device_name} (gui_teachpoints)")
             return True
         return False
         
@@ -462,4 +469,222 @@ def update_device_state(device_name: str, state: Dict[str, Any]) -> bool:
     except Exception as e:
         print(f"Error updating device state: {e}")
         return False
+
+
+# ============== DEVICE REACHABILITY & TEACHPOINT LINKING ==============
+
+def get_reachable_devices(device_name: str) -> List[Dict[str, Any]]:
+    """Get list of devices that this device can physically reach."""
+    try:
+        db = get_db()
+        device = db.devices.find_one({"name": device_name})
+        if device:
+            return device.get("reachable_devices", [])
+        return []
+    except Exception as e:
+        print(f"Error getting reachable devices: {e}")
+        return []
+
+
+def add_reachable_device(device_name: str, target_device: str, access_type: str = "handoff", description: str = "") -> bool:
+    """Add a device to the list of reachable devices."""
+    try:
+        db = get_db()
+        
+        # Check if already exists
+        device = db.devices.find_one({"name": device_name})
+        if device:
+            reachable = device.get("reachable_devices", [])
+            for r in reachable:
+                if r.get("device_name") == target_device:
+                    print(f"{target_device} is already in reachable_devices for {device_name}")
+                    return True
+        
+        result = db.devices.update_one(
+            {"name": device_name},
+            {
+                "$push": {
+                    "reachable_devices": {
+                        "device_name": target_device,
+                        "access_type": access_type,
+                        "description": description,
+                        "added_at": datetime.utcnow()
+                    }
+                },
+                "$set": {"updated_at": datetime.utcnow()}
+            }
+        )
+        
+        return result.modified_count > 0
+    except Exception as e:
+        print(f"Error adding reachable device: {e}")
+        return False
+
+
+def remove_reachable_device(device_name: str, target_device: str) -> bool:
+    """Remove a device from the reachable devices list."""
+    try:
+        db = get_db()
+        
+        result = db.devices.update_one(
+            {"name": device_name},
+            {
+                "$pull": {"reachable_devices": {"device_name": target_device}},
+                "$set": {"updated_at": datetime.utcnow()}
+            }
+        )
+        
+        return result.modified_count > 0
+    except Exception as e:
+        print(f"Error removing reachable device: {e}")
+        return False
+
+
+def link_teachpoints(
+    source_device: str, 
+    source_teachpoint_id: str, 
+    target_device: str, 
+    target_teachpoint_id: str,
+    transfer_type: str = "dropoff"  # "dropoff" = source drops here, "pickup" = source picks up here
+) -> bool:
+    """
+    Link a GUI-managed teachpoint on one device to a teachpoint on another device.
+    This creates a bidirectional link for handoff coordination.
+    
+    Args:
+        source_device: The device initiating the transfer (e.g., PF400-021)
+        source_teachpoint_id: Teachpoint ID on source device
+        target_device: The device receiving/providing (e.g., Planar-Motor-001)
+        target_teachpoint_id: Teachpoint ID on target device
+        transfer_type: "dropoff" if source drops plate here, "pickup" if source picks up
+    """
+    try:
+        db = get_db()
+        
+        # Update source device teachpoint with linked_to (using gui_teachpoints)
+        source_result = db.devices.update_one(
+            {"name": source_device},
+            {
+                "$set": {
+                    f"gui_teachpoints.{source_teachpoint_id}.linked_to": {
+                        "device_name": target_device,
+                        "teachpoint_id": target_teachpoint_id,
+                        "transfer_type": transfer_type,
+                        "linked_at": datetime.utcnow()
+                    },
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+        
+        # Update target device teachpoint with linked_from
+        inverse_type = "pickup" if transfer_type == "dropoff" else "dropoff"
+        target_result = db.devices.update_one(
+            {"name": target_device},
+            {
+                "$set": {
+                    f"gui_teachpoints.{target_teachpoint_id}.linked_from": {
+                        "device_name": source_device,
+                        "teachpoint_id": source_teachpoint_id,
+                        "transfer_type": inverse_type,
+                        "linked_at": datetime.utcnow()
+                    },
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+        
+        if source_result.modified_count > 0 or target_result.modified_count > 0:
+            print(f"Linked {source_device}:{source_teachpoint_id} → {target_device}:{target_teachpoint_id} (gui_teachpoints)")
+            return True
+        return False
+        
+    except Exception as e:
+        print(f"Error linking teachpoints: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def unlink_teachpoints(source_device: str, source_teachpoint_id: str) -> bool:
+    """
+    Remove the link from a GUI-managed teachpoint. Also removes the corresponding linked_from on the target.
+    """
+    try:
+        db = get_db()
+        
+        # First, get the current link info
+        source = db.devices.find_one({"name": source_device})
+        if not source:
+            return False
+            
+        gui_teachpoints = source.get("gui_teachpoints", {})
+        if not isinstance(gui_teachpoints, dict):
+            return False
+            
+        tp = gui_teachpoints.get(source_teachpoint_id, {})
+        linked_to = tp.get("linked_to")
+        
+        if not linked_to:
+            print(f"Teachpoint {source_teachpoint_id} is not linked")
+            return True
+        
+        target_device = linked_to.get("device_name")
+        target_teachpoint_id = linked_to.get("teachpoint_id")
+        
+        # Remove linked_to from source (gui_teachpoints)
+        db.devices.update_one(
+            {"name": source_device},
+            {
+                "$unset": {f"gui_teachpoints.{source_teachpoint_id}.linked_to": ""},
+                "$set": {"updated_at": datetime.utcnow()}
+            }
+        )
+        
+        # Remove linked_from from target (gui_teachpoints)
+        if target_device and target_teachpoint_id:
+            db.devices.update_one(
+                {"name": target_device},
+                {
+                    "$unset": {f"gui_teachpoints.{target_teachpoint_id}.linked_from": ""},
+                    "$set": {"updated_at": datetime.utcnow()}
+                }
+            )
+        
+        print(f"Unlinked {source_device}:{source_teachpoint_id} (gui_teachpoints)")
+        return True
+        
+    except Exception as e:
+        print(f"Error unlinking teachpoints: {e}")
+        return False
+
+
+def get_linked_teachpoints(device_name: str) -> List[Dict[str, Any]]:
+    """Get all GUI-managed teachpoints on a device that have links to other devices."""
+    try:
+        db = get_db()
+        device = db.devices.find_one({"name": device_name})
+        if not device:
+            return []
+        
+        gui_teachpoints = device.get("gui_teachpoints", {})
+        if not isinstance(gui_teachpoints, dict):
+            return []
+        
+        linked = []
+        for tp_id, tp_data in gui_teachpoints.items():
+            if not isinstance(tp_data, dict):
+                continue
+            if tp_data.get("linked_to") or tp_data.get("linked_from"):
+                linked.append({
+                    "id": tp_id,
+                    "name": tp_data.get("name", tp_id),
+                    "linked_to": tp_data.get("linked_to"),
+                    "linked_from": tp_data.get("linked_from")
+                })
+        
+        return linked
+    except Exception as e:
+        print(f"Error getting linked teachpoints: {e}")
+        return []
 

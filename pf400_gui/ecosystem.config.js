@@ -28,6 +28,7 @@ module.exports = {
         PF400_PORT: '3061',
         PF400_IP: '192.168.0.20',
         PF400_ROBOT_PORT: '10100',
+        DEVICE_NAME: 'PF400-021',
         PYTHONUNBUFFERED: '1'
       },
       error_file: './logs/backend-error.log',

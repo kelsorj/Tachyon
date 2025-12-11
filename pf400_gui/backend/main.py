@@ -557,13 +557,26 @@ async def save_current_position(name: str, description: str = "", id: str = None
         
         # Use provided ID for updates, or generate new ID from name
         tp_id = id if id else name.lower().replace(" ", "_").replace("-", "_")
-        
+
+        # If updating existing teachpoint, preserve link data
+        existing_links = {}
+        if id:
+            existing_teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME)
+            if tp_id in existing_teachpoints:
+                existing_tp = existing_teachpoints[tp_id]
+                # Preserve link information
+                if "linked_to" in existing_tp:
+                    existing_links["linked_to"] = existing_tp["linked_to"]
+                if "linked_from" in existing_tp:
+                    existing_links["linked_from"] = existing_tp["linked_from"]
+
         teachpoint_data = {
             "name": name,
             "description": description,
             "type": "joints",
             "joints": joints_list,
-            "cartesian": cartesian_dict
+            "cartesian": cartesian_dict,
+            **existing_links  # Preserve any link data
         }
         
         print(f"Calling mongodb.save_teachpoint for device={DEVICE_NAME}, tp_id={tp_id}")
@@ -865,13 +878,25 @@ async def get_device_teachpoints(device_name: str):
 async def save_device_teachpoint(device_name: str, req: DeviceTeachpointRequest):
     """Save a teachpoint for a specific device."""
     try:
+        # If updating existing teachpoint, preserve link data
+        existing_links = {}
+        existing_teachpoints = mongodb.get_device_teachpoints(device_name)
+        if req.id in existing_teachpoints:
+            existing_tp = existing_teachpoints[req.id]
+            # Preserve link information
+            if "linked_to" in existing_tp:
+                existing_links["linked_to"] = existing_tp["linked_to"]
+            if "linked_from" in existing_tp:
+                existing_links["linked_from"] = existing_tp["linked_from"]
+
         teachpoint_data = {
             "name": req.name,
             "description": req.description,
             "position": req.position,
             "xbot_id": req.xbot_id,
+            **existing_links  # Preserve any link data
         }
-        
+
         success = mongodb.save_teachpoint(device_name, req.id, teachpoint_data)
         if success:
             return {"status": "success", "message": f"Saved teachpoint '{req.name}'"}
@@ -892,6 +917,107 @@ async def delete_device_teachpoint(device_name: str, teachpoint_id: str):
             raise HTTPException(status_code=500, detail="Failed to delete teachpoint")
     except Exception as e:
         print(f"Error deleting teachpoint for {device_name}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============== Device Reachability & Teachpoint Linking API ==============
+
+@app.get("/devices/{device_name}/reachable")
+async def get_reachable_devices(device_name: str):
+    """Get list of devices that this device can physically reach."""
+    try:
+        reachable = mongodb.get_reachable_devices(device_name)
+        return {"device": device_name, "reachable_devices": reachable}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class ReachableDeviceRequest(BaseModel):
+    target_device: str
+    access_type: str = "handoff"  # "handoff", "dropoff_only", "pickup_only"
+    description: str = ""
+
+
+@app.post("/devices/{device_name}/reachable")
+async def add_reachable_device(device_name: str, req: ReachableDeviceRequest):
+    """Add a device to the reachable devices list."""
+    try:
+        success = mongodb.add_reachable_device(
+            device_name, 
+            req.target_device, 
+            req.access_type, 
+            req.description
+        )
+        if success:
+            return {"status": "success", "message": f"Added {req.target_device} to reachable devices"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to add reachable device")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/devices/{device_name}/reachable/{target_device}")
+async def remove_reachable_device(device_name: str, target_device: str):
+    """Remove a device from the reachable devices list."""
+    try:
+        success = mongodb.remove_reachable_device(device_name, target_device)
+        if success:
+            return {"status": "success", "message": f"Removed {target_device} from reachable devices"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to remove reachable device")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class LinkTeachpointsRequest(BaseModel):
+    source_teachpoint_id: str
+    target_device: str
+    target_teachpoint_id: str
+    transfer_type: str = "dropoff"  # "dropoff" = source drops plate here
+
+
+@app.post("/devices/{device_name}/teachpoints/link")
+async def link_teachpoints(device_name: str, req: LinkTeachpointsRequest):
+    """Link a teachpoint on this device to a teachpoint on another device."""
+    try:
+        success = mongodb.link_teachpoints(
+            device_name,
+            req.source_teachpoint_id,
+            req.target_device,
+            req.target_teachpoint_id,
+            req.transfer_type
+        )
+        if success:
+            return {
+                "status": "success", 
+                "message": f"Linked {device_name}:{req.source_teachpoint_id} → {req.target_device}:{req.target_teachpoint_id}"
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Failed to link teachpoints")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/devices/{device_name}/teachpoints/{teachpoint_id}/link")
+async def unlink_teachpoint(device_name: str, teachpoint_id: str):
+    """Remove the link from a teachpoint."""
+    try:
+        success = mongodb.unlink_teachpoints(device_name, teachpoint_id)
+        if success:
+            return {"status": "success", "message": f"Unlinked {teachpoint_id}"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to unlink teachpoint")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/devices/{device_name}/teachpoints/linked")
+async def get_linked_teachpoints(device_name: str):
+    """Get all teachpoints on this device that have links to other devices."""
+    try:
+        linked = mongodb.get_linked_teachpoints(device_name)
+        return {"device": device_name, "linked_teachpoints": linked}
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
