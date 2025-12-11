@@ -59,8 +59,7 @@ function XBOTModel({ position, rotation, xbotUrl }) {
             const pmZ = position.z || 0.001  // PM Z (levitation height) in meters
             
             // Flyway top surface offset - XBOT sits on top of the flyway
-            // The flyway model has significant height, offset XBOT above it
-            const FLYWAY_TOP_OFFSET = 0.12  // ~120mm to sit on top of the flyway
+            const FLYWAY_TOP_OFFSET = 0.08  // ~45mm to sit on top of the flyway surface
             
             groupRef.current.position.set(
                 pmX,  // PM X -> 3JS X
@@ -92,18 +91,12 @@ function PlanarMotorScene({ xbots, flywayUrl, xbotUrl }) {
             <directionalLight position={[5, 5, 5]} intensity={0.8} />
             <directionalLight position={[-5, 5, -5]} intensity={0.4} />
             
-            {/* Flyway (floor) - temporarily hidden for debugging */}
-            {/* <Suspense fallback={null}>
+            {/* Flyway (floor) */}
+            <Suspense fallback={null}>
                 <FlywayModel flywayUrl={flywayUrl} />
-            </Suspense> */}
+            </Suspense>
             
-            {/* Debug: Add a simple floor plane to see where Y=0 is */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.2, 0, 0.3]}>
-                <planeGeometry args={[0.4, 0.6]} />
-                <meshStandardMaterial color="#444" transparent opacity={0.5} />
-            </mesh>
-            
-            {/* XBOTs */}
+            {/* XBOTs - only rendered when connected and have position data */}
             {xbots && Object.entries(xbots).map(([xbotId, xbot]) => (
                 <Suspense key={xbotId} fallback={null}>
                     <XBOTModel 
@@ -153,11 +146,36 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: '400px', border: '1px solid #ccc', overflow: 'hidden', position: 'relative' }}>
-                <Canvas camera={{ position: [0.3, 0.4, 0.5], fov: 50 }}>
+                <Canvas camera={{ position: [0.4, 0.35, 0.6], fov: 50 }}>
                     <Suspense fallback={<Fallback />}>
                         <PlanarMotorScene xbots={xbots} flywayUrl={flywayModelUrl} xbotUrl={xbotModelUrl} />
                     </Suspense>
                 </Canvas>
+                
+                {/* Message when no XBOTs connected */}
+                {(!xbots || Object.keys(xbots).length === 0) && (
+                    <div style={{ 
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        background: 'rgba(0, 0, 0, 0.8)', 
+                        color: '#aaa', 
+                        padding: '20px 30px', 
+                        borderRadius: '8px', 
+                        fontFamily: 'system-ui, sans-serif', 
+                        fontSize: '14px',
+                        textAlign: 'center',
+                        border: '1px solid #555',
+                        pointerEvents: 'none',
+                        zIndex: 10
+                    }}>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px', color: '#69c0ff' }}>
+                            Connect to see XBOT
+                        </div>
+                        <div>Click "Connect" to view XBOT position on the flyway</div>
+                    </div>
+                )}
                 
                 {/* Position display - fixed in top-right corner */}
                 {xbots && Object.keys(xbots).length > 0 && (
