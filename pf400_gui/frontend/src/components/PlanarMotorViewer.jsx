@@ -1,7 +1,72 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Grid, useGLTF, Html } from '@react-three/drei'
+import { OrbitControls, Grid, useGLTF, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
+
+// Flyway dimensions: S4-AS-04-06 = 4x6 tiles * 60mm = 240mm x 360mm
+const FLYWAY_SIZE_X = 0.24   // PMC X dimension in meters (4 tiles)
+const FLYWAY_SIZE_Y = 0.36   // PMC Y dimension in meters (6 tiles)
+const FLYWAY_TOP_OFFSET = 0.08  // Height offset for XBOT
+
+// Coordinate mapping to match vendor display:
+// - Origin (0,0) at LOWER-LEFT corner of flyway
+// - X axis goes RIGHT (horizontal)
+// - Y axis goes UP (vertical on screen, which is -Z in Three.js from our camera angle)
+// 
+// Three.js coords when camera looks from +Z towards -Z (towards origin):
+// - X goes right
+// - Y goes up (vertical)
+// - Z goes towards/away from camera
+//
+// For top-down-ish view with origin at lower-left:
+// - PMC X -> Three.js X (right)
+// - PMC Y -> Three.js -Z (so Y+ goes "up" on screen when camera is in front)
+
+function AxisIndicator() {
+    const arrowLength = 0.08
+    const height = 0.02
+    
+    return (
+        <group position={[0, height, 0]}>
+            {/* X axis - Red arrow pointing RIGHT (+X in Three.js) */}
+            <Line
+                points={[[0, 0, 0], [arrowLength, 0, 0]]}
+                color="#ff0000"
+                lineWidth={5}
+            />
+            <mesh position={[arrowLength, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
+                <coneGeometry args={[0.012, 0.025, 12]} />
+                <meshBasicMaterial color="#ff0000" />
+            </mesh>
+            <Html position={[arrowLength + 0.02, 0, 0]}>
+                <div style={{ color: 'red', fontWeight: 'bold', fontSize: '16px', textShadow: '1px 1px 2px black' }}>X</div>
+            </Html>
+            
+            {/* Y axis - Green arrow pointing UP on screen (-Z in Three.js) */}
+            <Line
+                points={[[0, 0, 0], [0, 0, -arrowLength]]}
+                color="#00ff00"
+                lineWidth={5}
+            />
+            <mesh position={[0, 0, -arrowLength]} rotation={[-Math.PI / 2, 0, 0]}>
+                <coneGeometry args={[0.012, 0.025, 12]} />
+                <meshBasicMaterial color="#00ff00" />
+            </mesh>
+            <Html position={[0, 0, -arrowLength - 0.02]}>
+                <div style={{ color: 'lime', fontWeight: 'bold', fontSize: '16px', textShadow: '1px 1px 2px black' }}>Y</div>
+            </Html>
+            
+            {/* Origin sphere - blue */}
+            <mesh position={[0, 0, 0]}>
+                <sphereGeometry args={[0.015, 16, 16]} />
+                <meshBasicMaterial color="#0088ff" />
+            </mesh>
+            <Html position={[0.02, 0.02, 0.02]}>
+                <div style={{ color: 'cyan', fontWeight: 'bold', fontSize: '14px', textShadow: '1px 1px 2px black' }}>(0,0)</div>
+            </Html>
+        </group>
+    )
+}
 
 // GLTF Loader component for Flyway
 function FlywayModel({ flywayUrl }) {
@@ -13,7 +78,6 @@ function FlywayModel({ flywayUrl }) {
             if (child.isMesh) {
                 child.castShadow = true
                 child.receiveShadow = true
-                // Ensure materials are visible
                 if (child.material) {
                     child.material.side = THREE.DoubleSide
                 }
@@ -21,10 +85,15 @@ function FlywayModel({ flywayUrl }) {
         })
     }, [clonedScene])
     
-    // Flyway model - S4-AS-04-06 is a 4x6 stator system
-    // Model is already in METERS
-    // Try no rotation first to see natural orientation
-    return <primitive object={clonedScene} scale={1} />
+    // Position flyway so PMC (0,0) is at lower-left corner
+    // Model origin is at center, so shift by +half X and -half Y (since Y maps to -Z)
+    // PMC X -> Three.js +X (right)
+    // PMC Y -> Three.js -Z (up on screen)
+    return (
+        <group position={[FLYWAY_SIZE_X / 2, 0, -FLYWAY_SIZE_Y / 2]}>
+            <primitive object={clonedScene} scale={1} />
+        </group>
+    )
 }
 
 // GLTF Loader component for XBOT
@@ -38,7 +107,6 @@ function XBOTModel({ position, rotation, xbotUrl }) {
             if (child.isMesh) {
                 child.castShadow = true
                 child.receiveShadow = true
-                // Ensure materials are visible
                 if (child.material) {
                     child.material.side = THREE.DoubleSide
                 }
@@ -46,31 +114,28 @@ function XBOTModel({ position, rotation, xbotUrl }) {
         })
     }, [clonedScene])
     
-    // Update position and rotation
     useFrame(() => {
         if (groupRef.current && position) {
-            // Planar Motor coordinates: X and Y are in the horizontal plane, Z is vertical (levitation height)
-            // Three.js: X is right, Y is up, Z is forward (right-handed)
-            // Backend returns positions in METERS
-            // Mapping: PM X -> 3JS X, PM Y -> 3JS Z, PM Z -> 3JS Y (up)
+            // Coordinate mapping to match vendor display:
+            // PMC X -> Three.js +X (right on screen)
+            // PMC Y -> Three.js -Z (up on screen, towards back of scene)
+            // PMC Z -> Three.js +Y (levitation height)
             
-            const pmX = position.x || 0  // PM X position in meters
-            const pmY = position.y || 0  // PM Y position in meters  
-            const pmZ = position.z || 0.001  // PM Z (levitation height) in meters
-            
-            // Flyway top surface offset - XBOT sits on top of the flyway
-            const FLYWAY_TOP_OFFSET = 0.08  // ~45mm to sit on top of the flyway surface
+            const pmX = position.x || 0
+            const pmY = position.y || 0
+            const pmZ = position.z || 0.001
             
             groupRef.current.position.set(
-                pmX,  // PM X -> 3JS X
-                FLYWAY_TOP_OFFSET + pmZ,  // Flyway height + levitation height
-                pmY   // PM Y -> 3JS Z
+                pmX,                      // PM X -> 3JS +X (right)
+                FLYWAY_TOP_OFFSET + pmZ,  // Height + levitation
+                -pmY                      // PM Y -> 3JS -Z (up on screen)
             )
             
+            // Apply rotation from PMC (RZ is yaw around vertical axis)
             if (rotation) {
                 groupRef.current.rotation.set(
                     rotation.rx || 0,
-                    rotation.rz || 0,
+                    -(rotation.rz || 0),  // Negate RZ due to flipped Z axis
                     rotation.ry || 0
                 )
             }
@@ -79,24 +144,33 @@ function XBOTModel({ position, rotation, xbotUrl }) {
     
     return (
         <group ref={groupRef}>
-            <primitive object={clonedScene} scale={1} />
+            {/* Rotate XBOT model to align with coordinate system */}
+            <primitive object={clonedScene} scale={1} rotation={[0, Math.PI, 0]} />
         </group>
     )
 }
 
 function PlanarMotorScene({ xbots, flywayUrl, xbotUrl }) {
+    // Center of flyway for camera target (in Three.js coords)
+    // Flyway extends from (0,0) to (FLYWAY_SIZE_X, -FLYWAY_SIZE_Y) in XZ plane
+    const centerX = FLYWAY_SIZE_X / 2
+    const centerZ = -FLYWAY_SIZE_Y / 2
+    
     return (
         <>
             <ambientLight intensity={0.6} />
             <directionalLight position={[5, 5, 5]} intensity={0.8} />
             <directionalLight position={[-5, 5, -5]} intensity={0.4} />
             
-            {/* Flyway (floor) */}
+            {/* Flyway - positioned so PMC (0,0) is at lower-left corner */}
             <Suspense fallback={null}>
                 <FlywayModel flywayUrl={flywayUrl} />
             </Suspense>
             
-            {/* XBOTs - only rendered when connected and have position data */}
+            {/* Axis indicator at origin (0,0) - lower-left corner */}
+            <AxisIndicator />
+            
+            {/* XBOTs */}
             {xbots && Object.entries(xbots).map(([xbotId, xbot]) => (
                 <Suspense key={xbotId} fallback={null}>
                     <XBOTModel 
@@ -111,8 +185,16 @@ function PlanarMotorScene({ xbots, flywayUrl, xbotUrl }) {
                 </Suspense>
             ))}
             
-            <Grid args={[2, 2]} cellColor="#6f6f6f" sectionColor="#9d9d9d" />
-            <OrbitControls />
+            {/* Grid centered on flyway */}
+            <Grid 
+                args={[1, 1]} 
+                cellColor="#6f6f6f" 
+                sectionColor="#9d9d9d"
+                position={[centerX, -0.001, centerZ]}
+            />
+            <OrbitControls 
+                target={[centerX, 0.05, centerZ]}
+            />
         </>
     )
 }
@@ -126,12 +208,10 @@ function Fallback() {
 }
 
 export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localhost:3062' }) {
-    // Models are served from Mac backend (PF400 backend on 3061), not PC backend
     const MAC_BACKEND_URL = "http://localhost:3061"
     const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S4-AS-04-06-OEM-Rev3-FLYWAY-S4-AS.gltf`
     const xbotModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/M3-06-04-OEM-Rev3-XBOT.gltf`
     
-    // Preload models
     useEffect(() => {
         if (typeof window !== 'undefined') {
             try {
@@ -143,10 +223,15 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
         }
     }, [])
     
+    // Camera positioned to view flyway from front, looking towards -Z
+    // This gives a view matching vendor: X goes right, Y goes up
+    // Camera at +Z (in front), +Y (above), looking at center of flyway
+    const cameraPosition = [FLYWAY_SIZE_X / 2, 0.5, 0.4]
+    
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: '400px', border: '1px solid #ccc', overflow: 'hidden', position: 'relative' }}>
-                <Canvas camera={{ position: [0.4, 0.35, 0.6], fov: 50 }}>
+                <Canvas camera={{ position: cameraPosition, fov: 50 }}>
                     <Suspense fallback={<Fallback />}>
                         <PlanarMotorScene xbots={xbots} flywayUrl={flywayModelUrl} xbotUrl={xbotModelUrl} />
                     </Suspense>
@@ -177,7 +262,7 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
                     </div>
                 )}
                 
-                {/* Position display - fixed in top-right corner */}
+                {/* Position display */}
                 {xbots && Object.keys(xbots).length > 0 && (
                     <div style={{ 
                         position: 'absolute',
@@ -196,7 +281,7 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
                         pointerEvents: 'none',
                         zIndex: 10
                     }}>
-                        <div style={{ borderBottom: '1px solid #555', marginBottom: '4px', fontWeight: 'bold' }}>XBOT Positions (m)</div>
+                        <div style={{ borderBottom: '1px solid #555', marginBottom: '4px', fontWeight: 'bold' }}>XBOT Positions</div>
                         {Object.entries(xbots).map(([xbotId, xbot]) => (
                             <div key={xbotId} style={{ marginBottom: '4px' }}>
                                 <div style={{ fontWeight: 'bold', color: '#69c0ff' }}>XBOT {xbotId}</div>
@@ -212,8 +297,27 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
                         ))}
                     </div>
                 )}
+                
+                {/* Axis legend in bottom-left */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    left: '10px',
+                    background: 'rgba(0, 0, 0, 0.75)',
+                    color: 'white',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    fontFamily: 'monospace',
+                    fontSize: '11px',
+                    border: '1px solid #555',
+                    pointerEvents: 'none',
+                    zIndex: 10
+                }}>
+                    <div><span style={{ color: 'red', fontWeight: 'bold' }}>→ X+</span> (right)</div>
+                    <div><span style={{ color: 'green', fontWeight: 'bold' }}>→ Y+</span> (forward)</div>
+                    <div><span style={{ color: 'blue', fontWeight: 'bold' }}>●</span> Origin (0,0)</div>
+                </div>
             </div>
         </div>
     )
 }
-
