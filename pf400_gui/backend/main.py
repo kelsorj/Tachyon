@@ -833,6 +833,68 @@ async def move_rail(position_m: float, profile: int = 1):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ============== Generic Device Teachpoints API ==============
+# These endpoints work with any device by name (used by Planar Motor, etc.)
+
+class DeviceTeachpointRequest(BaseModel):
+    device_name: str
+    id: str
+    name: str
+    description: str = ""
+    position: Dict[str, float] = {}  # x, y, z, rx, ry, rz in meters/radians
+    xbot_id: int = 1
+
+@app.get("/devices/{device_name}/teachpoints")
+async def get_device_teachpoints(device_name: str):
+    """Get all teachpoints for a specific device."""
+    try:
+        teachpoints = mongodb.get_device_teachpoints(device_name)
+        result = []
+        if isinstance(teachpoints, dict):
+            for tp_id, tp_data in teachpoints.items():
+                tp_entry = {"id": tp_id, **tp_data}
+                result.append(tp_entry)
+        elif isinstance(teachpoints, list):
+            result = teachpoints
+        return {"teachpoints": result, "device": device_name}
+    except Exception as e:
+        print(f"Error getting teachpoints for {device_name}: {e}")
+        return {"teachpoints": [], "device": device_name, "error": str(e)}
+
+@app.post("/devices/{device_name}/teachpoints")
+async def save_device_teachpoint(device_name: str, req: DeviceTeachpointRequest):
+    """Save a teachpoint for a specific device."""
+    try:
+        teachpoint_data = {
+            "name": req.name,
+            "description": req.description,
+            "position": req.position,
+            "xbot_id": req.xbot_id,
+        }
+        
+        success = mongodb.save_teachpoint(device_name, req.id, teachpoint_data)
+        if success:
+            return {"status": "success", "message": f"Saved teachpoint '{req.name}'"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to save teachpoint")
+    except Exception as e:
+        print(f"Error saving teachpoint for {device_name}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/devices/{device_name}/teachpoints/{teachpoint_id}")
+async def delete_device_teachpoint(device_name: str, teachpoint_id: str):
+    """Delete a teachpoint from a specific device."""
+    try:
+        success = mongodb.delete_teachpoint(device_name, teachpoint_id)
+        if success:
+            return {"status": "success", "message": f"Deleted teachpoint '{teachpoint_id}'"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to delete teachpoint")
+    except Exception as e:
+        print(f"Error deleting teachpoint for {device_name}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     print(f"Starting server on port {cli_args.port}")
     uvicorn.run(app, host="0.0.0.0", port=cli_args.port)

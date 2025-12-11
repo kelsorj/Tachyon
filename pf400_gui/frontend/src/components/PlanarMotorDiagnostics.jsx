@@ -17,6 +17,11 @@ function PlanarMotorDiagnostics() {
   const [pmcIp, setPmcIp] = useState('192.168.10.100') // Will be updated from status
   const [apiUrl, setApiUrl] = useState(null) // Will be set from device connection info
   const [loadingDevice, setLoadingDevice] = useState(true)
+  
+  // Teachpoints state
+  const [teachpoints, setTeachpoints] = useState([])
+  const [newTeachpointName, setNewTeachpointName] = useState('')
+  const [showTeachpointForm, setShowTeachpointForm] = useState(false)
 
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
@@ -289,6 +294,139 @@ function PlanarMotorDiagnostics() {
     }
   }
 
+  // ============== Teachpoints ==============
+  
+  // Fetch teachpoints from MongoDB (via Mac backend)
+  const fetchTeachpoints = async () => {
+    if (!deviceName) return
+    try {
+      const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints`)
+      if (res.ok) {
+        const data = await res.json()
+        setTeachpoints(data.teachpoints || [])
+      }
+    } catch (e) {
+      console.error('Error fetching teachpoints:', e)
+    }
+  }
+
+  // Fetch teachpoints on mount and when device changes
+  useEffect(() => {
+    if (deviceName && !loadingDevice) {
+      fetchTeachpoints()
+    }
+  }, [deviceName, loadingDevice])
+
+  // Save current position as teachpoint
+  const handleSaveTeachpoint = async () => {
+    if (!newTeachpointName.trim()) {
+      log('✗ Please enter a teachpoint name')
+      return
+    }
+    if (!connected || !xbots[selectedXbot]) {
+      log('✗ Connect and select an XBOT first')
+      return
+    }
+
+    const xbot = xbots[selectedXbot]
+    const position = xbot.position || {}
+    const tpId = newTeachpointName.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')
+    
+    log(`→ Saving teachpoint "${newTeachpointName}"...`)
+    
+    try {
+      const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          device_name: deviceName,
+          id: tpId,
+          name: newTeachpointName,
+          description: `XBOT ${selectedXbot} position`,
+          position: {
+            x: position.x || 0,
+            y: position.y || 0,
+            z: position.z || 0,
+            rx: position.rx || 0,
+            ry: position.ry || 0,
+            rz: position.rz || 0
+          },
+          xbot_id: selectedXbot
+        })
+      })
+      
+      if (res.ok) {
+        log(`✓ Saved teachpoint "${newTeachpointName}"`)
+        setNewTeachpointName('')
+        setShowTeachpointForm(false)
+        fetchTeachpoints()
+      } else {
+        const data = await res.json()
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Delete teachpoint
+  const handleDeleteTeachpoint = async (tpId, tpName) => {
+    if (!confirm(`Delete teachpoint "${tpName}"?`)) return
+    
+    log(`→ Deleting teachpoint "${tpName}"...`)
+    
+    try {
+      const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints/${tpId}`, {
+        method: 'DELETE'
+      })
+      
+      if (res.ok) {
+        log(`✓ Deleted teachpoint "${tpName}"`)
+        fetchTeachpoints()
+      } else {
+        const data = await res.json()
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  // Go to teachpoint (move XBOT to saved position)
+  const handleGotoTeachpoint = async (tp) => {
+    if (!connected || !apiUrl) {
+      log('✗ Not connected')
+      return
+    }
+    
+    const pos = tp.position || {}
+    log(`→ Moving to "${tp.name}" (X: ${(pos.x * 1000).toFixed(1)}mm, Y: ${(pos.y * 1000).toFixed(1)}mm)...`)
+    
+    try {
+      const res = await fetch(`${apiUrl}/xbots/linear-motion`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          xbot_id: tp.xbot_id || selectedXbot,
+          x: pos.x || 0,
+          y: pos.y || 0,
+          final_speed: 0,
+          max_speed: maxSpeed,
+          max_acceleration: maxAcceleration
+        })
+      })
+      
+      if (res.ok) {
+        log(`✓ Moving to "${tp.name}"`)
+      } else {
+        const data = await res.json()
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
   const xbotIds = Object.keys(xbots).map(id => parseInt(id)).sort()
 
   if (loadingDevice) {
@@ -484,6 +622,100 @@ function PlanarMotorDiagnostics() {
               </div>
             </>
           )}
+
+          {/* Teachpoints */}
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ fontWeight: 'bold', color: '#69c0ff' }}>Teachpoints</div>
+              {connected && (
+                <button
+                  onClick={() => setShowTeachpointForm(!showTeachpointForm)}
+                  style={{ padding: '4px 8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.8em' }}
+                >
+                  {showTeachpointForm ? 'Cancel' : '+ Save Current'}
+                </button>
+              )}
+            </div>
+            
+            {/* Save teachpoint form */}
+            {showTeachpointForm && (
+              <div style={{ marginBottom: 10, padding: 8, background: '#222', borderRadius: 4 }}>
+                <input
+                  type="text"
+                  placeholder="Teachpoint name"
+                  value={newTeachpointName}
+                  onChange={e => setNewTeachpointName(e.target.value)}
+                  onKeyPress={e => e.key === 'Enter' && handleSaveTeachpoint()}
+                  style={{ width: '100%', padding: '6px', marginBottom: 8, borderRadius: 4, background: '#333', color: '#fff', border: '1px solid #555', boxSizing: 'border-box' }}
+                />
+                <button
+                  onClick={handleSaveTeachpoint}
+                  style={{ width: '100%', padding: '6px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer' }}
+                >
+                  Save Position
+                </button>
+              </div>
+            )}
+            
+            {/* Teachpoints list */}
+            <div style={{ maxHeight: 150, overflowY: 'auto' }}>
+              {teachpoints.length === 0 ? (
+                <div style={{ color: '#666', fontSize: '0.85em', fontStyle: 'italic' }}>
+                  No teachpoints saved
+                </div>
+              ) : (
+                teachpoints.map(tp => (
+                  <div 
+                    key={tp.id} 
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between',
+                      padding: '6px 8px',
+                      marginBottom: 4,
+                      background: '#222',
+                      borderRadius: 4,
+                      fontSize: '0.85em'
+                    }}
+                  >
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {tp.name}
+                      </div>
+                      {tp.position && (
+                        <div style={{ fontSize: '0.8em', color: '#888' }}>
+                          X: {((tp.position.x || 0) * 1000).toFixed(1)} Y: {((tp.position.y || 0) * 1000).toFixed(1)}
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      <button
+                        onClick={() => handleGotoTeachpoint(tp)}
+                        disabled={!connected}
+                        style={{ 
+                          padding: '4px 8px', 
+                          borderRadius: 4, 
+                          background: connected ? '#1890ff' : '#444', 
+                          color: '#fff', 
+                          border: 'none', 
+                          cursor: connected ? 'pointer' : 'not-allowed',
+                          fontSize: '0.8em'
+                        }}
+                      >
+                        Go
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTeachpoint(tp.id, tp.name)}
+                        style={{ padding: '4px 8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.8em' }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
 
           {/* Logs */}
           <div style={{ background: '#111', borderRadius: 4, padding: 8, fontSize: '0.75em', maxHeight: 120, overflowY: 'auto', flex: 1, minHeight: 0 }}>
