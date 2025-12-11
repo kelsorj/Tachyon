@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import PlanarMotorViewer from './PlanarMotorViewer'
 
+const PF400_API_URL = "http://localhost:3061" // For fetching device info from MongoDB
+
 function PlanarMotorDiagnostics() {
+  const { deviceName } = useParams()
   const [xbots, setXbots] = useState({})
   const [pmcStatus, setPmcStatus] = useState(null)
   const [connected, setConnected] = useState(false)
@@ -11,14 +15,71 @@ function PlanarMotorDiagnostics() {
   const [maxSpeed, setMaxSpeed] = useState(0.5)
   const [maxAcceleration, setMaxAcceleration] = useState(5.0)
   const [pmcIp, setPmcIp] = useState('192.168.10.100') // Will be updated from status
+  const [apiUrl, setApiUrl] = useState(null) // Will be set from device connection info
+  const [loadingDevice, setLoadingDevice] = useState(true)
 
-  const API_URL = "http://localhost:3062"
+  const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
-  // Fetch initial status to get PMC IP
+  // Fetch device info from MongoDB to get connection details
   useEffect(() => {
+    const fetchDeviceInfo = async () => {
+      if (!deviceName) {
+        setLoadingDevice(false)
+        return
+      }
+
+      try {
+        setLoadingDevice(true)
+        // Get all devices and find the one matching deviceName
+        const res = await fetch(`${PF400_API_URL}/devices`)
+        if (res.ok) {
+          const data = await res.json()
+          const device = data.devices?.find(d => d.name === deviceName)
+          
+          if (device) {
+            // Get API URL from device connection config
+            const apiPort = device.connection?.api_port || 3062
+            const backendHost = device.connection?.backend_host || 'localhost'
+            
+            const constructedApiUrl = `http://${backendHost}:${apiPort}`
+            setApiUrl(constructedApiUrl)
+            
+            // Also set PMC IP if available
+            if (device.connection?.pmc_ip) {
+              setPmcIp(device.connection.pmc_ip)
+            }
+            
+            log(`✓ Loaded device: ${device.name}`)
+            log(`  Backend: ${constructedApiUrl}`)
+            if (device.connection?.pmc_ip) {
+              log(`  PMC IP: ${device.connection.pmc_ip}`)
+            }
+          } else {
+            log(`⚠ Device '${deviceName}' not found in database, using defaults`)
+            setApiUrl('http://localhost:3062')
+          }
+        } else {
+          log(`⚠ Failed to fetch devices, using defaults`)
+          setApiUrl('http://localhost:3062')
+        }
+      } catch (e) {
+        log(`⚠ Error fetching device info: ${e.message}, using defaults`)
+        setApiUrl('http://localhost:3062')
+      } finally {
+        setLoadingDevice(false)
+      }
+    }
+    
+    fetchDeviceInfo()
+  }, [deviceName])
+
+  // Fetch initial status to get PMC IP (after API URL is set)
+  useEffect(() => {
+    if (!apiUrl || loadingDevice) return
+    
     const fetchInitialStatus = async () => {
       try {
-        const res = await fetch(`${API_URL}/status`)
+        const res = await fetch(`${apiUrl}/status`)
         if (res.ok) {
           const data = await res.json()
           if (data.pmc_ip) {
@@ -26,27 +87,29 @@ function PlanarMotorDiagnostics() {
           }
         }
       } catch (e) {
-        // Silently ignore
+        // Silently ignore - backend might not be running yet
       }
     }
     fetchInitialStatus()
-  }, [])
+  }, [apiUrl, loadingDevice])
 
   // Fetch XBOT statuses periodically
   useEffect(() => {
+    if (!apiUrl || loadingDevice) return
+    
     let isMounted = true
     let timeoutId = null
     
     const fetchStatus = async () => {
-      if (!isMounted || !connected) return
+      if (!isMounted || !connected || !apiUrl) return
       
       try {
         const controller = new AbortController()
         const timeoutAbort = setTimeout(() => controller.abort(), 2000)
         
         const [statusRes, xbotsRes] = await Promise.all([
-          fetch(`${API_URL}/xbots/status`, { signal: controller.signal }),
-          fetch(`${API_URL}/pmc/status`, { signal: controller.signal })
+          fetch(`${apiUrl}/xbots/status`, { signal: controller.signal }),
+          fetch(`${apiUrl}/pmc/status`, { signal: controller.signal })
         ])
         clearTimeout(timeoutAbort)
         
@@ -77,12 +140,17 @@ function PlanarMotorDiagnostics() {
       isMounted = false
       if (timeoutId) clearTimeout(timeoutId)
     }
-  }, [connected])
+  }, [connected, apiUrl, loadingDevice])
 
   // Connect to PMC
   const handleConnect = async () => {
+    if (!apiUrl) {
+      log('✗ Backend URL not configured. Please wait for device info to load.')
+      return
+    }
+    
     try {
-      const res = await fetch(`${API_URL}/connect`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/connect`, { method: 'POST' })
       const data = await res.json()
       if (res.ok) {
         log(`✓ Connected to PMC. Found ${data.xbot_count || 0} XBOT(s)`)
@@ -105,8 +173,10 @@ function PlanarMotorDiagnostics() {
 
   // Disconnect from PMC
   const handleDisconnect = async () => {
+    if (!apiUrl) return
+    
     try {
-      const res = await fetch(`${API_URL}/disconnect`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/disconnect`, { method: 'POST' })
       if (res.ok) {
         log(`✓ Disconnected from PMC`)
         setConnected(false)
@@ -119,9 +189,11 @@ function PlanarMotorDiagnostics() {
 
   // Activate XBOTs
   const handleActivate = async () => {
+    if (!apiUrl) return
+    
     log(`→ Activating XBOTs...`)
     try {
-      const res = await fetch(`${API_URL}/xbots/activate`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/xbots/activate`, { method: 'POST' })
       const data = await res.json()
       if (res.ok) {
         log(`✓ XBOTs activated`)
@@ -135,9 +207,11 @@ function PlanarMotorDiagnostics() {
 
   // Levitate XBOT
   const handleLevitate = async (xbotId) => {
+    if (!apiUrl) return
+    
     log(`→ Levitating XBOT ${xbotId}...`)
     try {
-      const res = await fetch(`${API_URL}/xbots/${xbotId}/levitate`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/xbots/${xbotId}/levitate`, { method: 'POST' })
       const data = await res.json()
       if (res.ok) {
         log(`✓ XBOT ${xbotId} levitating`)
@@ -151,9 +225,11 @@ function PlanarMotorDiagnostics() {
 
   // Land XBOT
   const handleLand = async (xbotId) => {
+    if (!apiUrl) return
+    
     log(`→ Landing XBOT ${xbotId}...`)
     try {
-      const res = await fetch(`${API_URL}/xbots/${xbotId}/land`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/xbots/${xbotId}/land`, { method: 'POST' })
       const data = await res.json()
       if (res.ok) {
         log(`✓ XBOT ${xbotId} landing`)
@@ -167,9 +243,11 @@ function PlanarMotorDiagnostics() {
 
   // Stop XBOT
   const handleStop = async (xbotId) => {
+    if (!apiUrl) return
+    
     log(`→ Stopping XBOT ${xbotId}...`)
     try {
-      const res = await fetch(`${API_URL}/xbots/${xbotId}/stop`, { method: 'POST' })
+      const res = await fetch(`${apiUrl}/xbots/${xbotId}/stop-motion`, { method: 'POST' })
       const data = await res.json()
       if (res.ok) {
         log(`✓ XBOT ${xbotId} stopped`)
@@ -183,11 +261,13 @@ function PlanarMotorDiagnostics() {
 
   // Jog XBOT
   const handleJog = async (axis, direction) => {
+    if (!apiUrl) return
+    
     const distance = direction * jogStep
     log(`→ Jogging XBOT ${selectedXbot} ${axis.toUpperCase()}: ${(distance * 1000).toFixed(1)}mm`)
     
     try {
-      const res = await fetch(`${API_URL}/xbots/${selectedXbot}/jog`, {
+      const res = await fetch(`${apiUrl}/xbots/jog`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -209,13 +289,27 @@ function PlanarMotorDiagnostics() {
     }
   }
 
-  const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
-
   const xbotIds = Object.keys(xbots).map(id => parseInt(id)).sort()
+
+  if (loadingDevice) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: 10, boxSizing: 'border-box', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ fontSize: '1.2em', color: '#888' }}>Loading device configuration...</div>
+      </div>
+    )
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: 10, boxSizing: 'border-box' }}>
-      <h1 style={{ margin: '0 0 10px 0', fontSize: '1.5em' }}>Planar Motor Control</h1>
+      <h1 style={{ margin: '0 0 10px 0', fontSize: '1.5em' }}>
+        Planar Motor Control
+        {deviceName && <span style={{ fontSize: '0.7em', color: '#888', marginLeft: 10 }}>({deviceName})</span>}
+      </h1>
+      {apiUrl && (
+        <div style={{ fontSize: '0.85em', color: '#666', marginBottom: 10 }}>
+          Backend: {apiUrl}
+        </div>
+      )}
 
       <div style={{ display: 'flex', flex: 1, gap: 15, minHeight: 0 }}>
         

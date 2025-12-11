@@ -49,14 +49,14 @@ def setup_planar_motor_device():
         "device_type_id": str(device_type_id),
         "status": "active",
         "connection": {
-            "ip": "192.168.1.100",
-            "port": None,
+            "pmc_ip": "192.168.10.100",  # PMC IP address
+            "backend_host": "192.168.0.23",  # PC backend host (where backend runs)
+            "api_port": 3062,  # Backend API port
             "protocol": "TCP"
         },
         "config": {
             "flyway_model": "S4-AS-04-06-OEM-Rev3-FLYWAY-S4-AS",
-            "xbot_model": "M3-06-04-OEM-Rev3-XBOT",
-            "api_port": 3062
+            "xbot_model": "M3-06-04-OEM-Rev3-XBOT"
         },
         "created_at": datetime.now(timezone.utc),
         "updated_at": datetime.now(timezone.utc)
@@ -77,7 +77,8 @@ def setup_planar_motor_device():
     print(f"\nDevice setup complete!")
     print(f"Device Name: {device_name}")
     print(f"Device Type ID: {device_type_id}")
-    print(f"PMC IP: 192.168.1.100")
+    print(f"PMC IP: 192.168.10.100")
+    print(f"Backend Host: 192.168.0.23")
     print(f"API Port: 3062")
 
 if __name__ == "__main__":
