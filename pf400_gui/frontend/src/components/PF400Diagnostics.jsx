@@ -324,15 +324,106 @@ function PF400Diagnostics() {
       <h1 style={{ margin: '0 0 10px 0', fontSize: '1.5em' }}>PF400 Robot Control</h1>
 
       <div style={{ display: 'flex', flex: 1, gap: 15, minHeight: 0 }}>
-        
-        {/* 3D VIEWER - Takes 70% of width */}
-        <div style={{ flex: 7, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
+        {/* LEFT SIDEBAR: device linking + logs */}
+        <div style={{ width: 360, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
+          {/* Device Linking */}
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10, overflow: 'hidden' }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Device Linking</div>
+
+            {/* Reachable Devices */}
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>Reachable Devices:</div>
+              {reachableDevices.length === 0 ? (
+                <div style={{ fontSize: '0.8em', color: '#666', fontStyle: 'italic' }}>
+                  No reachable devices configured
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                  {reachableDevices.map(device => (
+                    <div key={device.device_name} style={{
+                      background: '#2a2a3e',
+                      borderRadius: 4,
+                      padding: '4px 8px',
+                      fontSize: '0.8em',
+                      color: '#69c0ff'
+                    }}>
+                      {device.device_name} ({device.access_type})
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Teachpoint Linking */}
+            {reachableDevices.length > 0 && (
+              <div>
+                <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>
+                  {linkingTeachpoint
+                    ? `Select teachpoint to link with "${linkingTeachpoint.name}":`
+                    : 'Link Teachpoints: Click "Link" on a local teachpoint first'
+                  }
+                </div>
+                <div style={{ maxHeight: 320, overflowY: 'auto' }}>
+                  {Object.entries(deviceTeachpoints).map(([deviceName, deviceTps]) => (
+                    <div key={deviceName} style={{ marginBottom: 8 }}>
+                      <div style={{ fontSize: '0.8em', color: '#faad14', marginBottom: 4 }}>
+                        {deviceName} teachpoints:
+                      </div>
+                      {deviceTps.map(tp => (
+                        <div key={tp.id} style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          background: '#2a2a3e',
+                          borderRadius: 4,
+                          padding: '4px 8px',
+                          marginBottom: 2,
+                          fontSize: '0.8em'
+                        }}>
+                          <span>{tp.name}</span>
+                          <button
+                            onClick={() => completeLinking(tp)}
+                            disabled={!linkingTeachpoint}
+                            style={{
+                              padding: '2px 6px',
+                              borderRadius: 3,
+                              background: linkingTeachpoint ? '#52c41a' : '#666',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: linkingTeachpoint ? 'pointer' : 'not-allowed',
+                              fontSize: '0.7em'
+                            }}
+                            title={linkingTeachpoint ? `Link "${linkingTeachpoint.name}" with "${tp.name}"` : "Select a local teachpoint first"}
+                          >
+                            Link
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Logs */}
+          <div style={{ background: '#111', borderRadius: 8, padding: 10, fontSize: '0.75em', overflowY: 'auto', flex: 1, minHeight: 0 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Logs</div>
+            {logs.length === 0 ? (
+              <div style={{ color: '#666', fontStyle: 'italic' }}>No logs yet</div>
+            ) : (
+              logs.map((l, i) => <div key={i}>{l}</div>)
+            )}
+          </div>
+        </div>
+
+        {/* CENTER: 3D viewer */}
+        <div style={{ flex: 1, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
           <RobotViewer joints={joints} cartesian={cartesian} />
         </div>
 
-        {/* CONTROLS - Takes 30% of width */}
-        <div style={{ flex: 3, minWidth: 280, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 10 }}>
-          
+        {/* RIGHT SIDEBAR: speed + jogs + teachpoints */}
+        <div style={{ width: 420, minWidth: 360, maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
           {/* Speed */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
             <span style={{ fontWeight: 'bold' }}>Speed:</span>
@@ -531,91 +622,6 @@ function PF400Diagnostics() {
                 ))
               )}
             </div>
-          </div>
-
-          {/* Device Linking */}
-          <div style={{ background: '#1a1a2e', borderRadius: 4, padding: 8, marginBottom: 8 }}>
-            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Device Linking</div>
-
-            {/* Reachable Devices */}
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>Reachable Devices:</div>
-              {reachableDevices.length === 0 ? (
-                <div style={{ fontSize: '0.8em', color: '#666', fontStyle: 'italic' }}>
-                  No reachable devices configured
-                </div>
-              ) : (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                  {reachableDevices.map(device => (
-                    <div key={device.device_name} style={{
-                      background: '#2a2a3e',
-                      borderRadius: 4,
-                      padding: '4px 8px',
-                      fontSize: '0.8em',
-                      color: '#69c0ff'
-                    }}>
-                      {device.device_name} ({device.access_type})
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Teachpoint Linking */}
-            {reachableDevices.length > 0 && (
-              <div>
-                <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>
-                  {linkingTeachpoint
-                    ? `Select teachpoint to link with "${linkingTeachpoint.name}":`
-                    : 'Link Teachpoints: Click "Link" on a local teachpoint first'
-                  }
-                </div>
-                <div style={{ maxHeight: 200, overflowY: 'auto' }}>
-                  {Object.entries(deviceTeachpoints).map(([deviceName, deviceTps]) => (
-                    <div key={deviceName} style={{ marginBottom: 8 }}>
-                      <div style={{ fontSize: '0.8em', color: '#faad14', marginBottom: 4 }}>
-                        {deviceName} teachpoints:
-                      </div>
-                      {deviceTps.map(tp => (
-                        <div key={tp.id} style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          background: '#2a2a3e',
-                          borderRadius: 4,
-                          padding: '4px 8px',
-                          marginBottom: 2,
-                          fontSize: '0.8em'
-                        }}>
-                          <span>{tp.name}</span>
-                          <button
-                            onClick={() => completeLinking(tp)}
-                            disabled={!linkingTeachpoint}
-                            style={{
-                              padding: '2px 6px',
-                              borderRadius: 3,
-                              background: linkingTeachpoint ? '#52c41a' : '#666',
-                              color: '#fff',
-                              border: 'none',
-                              cursor: linkingTeachpoint ? 'pointer' : 'not-allowed',
-                              fontSize: '0.7em'
-                            }}
-                            title={linkingTeachpoint ? `Link "${linkingTeachpoint.name}" with "${tp.name}"` : "Select a local teachpoint first"}
-                          >
-                            Link
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Logs */}
-          <div style={{ background: '#111', borderRadius: 4, padding: 8, fontSize: '0.75em', maxHeight: 120, overflowY: 'auto' }}>
-            {logs.map((l, i) => <div key={i}>{l}</div>)}
           </div>
         </div>
       </div>
