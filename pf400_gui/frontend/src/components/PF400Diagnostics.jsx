@@ -407,7 +407,7 @@ function PF400Diagnostics() {
           </div>
 
           {/* Logs */}
-          <div style={{ background: '#111', borderRadius: 8, padding: 10, fontSize: '0.75em', overflowY: 'auto', flex: 1, minHeight: 0 }}>
+          <div style={{ background: '#111', borderRadius: 8, padding: 10, fontSize: '0.75em', overflowY: 'auto', flex: 1, minHeight: 0, textAlign: 'left', fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
             <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Logs</div>
             {logs.length === 0 ? (
               <div style={{ color: '#666', fontStyle: 'italic' }}>No logs yet</div>
