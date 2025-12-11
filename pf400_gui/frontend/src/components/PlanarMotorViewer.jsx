@@ -8,6 +8,10 @@ const FLYWAY_SIZE_X = 0.24   // PMC X dimension in meters (4 tiles)
 const FLYWAY_SIZE_Y = 0.24   // PMC Y dimension in meters (4 tiles)
 const FLYWAY_TOP_OFFSET = 0.08  // Height offset for XBOT
 
+// Support multiple flyways tiled along +X
+const DEFAULT_FLYWAY_COUNT = 2
+const DEFAULT_FLYWAY_GAP_X = 0.0 // meters between flyways (0 = touching)
+
 // Coordinate mapping to match vendor display:
 // - Origin (0,0) at LOWER-LEFT corner of flyway
 // - X axis goes RIGHT (horizontal)
@@ -69,7 +73,7 @@ function AxisIndicator() {
 }
 
 // GLTF Loader component for Flyway
-function FlywayModel({ flywayUrl }) {
+function FlywayModel({ flywayUrl, offsetX = 0 }) {
     const { scene } = useGLTF(flywayUrl)
     const clonedScene = React.useMemo(() => scene.clone(), [scene])
     
@@ -85,10 +89,11 @@ function FlywayModel({ flywayUrl }) {
         })
     }, [clonedScene])
     
-    // Position flyway so PMC (0,0) is at lower-left corner
-    // Rotate -90° X to lay flat, then position so corner is at origin
+    // Position flyway so PMC (0,0) is at lower-left corner.
+    // Rotate -90° X to lay flat, then position so corner is at origin.
+    // `offsetX` lets us tile multiple flyways along +X (right).
     return (
-        <group position={[FLYWAY_SIZE_X / 2, 0, -FLYWAY_SIZE_Y / 2]}>
+        <group position={[offsetX + FLYWAY_SIZE_X / 2, 0, -FLYWAY_SIZE_Y / 2]}>
             <primitive object={clonedScene} scale={1} rotation={[-Math.PI / 2, 0, 0]} />
         </group>
     )
@@ -148,10 +153,14 @@ function XBOTModel({ position, rotation, xbotUrl }) {
     )
 }
 
-function PlanarMotorScene({ xbots, flywayUrl, xbotUrl }) {
-    // Center of flyway for camera target (in Three.js coords)
-    // Flyway extends from (0,0) to (FLYWAY_SIZE_X, -FLYWAY_SIZE_Y) in XZ plane
-    const centerX = FLYWAY_SIZE_X / 2
+function PlanarMotorScene({ xbots, flywayUrl, xbotUrl, flywayCount = DEFAULT_FLYWAY_COUNT, flywayGapX = DEFAULT_FLYWAY_GAP_X }) {
+    const safeFlywayCount = Math.max(1, Number.isFinite(flywayCount) ? flywayCount : DEFAULT_FLYWAY_COUNT)
+    const safeGap = Number.isFinite(flywayGapX) ? flywayGapX : DEFAULT_FLYWAY_GAP_X
+    const totalWidthX = safeFlywayCount * FLYWAY_SIZE_X + Math.max(0, safeFlywayCount - 1) * safeGap
+
+    // Center of the full flyway array for camera target (in Three.js coords)
+    // Flyways extend from (0,0) to (totalWidthX, -FLYWAY_SIZE_Y) in XZ plane
+    const centerX = totalWidthX / 2
     const centerZ = -FLYWAY_SIZE_Y / 2
     
     return (
@@ -160,9 +169,12 @@ function PlanarMotorScene({ xbots, flywayUrl, xbotUrl }) {
             <directionalLight position={[5, 5, 5]} intensity={0.8} />
             <directionalLight position={[-5, 5, -5]} intensity={0.4} />
             
-            {/* Flyway - positioned so PMC (0,0) is at lower-left corner */}
+            {/* Flyways - positioned so PMC (0,0) is at lower-left corner of flyway #1 */}
             <Suspense fallback={null}>
-                <FlywayModel flywayUrl={flywayUrl} />
+                {Array.from({ length: safeFlywayCount }).map((_, idx) => {
+                    const offsetX = idx * (FLYWAY_SIZE_X + safeGap)
+                    return <FlywayModel key={idx} flywayUrl={flywayUrl} offsetX={offsetX} />
+                })}
             </Suspense>
             
             {/* Axis indicator at origin (0,0) - lower-left corner */}
@@ -205,7 +217,12 @@ function Fallback() {
     )
 }
 
-export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localhost:3062' }) {
+export default function PlanarMotorViewer({
+    xbots,
+    modelBaseUrl = 'http://localhost:3062',
+    flywayCount = DEFAULT_FLYWAY_COUNT,
+    flywayGapX = DEFAULT_FLYWAY_GAP_X
+}) {
     const MAC_BACKEND_URL = "http://localhost:3061"
     const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S3-AS-04-06-OEM-Rev0-FLYWAY-S3-AS.gltf`
     const xbotModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/M3-06-04-OEM-Rev3-XBOT.gltf`
@@ -221,17 +238,31 @@ export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localh
         }
     }, [])
     
-    // Camera positioned to view flyway from front, looking towards -Z
+    const safeFlywayCount = Math.max(1, Number.isFinite(flywayCount) ? flywayCount : DEFAULT_FLYWAY_COUNT)
+    const safeGap = Number.isFinite(flywayGapX) ? flywayGapX : DEFAULT_FLYWAY_GAP_X
+    const totalWidthX = safeFlywayCount * FLYWAY_SIZE_X + Math.max(0, safeFlywayCount - 1) * safeGap
+
+    // Camera positioned to view flyways from front, looking towards -Z
     // This gives a view matching vendor: X goes right, Y goes up
-    // Camera at +Z (in front), +Y (above), looking at center of flyway
-    const cameraPosition = [FLYWAY_SIZE_X / 2, 0.5, 0.4]
+    // Camera at +Z (in front), +Y (above), looking at center of flyway array
+    const cameraPosition = [
+        totalWidthX / 2,
+        0.5,
+        0.4 + Math.max(0, totalWidthX - FLYWAY_SIZE_X) * 1.0
+    ]
     
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: '400px', border: '1px solid #ccc', overflow: 'hidden', position: 'relative' }}>
                 <Canvas camera={{ position: cameraPosition, fov: 50 }}>
                     <Suspense fallback={<Fallback />}>
-                        <PlanarMotorScene xbots={xbots} flywayUrl={flywayModelUrl} xbotUrl={xbotModelUrl} />
+                        <PlanarMotorScene
+                            xbots={xbots}
+                            flywayUrl={flywayModelUrl}
+                            xbotUrl={xbotModelUrl}
+                            flywayCount={safeFlywayCount}
+                            flywayGapX={safeGap}
+                        />
                     </Suspense>
                 </Canvas>
                 

@@ -534,15 +534,9 @@ function PlanarMotorDiagnostics() {
       )}
 
       <div style={{ display: 'flex', flex: 1, gap: 15, minHeight: 0 }}>
-        
-        {/* 3D VIEWER - Takes 70% of width */}
-        <div style={{ flex: 7, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
-          <PlanarMotorViewer xbots={xbots} />
-        </div>
 
-        {/* CONTROLS - Takes 30% of width */}
-        <div style={{ flex: 3, minWidth: 280, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 10 }}>
-          
+        {/* LEFT SIDEBAR: connection/system/xbot selection/xbot controls/logs */}
+        <div style={{ width: 340, minWidth: 300, maxWidth: 380, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
           {/* Connection Status */}
           <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
             <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Connection</div>
@@ -552,14 +546,14 @@ function PlanarMotorDiagnostics() {
             </div>
             <div style={{ display: 'flex', gap: 5 }}>
               {!connected ? (
-                <button 
+                <button
                   onClick={handleConnect}
                   style={{ flex: 1, padding: '8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   Connect
                 </button>
               ) : (
-                <button 
+                <button
                   onClick={handleDisconnect}
                   style={{ flex: 1, padding: '8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                 >
@@ -572,7 +566,7 @@ function PlanarMotorDiagnostics() {
           {/* System Controls */}
           <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
             <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>System</div>
-            <button 
+            <button
               onClick={handleActivate}
               style={{ width: '100%', padding: '8px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold', marginBottom: 5 }}
             >
@@ -584,8 +578,8 @@ function PlanarMotorDiagnostics() {
           {xbotIds.length > 0 && (
             <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
               <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>XBOT Selection</div>
-              <select 
-                value={selectedXbot} 
+              <select
+                value={selectedXbot}
                 onChange={e => setSelectedXbot(parseInt(e.target.value))}
                 style={{ width: '100%', padding: '6px', borderRadius: 4, background: '#222', color: '#fff', border: '1px solid #444' }}
               >
@@ -601,19 +595,19 @@ function PlanarMotorDiagnostics() {
             <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
               <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>XBOT Controls</div>
               <div style={{ display: 'flex', gap: 5, marginBottom: 5 }}>
-                <button 
+                <button
                   onClick={() => handleLevitate(selectedXbot)}
                   style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
                 >
                   Levitate
                 </button>
-                <button 
+                <button
                   onClick={() => handleLand(selectedXbot)}
                   style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
                 >
                   Land
                 </button>
-                <button 
+                <button
                   onClick={() => handleStop(selectedXbot)}
                   style={{ flex: 1, padding: '6px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9em' }}
                 >
@@ -623,6 +617,24 @@ function PlanarMotorDiagnostics() {
             </div>
           )}
 
+          {/* Logs */}
+          <div style={{ background: '#111', borderRadius: 8, padding: 10, fontSize: '0.75em', overflowY: 'auto', flex: 1, minHeight: 0 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Logs</div>
+            {logs.length === 0 ? (
+              <div style={{ color: '#666', fontStyle: 'italic' }}>No logs yet</div>
+            ) : (
+              logs.map((l, i) => <div key={i}>{l}</div>)
+            )}
+          </div>
+        </div>
+
+        {/* CENTER: 3D viewer */}
+        <div style={{ flex: 1, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
+          <PlanarMotorViewer xbots={xbots} />
+        </div>
+
+        {/* RIGHT SIDEBAR: jog + teachpoints */}
+        <div style={{ width: 380, minWidth: 320, maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
           {/* Jog Controls */}
           {xbotIds.length > 0 && (
             <>
@@ -630,8 +642,8 @@ function PlanarMotorDiagnostics() {
                 <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Jog Settings</div>
                 <div style={{ marginBottom: 8 }}>
                   <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Step Size (mm)</div>
-                  <select 
-                    value={jogStep} 
+                  <select
+                    value={jogStep}
                     onChange={e => setJogStep(parseFloat(e.target.value))}
                     style={{ width: '100%', padding: '4px', borderRadius: 4, background: '#333', color: '#fff', border: '1px solid #555' }}
                   >
@@ -644,7 +656,7 @@ function PlanarMotorDiagnostics() {
                 </div>
                 <div style={{ marginBottom: 8 }}>
                   <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Max Speed (m/s)</div>
-                  <input 
+                  <input
                     type="number"
                     value={maxSpeed}
                     onChange={e => setMaxSpeed(parseFloat(e.target.value) || 0.5)}
@@ -656,7 +668,7 @@ function PlanarMotorDiagnostics() {
                 </div>
                 <div>
                   <div style={{ fontSize: '0.85em', marginBottom: 4 }}>Max Acceleration (m/s²)</div>
-                  <input 
+                  <input
                     type="number"
                     value={maxAcceleration}
                     onChange={e => setMaxAcceleration(parseFloat(e.target.value) || 5.0)}
@@ -672,30 +684,30 @@ function PlanarMotorDiagnostics() {
                 <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Jog Controls</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 5 }}>
                   <div></div>
-                  <button 
+                  <button
                     onClick={() => handleJog('y', 1)}
                     style={{ padding: '10px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     ▲ Y+
                   </button>
                   <div></div>
-                  
-                  <button 
+
+                  <button
                     onClick={() => handleJog('x', -1)}
                     style={{ padding: '10px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     ◄ X-
                   </button>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8em' }}>Stop</div>
-                  <button 
+                  <button
                     onClick={() => handleJog('x', 1)}
                     style={{ padding: '10px', borderRadius: 4, background: '#cf1322', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     X+ ►
                   </button>
-                  
+
                   <div></div>
-                  <button 
+                  <button
                     onClick={() => handleJog('y', -1)}
                     style={{ padding: '10px', borderRadius: 4, background: '#237804', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
@@ -720,7 +732,7 @@ function PlanarMotorDiagnostics() {
                 </button>
               )}
             </div>
-            
+
             {/* Save teachpoint form */}
             {showTeachpointForm && (
               <div style={{ marginBottom: 10, padding: 8, background: '#222', borderRadius: 4 }}>
@@ -740,20 +752,20 @@ function PlanarMotorDiagnostics() {
                 </button>
               </div>
             )}
-            
+
             {/* Teachpoints list */}
-            <div style={{ maxHeight: 150, overflowY: 'auto' }}>
+            <div style={{ maxHeight: 220, overflowY: 'auto' }}>
               {teachpoints.length === 0 ? (
                 <div style={{ color: '#666', fontSize: '0.85em', fontStyle: 'italic' }}>
                   No teachpoints saved
                 </div>
               ) : (
                 teachpoints.map(tp => (
-                  <div 
-                    key={tp.id} 
-                    style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <div
+                    key={tp.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'space-between',
                       padding: '6px 8px',
                       marginBottom: 4,
@@ -819,7 +831,7 @@ function PlanarMotorDiagnostics() {
           </div>
 
           {/* Device Linking */}
-          <div style={{ background: '#1a1a2e', borderRadius: 4, padding: 8, marginBottom: 8 }}>
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10, overflow: 'hidden' }}>
             <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Device Linking</div>
 
             {/* Devices that can reach this motor */}
@@ -855,7 +867,7 @@ function PlanarMotorDiagnostics() {
                     : 'Link Teachpoints: Click "Link" on a local teachpoint first'
                   }
                 </div>
-                <div style={{ maxHeight: 200, overflowY: 'auto' }}>
+                <div style={{ maxHeight: 220, overflowY: 'auto' }}>
                   {Object.entries(deviceTeachpoints).map(([deviceName, deviceTps]) => (
                     <div key={deviceName} style={{ marginBottom: 8 }}>
                       <div style={{ fontSize: '0.8em', color: '#faad14', marginBottom: 4 }}>
@@ -895,15 +907,6 @@ function PlanarMotorDiagnostics() {
                   ))}
                 </div>
               </div>
-            )}
-          </div>
-
-          {/* Logs */}
-          <div style={{ background: '#111', borderRadius: 4, padding: 8, fontSize: '0.75em', maxHeight: 120, overflowY: 'auto', flex: 1, minHeight: 0 }}>
-            {logs.length === 0 ? (
-              <div style={{ color: '#666', fontStyle: 'italic' }}>No logs yet</div>
-            ) : (
-              logs.map((l, i) => <div key={i}>{l}</div>)
             )}
           </div>
         </div>
