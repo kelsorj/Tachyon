@@ -7,6 +7,7 @@ Runs on PC at 192.168.0.23, connects to PMC at 192.168.10.100
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Dict, Any, Optional, List
 import uvicorn
@@ -16,6 +17,9 @@ import argparse
 from planar_motor_driver import PlanarMotorDriver, PMCLIB_AVAILABLE
 
 app = FastAPI(title="Planar Motor Control API (PC)")
+
+# Note: Models are served from the Mac backend (PF400 backend on port 3061)
+# Models stay on Mac at /Users/kelsorj/Tachyon/models/planar_motor/
 
 # Allow CORS for frontend (running on Mac at 192.168.0.2)
 app.add_middleware(
@@ -228,18 +232,30 @@ async def jog_xbot(req: JogRequest):
     if req.axis.lower() not in ['x', 'y']:
         raise HTTPException(status_code=400, detail="Axis must be 'x' or 'y'")
     
-    success = pmc_driver.jog(
-        xbot_id=req.xbot_id,
-        axis=req.axis,
-        distance=req.distance,
-        max_speed=req.max_speed,
-        max_acceleration=req.max_acceleration
-    )
-    
-    if success:
-        return {"status": "jogging", "axis": req.axis, "distance": req.distance}
-    else:
-        raise HTTPException(status_code=500, detail="Failed to jog XBOT")
+    try:
+        success = pmc_driver.jog(
+            xbot_id=req.xbot_id,
+            axis=req.axis,
+            distance=req.distance,
+            max_speed=req.max_speed,
+            max_acceleration=req.max_acceleration
+        )
+        
+        if success:
+            return {"status": "jogging", "axis": req.axis, "distance": req.distance}
+        else:
+            # Get more detailed error from driver logs
+            raise HTTPException(
+                status_code=500, 
+                detail="Failed to jog XBOT. Check that XBOT is levitated and in IDLE state."
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error during jog: {str(e)}"
+        )
 
 @app.post("/xbots/linear-motion")
 async def linear_motion(req: LinearMotionRequest):

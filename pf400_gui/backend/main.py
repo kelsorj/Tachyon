@@ -30,6 +30,12 @@ app.mount("/meshes", StaticFiles(directory=mesh_dir), name="meshes")
 urdf_dir = os.path.join(os.path.dirname(__file__), "../../models/pf400_urdf")
 app.mount("/urdf", StaticFiles(directory=urdf_dir), name="urdf")
 
+# Mount Planar Motor GLTF models (served from Mac backend)
+planar_motor_models_dir = os.path.join(os.path.dirname(__file__), "../../models/planar_motor")
+if os.path.exists(planar_motor_models_dir):
+    app.mount("/models/planar_motor", StaticFiles(directory=planar_motor_models_dir), name="planar_motor_models")
+    print(f"Mounted Planar Motor models: {planar_motor_models_dir}")
+
 # Allow CORS for frontend
 app.add_middleware(
     CORSMiddleware,

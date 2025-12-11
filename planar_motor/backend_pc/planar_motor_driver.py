@@ -258,11 +258,12 @@ class PlanarMotorDriver:
             max_acceleration: Maximum acceleration in m/s²
         """
         if not self.connected:
+            print("Error: Not connected to PMC")
             return False
         
         try:
             with self.lock:
-                bot.linear_motion_si(
+                result = bot.linear_motion_si(
                     cmd_label=100,
                     xbot_id=xbot_id,
                     position_mode=pm.POSITIONMODE.ABSOLUTE,
@@ -273,9 +274,16 @@ class PlanarMotorDriver:
                     max_speed=max_speed,
                     max_acceleration=max_acceleration
                 )
+                # Check if result indicates success
+                if hasattr(result, 'PmcRtn'):
+                    if result.PmcRtn != pm.PMCRTN.ALLOK:
+                        print(f"Linear motion failed: {result.PmcRtn}")
+                        return False
                 return True
         except Exception as e:
+            import traceback
             print(f"Error in linear motion: {e}")
+            print(traceback.format_exc())
             return False
     
     def jog(self, xbot_id: int, axis: str, distance: float, 
@@ -291,12 +299,19 @@ class PlanarMotorDriver:
             max_acceleration: Maximum acceleration in m/s²
         """
         if not self.connected:
+            print("Error: Not connected to PMC")
             return False
         
         try:
             # Get current position
             status = self.get_xbot_status(xbot_id)
             if not status:
+                print(f"Error: Could not get XBOT {xbot_id} status")
+                return False
+            
+            # Check if XBOT is in a valid state for motion
+            if status.get("state") not in ["IDLE", "STOPPED"]:
+                print(f"Error: XBOT {xbot_id} is not in a valid state for motion. Current state: {status.get('state')}")
                 return False
             
             current_x = status["position"]["x"]
@@ -310,12 +325,16 @@ class PlanarMotorDriver:
                 target_x = current_x
                 target_y = current_y + distance
             else:
+                print(f"Error: Invalid axis '{axis}'. Must be 'x' or 'y'")
                 return False
             
+            print(f"Jogging XBOT {xbot_id} {axis.upper()} from ({current_x:.4f}, {current_y:.4f}) to ({target_x:.4f}, {target_y:.4f})")
             return self.linear_motion(xbot_id, target_x, target_y, 
                                      final_speed=0.0, max_speed=max_speed, 
                                      max_acceleration=max_acceleration)
         except Exception as e:
+            import traceback
             print(f"Error in jog: {e}")
+            print(traceback.format_exc())
             return False
 
