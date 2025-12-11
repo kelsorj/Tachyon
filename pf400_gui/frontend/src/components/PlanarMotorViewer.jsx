@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Grid, useGLTF, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Flyway dimensions: S4-AS-04-06 = 4x6 tiles * 60mm = 240mm x 360mm
+// Flyway dimensions: S3-AS-04-06 = 4x6 tiles * 60mm = 240mm x 360mm
 const FLYWAY_SIZE_X = 0.24   // PMC X dimension in meters (4 tiles)
 const FLYWAY_SIZE_Y = 0.36   // PMC Y dimension in meters (6 tiles)
 const FLYWAY_TOP_OFFSET = 0.08  // Height offset for XBOT
@@ -209,7 +209,7 @@ function Fallback() {
 
 export default function PlanarMotorViewer({ xbots, modelBaseUrl = 'http://localhost:3062' }) {
     const MAC_BACKEND_URL = "http://localhost:3061"
-    const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S4-AS-04-06-OEM-Rev3-FLYWAY-S4-AS.gltf`
+    const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S3-AS-04-06-OEM-Rev0-FLYWAY-S3-AS.gltf`
     const xbotModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/M3-06-04-OEM-Rev3-XBOT.gltf`
     
     useEffect(() => {
