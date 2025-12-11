@@ -590,7 +590,7 @@ function PlanarMotorDiagnostics() {
                   <div></div>
                   <button 
                     onClick={() => handleJog('y', 1)}
-                    style={{ padding: '10px', borderRadius: 4, background: '#95de64', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '10px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     ▲ Y+
                   </button>
@@ -598,14 +598,14 @@ function PlanarMotorDiagnostics() {
                   
                   <button 
                     onClick={() => handleJog('x', -1)}
-                    style={{ padding: '10px', borderRadius: 4, background: '#ff7875', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '10px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     ◄ X-
                   </button>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8em' }}>Stop</div>
                   <button 
                     onClick={() => handleJog('x', 1)}
-                    style={{ padding: '10px', borderRadius: 4, background: '#ff7875', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '10px', borderRadius: 4, background: '#cf1322', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     X+ ►
                   </button>
@@ -613,7 +613,7 @@ function PlanarMotorDiagnostics() {
                   <div></div>
                   <button 
                     onClick={() => handleJog('y', -1)}
-                    style={{ padding: '10px', borderRadius: 4, background: '#a8071a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '10px', borderRadius: 4, background: '#237804', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     ▼ Y-
                   </button>
