@@ -263,17 +263,21 @@ class PlanarMotorDriver:
         
         try:
             with self.lock:
+                # Use positional arguments as per pmclib documentation
+                # linear_motion_si(cmd_label, xbot_id, position_mode, path_type, target_x, target_y, final_speed, max_speed, max_acceleration)
+                print(f"Calling linear_motion_si: xbot={xbot_id}, target=({x:.4f}, {y:.4f}), speed={max_speed}, accel={max_acceleration}")
                 result = bot.linear_motion_si(
-                    cmd_label=100,
-                    xbot_id=xbot_id,
-                    position_mode=pm.POSITIONMODE.ABSOLUTE,
-                    path_type=pm.LINEARPATHTYPE.DIRECT,
-                    target_x=x,
-                    target_y=y,
-                    final_speed=final_speed,
-                    max_speed=max_speed,
-                    max_acceleration=max_acceleration
+                    100,  # cmd_label
+                    xbot_id,
+                    pm.POSITIONMODE.ABSOLUTE,
+                    pm.LINEARPATHTYPE.DIRECT,
+                    x,  # target_x
+                    y,  # target_y
+                    final_speed,
+                    max_speed,
+                    max_acceleration
                 )
+                print(f"linear_motion_si result: {result}")
                 # Check if result indicates success
                 if hasattr(result, 'PmcRtn'):
                     if result.PmcRtn != pm.PMCRTN.ALLOK:
@@ -310,9 +314,13 @@ class PlanarMotorDriver:
                 return False
             
             # Check if XBOT is in a valid state for motion
-            if status.get("state") not in ["IDLE", "STOPPED"]:
-                print(f"Error: XBOT {xbot_id} is not in a valid state for motion. Current state: {status.get('state')}")
+            current_state = status.get("state", "UNKNOWN")
+            valid_states = ["IDLE", "STOPPED", "HOLDPOSITION"]
+            if current_state not in valid_states:
+                print(f"Error: XBOT {xbot_id} state '{current_state}' not valid for motion. Valid states: {valid_states}")
                 return False
+            
+            print(f"XBOT {xbot_id} is in state '{current_state}' - OK for motion")
             
             current_x = status["position"]["x"]
             current_y = status["position"]["y"]
