@@ -263,77 +263,54 @@ class PlanarMotorDriver:
                    path_type: Optional["pm.LINEARPATHTYPE"] = None,
                    wait: bool = True) -> bool:
         """
-        Move XBOT to absolute XY position using linear_motion_si (SI units).
+        Move XBOT to absolute XY position using async_motion_si.
 
-        Args:
-            xbot_id: XBOT ID
-            x, y: target position in meters
-            max_speed: max speed (m/s)
-            max_acceleration: max acceleration (m/s^2)
-            final_speed: final speed at end of move (m/s)
-            path_type: DIRECT / XTHENY / YTHENX. Defaults to DIRECT.
-            wait: if True, block until the XBOT is idle or stopped.
+        NOTE:
+        - We deliberately avoid linear_motion_si because the Python wrapper's
+          signature does not appear to match the installed DLL and causes
+          'No method matches given arguments' errors.
+        - async_motion_si is known to work (same pattern as circular_motion_app.py).
+        - max_speed / max_acceleration / final_speed are currently ignored by
+          this call; you can control speeds via PMC configuration instead.
         """
         if not self.connected:
             print("move_to_xy: Not connected")
             return False
 
-        if path_type is None:
-            path_type = pm.LINEARPATHTYPE.DIRECT  # straight line
-
         try:
-            # Optional: log current state/position
+            # Log current state/position
             status = self.get_xbot_status(xbot_id)
             if status:
                 state = status.get("state", "UNKNOWN")
                 pos = status.get("position", {})
-                print(f"linear_motion_si: xbot={xbot_id}, state={state}")
+                print(f"async_motion_si: xbot={xbot_id}, state={state}")
                 print(f"  Current: X={pos.get('x', 0):.4f}m, Y={pos.get('y', 0):.4f}m")
                 print(f"  Target:  X={x:.4f}m, Y={y:.4f}m")
 
-            # Wait until bot is idle/stopped before issuing motion
-            if status and state not in ["IDLE", "STOPPED"]:
-                print("  Waiting for XBOT to be idle/ stopped before linear motion...")
-                if not self.wait_until_idle(xbot_id, timeout=10.0):
-                    print(f"linear_motion_si: XBOT {xbot_id} did not become idle")
-                    return False
+                # Make sure we start from an idle / stopped state
+                if state not in ["IDLE", "STOPPED"]:
+                    print("  Waiting for XBOT to be idle / stopped before motion...")
+                    if not self.wait_until_idle(xbot_id, timeout=10.0):
+                        print(f"async_motion_si: XBOT {xbot_id} did not become idle")
+                        return False
 
             with self.lock:
-                # cmd_label can be any 0–65535; keep it simple
+                # EXACT pattern from circular_motion_app.py
                 cmd_label = 1
-
-                corner_radius = 0.0  # meters; only matters for XTHENY / YTHENX
-
-                print(f"  Sending linear_motion_si command...")
-                result = bot.linear_motion_si(
+                print("  Sending async_motion_si command...")
+                bot.async_motion_si(
                     cmd_label,
-                    xbot_id,
-                    pm.POSITIONMODE.ABSOLUTE,
-                    path_type,
-                    x,                  # targetX (m)
-                    y,                  # targetY (m)
-                    final_speed,        # final speed (m/s)
-                    max_speed,          # max speed (m/s)
-                    max_acceleration,   # max acceleration (m/s^2)
-                    corner_radius      # NEW: corner radius (m)
+                    pm.ASYNCOPTIONS.MOVEALL,
+                    [xbot_id],   # list of xbots
+                    [x],         # list of target X positions (m)
+                    [y],         # list of target Y positions (m)
                 )
-
-            # result is typically a struct: { PmcRtn, travel_time / tTime, ... }
-            pmc_rtn = getattr(result, "PmcRtn", None)
-            travel_time = getattr(result, "travel_time", None) or getattr(result, "tTime", None)
-
-            print(f"  linear_motion_si PMC rtn: {pmc_rtn}")
-            if travel_time is not None:
-                print(f"  Estimated travel time: {travel_time:.3f}s")
-
-            if pmc_rtn is not None and pmc_rtn != pm.PMCRTN.ALLOK:
-                print(f"  linear_motion_si failed with PMC rtn: {pmc_rtn}")
-                return False
+                print("  async_motion_si command sent")
 
             if wait:
                 print("  Waiting for motion to complete...")
                 if not self.wait_until_idle(xbot_id, timeout=30.0):
-                    print("  linear_motion_si: timed out waiting for idle")
+                    print("  async_motion_si: timed out waiting for idle")
                     return False
 
                 final_status = self.get_xbot_status(xbot_id)
@@ -345,7 +322,7 @@ class PlanarMotorDriver:
 
         except Exception as e:
             import traceback
-            print(f"Error in linear_motion_si: {e}")
+            print(f"Error in async_motion_si move_to_xy: {e}")
             print(traceback.format_exc())
             return False
 
@@ -353,7 +330,10 @@ class PlanarMotorDriver:
                       final_speed: float = 0.0, max_speed: float = 1.0,
                       max_acceleration: float = 10.0,
                       wait: bool = True) -> bool:
-        """Compatibility wrapper around move_to_xy (linear_motion_si)."""
+        """
+        Compatibility wrapper: move using async_motion_si.
+        (Name kept so existing REST endpoints keep working.)
+        """
         return self.move_to_xy(
             xbot_id=xbot_id,
             x=x,
@@ -376,7 +356,7 @@ class PlanarMotorDriver:
             max_acceleration=max_acceleration,
             wait=True,
         )
-    
+
     def jog(self, xbot_id: int, axis: str, distance: float,
             max_speed: float = 0.5, max_acceleration: float = 5.0) -> bool:
         """
