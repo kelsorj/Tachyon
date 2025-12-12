@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import RobotViewer from './RobotViewer'
 
 function PF400Diagnostics() {
+  const { deviceName } = useParams()
+  const DEVICE_NAME = deviceName || 'PF400-021'
+
   const [logs, setLogs] = useState([])
   const [joints, setJoints] = useState({})
   const [cartesian, setCartesian] = useState({})
   const [speedProfile, setSpeedProfile] = useState(2)
+
+  // Per-device visualization config (from MongoDB)
+  const [pf400VerticalScale, setPf400VerticalScale] = useState(1.85)
+  const [pf400VertJogLimitM, setPf400VertJogLimitM] = useState(1.25)
 
   // Step sizes (in meters for linear, radians for angular)
   const [stepZ, setStepZ] = useState(0.010)
@@ -26,6 +34,39 @@ function PF400Diagnostics() {
   const [linkingTeachpoint, setLinkingTeachpoint] = useState(null)
 
   const API_URL = "http://localhost:3061"
+
+  // Load per-device config from MongoDB via backend `/devices`
+  useEffect(() => {
+    const loadDeviceConfig = async () => {
+      try {
+        const res = await fetch(`${API_URL}/devices`)
+        if (!res.ok) return
+        const data = await res.json()
+        const device = data.devices?.find(d => d.name === DEVICE_NAME)
+        if (!device) return
+
+        // Scale: expects something like 1.85
+        const scaleRaw = device.pf400_vertical_scale
+        const scale = typeof scaleRaw === 'string' ? parseFloat(scaleRaw) : scaleRaw
+        if (Number.isFinite(scale) && scale > 0.2 && scale < 10) {
+          setPf400VerticalScale(scale)
+        }
+
+        // Jog limit: allow meters or mm (if value is large, assume mm)
+        const limitRaw = device.pf400_vert_jog_limit
+        let limit = typeof limitRaw === 'string' ? parseFloat(limitRaw) : limitRaw
+        if (Number.isFinite(limit)) {
+          if (limit > 10) limit = limit / 1000.0 // mm -> m
+          if (limit > 0.2 && limit < 10) {
+            setPf400VertJogLimitM(limit)
+          }
+        }
+      } catch {
+        // ignore
+      }
+    }
+    loadDeviceConfig()
+  }, [DEVICE_NAME])
 
   // Fetch joints periodically - uses recursive setTimeout to prevent request pileup
   useEffect(() => {
@@ -80,7 +121,7 @@ function PF400Diagnostics() {
   const fetchReachableDevices = async () => {
     try {
       // First get reachable devices
-      const reachableRes = await fetch(`${API_URL}/devices/PF400-021/reachable`)
+      const reachableRes = await fetch(`${API_URL}/devices/${encodeURIComponent(DEVICE_NAME)}/reachable`)
       if (reachableRes.ok) {
         const reachableData = await reachableRes.json()
         setReachableDevices(reachableData.reachable_devices || [])
@@ -229,7 +270,7 @@ function PF400Diagnostics() {
 
     // Link the selected local teachpoint with the target teachpoint
     try {
-      const res = await fetch(`${API_URL}/devices/PF400-021/teachpoints/link`, {
+      const res = await fetch(`${API_URL}/devices/${encodeURIComponent(DEVICE_NAME)}/teachpoints/link`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -424,7 +465,12 @@ function PF400Diagnostics() {
 
         {/* CENTER: 3D viewer */}
         <div style={{ flex: 1, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
-          <RobotViewer joints={joints} cartesian={cartesian} />
+          <RobotViewer
+            joints={joints}
+            cartesian={cartesian}
+            verticalScale={pf400VerticalScale}
+            vertJogLimitM={pf400VertJogLimitM}
+          />
         </div>
 
         {/* RIGHT SIDEBAR: speed + jogs + teachpoints */}

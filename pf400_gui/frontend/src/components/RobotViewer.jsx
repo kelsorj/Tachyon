@@ -7,10 +7,11 @@ import * as THREE from 'three'
 
 // Visual-only hack: stretch ONLY the `vertical.stl` geometry at load time.
 // This avoids scaling any URDF link nodes (which can accidentally affect child links/joints).
-// Tune this factor as needed (e.g. 1.85–1.90).
-const VERTICAL_COLUMN_MESH_SCALE = 1.85
+// Default is overridden by `RobotViewer` props (read from MongoDB per-device).
+const DEFAULT_VERTICAL_COLUMN_MESH_SCALE = 1.85
+const DEFAULT_PF400_VERT_JOG_LIMIT_M = 1.25
 
-function RobotModel({ joints, cartesian }) {
+function RobotModel({ joints, cartesian, verticalScale = DEFAULT_VERTICAL_COLUMN_MESH_SCALE, vertJogLimitM = DEFAULT_PF400_VERT_JOG_LIMIT_M }) {
     const [robot, setRobot] = useState(null)
     const overlayRef = useRef()
 
@@ -25,7 +26,7 @@ function RobotModel({ joints, cartesian }) {
             stlLoader.load(url, (geo) => {
                 // If this is the vertical column mesh, stretch it along its longest local axis.
                 // This is visual-only and won't affect joint/link transforms.
-                if (cleanPath.toLowerCase().endsWith('vertical.stl') && Number.isFinite(VERTICAL_COLUMN_MESH_SCALE) && VERTICAL_COLUMN_MESH_SCALE !== 1) {
+                if (cleanPath.toLowerCase().endsWith('vertical.stl') && Number.isFinite(verticalScale) && verticalScale !== 1) {
                     geo.computeBoundingBox()
                     const bb = geo.boundingBox
                     if (bb) {
@@ -39,9 +40,9 @@ function RobotModel({ joints, cartesian }) {
 
                         const beforeMin = bb.min[axis]
 
-                        const sx = axis === 'x' ? VERTICAL_COLUMN_MESH_SCALE : 1
-                        const sy = axis === 'y' ? VERTICAL_COLUMN_MESH_SCALE : 1
-                        const sz = axis === 'z' ? VERTICAL_COLUMN_MESH_SCALE : 1
+                        const sx = axis === 'x' ? verticalScale : 1
+                        const sy = axis === 'y' ? verticalScale : 1
+                        const sz = axis === 'z' ? verticalScale : 1
                         geo.applyMatrix4(new THREE.Matrix4().makeScale(sx, sy, sz))
 
                         // Recompute bbox and translate geometry so the "base" (min) stays fixed.
@@ -59,7 +60,7 @@ function RobotModel({ joints, cartesian }) {
                         const finalSize = new THREE.Vector3()
                         geo.boundingBox?.getSize(finalSize)
                         console.log(
-                            `[PF400] vertical.stl scaled along '${axis}' by ${VERTICAL_COLUMN_MESH_SCALE}. ` +
+                            `[PF400] vertical.stl scaled along '${axis}' by ${verticalScale}. ` +
                             `size=(${finalSize.x.toFixed(3)},${finalSize.y.toFixed(3)},${finalSize.z.toFixed(3)})`
                         )
                     }
@@ -84,7 +85,7 @@ function RobotModel({ joints, cartesian }) {
                 // Expand the limits so the arm renders correctly at full height.
                 if (result.joints.j1.limit) {
                     result.joints.j1.limit.lower = -0.25
-                    result.joints.j1.limit.upper = 1.25
+                    result.joints.j1.limit.upper = Number.isFinite(vertJogLimitM) ? vertJogLimitM : DEFAULT_PF400_VERT_JOG_LIMIT_M
                 }
             }
             if (result.joints.j2) result.joints.j2.position.set(0, -0.122, 0);
@@ -112,7 +113,7 @@ function RobotModel({ joints, cartesian }) {
 
             setRobot(result)
         })
-    }, [])
+    }, [verticalScale, vertJogLimitM])
 
     // Update Joints & Overlay
     useEffect(() => {
@@ -228,7 +229,7 @@ function Fallback() {
     return <mesh><boxGeometry args={[0.1]} /><meshStandardMaterial color="orange" /></mesh>
 }
 
-export default function RobotViewer({ joints, cartesian }) {
+export default function RobotViewer({ joints, cartesian, verticalScale, vertJogLimitM }) {
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: '400px', border: '1px solid #ccc', overflow: 'hidden', position: 'relative' }}>
@@ -237,7 +238,12 @@ export default function RobotViewer({ joints, cartesian }) {
                     <directionalLight position={[5, 5, 5]} intensity={0.8} />
                     <directionalLight position={[-5, -5, -5]} intensity={0.3} />
                     <Suspense fallback={<Fallback />}>
-                        <RobotModel joints={joints} cartesian={cartesian} />
+                        <RobotModel
+                          joints={joints}
+                          cartesian={cartesian}
+                          verticalScale={verticalScale}
+                          vertJogLimitM={vertJogLimitM}
+                        />
                         <Grid args={[10, 10]} cellColor="#6f6f6f" sectionColor="#9d9d9d" />
                         <OrbitControls />
                     </Suspense>
