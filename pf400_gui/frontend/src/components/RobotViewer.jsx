@@ -7,8 +7,8 @@ import * as THREE from 'three'
 
 // Visual-only hack: stretch ONLY the `vertical.stl` geometry at load time.
 // This avoids scaling any URDF link nodes (which can accidentally affect child links/joints).
-// Tune this factor as needed (e.g. 2.1).
-const VERTICAL_COLUMN_MESH_SCALE = 2.1
+// Tune this factor as needed (e.g. 1.85–1.90).
+const VERTICAL_COLUMN_MESH_SCALE = 1.85
 
 function RobotModel({ joints, cartesian }) {
     const [robot, setRobot] = useState(null)
