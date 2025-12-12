@@ -427,7 +427,11 @@ function PF400Diagnostics() {
           {/* Speed */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
             <span style={{ fontWeight: 'bold' }}>Speed:</span>
-            <select value={speedProfile} onChange={e => setSpeedProfile(+e.target.value)} style={selectStyle}>
+            <select
+              value={speedProfile}
+              onChange={e => setSpeedProfile(+e.target.value)}
+              style={{ ...selectStyle, width: 120 }}
+            >
               <option value={1}>Slow</option>
               <option value={2}>Medium</option>
               <option value={3}>Fast</option>
