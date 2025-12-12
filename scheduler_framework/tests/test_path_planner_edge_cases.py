@@ -150,3 +150,4 @@ class TestPathPlannerEdgeCases:
         # World should still be created, just without connections from this robot
         assert len(planner.world_nodes) == 2
 
+

@@ -164,3 +164,4 @@ class TestActivePlateEdgeCases:
         # Plate should be None since index is out of bounds
         assert plate.plate is None
 
+
