@@ -5,48 +5,14 @@ import URDFLoader from 'urdf-loader'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import * as THREE from 'three'
 
-// Visual-only hack: stretch the vertical column mesh without changing URDF kinematics.
-// Set to ~2.1 if your real column is ~2.1x taller than the STL/URDF.
-const VERTICAL_COLUMN_VISUAL_SCALE = 2.1
+// Visual-only hack: stretch ONLY the `vertical.stl` geometry at load time.
+// This avoids scaling any URDF link nodes (which can accidentally affect child links/joints).
+// Tune this factor as needed (e.g. 2.1).
+const VERTICAL_COLUMN_MESH_SCALE = 2.1
 
 function RobotModel({ joints, cartesian }) {
     const [robot, setRobot] = useState(null)
     const overlayRef = useRef()
-
-    const stretchLinkAlongLocalAxis = (linkObj, scaleFactor, axis = 'z') => {
-        if (!linkObj || !Number.isFinite(scaleFactor) || scaleFactor === 1) return
-        if (!['x', 'y', 'z'].includes(axis)) return
-
-        linkObj.traverse((o) => {
-            // Only touch actual meshes (STL-loaded)
-            if (!o?.isMesh || !o.geometry) return
-
-            // Compute local-space bounds of this mesh geometry
-            if (!o.geometry.boundingBox) o.geometry.computeBoundingBox()
-            const bb = o.geometry.boundingBox
-            if (!bb) return
-
-            const size = new THREE.Vector3()
-            bb.getSize(size)
-
-            // Anchor the "bottom" (min) of that axis so it grows upward from its base.
-            // Scaling about origin moves min from m -> s*m; we translate by t=m*(1-s) to keep min fixed.
-            const min = bb.min[axis]
-
-            // Apply stretch
-            o.scale[axis] = (o.scale[axis] || 1) * scaleFactor
-            o.position[axis] = (o.position[axis] || 0) + min * (1 - scaleFactor)
-
-            // One-time debug to confirm we hit the expected mesh and axis
-            if (!o.userData.__verticalScaledLogged) {
-                o.userData.__verticalScaledLogged = true
-                console.log(
-                    `[PF400] Scaled vertical mesh along ${axis} by ${scaleFactor}. ` +
-                    `bbox size=(${size.x.toFixed(3)},${size.y.toFixed(3)},${size.z.toFixed(3)}) min.${axis}=${min.toFixed(3)}`
-                )
-            }
-        })
-    }
 
     // Load URDF
     useEffect(() => {
@@ -57,6 +23,47 @@ function RobotModel({ joints, cartesian }) {
             const cleanPath = path.replace(/^\/+/, '').replace(/.*meshes\//, 'meshes/')
             const url = `http://localhost:3061/${cleanPath}`
             stlLoader.load(url, (geo) => {
+                // If this is the vertical column mesh, stretch it along its longest local axis.
+                // This is visual-only and won't affect joint/link transforms.
+                if (cleanPath.toLowerCase().endsWith('vertical.stl') && Number.isFinite(VERTICAL_COLUMN_MESH_SCALE) && VERTICAL_COLUMN_MESH_SCALE !== 1) {
+                    geo.computeBoundingBox()
+                    const bb = geo.boundingBox
+                    if (bb) {
+                        const size = new THREE.Vector3()
+                        bb.getSize(size)
+
+                        // Choose the longest dimension as the "height" axis in mesh-local coords.
+                        let axis = 'z'
+                        if (size.x >= size.y && size.x >= size.z) axis = 'x'
+                        else if (size.y >= size.x && size.y >= size.z) axis = 'y'
+
+                        const beforeMin = bb.min[axis]
+
+                        const sx = axis === 'x' ? VERTICAL_COLUMN_MESH_SCALE : 1
+                        const sy = axis === 'y' ? VERTICAL_COLUMN_MESH_SCALE : 1
+                        const sz = axis === 'z' ? VERTICAL_COLUMN_MESH_SCALE : 1
+                        geo.applyMatrix4(new THREE.Matrix4().makeScale(sx, sy, sz))
+
+                        // Recompute bbox and translate geometry so the "base" (min) stays fixed.
+                        geo.computeBoundingBox()
+                        const afterMin = geo.boundingBox?.min?.[axis] ?? beforeMin
+                        const delta = afterMin - beforeMin
+                        if (Math.abs(delta) > 1e-9) {
+                            const tx = axis === 'x' ? -delta : 0
+                            const ty = axis === 'y' ? -delta : 0
+                            const tz = axis === 'z' ? -delta : 0
+                            geo.translate(tx, ty, tz)
+                        }
+
+                        geo.computeBoundingBox()
+                        const finalSize = new THREE.Vector3()
+                        geo.boundingBox?.getSize(finalSize)
+                        console.log(
+                            `[PF400] vertical.stl scaled along '${axis}' by ${VERTICAL_COLUMN_MESH_SCALE}. ` +
+                            `size=(${finalSize.x.toFixed(3)},${finalSize.y.toFixed(3)},${finalSize.z.toFixed(3)})`
+                        )
+                    }
+                }
                 const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0x9dcfe9, flatShading: false }))
                 onComplete(mesh)
             }, undefined, (err) => {
@@ -69,7 +76,17 @@ function RobotModel({ joints, cartesian }) {
             console.log('URDF loaded')
             
             // -- Fixes --
-            if (result.joints.j1) { result.joints.j1.position.set(0, 0, -0.08); if(result.joints.j1.axis) result.joints.j1.axis.set(0,0,1); }
+            if (result.joints.j1) {
+                result.joints.j1.position.set(0, 0, -0.08)
+                if (result.joints.j1.axis) result.joints.j1.axis.set(0, 0, 1)
+                // IMPORTANT: The URDF ships with conservative J1 limits (~0.44m).
+                // Our real machine can go up to ~1.161m, and urdf-loader clamps to limits.
+                // Expand the limits so the arm renders correctly at full height.
+                if (result.joints.j1.limit) {
+                    result.joints.j1.limit.lower = -0.25
+                    result.joints.j1.limit.upper = 1.25
+                }
+            }
             if (result.joints.j2) result.joints.j2.position.set(0, -0.122, 0);
             if (result.joints.j3) { result.joints.j3.position.set(0, -0.233, 0); if(result.joints.j3.limit) { result.joints.j3.limit.lower=-6.28; result.joints.j3.limit.upper=6.28; } }
             if (result.joints.j4) result.joints.j4.position.set(0, -0.217, 0);
@@ -92,13 +109,6 @@ function RobotModel({ joints, cartesian }) {
                     })
                 }
             })
-
-            // Visual-only stretch of the column so the model matches a taller real robot.
-            // The URDF has a link named `vertical` (see `models/pf400_urdf/pf400Complete.urdf`).
-            if (result.links?.vertical) {
-                // J1 is prismatic with axis set to (0,0,1) above; stretch along URDF local Z.
-                stretchLinkAlongLocalAxis(result.links.vertical, VERTICAL_COLUMN_VISUAL_SCALE, 'z')
-            }
 
             setRobot(result)
         })
