@@ -13,7 +13,8 @@ import time
 import logging
 from queue import Queue
 from typing import List, Dict, Optional
-from .worklist import Worklist, WaitTask
+from .worklist import Worklist
+from .tasks import WaitTask
 from .active_plate import ActivePlate, ActiveSourcePlate, ActiveDestinationPlate, PlateLocation
 from .device_manager import DeviceManager, DeviceInterface, PlateSchedulerDeviceInterface
 from .robot_scheduler import RobotScheduler

@@ -8,6 +8,7 @@ that can perform operations on plates.
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional
 from .active_plate import ActivePlate, PlateLocation
+from .node_interface import NodeClient
 
 
 class DeviceInterface(ABC):
@@ -84,6 +85,7 @@ class DeviceManager:
     def __init__(self):
         self.devices: Dict[str, DeviceInterface] = {}
         self.robots: Dict[str, RobotInterface] = {}
+        self.nodes: Dict[str, NodeClient] = {}
     
     def register_device(self, device: DeviceInterface):
         """Register a device"""
@@ -92,6 +94,20 @@ class DeviceManager:
     def register_robot(self, robot: RobotInterface):
         """Register a robot"""
         self.robots[robot.name] = robot
+
+    def register_node(self, name: str, node: NodeClient):
+        """
+        Register a device microservice ("Node").
+
+        Nodes are separate from scheduler "devices":
+        - A Node is a networked service (FastAPI) that implements the Node contract.
+        - A DeviceInterface is the scheduler-side view (locations, availability, add_job).
+        """
+        self.nodes[name] = node
+
+    def get_node(self, name: str) -> Optional[NodeClient]:
+        """Get a registered Node by name."""
+        return self.nodes.get(name)
     
     def get_device(self, name: str) -> Optional[DeviceInterface]:
         """Get a device by name"""

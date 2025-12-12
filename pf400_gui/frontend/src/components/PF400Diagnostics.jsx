@@ -33,7 +33,7 @@ function PF400Diagnostics() {
   const [deviceTeachpoints, setDeviceTeachpoints] = useState({}) // teachpoints from other devices
   const [linkingTeachpoint, setLinkingTeachpoint] = useState(null)
 
-  const API_URL = "http://localhost:3061"
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
 
   // Load per-device config from MongoDB via backend `/devices`
   useEffect(() => {

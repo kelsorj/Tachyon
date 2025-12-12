@@ -6,31 +6,10 @@ containing source plates, destination plates, and transfer operations.
 """
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict
 from .active_plate import Plate
-
-
-@dataclass
-class PlateTask:
-    """Represents a single task to be performed on a plate"""
-    device_type: str  # e.g., "Bumblebee", "Reader", "Washer"
-    command: str      # e.g., "source_hitpick", "read", "wash"
-    parameters: Dict[str, Any] = field(default_factory=dict)
-    completed: bool = False
-    
-    def __repr__(self):
-        return f"PlateTask({self.device_type}.{self.command})"
-
-
-@dataclass
-class WaitTask:
-    """Represents a wait/delay task"""
-    duration_seconds: float  # How long to wait
-    description: str = ""    # Optional description
-    completed: bool = False
-    
-    def __repr__(self):
-        return f"WaitTask({self.duration_seconds}s)"
+from .tasks import PlateTask, WaitTask
+from .ids import new_ulid_str
 
 
 @dataclass
@@ -73,6 +52,7 @@ class Worklist:
     
     def __init__(self, name: str):
         self.name = name
+        self.worklist_id = new_ulid_str()
         self.source_plates: List[Plate] = []
         self.destination_plates: List[Plate] = []
         self.transfer_overview: Optional[TransferOverview] = None

@@ -5,6 +5,7 @@ Test runner script for scheduler framework tests.
 Runs tests in batches to avoid thread-related hanging issues.
 """
 
+import os
 import subprocess
 import sys
 import time
@@ -69,7 +70,7 @@ TEST_BATCHES = [
     },
 ]
 
-def run_batch(batch, verbose=False):
+def run_batch(batch, verbose=False, timeout_s: float = 120.0):
     """Run a batch of tests and return the result."""
     print(f"\n{'='*70}")
     print(f"Running: {batch['name']}")
@@ -86,22 +87,27 @@ def run_batch(batch, verbose=False):
     cmd.extend(["--tb=short"])
     
     start_time = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    elapsed = time.time() - start_time
-    
-    # Print output
-    if result.stdout:
-        print(result.stdout)
-    if result.stderr:
-        print(result.stderr, file=sys.stderr)
+    try:
+        # Stream output live so it never "looks hung".
+        result = subprocess.run(cmd, text=True, timeout=timeout_s)
+        elapsed = time.time() - start_time
+        stdout = ""
+        stderr = ""
+        returncode = result.returncode
+    except subprocess.TimeoutExpired:
+        elapsed = time.time() - start_time
+        print(f"\n⏱️  Batch timed out after {timeout_s:.0f}s", file=sys.stderr)
+        stdout = ""
+        stderr = f"Timed out after {timeout_s:.0f}s"
+        returncode = 124
     
     return {
         "name": batch["name"],
-        "success": result.returncode == 0,
-        "returncode": result.returncode,
+        "success": returncode == 0,
+        "returncode": returncode,
         "elapsed": elapsed,
-        "output": result.stdout,
-        "error": result.stderr
+        "output": stdout,
+        "error": stderr,
     }
 
 def main():
@@ -140,6 +146,12 @@ Examples:
         action="store_true",
         help="Stop running tests if a batch fails"
     )
+    parser.add_argument(
+        "--timeout-per-batch",
+        type=float,
+        default=120.0,
+        help="Timeout (seconds) per batch (default: 120)",
+    )
     
     args = parser.parse_args()
     
@@ -175,7 +187,7 @@ Examples:
     total_start = time.time()
     
     for i, batch in enumerate(batches_to_run):
-        result = run_batch(batch, verbose=args.verbose)
+        result = run_batch(batch, verbose=args.verbose, timeout_s=args.timeout_per_batch)
         results.append(result)
         
         if not result["success"]:
@@ -208,7 +220,6 @@ Examples:
     return 0 if failed == 0 else 1
 
 if __name__ == "__main__":
-    import os
     sys.exit(main())
 
 

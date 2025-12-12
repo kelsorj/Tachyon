@@ -32,7 +32,7 @@ module.exports = {
       env: {
         NODE_ENV: 'development',
         ROBOT_MODEL: '400SXL',
-        PF400_PORT: '3061',
+        PF400_PORT: '8091',
         PF400_IP: '192.168.0.20',
         PF400_ROBOT_PORT: '10100',
         PYTHONUNBUFFERED: '1'
@@ -58,7 +58,7 @@ module.exports = {
       env: {
         NODE_ENV: 'development',
         PORT: '5173',
-        VITE_API_URL: 'http://localhost:3061'
+        VITE_API_URL: 'http://localhost:8091'
       },
       error_file: './logs/frontend-error.log',
       out_file: './logs/frontend-out.log',

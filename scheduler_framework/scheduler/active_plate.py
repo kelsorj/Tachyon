@@ -11,10 +11,14 @@ Based on the C# ActivePlate class, this tracks:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Union
+from typing import List, Optional, Union, TYPE_CHECKING
 from enum import Enum
 import threading
-from .worklist import PlateTask, WaitTask
+
+from .ids import new_ulid_str
+
+if TYPE_CHECKING:
+    from .worklist import Worklist
 
 
 class PlateState(Enum):
@@ -33,6 +37,7 @@ class Plate:
     labware_name: str
     labware_format: str  # e.g., "96-well", "384-well"
     currently_lidded: bool = True
+    plate_id: str = field(default_factory=new_ulid_str)
 
 
 @dataclass
@@ -80,6 +85,7 @@ class ActivePlate:
     _lock = threading.Lock()
     
     def __init__(self, worklist: 'Worklist', instance_index: int):
+        self.active_plate_id = new_ulid_str()
         self.instance_index = instance_index
         self.plate_is_free = threading.Event()
         self.plate_is_free.set()  # Initially free
@@ -94,6 +100,8 @@ class ActivePlate:
         self.plate: Optional[Plate] = None
         
         # Task management - can contain both PlateTask and WaitTask
+        # Note: task types live in `scheduler/tasks.py` to avoid import cycles.
+        from .tasks import PlateTask, WaitTask  # local import to avoid circular imports
         self.todo_list: List[Union[PlateTask, WaitTask]] = []
         self.current_task_index: int = 0
         self.still_have_todos = False
@@ -113,7 +121,7 @@ class ActivePlate:
         """Get labware name"""
         return self.plate.labware_name if self.plate else ""
     
-    def get_current_todo(self) -> Optional[Union[PlateTask, WaitTask]]:
+    def get_current_todo(self):
         """Get the current task to do (can be PlateTask or WaitTask)"""
         if self.still_have_todos and self.current_task_index < len(self.todo_list):
             return self.todo_list[self.current_task_index]
@@ -154,9 +162,17 @@ class ActivePlate:
         status += "\tToDoList:\n"
         for i, task in enumerate(self.todo_list, 1):
             status += f"\t\tTask #{i}\n"
-            status += f"\t\tDeviceType: {task.device_type}\n"
-            status += f"\t\tCommand: {task.command}\n"
-            status += f"\t\tCompleted: {task.completed}\n"
+            # PlateTask vs WaitTask
+            if hasattr(task, "device_type") and hasattr(task, "command"):
+                status += f"\t\tDeviceType: {getattr(task, 'device_type')}\n"
+                status += f"\t\tCommand: {getattr(task, 'command')}\n"
+            elif hasattr(task, "duration_seconds"):
+                status += "\t\tTaskType: wait\n"
+                status += f"\t\tDurationSeconds: {getattr(task, 'duration_seconds')}\n"
+                desc = getattr(task, "description", "")
+                if desc:
+                    status += f"\t\tDescription: {desc}\n"
+            status += f"\t\tCompleted: {getattr(task, 'completed', False)}\n"
         
         return status
     
@@ -171,7 +187,7 @@ class ActiveSourcePlate(ActivePlate):
         super().__init__(worklist, instance_index)
         
         # Build task list: pre-hitpick tasks + source_hitpick + post-hitpick tasks
-        from .worklist import TransferOverview, PlateTask
+        from .tasks import PlateTask
         
         if worklist.transfer_overview:
             tasks = []
@@ -200,7 +216,7 @@ class ActiveDestinationPlate(ActivePlate):
         super().__init__(worklist, instance_index)
         
         # Build task list from transfer overview
-        from .worklist import PlateTask
+        from .tasks import PlateTask
         
         if worklist.transfer_overview:
             tasks = []

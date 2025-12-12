@@ -10,6 +10,8 @@ import json
 import sys
 import os
 import argparse
+import time
+import secrets
 
 # Import ROS client
 from ros_client import PF400ROSClient
@@ -47,6 +49,343 @@ app.add_middleware(
 
 # Global client instance (ROS, Sim, or Real)
 robot_client = None
+
+# =========================
+# Node Contract (Phase 1)
+# =========================
+#
+# Implements the Tachyon Node HTTP contract described in:
+#   `scheduler_framework/NODE_CONTRACT.md`
+#
+# We are intentionally layering this onto the existing PF400 GUI backend so you can
+# demo tomorrow without introducing a new service deployment yet.
+
+def _new_ulid_str() -> str:
+    """
+    Dependency-free ULID generator (26 chars).
+    Matches the scheduler_framework format: 48-bit ms timestamp + 80-bit randomness.
+    """
+    alphabet = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+
+    def enc(v: int, n: int) -> str:
+        out = ["0"] * n
+        for i in range(n - 1, -1, -1):
+            out[i] = alphabet[v & 31]
+            v >>= 5
+        return "".join(out)
+
+    ts_ms = int(time.time() * 1000) & ((1 << 48) - 1)
+    rnd = int.from_bytes(secrets.token_bytes(10), "big")  # 80 bits
+    return enc(ts_ms, 10) + enc(rnd, 16)
+
+
+class NodeActionModel(BaseModel):
+    name: str
+    description: str = ""
+    args_schema: Dict[str, Any] = {}
+
+
+class NodeDefinitionModel(BaseModel):
+    node_id: str
+    name: str
+    kind: str
+    version: str = "0.1.0"
+    actions: List[NodeActionModel] = []
+
+
+class NodeActionRequestModel(BaseModel):
+    request_id: str = ""
+    action: str
+    args: Dict[str, Any] = {}
+    locations: Dict[str, Any] = {}
+
+
+class NodeActionResponseModel(BaseModel):
+    request_id: str
+    execution_id: str = ""
+    status: str = "succeeded"  # queued|running|succeeded|failed|cancelled
+    success: bool = True
+    result: Dict[str, Any] = {}
+    error: Optional[str] = None
+
+
+class _NodeJob:
+    def __init__(self, request_id: str, action: str, args: Dict[str, Any], locations: Dict[str, Any]):
+        self.request_id = request_id
+        self.execution_id = _new_ulid_str()
+        self.action = action
+        self.args = args
+        self.locations = locations
+        self.status = "queued"
+        self.success = True
+        self.result: Dict[str, Any] = {}
+        self.error: Optional[str] = None
+        self.created_at = time.time()
+        self.updated_at = time.time()
+
+
+_node_jobs_lock = threading.Lock()
+_node_jobs_by_execution_id: Dict[str, _NodeJob] = {}
+_node_execution_by_request_id: Dict[str, str] = {}
+
+
+def _node_supported_actions() -> List[NodeActionModel]:
+    """
+    Actions intentionally map onto existing endpoints/driver capabilities.
+    Keep this list short for Phase 1; we can expand after the demo.
+    """
+    return [
+        NodeActionModel(
+            name="get_joints",
+            description="Fetch joints + cartesian state (same as GET /joints).",
+            args_schema={},
+        ),
+        NodeActionModel(
+            name="initialize",
+            description="Initialize robot to GPL Ready mode (same as POST /initialize).",
+            args_schema={},
+        ),
+        NodeActionModel(
+            name="jog",
+            description="Jog by joint or cartesian axis (same as POST /jog). For rail use axis='rail' or joint=6 on SXL.",
+            args_schema={
+                "joint": {"type": "integer", "description": "Joint index (e.g. 1-6)"},
+                "axis": {"type": "string", "description": "Cartesian axis (x,y,z,yaw,r,t,gripper,rail)"},
+                "distance": {"type": "number", "description": "Meters or radians depending on axis/joint"},
+                "speed_profile": {"type": "integer", "description": "Motion profile id"},
+            },
+        ),
+        NodeActionModel(
+            name="jog_rail",
+            description="Jog rail by relative distance (SXL only).",
+            args_schema={"distance_m": {"type": "number"}, "profile": {"type": "integer"}},
+        ),
+        NodeActionModel(
+            name="move_rail",
+            description="Move rail to absolute position (SXL only).",
+            args_schema={"position_m": {"type": "number"}, "profile": {"type": "integer"}},
+        ),
+    ]
+
+
+def _node_call_action_sync(action: str, args: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Execute a Node action synchronously using the existing robot_client/driver methods.
+    Returns a JSON-serializable dict result.
+    """
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+
+    if action == "get_joints":
+        # Reuse existing function logic (fast + safe)
+        # inline minimal copy to avoid awaiting inside non-async helper
+        joints = {}
+        cartesian = {}
+        try:
+            if hasattr(robot_client, "get_joint_positions"):
+                joints = robot_client.get_joint_positions()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error getting joints: {e}")
+        try:
+            if hasattr(robot_client, "driver") and hasattr(robot_client.driver, "get_cartesian_position"):
+                cartesian = robot_client.driver.get_cartesian_position()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error getting cartesian: {e}")
+        return {"joints": joints, "cartesian": cartesian}
+
+    if action == "initialize":
+        if hasattr(robot_client, "driver") and hasattr(robot_client.driver, "initialize_robot"):
+            ok = robot_client.driver.initialize_robot()
+            if not ok:
+                raise HTTPException(status_code=500, detail="Initialization failed")
+            return {"status": "success"}
+        raise HTTPException(status_code=501, detail="Initialize not supported")
+
+    if action == "jog":
+        req = JogRequest(**args)
+        # Mirror POST /jog behavior
+        success = False
+        if req.axis:
+            if req.axis.lower() == "rail":
+                if isinstance(robot_client, RealClient) and isinstance(robot_client.driver, PF400SXLDriver):
+                    success = robot_client.driver.jog_rail(req.distance, req.speed_profile)
+                else:
+                    raise HTTPException(status_code=501, detail="Rail jog only supported on PF400SXL")
+            elif hasattr(robot_client, "jog_cartesian"):
+                success = robot_client.jog_cartesian(req.axis, req.distance, req.speed_profile)
+            else:
+                raise HTTPException(status_code=501, detail="Cartesian jog not supported")
+        elif req.joint is not None:
+            # Special-case: SXL rail joint index is 6
+            if int(req.joint) == 6:
+                if isinstance(robot_client, RealClient) and isinstance(robot_client.driver, PF400SXLDriver):
+                    success = robot_client.driver.jog_rail(req.distance, req.speed_profile)
+                else:
+                    raise HTTPException(status_code=501, detail="Joint 6 (rail) only supported on PF400SXL")
+            else:
+                if hasattr(robot_client, "jog"):
+                    success = robot_client.jog(req.joint, req.distance, req.speed_profile)
+                else:
+                    raise HTTPException(status_code=501, detail="Jog not supported")
+        else:
+            raise HTTPException(status_code=400, detail="Must specify joint or axis")
+
+        if not success:
+            raise HTTPException(status_code=500, detail="Jog failed")
+        return {"status": "success"}
+
+    if action == "jog_rail":
+        if not (isinstance(robot_client, RealClient) and isinstance(robot_client.driver, PF400SXLDriver)):
+            raise HTTPException(status_code=400, detail="Rail jogging only available for PF400SXL models")
+        distance_m = float(args.get("distance_m", 0.0))
+        profile = int(args.get("profile", 1))
+        ok = robot_client.driver.jog_rail(distance_m, profile)
+        if not ok:
+            raise HTTPException(status_code=500, detail="Rail jog failed")
+        return {"status": "success"}
+
+    if action == "move_rail":
+        if not (isinstance(robot_client, RealClient) and isinstance(robot_client.driver, PF400SXLDriver)):
+            raise HTTPException(status_code=400, detail="Rail movement only available for PF400SXL models")
+        position_m = float(args.get("position_m", 0.0))
+        profile = int(args.get("profile", 1))
+        ok = robot_client.driver.move_rail(position_m, profile)
+        if not ok:
+            raise HTTPException(status_code=500, detail="Rail move failed")
+        return {"status": "success"}
+
+    raise HTTPException(status_code=404, detail=f"Unknown Node action '{action}'")
+
+
+def _node_run_job(job: _NodeJob) -> None:
+    with _node_jobs_lock:
+        job.status = "running"
+        job.updated_at = time.time()
+    try:
+        result = _node_call_action_sync(job.action, job.args)
+        job.result = result if isinstance(result, dict) else {"result": result}
+        job.status = "succeeded"
+        job.success = True
+        job.error = None
+    except HTTPException as e:
+        job.status = "failed"
+        job.success = False
+        job.error = str(e.detail)
+    except Exception as e:
+        job.status = "failed"
+        job.success = False
+        job.error = str(e)
+    finally:
+        with _node_jobs_lock:
+            job.updated_at = time.time()
+
+
+@app.get("/health")
+async def node_health():
+    healthy = robot_client is not None
+    detail = "ok" if healthy else "robot client not initialized"
+    # Try to reflect real connection state if available
+    if healthy and hasattr(robot_client, "driver") and hasattr(robot_client.driver, "connected"):
+        healthy = bool(robot_client.driver.connected)
+        detail = "connected" if healthy else "driver not connected"
+    return {"healthy": healthy, "detail": detail}
+
+
+@app.get("/definition")
+async def node_definition():
+    model_name = None
+    if hasattr(robot_client, "model"):
+        try:
+            model_name = robot_client.model.value
+        except Exception:
+            model_name = str(getattr(robot_client, "model"))
+    return NodeDefinitionModel(
+        node_id=f"pf400-{DEVICE_NAME}",
+        name=DEVICE_NAME,
+        kind="robot.pf400",
+        version="0.1.0",
+        actions=_node_supported_actions(),
+    )
+
+
+@app.post("/actions/{action}", response_model=NodeActionResponseModel)
+async def node_action_sync(action: str, req: NodeActionRequestModel):
+    request_id = req.request_id or _new_ulid_str()
+    try:
+        result = _node_call_action_sync(action, req.args or {})
+        return NodeActionResponseModel(
+            request_id=request_id,
+            execution_id="",
+            status="succeeded",
+            success=True,
+            result=result if isinstance(result, dict) else {"result": result},
+            error=None,
+        )
+    except HTTPException as e:
+        return NodeActionResponseModel(
+            request_id=request_id,
+            execution_id="",
+            status="failed",
+            success=False,
+            result={},
+            error=str(e.detail),
+        )
+
+
+@app.post("/actions/{action}/submit", response_model=NodeActionResponseModel)
+async def node_action_submit(action: str, req: NodeActionRequestModel):
+    request_id = req.request_id or _new_ulid_str()
+
+    # Idempotency: if we already have a job for this request_id, return it.
+    with _node_jobs_lock:
+        existing_exec = _node_execution_by_request_id.get(request_id)
+        if existing_exec and existing_exec in _node_jobs_by_execution_id:
+            job = _node_jobs_by_execution_id[existing_exec]
+            return NodeActionResponseModel(
+                request_id=job.request_id,
+                execution_id=job.execution_id,
+                status=job.status,
+                success=job.success,
+                result=job.result if job.status == "succeeded" else {},
+                error=job.error if job.status == "failed" else None,
+            )
+
+        job = _NodeJob(
+            request_id=request_id,
+            action=action,
+            args=req.args or {},
+            locations=req.locations or {},
+        )
+        _node_jobs_by_execution_id[job.execution_id] = job
+        _node_execution_by_request_id[request_id] = job.execution_id
+
+    t = threading.Thread(target=_node_run_job, args=(job,), daemon=True, name=f"nodejob-{job.execution_id}")
+    t.start()
+
+    return NodeActionResponseModel(
+        request_id=job.request_id,
+        execution_id=job.execution_id,
+        status=job.status,  # queued
+        success=True,
+        result={},
+        error=None,
+    )
+
+
+@app.get("/actions/status/{execution_id}", response_model=NodeActionResponseModel)
+async def node_action_status(execution_id: str):
+    with _node_jobs_lock:
+        job = _node_jobs_by_execution_id.get(execution_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Unknown execution_id")
+    return NodeActionResponseModel(
+        request_id=job.request_id,
+        execution_id=job.execution_id,
+        status=job.status,
+        success=job.success if job.status in ("succeeded", "failed", "cancelled") else True,
+        result=job.result if job.status == "succeeded" else {},
+        error=job.error if job.status == "failed" else None,
+    )
 
 class ActionRequest(BaseModel):
     action_handle: str
