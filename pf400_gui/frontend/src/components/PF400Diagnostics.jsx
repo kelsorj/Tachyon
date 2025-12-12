@@ -314,6 +314,11 @@ function PF400Diagnostics() {
     boxShadow: '0 3px 6px rgba(0,0,0,0.4)', border: 'none', cursor: 'pointer'
   })
 
+  // Fixed row heights so the big circular buttons line up across columns
+  const buttonRowStyle = { height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }
+  const midRowStyle = { height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }
+  const labelStyle = { fontSize: '0.7em', marginBottom: 3, height: 16, display: 'flex', alignItems: 'center' }
+
   const selectStyle = {
     padding: '6px', fontSize: '1em', fontWeight: 'bold', borderRadius: 4,
     backgroundColor: '#fff', color: '#000', border: '1px solid #888', width: 70
@@ -446,10 +451,14 @@ function PF400Diagnostics() {
               <select value={stepZ} onChange={e => setStepZ(+e.target.value)} style={{...selectStyle, marginBottom: 5}}>
                 {linearOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
-              <span style={{ fontSize: '0.7em', marginBottom: 3 }}>Z (mm)</span>
-              <button style={btn(colors.zUp)} onClick={() => sendJog('z', 1)}>▲</button>
-              <div style={{ height: 50 }} />
-              <button style={btn(colors.zDown, '#fff')} onClick={() => sendJog('z', -1)}>▼</button>
+              <span style={labelStyle}>Z (mm)</span>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.zUp)} onClick={() => sendJog('z', 1)}>▲</button>
+              </div>
+              <div style={midRowStyle} />
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.zDown, '#fff')} onClick={() => sendJog('z', -1)}>▼</button>
+              </div>
             </div>
 
             {/* Col 2: Out/In + L/R */}
@@ -457,14 +466,20 @@ function PF400Diagnostics() {
               <select value={stepOut} onChange={e => setStepOut(+e.target.value)} style={{...selectStyle, marginBottom: 5}}>
                 {linearOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
-              <span style={{ fontSize: '0.7em', marginBottom: 3 }}>Out/In</span>
-              <button style={btn(colors.out)} onClick={() => sendJog('out', 1)}>▲</button>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 3, margin: '5px 0' }}>
-                <button style={btn(colors.left, '#fff', 40)} onClick={() => sendJog('left', 1)}>◄</button>
-                <span style={{ fontSize: '0.6em' }}>L/R</span>
-                <button style={btn(colors.right, '#000', 40)} onClick={() => sendJog('right', -1)}>►</button>
+              <span style={labelStyle}>Out/In</span>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.out)} onClick={() => sendJog('out', 1)}>▲</button>
               </div>
-              <button style={btn(colors.inC, '#fff')} onClick={() => sendJog('in', -1)}>▼</button>
+              <div style={midRowStyle}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <button style={btn(colors.left, '#fff', 40)} onClick={() => sendJog('left', 1)}>◄</button>
+                  <span style={{ fontSize: '0.6em', minWidth: 24, textAlign: 'center' }}>L/R</span>
+                  <button style={btn(colors.right, '#000', 40)} onClick={() => sendJog('right', -1)}>►</button>
+                </div>
+              </div>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.inC, '#fff')} onClick={() => sendJog('in', -1)}>▼</button>
+              </div>
             </div>
 
             {/* Col 3: CW/CCW */}
@@ -472,10 +487,14 @@ function PF400Diagnostics() {
               <select value={stepRot} onChange={e => setStepRot(+e.target.value)} style={{...selectStyle, marginBottom: 5}}>
                 {angularOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
-              <span style={{ fontSize: '0.7em', marginBottom: 3 }}>Rot (°)</span>
-              <button style={btn(colors.cw)} onClick={() => sendJog('rot', -1)}>↻</button>
-              <div style={{ height: 50 }} />
-              <button style={btn(colors.ccw, '#fff')} onClick={() => sendJog('rot', 1)}>↺</button>
+              <span style={labelStyle}>Rot (°)</span>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.cw)} onClick={() => sendJog('rot', -1)}>↻</button>
+              </div>
+              <div style={midRowStyle} />
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.ccw, '#fff')} onClick={() => sendJog('rot', 1)}>↺</button>
+              </div>
             </div>
 
             {/* Col 4: Gripper */}
@@ -483,12 +502,19 @@ function PF400Diagnostics() {
               <select value={stepGrip} onChange={e => setStepGrip(+e.target.value)} style={{...selectStyle, marginBottom: 5}}>
                 {linearOpts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
               </select>
-              <span style={{ fontSize: '0.7em', marginBottom: 3 }}>Grip</span>
-              <button style={btn(colors.gray, '#333')} onClick={() => sendJog('grip', -1)}>►◄</button>
-              <span style={{ fontSize: '0.6em' }}>Close</span>
-              <div style={{ height: 20 }} />
-              <button style={btn(colors.gray, '#333')} onClick={() => sendJog('grip', 1)}>◄►</button>
-              <span style={{ fontSize: '0.6em' }}>Open</span>
+              <span style={labelStyle}>Grip</span>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.gray, '#333')} onClick={() => sendJog('grip', -1)}>►◄</button>
+              </div>
+              <div style={midRowStyle}>
+                <div style={{ display: 'flex', gap: 14, fontSize: '0.6em', color: '#bbb' }}>
+                  <span>Close</span>
+                  <span>Open</span>
+                </div>
+              </div>
+              <div style={buttonRowStyle}>
+                <button style={btn(colors.gray, '#333')} onClick={() => sendJog('grip', 1)}>◄►</button>
+              </div>
             </div>
           </div>
 
