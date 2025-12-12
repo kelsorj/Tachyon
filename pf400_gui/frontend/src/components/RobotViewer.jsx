@@ -5,9 +5,48 @@ import URDFLoader from 'urdf-loader'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import * as THREE from 'three'
 
+// Visual-only hack: stretch the vertical column mesh without changing URDF kinematics.
+// Set to ~2.1 if your real column is ~2.1x taller than the STL/URDF.
+const VERTICAL_COLUMN_VISUAL_SCALE = 2.1
+
 function RobotModel({ joints, cartesian }) {
     const [robot, setRobot] = useState(null)
     const overlayRef = useRef()
+
+    const stretchLinkAlongLocalAxis = (linkObj, scaleFactor, axis = 'z') => {
+        if (!linkObj || !Number.isFinite(scaleFactor) || scaleFactor === 1) return
+        if (!['x', 'y', 'z'].includes(axis)) return
+
+        linkObj.traverse((o) => {
+            // Only touch actual meshes (STL-loaded)
+            if (!o?.isMesh || !o.geometry) return
+
+            // Compute local-space bounds of this mesh geometry
+            if (!o.geometry.boundingBox) o.geometry.computeBoundingBox()
+            const bb = o.geometry.boundingBox
+            if (!bb) return
+
+            const size = new THREE.Vector3()
+            bb.getSize(size)
+
+            // Anchor the "bottom" (min) of that axis so it grows upward from its base.
+            // Scaling about origin moves min from m -> s*m; we translate by t=m*(1-s) to keep min fixed.
+            const min = bb.min[axis]
+
+            // Apply stretch
+            o.scale[axis] = (o.scale[axis] || 1) * scaleFactor
+            o.position[axis] = (o.position[axis] || 0) + min * (1 - scaleFactor)
+
+            // One-time debug to confirm we hit the expected mesh and axis
+            if (!o.userData.__verticalScaledLogged) {
+                o.userData.__verticalScaledLogged = true
+                console.log(
+                    `[PF400] Scaled vertical mesh along ${axis} by ${scaleFactor}. ` +
+                    `bbox size=(${size.x.toFixed(3)},${size.y.toFixed(3)},${size.z.toFixed(3)}) min.${axis}=${min.toFixed(3)}`
+                )
+            }
+        })
+    }
 
     // Load URDF
     useEffect(() => {
@@ -53,6 +92,14 @@ function RobotModel({ joints, cartesian }) {
                     })
                 }
             })
+
+            // Visual-only stretch of the column so the model matches a taller real robot.
+            // The URDF has a link named `vertical` (see `models/pf400_urdf/pf400Complete.urdf`).
+            if (result.links?.vertical) {
+                // J1 is prismatic with axis set to (0,0,1) above; stretch along URDF local Z.
+                stretchLinkAlongLocalAxis(result.links.vertical, VERTICAL_COLUMN_VISUAL_SCALE, 'z')
+            }
+
             setRobot(result)
         })
     }, [])
