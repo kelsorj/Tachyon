@@ -23,6 +23,17 @@ class PlateTask:
 
 
 @dataclass
+class WaitTask:
+    """Represents a wait/delay task"""
+    duration_seconds: float  # How long to wait
+    description: str = ""    # Optional description
+    completed: bool = False
+    
+    def __repr__(self):
+        return f"WaitTask({self.duration_seconds}s)"
+
+
+@dataclass
 class TransferTasks:
     """Container for tasks associated with transfers"""
     source_prehitpick_tasks: List[PlateTask] = field(default_factory=list)

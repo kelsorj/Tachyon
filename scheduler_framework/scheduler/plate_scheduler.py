@@ -13,7 +13,7 @@ import time
 import logging
 from queue import Queue
 from typing import List, Dict, Optional
-from .worklist import Worklist
+from .worklist import Worklist, WaitTask
 from .active_plate import ActivePlate, ActiveSourcePlate, ActiveDestinationPlate, PlateLocation
 from .device_manager import DeviceManager, DeviceInterface, PlateSchedulerDeviceInterface
 from .robot_scheduler import RobotScheduler
@@ -154,6 +154,13 @@ class PlateScheduler:
                 if not current_task:
                     continue
                 
+                # Handle WaitTask specially (no device needed)
+                if isinstance(current_task, WaitTask):
+                    if not active_plate.busy:
+                        # Start wait task
+                        self._handle_wait_task(active_plate, current_task)
+                    continue
+                
                 # Find available device for this task
                 device_scheduled = self._schedule_task(active_plate, current_task)
                 
@@ -162,6 +169,33 @@ class PlateScheduler:
         
         logger.info(f"Worklist {worklist.name} completed")
         worklist.on_worklist_complete()
+    
+    def _handle_wait_task(self, active_plate: ActivePlate, wait_task: WaitTask):
+        """
+        Handle a wait task by waiting for the specified duration.
+        
+        This runs in a separate thread to avoid blocking the scheduler.
+        """
+        if wait_task.completed:
+            return
+        
+        logger.info(f"Starting wait task: {wait_task.duration_seconds}s for {active_plate}")
+        active_plate.plate_is_free.clear()  # Mark as busy
+        
+        def wait_and_complete():
+            import time
+            time.sleep(wait_task.duration_seconds)
+            wait_task.completed = True
+            logger.info(f"Wait task completed for {active_plate}")
+            active_plate.mark_job_completed()
+        
+        # Run wait in background thread
+        wait_thread = threading.Thread(
+            target=wait_and_complete,
+            name=f"WaitTask-{active_plate.plate_serial_number}",
+            daemon=True
+        )
+        wait_thread.start()
     
     def _schedule_task(self, active_plate: ActivePlate, 
                       task) -> bool:

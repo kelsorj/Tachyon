@@ -13,9 +13,10 @@ from .active_plate import (
     Plate, PlateLocation, PlatePlace, PlateState
 )
 from .worklist import (
-    Worklist, PlateTask, TransferOverview, Transfer, TransferTasks,
+    Worklist, PlateTask, WaitTask, TransferOverview, Transfer, TransferTasks,
     create_worklist_from_transfer_overview
 )
+from .handoff_location import HandoffLocation
 from .device_manager import DeviceManager, DeviceInterface
 
 __all__ = [
@@ -31,11 +32,13 @@ __all__ = [
     'PlateState',
     'Worklist',
     'PlateTask',
+    'WaitTask',
     'TransferOverview',
     'Transfer',
     'TransferTasks',
     'create_worklist_from_transfer_overview',
     'DeviceManager',
     'DeviceInterface',
+    'HandoffLocation',
 ]
 

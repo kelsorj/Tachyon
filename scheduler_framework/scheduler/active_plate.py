@@ -11,9 +11,10 @@ Based on the C# ActivePlate class, this tracks:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List, Optional, Union
 from enum import Enum
 import threading
+from .worklist import PlateTask, WaitTask
 
 
 class PlateState(Enum):
@@ -92,8 +93,8 @@ class ActivePlate:
         self.destination_location: Optional[PlateLocation] = None
         self.plate: Optional[Plate] = None
         
-        # Task management
-        self.todo_list: List[PlateTask] = []
+        # Task management - can contain both PlateTask and WaitTask
+        self.todo_list: List[Union[PlateTask, WaitTask]] = []
         self.current_task_index: int = 0
         self.still_have_todos = False
         
@@ -112,8 +113,8 @@ class ActivePlate:
         """Get labware name"""
         return self.plate.labware_name if self.plate else ""
     
-    def get_current_todo(self) -> Optional[PlateTask]:
-        """Get the current task to do"""
+    def get_current_todo(self) -> Optional[Union[PlateTask, WaitTask]]:
+        """Get the current task to do (can be PlateTask or WaitTask)"""
         if self.still_have_todos and self.current_task_index < len(self.todo_list):
             return self.todo_list[self.current_task_index]
         return None
