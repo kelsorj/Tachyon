@@ -1,7 +1,8 @@
 # Requirements for the Laboratory Automation Scheduler Framework
 
 # Core dependencies
-# (No external dependencies required - uses only Python standard library)
+# YAML protocol definitions
+PyYAML>=6.0.1
 
 # Optional: For better type checking
 # mypy>=1.0.0

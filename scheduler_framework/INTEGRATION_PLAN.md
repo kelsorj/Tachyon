@@ -145,6 +145,14 @@ MADSci provides a comprehensive microservices architecture for laboratory automa
 - Add **distributed execution** by pushing work onto a queue (later) and making actions **idempotent** from day 1.
 - Keep **state authoritative** in one place initially (Workcell service + DB), and let Nodes be “actuators” that report state.
 
+### 10. Supporting Services (Infra)
+
+For the microservices approach, we’ll rely on a small “infra stack”:
+- **Redis (6379)**: real-time state, task queuing, coordination primitives (locks/leases)
+- **MinIO (9000/9001)**: S3-compatible object storage for files (logs, data, artifacts)
+
+Local dev: see `tachyon_infra/README.md`.
+
 ### 9. Scheduler Architecture
 **MADSci Concept**: Pluggable schedulers (FIFO, priority-based, etc.)
 **Tachyon Adaptation**:

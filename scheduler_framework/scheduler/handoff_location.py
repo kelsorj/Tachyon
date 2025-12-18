@@ -63,3 +63,5 @@ class HandoffLocation(PlateLocation):
         """Check if a plate is waiting to be picked up"""
         return self.handoff_state == "waiting_for_pickup"
 
+
+

@@ -1,0 +1,31 @@
+workflow_id: ""
+name: "PF400 Demo Protocol"
+description: "Small demo protocol using PF400 Node. Safe: read joints, wait, read joints."
+
+parameters:
+  wait_seconds: 2
+
+nodes:
+  pf400: "http://localhost:8091"
+
+steps:
+  - id: "read-1"
+    name: "Read joints (1)"
+    node: "pf400"
+    action: "get_joints"
+    args: {}
+
+  - id: "wait-1"
+    name: "Wait briefly"
+    wait_seconds: "${wait_seconds}"
+    depends_on: ["read-1"]
+
+  - id: "read-2"
+    name: "Read joints (2)"
+    node: "pf400"
+    action: "get_joints"
+    args: {}
+    depends_on: ["wait-1"]
+
+
+
