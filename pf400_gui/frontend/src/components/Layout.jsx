@@ -21,40 +21,102 @@ function Layout({ children }) {
         <div style={{ marginBottom: 30 }}>
           <h1 style={{ fontSize: '1.5em', margin: 0, color: '#fff' }}>Tachyon</h1>
           <div style={{ fontSize: '0.85em', color: '#888', marginTop: 5 }}>
-            Device Management
+            Workcell
           </div>
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Link
-            to="/"
+            to="/devices"
             style={{
               padding: '12px 16px',
               borderRadius: 6,
               textDecoration: 'none',
-              color: isActive('/') && !location.pathname.includes('/devices/') ? '#fff' : '#aaa',
-              background: isActive('/') && !location.pathname.includes('/devices/') ? '#1890ff' : 'transparent',
-              fontWeight: isActive('/') && !location.pathname.includes('/devices/') ? 'bold' : 'normal',
+              color: isActive('/devices') ? '#fff' : '#aaa',
+              background: isActive('/devices') ? '#1890ff' : 'transparent',
+              fontWeight: isActive('/devices') ? 'bold' : 'normal',
               transition: 'all 0.2s',
               display: 'flex',
               alignItems: 'center',
               gap: 10
             }}
             onMouseEnter={(e) => {
-              if (!isActive('/') || location.pathname.includes('/devices/')) {
+              if (!isActive('/devices')) {
                 e.currentTarget.style.background = '#222'
                 e.currentTarget.style.color = '#fff'
               }
             }}
             onMouseLeave={(e) => {
-              if (!isActive('/') || location.pathname.includes('/devices/')) {
+              if (!isActive('/devices')) {
                 e.currentTarget.style.background = 'transparent'
                 e.currentTarget.style.color = '#aaa'
               }
             }}
           >
-            <span style={{ fontSize: '1.2em' }}>🏠</span>
-            <span>Dashboard</span>
+            <span style={{ fontSize: '1.2em' }}>🤖</span>
+            <span>Devices</span>
+          </Link>
+
+          <Link
+            to="/labware"
+            style={{
+              padding: '12px 16px',
+              borderRadius: 6,
+              textDecoration: 'none',
+              color: isActive('/labware') ? '#fff' : '#aaa',
+              background: isActive('/labware') ? '#1890ff' : 'transparent',
+              fontWeight: isActive('/labware') ? 'bold' : 'normal',
+              transition: 'all 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10
+            }}
+            onMouseEnter={(e) => {
+              if (!isActive('/labware')) {
+                e.currentTarget.style.background = '#222'
+                e.currentTarget.style.color = '#fff'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isActive('/labware')) {
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.color = '#aaa'
+              }
+            }}
+          >
+            <span style={{ fontSize: '1.2em' }}>🧫</span>
+            <span>Labware</span>
+          </Link>
+
+          <Link
+            to="/tools"
+            style={{
+              padding: '12px 16px',
+              borderRadius: 6,
+              textDecoration: 'none',
+              color: isActive('/tools') ? '#fff' : '#aaa',
+              background: isActive('/tools') ? '#1890ff' : 'transparent',
+              fontWeight: isActive('/tools') ? 'bold' : 'normal',
+              transition: 'all 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10
+            }}
+            onMouseEnter={(e) => {
+              if (!isActive('/tools')) {
+                e.currentTarget.style.background = '#222'
+                e.currentTarget.style.color = '#fff'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isActive('/tools')) {
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.color = '#aaa'
+              }
+            }}
+          >
+            <span style={{ fontSize: '1.2em' }}>🛠️</span>
+            <span>Tools</span>
           </Link>
         </nav>
 
@@ -73,7 +135,7 @@ function Layout({ children }) {
               {location.pathname.split('/')[2] || 'Device'}
             </div>
             <Link
-              to="/"
+              to="/devices"
               style={{
                 display: 'block',
                 marginTop: 10,
@@ -87,7 +149,7 @@ function Layout({ children }) {
                 fontWeight: 'bold'
               }}
             >
-              ← Back to Dashboard
+              ← Back to Devices
             </Link>
           </div>
         )}

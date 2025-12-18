@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom'
 import Layout from './components/Layout'
 import DeviceDashboard from './components/DeviceDashboard'
+import LabwareDashboard from './components/LabwareDashboard'
+import ToolsDashboard from './components/ToolsDashboard'
 import PF400Diagnostics from './components/PF400Diagnostics'
 import PlanarMotorDiagnostics from './components/PlanarMotorDiagnostics'
 import './App.css'
@@ -23,9 +25,12 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<DeviceDashboard />} />
+          <Route path="/" element={<Navigate to="/devices" replace />} />
+          <Route path="/devices" element={<DeviceDashboard />} />
+          <Route path="/labware" element={<LabwareDashboard />} />
+          <Route path="/tools" element={<ToolsDashboard />} />
           <Route path="/devices/:deviceName/diagnostics" element={<DeviceDiagnosticsRouter />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/devices" replace />} />
         </Routes>
       </Layout>
     </BrowserRouter>
