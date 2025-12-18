@@ -235,7 +235,8 @@ export default function RobotViewer({ joints, cartesian, verticalScale, vertJogL
     return (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: '400px', border: '1px solid #ccc', overflow: 'hidden', position: 'relative' }}>
-                <Canvas camera={{ position: [1, 1, 1], fov: 50 }}>
+                {/* Diagnostics default view: pull camera back to frame the full 2m rail */}
+                <Canvas camera={{ position: [3.5, 2.2, 3.5], fov: 45, near: 0.05, far: 100 }}>
                     <ambientLight intensity={0.6} />
                     <directionalLight position={[5, 5, 5]} intensity={0.8} />
                     <directionalLight position={[-5, -5, -5]} intensity={0.3} />
@@ -247,7 +248,11 @@ export default function RobotViewer({ joints, cartesian, verticalScale, vertJogL
                           vertJogLimitM={vertJogLimitM}
                         />
                         <Grid args={[10, 10]} cellColor="#6f6f6f" sectionColor="#9d9d9d" />
-                        <OrbitControls />
+                        <OrbitControls
+                          target={[0, 0.35, 0]}
+                          minDistance={1.0}
+                          maxDistance={15.0}
+                        />
                     </Suspense>
                 </Canvas>
                 
