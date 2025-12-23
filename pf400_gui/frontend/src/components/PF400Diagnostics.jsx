@@ -540,6 +540,27 @@ function PF400Diagnostics() {
     }
   }
 
+  const moveToSafe = async () => {
+    log(`→ Safe: sending...`)
+    try {
+      const startTime = Date.now()
+      const res = await fetch(`${API_URL}/pf400/safe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ speed_profile: speedProfile }),
+      })
+      const elapsed = Date.now() - startTime
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        log(`✗ Safe FAILED: ${data.detail || data.message || res.status} (${elapsed}ms)`)
+      } else {
+        log(`✓ Safe complete (${elapsed}ms)`)
+      }
+    } catch (e) {
+      log(`✗ Safe error: ${e.message}`)
+    }
+  }
+
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
   const HoverPopover = ({ children, content, width = 520 }) => {
@@ -1288,7 +1309,10 @@ function PF400Diagnostics() {
 
           {/* Joint Jogs */}
           <div style={{ background: '#222', borderRadius: 8, padding: 10 }}>
-            <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Joint Jogs</div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+              <div style={{ fontWeight: 'bold' }}>Joint Jogs</div>
+              <button style={btn('#111827', '#fff', 70)} onClick={moveToSafe}>Safe</button>
+            </div>
             
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 8 }}>
               <span style={{ width: 60 }}>Shoulder</span>

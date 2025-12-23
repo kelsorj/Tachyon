@@ -591,10 +591,36 @@ class PF400Driver:
         while len(target_joint_angles) < num_robot_joints:
             idx = len(target_joint_angles)
             target_joint_angles.append(current_raw[idx])
+
+        # Coerce provided targets to floats (and gracefully handle None/"None"/bad strings)
+        # so that later math (abs, comparisons) never sees strings.
+        for i in range(min(len(target_joint_angles), num_robot_joints)):
+            v = target_joint_angles[i]
+            if v is None:
+                target_joint_angles[i] = current_raw[i]
+                continue
+            if isinstance(v, str):
+                s = v.strip()
+                if s == "" or s.lower() == "none":
+                    target_joint_angles[i] = current_raw[i]
+                    continue
+                try:
+                    target_joint_angles[i] = float(s)
+                except Exception:
+                    target_joint_angles[i] = current_raw[i]
+                continue
+            try:
+                target_joint_angles[i] = float(v)
+            except Exception:
+                target_joint_angles[i] = current_raw[i]
         
         # Use current gripper if j5 is very small (likely placeholder)
-        if len(target_joint_angles) > 4 and abs(target_joint_angles[4]) < 0.1:
-            target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
+        if len(target_joint_angles) > 4:
+            try:
+                if abs(float(target_joint_angles[4])) < 0.1:
+                    target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
+            except Exception:
+                target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
         
         # SAFETY: PF400 on a rail needs careful sequencing to reduce collision risk.
         #
@@ -705,6 +731,47 @@ class PF400Driver:
         self.await_movement_completion()
         
         return response
+
+    def safe_tuck(self, profile: int = 1) -> str:
+        """
+        Move to a known safe tuck posture:
+          - J4 first to tuck wrist under forearm
+          - then blend J2 + J3 (and keep J4 at tuck) in a movej
+
+        Does NOT change J1 (vertical), J5 (gripper), or J6 (rail) from current.
+        Returns controller response string (e.g. "0" on success, negative code on failure).
+        """
+        try:
+            raw_response = self.send_command("wherej")
+            raw_joints = raw_response.split(" ")[1:]  # Skip status code
+            cur = [float(x) for x in raw_joints]
+            if len(cur) < 4:
+                return "Error"
+
+            # 1) J4 first
+            r = self.send_command(f"MoveOneAxis 4 {-188.0} {int(profile)}")
+            self.await_movement_completion()
+            if isinstance(r, str) and r.strip().startswith("-"):
+                return r
+
+            # Refresh current after J4 move
+            raw_response = self.send_command("wherej")
+            raw_joints = raw_response.split(" ")[1:]
+            cur = [float(x) for x in raw_joints]
+
+            # 2) J2 + J3 together (keep other joints unchanged)
+            target = list(cur)
+            target[3] = -188.0
+            target[1] = 4.0
+            target[2] = 179.0
+
+            cmd = "movej" + " " + str(int(profile)) + " " + " ".join(map(str, target))
+            r2 = self.send_command(cmd)
+            self.await_movement_completion()
+            return r2
+        except Exception as e:
+            print(f"safe_tuck error: {e}")
+            return "Error"
     
     def move_to_joints(self, j1_m, j2_rad, j3_rad, j4_rad, gripper_m=None, j6_m=None, profile=1):
         """

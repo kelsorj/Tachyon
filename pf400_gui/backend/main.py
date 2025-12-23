@@ -475,6 +475,10 @@ class PF400PickPlaceRequest(BaseModel):
     pause_seconds: float = 0.35  # pause between steps so gripper motion is visible and joints poll catches it
 
 
+class PF400SafeRequest(BaseModel):
+    speed_profile: int = 1
+
+
 # =========================
 # Labware (Types)
 # =========================
@@ -1744,6 +1748,39 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             pass
         return None
 
+    def _move_safe(profile: int):
+        """
+        Return to a known safe 'tuck' posture while keeping J1 (vertical), J6 (rail), and gripper unchanged.
+        Safe tuck angles (deg): J4=-188, J2=4, J3=179
+        """
+        def _is_error_resp(resp: Any) -> bool:
+            if resp is None:
+                return True
+            s = str(resp).strip()
+            if not s:
+                return True
+            return s.startswith("-")
+
+        try:
+            joints_raw = robot_client.driver.get_joint_states()
+            if not joints_raw or len(joints_raw) < 5:
+                raise HTTPException(status_code=500, detail="Failed to read current joints for safe move")
+            target = list(joints_raw)
+            # indices: 0=J1(mm), 1=J2(deg), 2=J3(deg), 3=J4(deg), 4=J5(mm), 5=J6(mm)
+            target[3] = -188.0
+            target[1] = 4.0
+            target[2] = 179.0
+            if hasattr(robot_client.driver, "safe_tuck"):
+                resp = robot_client.driver.safe_tuck(profile=int(profile))
+            else:
+                resp = robot_client.driver.move_joint(target, profile=int(profile))
+            if _is_error_resp(resp):
+                raise HTTPException(status_code=500, detail=f"Safe move failed: {resp}")
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Safe move error: {e}")
+
     import time
     pause = max(0.0, float(req.pause_seconds or 0.0))
     steps: List[Dict[str, Any]] = []
@@ -1839,6 +1876,11 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         time.sleep(pause)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
+    # Return to safe posture at end of sequence
+    steps.append({"step": "return_safe"})
+    _move_safe(req.speed_no_plate)
+    time.sleep(pause)
+
     return {
         "status": "success",
         "labware_type_id": req.labware_type_id,
@@ -1853,6 +1895,42 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         "place_teachpoint_id": req.place_teachpoint_id,
         "steps": steps,
     }
+
+
+@app.post("/pf400/safe")
+async def pf400_safe(req: PF400SafeRequest):
+    """Move to safe tuck posture (J4=-188, J2=4, J3=179) while keeping J1/J6/gripper unchanged."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    if not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=501, detail="Safe move not supported by current client")
+    try:
+        def _is_error_resp(resp: Any) -> bool:
+            if resp is None:
+                return True
+            s = str(resp).strip()
+            if not s:
+                return True
+            return s.startswith("-")
+
+        joints_raw = robot_client.driver.get_joint_states()
+        if not joints_raw or len(joints_raw) < 5:
+            raise HTTPException(status_code=500, detail="Failed to read current joints")
+        target = list(joints_raw)
+        target[3] = -188.0
+        target[1] = 4.0
+        target[2] = 179.0
+        if hasattr(robot_client.driver, "safe_tuck"):
+            resp = robot_client.driver.safe_tuck(profile=int(req.speed_profile))
+        else:
+            resp = robot_client.driver.move_joint(target, profile=int(req.speed_profile))
+        if _is_error_resp(resp):
+            raise HTTPException(status_code=500, detail=f"Safe move failed: {resp}")
+        return {"status": "success", "message": "Moved to safe tuck posture"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.patch("/labware/types/{labware_type_id}")
