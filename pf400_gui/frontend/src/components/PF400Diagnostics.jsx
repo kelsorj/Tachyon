@@ -27,6 +27,16 @@ function PF400Diagnostics() {
   // Teachpoints
   const [teachpoints, setTeachpoints] = useState([])
   const [newTpName, setNewTpName] = useState('')
+  const [selectedTeachpointId, setSelectedTeachpointId] = useState('')
+  const [tpFeatures, setTpFeatures] = useState({
+    regrip_station: false,
+    grip_orientation: 'landscape', // landscape|portrait
+    access: 'vertical', // vertical|horizontal
+    tangent_approach_mm: '',
+    z_above_mm: '',
+    z_grasp_offset_min_mm: '',
+    z_grasp_offset_max_mm: '',
+  })
 
   // Labware + Pick/Place
   const [labwareTypes, setLabwareTypes] = useState([])
@@ -123,6 +133,49 @@ function PF400Diagnostics() {
       setTeachpoints(data.teachpoints || [])
     } catch (e) {
       console.error('Failed to fetch teachpoints:', e)
+    }
+  }
+
+  const openTeachpointFeatures = (tp) => {
+    setSelectedTeachpointId(tp?.id || '')
+    const f = tp?.features || {}
+    setTpFeatures({
+      regrip_station: !!f.regrip_station,
+      grip_orientation: (f.grip_orientation || 'landscape'),
+      access: (f.access || 'vertical'),
+      tangent_approach_mm: (f.tangent_approach_mm ?? ''),
+      z_above_mm: (f.z_above_mm ?? ''),
+      z_grasp_offset_min_mm: (f.z_grasp_offset_min_mm ?? ''),
+      z_grasp_offset_max_mm: (f.z_grasp_offset_max_mm ?? ''),
+    })
+  }
+
+  const saveTeachpointFeatures = async () => {
+    if (!selectedTeachpointId) return
+    try {
+      const payload = {
+        regrip_station: !!tpFeatures.regrip_station,
+        grip_orientation: tpFeatures.grip_orientation,
+        access: tpFeatures.access,
+        tangent_approach_mm: tpFeatures.tangent_approach_mm === '' ? null : Number(tpFeatures.tangent_approach_mm),
+        z_above_mm: tpFeatures.z_above_mm === '' ? null : Number(tpFeatures.z_above_mm),
+        z_grasp_offset_min_mm: tpFeatures.z_grasp_offset_min_mm === '' ? null : Number(tpFeatures.z_grasp_offset_min_mm),
+        z_grasp_offset_max_mm: tpFeatures.z_grasp_offset_max_mm === '' ? null : Number(tpFeatures.z_grasp_offset_max_mm),
+      }
+
+      const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/features`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        throw new Error(data.detail || `HTTP ${res.status}`)
+      }
+      log(`✓ Saved features for teachpoint`)
+      fetchTeachpoints()
+    } catch (e) {
+      log(`✗ Failed to save features: ${e.message}`)
     }
   }
 
@@ -443,6 +496,35 @@ function PF400Diagnostics() {
 
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
+  const formatTeachpointFeaturesSummary = (features) => {
+    if (!features) return ''
+    const f = features || {}
+    const parts = []
+
+    if (f.grip_orientation) parts.push(String(f.grip_orientation).toLowerCase())
+    if (f.access) parts.push(String(f.access).toLowerCase())
+
+    const fmtMm = (v) => (v === null || v === undefined || v === '') ? null : Number(v)
+
+    const tangent = fmtMm(f.tangent_approach_mm)
+    if (Number.isFinite(tangent)) parts.push(`tangent ${tangent.toFixed(1)}mm`)
+
+    const zAbove = fmtMm(f.z_above_mm)
+    if (Number.isFinite(zAbove)) parts.push(`zAbove ${zAbove.toFixed(1)}mm`)
+
+    const zMin = fmtMm(f.z_grasp_offset_min_mm)
+    const zMax = fmtMm(f.z_grasp_offset_max_mm)
+    if (Number.isFinite(zMin) || Number.isFinite(zMax)) {
+      const a = Number.isFinite(zMin) ? zMin.toFixed(1) : '—'
+      const b = Number.isFinite(zMax) ? zMax.toFixed(1) : '—'
+      parts.push(`zOffset ${a}–${b}mm`)
+    }
+
+    if (f.regrip_station === true) parts.push('regrip')
+
+    return parts.join(' · ')
+  }
+
   // Options for dropdowns
   const linearOpts = [{v: 0.0001, l: '0.1'}, {v: 0.001, l: '1'}, {v: 0.010, l: '10'}, {v: 0.050, l: '50'}]
   const angularOpts = [{v: 0.0017, l: '0.1'}, {v: 0.0175, l: '1'}, {v: 0.1745, l: '10'}, {v: 0.7854, l: '45'}]
@@ -617,6 +699,111 @@ function PF400Diagnostics() {
               </button>
             </div>
 
+            {/* Teachpoint Orientation/Approach Features (persistence only; math later) */}
+            {selectedTeachpointId && (
+              <div style={{ background: '#111', borderRadius: 8, padding: 10, marginBottom: 10, border: '1px solid #333' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                  <div style={{ fontWeight: 'bold', color: '#ddd' }}>Orientation Features</div>
+                  <button
+                    onClick={() => setSelectedTeachpointId('')}
+                    style={{ padding: '3px 8px', borderRadius: 4, background: '#444', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
+                    title="Close"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Teachpoint</div>
+                  <div style={{ color: '#fff', fontWeight: 'bold' }}>
+                    {(teachpoints.find(t => t.id === selectedTeachpointId)?.name) || selectedTeachpointId}
+                  </div>
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Regrip Station</div>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ddd' }}>
+                    <input
+                      type="checkbox"
+                      checked={!!tpFeatures.regrip_station}
+                      onChange={(e) => setTpFeatures(p => ({ ...p, regrip_station: e.target.checked }))}
+                    />
+                    Enabled
+                  </label>
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Grip Orientation</div>
+                  <select
+                    value={tpFeatures.grip_orientation}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, grip_orientation: e.target.value }))}
+                    style={{ ...selectStyle, width: '100%' }}
+                  >
+                    <option value="landscape">Landscape</option>
+                    <option value="portrait">Portrait</option>
+                  </select>
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Access</div>
+                  <select
+                    value={tpFeatures.access}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
+                    style={{ ...selectStyle, width: '100%' }}
+                  >
+                    <option value="vertical">Vertical</option>
+                    <option value="horizontal">Horizontal</option>
+                  </select>
+                </div>
+
+                <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Approach Values (mm)</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Tangent Approach</div>
+                  <input
+                    type="number"
+                    step="0.001"
+                    value={tpFeatures.tangent_approach_mm}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, tangent_approach_mm: e.target.value }))}
+                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                    placeholder="e.g. 160.0"
+                  />
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Above</div>
+                  <input
+                    type="number"
+                    step="0.001"
+                    value={tpFeatures.z_above_mm}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, z_above_mm: e.target.value }))}
+                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                    placeholder="vertical access only"
+                  />
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Grasp Offset (min)</div>
+                  <input
+                    type="number"
+                    step="0.001"
+                    value={tpFeatures.z_grasp_offset_min_mm}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_min_mm: e.target.value }))}
+                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                    placeholder="e.g. 0"
+                  />
+
+                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Grasp Offset (max)</div>
+                  <input
+                    type="number"
+                    step="0.001"
+                    value={tpFeatures.z_grasp_offset_max_mm}
+                    onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_max_mm: e.target.value }))}
+                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                    placeholder="e.g. 10"
+                  />
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
+                  <button
+                    onClick={saveTeachpointFeatures}
+                    style={{ padding: '6px 12px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    Save Features
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Teachpoints list */}
             <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
               {teachpoints.length === 0 ? (
@@ -630,7 +817,7 @@ function PF400Diagnostics() {
                     borderRadius: 6,
                     padding: 8,
                     marginBottom: 6,
-                    border: '1px solid #333'
+                    border: tp.id === selectedTeachpointId ? '1px solid #52c41a' : '1px solid #333'
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                       <span style={{ fontWeight: 'bold', color: '#fff' }}>
@@ -651,6 +838,21 @@ function PF400Diagnostics() {
                           style={{ padding: '3px 8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
                         >
                           📍
+                        </button>
+                        <button
+                          onClick={() => openTeachpointFeatures(tp)}
+                          title="Edit Orientation/Approach Features"
+                          style={{
+                            padding: '3px 8px',
+                            borderRadius: 4,
+                            background: tp.id === selectedTeachpointId ? '#237804' : '#555',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '0.85em'
+                          }}
+                        >
+                          ⚙️
                         </button>
                         <button
                           onClick={() => startLinking(tp)}
@@ -693,6 +895,13 @@ function PF400Diagnostics() {
                         <div>J: [{tp.joints.slice(0, 4).map(j => j?.toFixed(1)).join(', ')}]</div>
                       )}
                     </div>
+
+                    {/* Features summary */}
+                    {tp.features && (
+                      <div style={{ fontSize: '0.75em', color: '#bbb', marginTop: 6, textAlign: 'left' }}>
+                        <span style={{ color: '#888' }}>Features:</span> {formatTeachpointFeaturesSummary(tp.features) || '—'}
+                      </div>
+                    )}
                   </div>
                 ))
               )}

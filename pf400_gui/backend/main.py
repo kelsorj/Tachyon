@@ -411,6 +411,20 @@ class TeachpointRequest(BaseModel):
     type: str = "joints"  # "joints" or "cartesian"
     joints: Optional[List[float]] = None
     cartesian: Optional[Dict[str, float]] = None
+    features: Optional[Dict[str, Any]] = None
+
+
+class TeachpointFeaturesUpdateRequest(BaseModel):
+    # Orientation Features
+    regrip_station: Optional[bool] = None
+    grip_orientation: Optional[str] = None  # "landscape" | "portrait"
+    access: Optional[str] = None  # "vertical" | "horizontal"
+    # Approach values (mm)
+    tangent_approach_mm: Optional[float] = None  # renamed from "Y Clearance"
+    z_above_mm: Optional[float] = None  # used for vertical access
+    # Z grasp offset (mm) range; math will be done later, but we store the intent now
+    z_grasp_offset_min_mm: Optional[float] = None
+    z_grasp_offset_max_mm: Optional[float] = None
 
 class MoveToTeachpointRequest(BaseModel):
     teachpoint_id: str
@@ -1166,6 +1180,8 @@ async def save_teachpoint(req: TeachpointRequest):
             teachpoint_data["joints"] = req.joints
         if req.cartesian:
             teachpoint_data["cartesian"] = req.cartesian
+        if req.features is not None:
+            teachpoint_data["features"] = req.features
             
         success = mongodb.save_teachpoint(DEVICE_NAME, req.id, teachpoint_data)
         if success:
@@ -1214,17 +1230,19 @@ async def save_current_position(name: str, description: str = "", id: str = None
         # Use provided ID for updates, or generate new ID from name
         tp_id = id if id else name.lower().replace(" ", "_").replace("-", "_")
 
-        # If updating existing teachpoint, preserve link data
-        existing_links = {}
+        # If updating existing teachpoint, preserve link + features data
+        existing_preserve: Dict[str, Any] = {}
         if id:
             existing_teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME)
             if tp_id in existing_teachpoints:
                 existing_tp = existing_teachpoints[tp_id]
                 # Preserve link information
                 if "linked_to" in existing_tp:
-                    existing_links["linked_to"] = existing_tp["linked_to"]
+                    existing_preserve["linked_to"] = existing_tp["linked_to"]
                 if "linked_from" in existing_tp:
-                    existing_links["linked_from"] = existing_tp["linked_from"]
+                    existing_preserve["linked_from"] = existing_tp["linked_from"]
+                if "features" in existing_tp:
+                    existing_preserve["features"] = existing_tp["features"]
 
         teachpoint_data = {
             "name": name,
@@ -1232,7 +1250,7 @@ async def save_current_position(name: str, description: str = "", id: str = None
             "type": "joints",
             "joints": joints_list,
             "cartesian": cartesian_dict,
-            **existing_links  # Preserve any link data
+            **existing_preserve  # Preserve links + features
         }
         
         print(f"Calling mongodb.save_teachpoint for device={DEVICE_NAME}, tp_id={tp_id}")
@@ -1341,6 +1359,32 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gr
         raise
     except Exception as e:
         print(f"Error moving to teachpoint: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.patch("/teachpoints/{teachpoint_id}/features")
+async def patch_teachpoint_features(teachpoint_id: str, req: TeachpointFeaturesUpdateRequest):
+    """Update teachpoint Orientation/Approach Features (no motion math yet; just persistence)."""
+    try:
+        teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME)
+        if teachpoint_id not in teachpoints:
+            raise HTTPException(status_code=404, detail=f"Teachpoint '{teachpoint_id}' not found")
+
+        tp = teachpoints[teachpoint_id]
+        features = dict(tp.get("features") or {})
+
+        # Apply updates
+        for k, v in req.model_dump(exclude_unset=True).items():
+            features[k] = v
+
+        tp["features"] = features
+        ok = mongodb.save_teachpoint(DEVICE_NAME, teachpoint_id, tp)
+        if not ok:
+            raise HTTPException(status_code=500, detail="Failed to update teachpoint features")
+        return {"status": "success", "teachpoint_id": teachpoint_id, "features": features}
+    except HTTPException:
+        raise
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/device")
