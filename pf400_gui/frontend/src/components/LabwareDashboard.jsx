@@ -65,6 +65,9 @@ function LabwareDashboard() {
   const [selectedClassId, setSelectedClassId] = useState('')
   const [entryTab, setEntryTab] = useState('plate') // plate | pipette | classes | image
 
+  // Entries filtering (left list)
+  const [wellsFilter, setWellsFilter] = useState('all') // 'all' | 6 | 24 | 48 | 96 | 384 | 1536
+
   // New entry form (minimal)
   const [newEntryName, setNewEntryName] = useState('')
   const [newEntryWells, setNewEntryWells] = useState(96)
@@ -129,6 +132,20 @@ function LabwareDashboard() {
     () => labwareTypes.find(t => t.labware_type_id === selectedTypeId) || null,
     [labwareTypes, selectedTypeId]
   )
+
+  const filteredLabwareTypes = useMemo(() => {
+    if (wellsFilter === 'all') return labwareTypes
+    const w = Number(wellsFilter)
+    return labwareTypes.filter(t => Number(t?.wells) === w)
+  }, [labwareTypes, wellsFilter])
+
+  useEffect(() => {
+    // If current selection is filtered out, select the first visible entry (or clear).
+    if (mode !== 'entries') return
+    if (selectedTypeId && filteredLabwareTypes.some(t => t.labware_type_id === selectedTypeId)) return
+    if (filteredLabwareTypes.length) setSelectedTypeId(filteredLabwareTypes[0].labware_type_id)
+    else setSelectedTypeId('')
+  }, [mode, wellsFilter, labwareTypes])
 
   const selectedClass = useMemo(
     () => labwareClasses.find(c => c.labware_class_id === selectedClassId) || null,
@@ -641,7 +658,9 @@ function LabwareDashboard() {
           <div style={card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <div style={{ color: '#fff', fontWeight: 'bold' }}>Labware Entries</div>
-              <div style={{ color: '#888', fontSize: '0.9em' }}>{labwareTypes.length} total</div>
+              <div style={{ color: '#888', fontSize: '0.9em' }}>
+                {wellsFilter === 'all' ? `${labwareTypes.length} total` : `${filteredLabwareTypes.length} of ${labwareTypes.length}`}
+              </div>
             </div>
 
             <div style={{ display: 'grid', gap: 10 }}>
@@ -656,8 +675,16 @@ function LabwareDashboard() {
                 </div>
               </div>
 
+              <div style={{ display: 'grid', gap: 6 }}>
+                <div style={label}>Filter</div>
+                <select value={wellsFilter} onChange={(e) => setWellsFilter(e.target.value)} style={input} disabled={busy}>
+                  <option value="all">All</option>
+                  {wellsOptions.map(w => <option key={w} value={String(w)}>{w} wells</option>)}
+                </select>
+              </div>
+
               <div style={{ height: 520, overflow: 'auto', border: '1px solid #333', borderRadius: 10, padding: 8, background: '#111' }}>
-                {labwareTypes.map(t => (
+                {filteredLabwareTypes.map(t => (
                   <div
                     key={t.labware_type_id}
                     onClick={() => setSelectedTypeId(t.labware_type_id)}
