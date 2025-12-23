@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import RobotViewer from './RobotViewer'
 
@@ -32,7 +32,6 @@ function PF400Diagnostics() {
   const [tpFeatures, setTpFeatures] = useState({
     regrip_station: false,
     grip_orientation: 'landscape', // landscape|portrait
-    access: 'vertical', // vertical|horizontal
     tangent_approach_mm: '',
     z_above_mm: '',
     z_grasp_offset_range_mm: '', // "min-max" (string)
@@ -176,7 +175,6 @@ function PF400Diagnostics() {
     setTpFeatures({
       regrip_station: !!f.regrip_station,
       grip_orientation: (f.grip_orientation || 'landscape'),
-      access: (f.access || 'vertical'),
       tangent_approach_mm: (f.tangent_approach_mm ?? ''),
       z_above_mm: (f.z_above_mm ?? ''),
       z_grasp_offset_range_mm: formatRangeMm(f.z_grasp_offset_min_mm, f.z_grasp_offset_max_mm),
@@ -190,7 +188,6 @@ function PF400Diagnostics() {
       const payload = {
         regrip_station: !!tpFeatures.regrip_station,
         grip_orientation: tpFeatures.grip_orientation,
-        access: tpFeatures.access,
         tangent_approach_mm: tpFeatures.tangent_approach_mm === '' ? null : Number(tpFeatures.tangent_approach_mm),
         z_above_mm: tpFeatures.z_above_mm === '' ? null : Number(tpFeatures.z_above_mm),
         z_grasp_offset_min_mm: zRange.min,
@@ -565,32 +562,88 @@ function PF400Diagnostics() {
 
   const HoverPopover = ({ children, content, width = 520 }) => {
     const anchorRef = useRef(null)
+    const popoverRef = useRef(null)
+    const closeTimerRef = useRef(null)
     const [open, setOpen] = useState(false)
-    const [pos, setPos] = useState({ top: 0, left: 0 })
+    // Start off-screen so we never "flash" at (0,0) while measuring/placing.
+    const [pos, setPos] = useState({ top: -9999, left: -9999 })
+    const [popoverHeight, setPopoverHeight] = useState(320)
 
     const place = () => {
       const el = anchorRef.current
       if (!el) return
       const r = el.getBoundingClientRect()
-      const desiredLeft = r.right + 12
       const desiredTop = r.top + r.height / 2
 
-      const left = Math.min(desiredLeft, window.innerWidth - width - 12)
-      const top = Math.min(Math.max(desiredTop, 12), window.innerHeight - 12)
+      // Prefer placing to the right of the label. If there's not enough room,
+      // place to the left so the popover doesn't "jump under the cursor" and blink.
+      const placeRight = (r.right + 12 + width) <= window.innerWidth
+      const desiredLeft = placeRight ? (r.right + 12) : (r.left - width - 12)
+      const left = Math.min(Math.max(desiredLeft, 12), window.innerWidth - width - 12)
+
+      // We're using translateY(-50%), so clamp based on half the popover height.
+      const halfH = Math.max(80, (popoverHeight || 320) / 2)
+      const top = Math.min(Math.max(desiredTop, 12 + halfH), window.innerHeight - 12 - halfH)
       setPos({ top, left })
     }
+
+    const cancelClose = () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current)
+        closeTimerRef.current = null
+      }
+    }
+
+    const scheduleClose = () => {
+      cancelClose()
+      closeTimerRef.current = setTimeout(() => setOpen(false), 120)
+    }
+
+    const handleEnter = () => {
+      cancelClose()
+      setOpen(true)
+    }
+
+    const handleLeave = (e) => {
+      const rt = e?.relatedTarget
+      // If we're moving between the anchor and the popover, don't close.
+      if (rt) {
+        if (anchorRef.current && anchorRef.current.contains(rt)) return
+        if (popoverRef.current && popoverRef.current.contains(rt)) return
+      }
+      scheduleClose()
+    }
+
+    useLayoutEffect(() => {
+      if (!open) return
+      // Layout effect runs before paint, so we can measure + position without a visible flash.
+      const el = popoverRef.current
+      if (el) {
+        const h = el.getBoundingClientRect().height
+        if (h && Math.abs(h - popoverHeight) > 2) setPopoverHeight(h)
+      }
+      place()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, width, popoverHeight])
+
+    useEffect(() => {
+      return () => cancelClose()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <div
         ref={anchorRef}
-        onMouseEnter={() => { place(); setOpen(true) }}
-        onMouseMove={() => { if (open) place() }}
-        onMouseLeave={() => setOpen(false)}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
         style={{ display: 'inline-block' }}
       >
         {children}
         {open && (
           <div
+            ref={popoverRef}
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
             style={{
               position: 'fixed',
               top: pos.top,
@@ -603,7 +656,8 @@ function PF400Diagnostics() {
               borderRadius: 10,
               padding: 10,
               boxShadow: '0 10px 30px rgba(0,0,0,0.65)',
-              pointerEvents: 'none',
+              // Make the popover hoverable so it doesn't flicker when it overlaps the cursor.
+              pointerEvents: 'auto',
             }}
           >
             {content}
@@ -645,24 +699,7 @@ function PF400Diagnostics() {
     </div>
   )
 
-  const HelpAccess = () => (
-    <div>
-      <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Access: Vertical vs Horizontal</div>
-      <div style={{ color: '#999', fontSize: 12, marginBottom: 10 }}>
-        Vertical means you “come down” in Z onto the teachpoint. Horizontal means you approach laterally (tangent) before the final move.
-      </div>
-      <svg viewBox="0 0 520 150" style={helpStyles.svgStyle}>
-        <circle cx="380" cy="95" r="5" fill="#52c41a" />
-        <text x="392" y="99" style={helpStyles.label}>Teachpoint</text>
-
-        <path d="M120 95 L380 95" style={helpStyles.stroke} />
-        <text x="120" y="82" style={helpStyles.muted}>Horizontal (tangent) approach</text>
-
-        <path d="M380 30 L380 95" style={{ ...helpStyles.stroke, stroke: '#b37feb' }} />
-        <text x="392" y="46" style={helpStyles.muted}>Vertical approach</text>
-      </svg>
-    </div>
-  )
+  // Access (Vertical/Horizontal) removed. Use Z Above: set to 0 for direct moves.
 
   const HelpTangentApproach = () => (
     <div>
@@ -687,7 +724,8 @@ function PF400Diagnostics() {
     <div>
       <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Z Above + Z Grasp Offset</div>
       <div style={{ color: '#999', fontSize: 12, marginBottom: 6 }}>
-        Z Above is the “safe height above” the teachpoint for vertical access. Z Grasp Offset is an allowed Z window around the teachpoint during pick/place (stored now; full math later).
+        Z Above is the “safe height above” the teachpoint. Set Z Above = 0 for a direct move (no approach/retract).
+        Z Grasp Offset is an allowed Z window around the teachpoint during pick/place (stored now; full math later).
       </div>
       <svg viewBox="0 0 520 190" style={helpStyles.svgStyle}>
         <rect x="40" y="150" width="440" height="18" fill="#1a2e1a" stroke="#2f6f2f" />
@@ -1035,21 +1073,7 @@ function PF400Diagnostics() {
                         </select>
                       </div>
 
-                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                        <HoverPopover content={<HelpAccess />} width={520}>
-                          <div style={{ width: 90, color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
-                            Access
-                          </div>
-                        </HoverPopover>
-                        <select
-                          value={tpFeatures.access}
-                          onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
-                          style={{ ...selectStyle, width: 140, minWidth: 140 }}
-                        >
-                          <option value="vertical">Vertical</option>
-                          <option value="horizontal">Horizontal</option>
-                        </select>
-                      </div>
+                      {/* Access removed: use Z Above (0 = direct) */}
                     </div>
 
                     <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Approach Values (mm)</div>
@@ -1079,7 +1103,7 @@ function PF400Diagnostics() {
                         value={tpFeatures.z_above_mm}
                         onChange={(e) => setTpFeatures(p => ({ ...p, z_above_mm: e.target.value }))}
                         style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                        placeholder="vertical access only"
+                        placeholder="0 = direct"
                       />
 
                       <HoverPopover content={<HelpZAboveAndOffset />} width={520}>

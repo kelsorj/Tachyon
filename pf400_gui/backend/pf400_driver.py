@@ -684,27 +684,31 @@ class PF400Driver:
             except Exception as e:
                 print(f"Warning: tuck sequencing failed; falling back to movej. Error: {e}")
 
-            # 2) Rail (J6) move and wait
-            try:
-                tgt_j6 = float(target_joint_angles[5])
-                r = _axis_move_one(6, tgt_j6, profile)
-                if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
-                    return r
-                _refresh_current_raw()
-            except Exception as e:
-                print(f"Warning: rail sequencing failed; falling back to movej. Error: {e}")
-
-            # 3) J1 move and wait
+            # 2) With the arm tucked, we can move J6 (rail) and J1 (vertical) together.
+            #    This is faster and still safe because the arm is in the tucked pose.
             try:
                 cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
+                cur_j6 = float(current_raw[5]) if len(current_raw) > 5 else 0.0
                 tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
-                if abs(tgt_j1 - cur_j1) > eps_mm:
-                    r = _axis_move_one(1, tgt_j1, profile)
+                tgt_j6 = float(target_joint_angles[5]) if len(target_joint_angles) > 5 else cur_j6
+
+                need_j1 = abs(tgt_j1 - cur_j1) > eps_mm
+                need_j6 = abs(tgt_j6 - cur_j6) > eps_mm
+                if need_j1 or need_j6:
+                    # Keep J2/J3/J4 in tuck while translating on Z+Rail
+                    j1j6_full = list(current_raw)
+                    j1j6_full[3] = -188.0
+                    j1j6_full[1] = 4.0
+                    j1j6_full[2] = 179.0
+                    j1j6_full[0] = tgt_j1
+                    j1j6_full[5] = tgt_j6
+
+                    r = _movej_direct(j1j6_full, profile)
                     if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                         return r
                     _refresh_current_raw()
             except Exception as e:
-                print(f"Warning: J1 sequencing after rail failed; falling back to movej. Error: {e}")
+                print(f"Warning: J1+J6 combined sequencing failed; falling back to movej. Error: {e}")
         else:
             # No rail move needed (or no rail joint): still move J1 first.
             try:

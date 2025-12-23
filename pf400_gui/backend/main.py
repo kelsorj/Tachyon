@@ -1682,10 +1682,6 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         f = tp.get("features")
         return f if isinstance(f, dict) else {}
 
-    def _tp_access(tp: Dict[str, Any]) -> str:
-        access = str(_tp_features(tp).get("access") or "").strip().lower()
-        return access if access in ("vertical", "horizontal") else "horizontal"
-
     def _tp_z_above_mm(tp: Dict[str, Any]) -> float:
         z = _tp_features(tp).get("z_above_mm")
         if z is None:
@@ -1787,8 +1783,6 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
     pick_tp = tps[req.pick_teachpoint_id]
     place_tp = tps[req.place_teachpoint_id]
-    pick_access = _tp_access(pick_tp)
-    place_access = _tp_access(place_tp)
     pick_z_above = max(0.0, _tp_z_above_mm(pick_tp))
     place_z_above = max(0.0, _tp_z_above_mm(place_tp))
 
@@ -1805,7 +1799,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         return j
 
     # Sequence (with pauses + observed gripper values for debugging/visibility)
-    if pick_access == "vertical" and pick_z_above > 0:
+    if pick_z_above > 0:
         pick_j = _tp_joints(req.pick_teachpoint_id)
         pick_above = _joints_with_z_above(pick_j, pick_z_above)
 
@@ -1846,7 +1840,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Place (vertical: approach above, descend, open, retract)
-    if place_access == "vertical" and place_z_above > 0:
+    if place_z_above > 0:
         place_j = _tp_joints(req.place_teachpoint_id)
         place_above = _joints_with_z_above(place_j, place_z_above)
 
@@ -1885,9 +1879,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         "status": "success",
         "labware_type_id": req.labware_type_id,
         "orientation": orient,
-        "pick_access": pick_access,
         "pick_z_above_mm": pick_z_above,
-        "place_access": place_access,
         "place_z_above_mm": place_z_above,
         "open_mm": open_mm,
         "closed_mm": closed_mm,
