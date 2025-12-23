@@ -677,7 +677,6 @@ function LabwareDashboard() {
                 <div style={{ display: 'flex', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
                   <TabButton active={entryTab === 'plate'} onClick={() => setEntryTab('plate')}>Plate Properties</TabButton>
                   <TabButton active={entryTab === 'pipette'} onClick={() => setEntryTab('pipette')}>Pipette/Well Definition</TabButton>
-                  <TabButton active={entryTab === 'classes'} onClick={() => setEntryTab('classes')}>Labware Classes</TabButton>
                   <TabButton active={entryTab === 'image'} onClick={() => setEntryTab('image')}>Image</TabButton>
                 </div>
 
@@ -953,8 +952,6 @@ function LabwareDashboard() {
                       </div>
                     </div>
                   </div>
-                ) : entryTab === 'classes' ? (
-                  <div style={{ marginTop: 14, color: '#888' }}>Next: replicate per-entry “Labware Classes” membership editor.</div>
                 ) : (
                   <div style={{ marginTop: 14, color: '#888' }}>Next: replicate “Image” tab.</div>
                 )}
@@ -1081,6 +1078,7 @@ function LabwareDashboard() {
 }
 
 export default LabwareDashboard
+
 
 
 
