@@ -1257,7 +1257,58 @@ async def get_all_devices():
 async def get_labware_types():
     """Get all labware types from MongoDB."""
     try:
+        def _infer_pf400_from_vworks_raw(vworks_raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+            if not isinstance(vworks_raw, dict):
+                return None
+            # Prefer BENCHBOT_* keys (legacy naming) if present
+            def _f(key: str) -> Optional[float]:
+                v = vworks_raw.get(key)
+                if v is None:
+                    return None
+                try:
+                    return float(str(v).strip())
+                except Exception:
+                    return None
+            def _s(key: str) -> Optional[str]:
+                v = vworks_raw.get(key)
+                if v is None:
+                    return None
+                s = str(v).strip()
+                return s or None
+
+            has_any = any(k in vworks_raw for k in (
+                "BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH",
+                "BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH",
+                "BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH",
+                "BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH",
+            ))
+            if not has_any:
+                return None
+
+            return {
+                "landscape_gripping_ranges_mm": _s("BENCHBOT_LANDSCAPE_GRIPPER_OFFSET_RANGES"),
+                "landscape_open_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH"),
+                "landscape_closed_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH"),
+                "landscape_tolerance_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_TOLERANCE"),
+                "portrait_gripping_ranges_mm": _s("BENCHBOT_PORTRAIT_GRIPPER_OFFSET_RANGES"),
+                "portrait_open_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH"),
+                "portrait_closed_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH"),
+                "portrait_tolerance_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_TOLERANCE"),
+                "grip_torque_percent": _f("BENCHBOT_GRIP_TORQUE_PERCENTAGE"),
+            }
+
         labware_types = mongodb.get_all_labware_types()
+        # Backfill pf400 from vworks_raw if missing (one-time migration for older seeded DBs).
+        for lt in labware_types:
+            if lt.get("pf400") is not None:
+                continue
+            inferred = _infer_pf400_from_vworks_raw(lt.get("vworks_raw") or {})
+            if inferred:
+                lt["pf400"] = inferred
+                try:
+                    mongodb.update_labware_type(lt.get("labware_type_id"), {"pf400": inferred})
+                except Exception:
+                    pass
         return {"labware_types": labware_types}
     except Exception as e:
         print(f"Error getting labware types: {e}")
@@ -1335,6 +1386,45 @@ async def get_labware_type(labware_type_id: str):
         doc = mongodb.get_labware_type_by_id(labware_type_id)
         if not doc:
             raise HTTPException(status_code=404, detail="Labware type not found")
+        if doc.get("pf400") is None and isinstance(doc.get("vworks_raw"), dict):
+            vr = doc["vworks_raw"]
+            has_any = any(k in vr for k in (
+                "BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH",
+                "BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH",
+                "BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH",
+                "BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH",
+            ))
+            if has_any:
+                def _f(key: str) -> Optional[float]:
+                    v = vr.get(key)
+                    if v is None:
+                        return None
+                    try:
+                        return float(str(v).strip())
+                    except Exception:
+                        return None
+                def _s(key: str) -> Optional[str]:
+                    v = vr.get(key)
+                    if v is None:
+                        return None
+                    s = str(v).strip()
+                    return s or None
+                inferred = {
+                    "landscape_gripping_ranges_mm": _s("BENCHBOT_LANDSCAPE_GRIPPER_OFFSET_RANGES"),
+                    "landscape_open_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH"),
+                    "landscape_closed_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH"),
+                    "landscape_tolerance_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_TOLERANCE"),
+                    "portrait_gripping_ranges_mm": _s("BENCHBOT_PORTRAIT_GRIPPER_OFFSET_RANGES"),
+                    "portrait_open_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH"),
+                    "portrait_closed_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH"),
+                    "portrait_tolerance_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_TOLERANCE"),
+                    "grip_torque_percent": _f("BENCHBOT_GRIP_TORQUE_PERCENTAGE"),
+                }
+                doc["pf400"] = inferred
+                try:
+                    mongodb.update_labware_type(doc.get("labware_type_id"), {"pf400": inferred})
+                except Exception:
+                    pass
         return {"labware_type": doc}
     except HTTPException:
         raise
