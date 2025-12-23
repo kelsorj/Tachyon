@@ -574,13 +574,120 @@ function PF400Diagnostics() {
         </div>
 
         {/* CENTER: 3D viewer */}
-        <div style={{ width: '100%', minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
-          <RobotViewer
-            joints={joints}
-            cartesian={cartesian}
-            verticalScale={pf400VerticalScale}
-            vertJogLimitM={pf400VertJogLimitM}
-          />
+        <div style={{ width: '100%', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
+          {/* Top: 3D viewer (about half height) */}
+          <div style={{ flex: 1, minHeight: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
+            <RobotViewer
+              joints={joints}
+              cartesian={cartesian}
+              verticalScale={pf400VerticalScale}
+              vertJogLimitM={pf400VertJogLimitM}
+            />
+          </div>
+
+          {/* Bottom: Teachpoints (about half height) */}
+          <div style={{ flex: 1, minHeight: 0, background: '#1a1a2e', borderRadius: 8, padding: 10, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>📍 Teachpoints</div>
+
+            {/* Save current position */}
+            <div style={{ display: 'flex', gap: 5, marginBottom: 10 }}>
+              <input
+                type="text"
+                placeholder="New teachpoint name"
+                value={newTpName}
+                onChange={e => setNewTpName(e.target.value)}
+                onKeyPress={e => e.key === 'Enter' && saveCurrentPosition()}
+                style={{ flex: 1, padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+              />
+              <button
+                onClick={saveCurrentPosition}
+                style={{ padding: '6px 12px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+              >
+                Save
+              </button>
+            </div>
+
+            {/* Teachpoints list */}
+            <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
+              {teachpoints.length === 0 ? (
+                <div style={{ color: '#666', fontStyle: 'italic', textAlign: 'center', padding: 20 }}>
+                  No teachpoints saved yet
+                </div>
+              ) : (
+                teachpoints.map(tp => (
+                  <div key={tp.id} style={{
+                    background: '#222',
+                    borderRadius: 6,
+                    padding: 8,
+                    marginBottom: 6,
+                    border: '1px solid #333'
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <span style={{ fontWeight: 'bold', color: '#fff' }}>
+                        {tp.name}
+                        {(tp.linked_to || tp.linked_from) && <span style={{ marginLeft: 4, color: '#52c41a' }}>🔗</span>}
+                      </span>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <button
+                          onClick={() => moveToTeachpoint(tp)}
+                          title="Move to this position"
+                          style={{ padding: '3px 8px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
+                        >
+                          Go
+                        </button>
+                        <button
+                          onClick={() => updateTeachpoint(tp)}
+                          title="Update with current position"
+                          style={{ padding: '3px 8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
+                        >
+                          📍
+                        </button>
+                        <button
+                          onClick={() => startLinking(tp)}
+                          disabled={!reachableDevices.length}
+                          title={reachableDevices.length ? "Link this teachpoint to another device" : "No reachable devices available"}
+                          style={{
+                            padding: '3px 8px',
+                            borderRadius: 4,
+                            background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#722ed1') : '#444',
+                            color: '#fff',
+                            border: 'none',
+                            cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
+                            fontSize: '0.85em'
+                          }}
+                        >
+                          {linkingTeachpoint?.id === tp.id ? '🔗' : 'Link'}
+                        </button>
+                        <button
+                          onClick={() => renameTeachpoint(tp)}
+                          title="Rename teachpoint"
+                          style={{ padding: '3px 8px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          onClick={() => deleteTeachpoint(tp)}
+                          title="Delete teachpoint"
+                          style={{ padding: '3px 8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </div>
+                    {/* Coordinates display */}
+                    <div style={{ fontSize: '0.7em', color: '#888', fontFamily: 'monospace' }}>
+                      {tp.cartesian && (
+                        <div>XYZ: {tp.cartesian.x?.toFixed(1)}, {tp.cartesian.y?.toFixed(1)}, {tp.cartesian.z?.toFixed(1)} mm</div>
+                      )}
+                      {tp.joints && (
+                        <div>J: [{tp.joints.slice(0, 4).map(j => j?.toFixed(1)).join(', ')}]</div>
+                      )}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
 
         {/* RIGHT SIDEBAR: speed + jogs + teachpoints */}
@@ -810,109 +917,6 @@ function PF400Diagnostics() {
             </div>
           </div>
 
-          {/* Teachpoints Panel */}
-          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10, flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>📍 Teachpoints</div>
-            
-            {/* Save current position */}
-            <div style={{ display: 'flex', gap: 5, marginBottom: 10 }}>
-              <input 
-                type="text" 
-                placeholder="New teachpoint name"
-                value={newTpName}
-                onChange={e => setNewTpName(e.target.value)}
-                onKeyPress={e => e.key === 'Enter' && saveCurrentPosition()}
-                style={{ flex: 1, padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-              />
-              <button 
-                onClick={saveCurrentPosition}
-                style={{ padding: '6px 12px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
-              >
-                Save
-              </button>
-            </div>
-
-            {/* Teachpoints list */}
-            <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
-              {teachpoints.length === 0 ? (
-                <div style={{ color: '#666', fontStyle: 'italic', textAlign: 'center', padding: 20 }}>
-                  No teachpoints saved yet
-                </div>
-              ) : (
-                teachpoints.map(tp => (
-                  <div key={tp.id} style={{ 
-                    background: '#222', 
-                    borderRadius: 6, 
-                    padding: 8, 
-                    marginBottom: 6,
-                    border: '1px solid #333'
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontWeight: 'bold', color: '#fff' }}>
-                        {tp.name}
-                        {(tp.linked_to || tp.linked_from) && <span style={{ marginLeft: 4, color: '#52c41a' }}>🔗</span>}
-                      </span>
-                      <div style={{ display: 'flex', gap: 4 }}>
-                        <button 
-                          onClick={() => moveToTeachpoint(tp)}
-                          title="Move to this position"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          Go
-                        </button>
-                        <button
-                          onClick={() => updateTeachpoint(tp)}
-                          title="Update with current position"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          📍
-                        </button>
-                        <button
-                          onClick={() => startLinking(tp)}
-                          disabled={!reachableDevices.length}
-                          title={reachableDevices.length ? "Link this teachpoint to another device" : "No reachable devices available"}
-                          style={{
-                            padding: '3px 8px',
-                            borderRadius: 4,
-                            background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#722ed1') : '#444',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
-                            fontSize: '0.85em'
-                          }}
-                        >
-                          {linkingTeachpoint?.id === tp.id ? '🔗' : 'Link'}
-                        </button>
-                        <button
-                          onClick={() => renameTeachpoint(tp)}
-                          title="Rename teachpoint"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          ✏️
-                        </button>
-                        <button 
-                          onClick={() => deleteTeachpoint(tp)}
-                          title="Delete teachpoint"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </div>
-                    {/* Coordinates display */}
-                    <div style={{ fontSize: '0.7em', color: '#888', fontFamily: 'monospace' }}>
-                      {tp.cartesian && (
-                        <div>XYZ: {tp.cartesian.x?.toFixed(1)}, {tp.cartesian.y?.toFixed(1)}, {tp.cartesian.z?.toFixed(1)} mm</div>
-                      )}
-                      {tp.joints && (
-                        <div>J: [{tp.joints.slice(0, 4).map(j => j?.toFixed(1)).join(', ')}]</div>
-                      )}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </div>
