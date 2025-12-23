@@ -11,6 +11,8 @@ from pymongo import MongoClient
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 import os
+import time
+import secrets
 
 # MongoDB connection settings
 MONGO_URI = os.environ.get("MONGO_URI", "mongodb://ekmbalps1.corp.eikontx.com:27017")
@@ -335,6 +337,174 @@ def get_all_devices() -> List[Dict[str, Any]]:
     except Exception as e:
         print(f"Error getting all devices: {e}")
         return []
+
+
+# ============== LABWARE TYPES ==============
+
+def _new_ulid_str() -> str:
+    """Dependency-free ULID generator (26 chars)."""
+    alphabet = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+
+    def enc(v: int, n: int) -> str:
+        out = ["0"] * n
+        for i in range(n - 1, -1, -1):
+            out[i] = alphabet[v & 31]
+            v >>= 5
+        return "".join(out)
+
+    ts_ms = int(time.time() * 1000) & ((1 << 48) - 1)
+    rnd = int.from_bytes(secrets.token_bytes(10), "big")  # 80 bits
+    return enc(ts_ms, 10) + enc(rnd, 16)
+
+
+def get_all_labware_types() -> List[Dict[str, Any]]:
+    """Get all labware types."""
+    try:
+        db = get_db()
+        labware_types = list(db.labware_types.find({}).sort([("name", 1), ("created_at", -1)]))
+        for lt in labware_types:
+            lt["_id"] = str(lt["_id"])
+        return labware_types
+    except Exception as e:
+        print(f"Error getting all labware types: {e}")
+        return []
+
+
+def create_labware_type(labware_type: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new labware type. Returns the created document (with string _id) on success."""
+    try:
+        db = get_db()
+        labware_type = dict(labware_type or {})
+        if not labware_type.get("labware_type_id"):
+            labware_type["labware_type_id"] = _new_ulid_str()
+        labware_type["created_at"] = datetime.utcnow()
+        labware_type["updated_at"] = datetime.utcnow()
+        result = db.labware_types.insert_one(labware_type)
+        if not result.inserted_id:
+            return None
+        created = db.labware_types.find_one({"_id": result.inserted_id})
+        if not created:
+            return None
+        created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating labware type: {e}")
+        return None
+
+
+def delete_labware_type(labware_type_id: str) -> bool:
+    """Delete a labware type by labware_type_id."""
+    try:
+        db = get_db()
+        result = db.labware_types.delete_one({"labware_type_id": labware_type_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting labware type {labware_type_id}: {e}")
+        return False
+
+
+def get_labware_type_by_id(labware_type_id: str) -> Optional[Dict[str, Any]]:
+    """Get a labware type by labware_type_id."""
+    try:
+        db = get_db()
+        doc = db.labware_types.find_one({"labware_type_id": labware_type_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error getting labware type {labware_type_id}: {e}")
+        return None
+
+
+def update_labware_type(labware_type_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a labware type by labware_type_id. Returns updated document."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.labware_types.update_one(
+            {"labware_type_id": labware_type_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        return get_labware_type_by_id(labware_type_id)
+    except Exception as e:
+        print(f"Error updating labware type {labware_type_id}: {e}")
+        return None
+
+
+# ============== LABWARE CLASSES ==============
+
+def get_all_labware_classes() -> List[Dict[str, Any]]:
+    """Get all labware classes."""
+    try:
+        db = get_db()
+        classes = list(db.labware_classes.find({}).sort([("name", 1), ("created_at", -1)]))
+        for c in classes:
+            c["_id"] = str(c["_id"])
+        return classes
+    except Exception as e:
+        print(f"Error getting all labware classes: {e}")
+        return []
+
+
+def create_labware_class(labware_class: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a labware class. Returns created document."""
+    try:
+        db = get_db()
+        labware_class = dict(labware_class or {})
+        if not labware_class.get("labware_class_id"):
+            labware_class["labware_class_id"] = _new_ulid_str()
+        labware_class["created_at"] = datetime.utcnow()
+        labware_class["updated_at"] = datetime.utcnow()
+        result = db.labware_classes.insert_one(labware_class)
+        if not result.inserted_id:
+            return None
+        created = db.labware_classes.find_one({"_id": result.inserted_id})
+        if not created:
+            return None
+        created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating labware class: {e}")
+        return None
+
+
+def delete_labware_class(labware_class_id: str) -> bool:
+    """Delete a labware class by labware_class_id. Also removes it from all labware types."""
+    try:
+        db = get_db()
+        db.labware_types.update_many(
+            {"labware_class_ids": labware_class_id},
+            {"$pull": {"labware_class_ids": labware_class_id}, "$set": {"updated_at": datetime.utcnow()}}
+        )
+        result = db.labware_classes.delete_one({"labware_class_id": labware_class_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting labware class {labware_class_id}: {e}")
+        return False
+
+
+def update_labware_class(labware_class_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a labware class by id. Returns updated document."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.labware_classes.update_one(
+            {"labware_class_id": labware_class_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        doc = db.labware_classes.find_one({"labware_class_id": labware_class_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error updating labware class {labware_class_id}: {e}")
+        return None
 
 
 def get_device_by_name(name: str) -> Optional[Dict[str, Any]]:

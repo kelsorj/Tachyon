@@ -38,6 +38,12 @@ if os.path.exists(planar_motor_models_dir):
     app.mount("/models/planar_motor", StaticFiles(directory=planar_motor_models_dir), name="planar_motor_models")
     print(f"Mounted Planar Motor models: {planar_motor_models_dir}")
 
+# Mount Labware library (VWorks definitions / future 3D models)
+labware_models_dir = os.path.join(os.path.dirname(__file__), "../../models/labware")
+if os.path.exists(labware_models_dir):
+    app.mount("/models/labware", StaticFiles(directory=labware_models_dir), name="labware_models")
+    print(f"Mounted labware models: {labware_models_dir}")
+
 # Allow CORS for frontend
 app.add_middleware(
     CORSMiddleware,
@@ -414,6 +420,113 @@ class SpeedSettingsRequest(BaseModel):
     speed: int = 80      # 1-100 percentage
     accel: int = None    # Optional, defaults to speed
     decel: int = None    # Optional, defaults to accel
+
+
+# =========================
+# Labware (Types)
+# =========================
+
+class Labware3DModel(BaseModel):
+    url: str
+    format: str = "stl"  # stl|gltf|glb|obj|step|stp|etc
+
+
+class PlateDimensionsMM(BaseModel):
+    length_mm: float
+    width_mm: float
+    height_mm: float
+
+
+class PlatePropertiesModel(BaseModel):
+    # Mirrors `plate-props.PNG` (legacy GUI) but stored in a modern nested object.
+    robot_gripper_offset_mm: Optional[float] = None
+    empty_check_offset_mm: Optional[float] = None  # legacy GUI label: "Robot gripper/HD Stack 1 empty check offset"
+
+    thickness_mm: Optional[float] = None
+    stacking_thickness_mm: Optional[float] = None
+    shim_thickness_mm: Optional[float] = None  # legacy GUI: "Shim/nesting thickness/HD Stack 1 hold position"
+
+    can_be_sealed: Optional[bool] = None
+    sealed_thickness_mm: Optional[float] = None
+    sealed_stacking_thickness_mm: Optional[float] = None
+
+    can_have_lid: Optional[bool] = None
+    lidded_thickness_mm: Optional[float] = None
+    lidded_stacking_thickness_mm: Optional[float] = None
+    lid_resting_height_mm: Optional[float] = None
+    lid_departure_height_mm: Optional[float] = None
+
+    # Plate handling
+    lower_plate_at_labeler: Optional[bool] = None  # legacy GUI: "Lower plate at Microplate Labeler"
+    can_mount: Optional[bool] = None
+    can_be_mounted: Optional[bool] = None
+    max_robot_handling_speed: Optional[str] = None  # slow|medium|fast
+
+    # Misc
+    filter_tip_pin_tool_length_mm: Optional[float] = None
+    filter_channel_resting_depth_mm: Optional[float] = None
+    requires_insert: Optional[str] = None  # e.g. "None"
+
+
+class WellDimensionsMM(BaseModel):
+    # Keep intentionally flexible; different plates specify different params
+    diameter_mm: Optional[float] = None
+    depth_mm: Optional[float] = None
+    spacing_x_mm: Optional[float] = None
+    spacing_y_mm: Optional[float] = None
+    offset_x_mm: Optional[float] = None
+    offset_y_mm: Optional[float] = None
+    rows: Optional[int] = None
+    cols: Optional[int] = None
+    well_geometry: Optional[int] = None
+    well_bottom_shape: Optional[int] = None
+
+
+class LabwareTypeCreateRequest(BaseModel):
+    kind: str  # sbs_plate|tube|vial
+    name: str
+    vendor: Optional[str] = ""
+    catalog_number: Optional[str] = ""
+    description: Optional[str] = ""
+    base_class: Optional[str] = ""  # microplate|filter_plate|reservoir|tip_box|lid|etc
+    labware_class_ids: Optional[List[str]] = None
+    plate_properties: Optional[PlatePropertiesModel] = None
+
+    # SBS plate metadata
+    wells: Optional[int] = None  # 6/24/48/96/384/1536
+    well_type: Optional[str] = ""  # e.g. round, square, u_bottom, v_bottom, flat, etc
+    plate_dimensions_mm: Optional[PlateDimensionsMM] = None
+    well_dimensions_mm: Optional[WellDimensionsMM] = None
+
+    # Optional 3D model reference (for visualization/clearance)
+    model_3d: Optional[Labware3DModel] = None
+    notes: Optional[str] = ""
+
+
+class LabwareTypeUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    vendor: Optional[str] = None
+    catalog_number: Optional[str] = None
+    description: Optional[str] = None
+    base_class: Optional[str] = None
+    labware_class_ids: Optional[List[str]] = None
+    plate_properties: Optional[PlatePropertiesModel] = None
+    wells: Optional[int] = None
+    well_type: Optional[str] = None
+    plate_dimensions_mm: Optional[PlateDimensionsMM] = None
+    well_dimensions_mm: Optional[WellDimensionsMM] = None
+    model_3d: Optional[Labware3DModel] = None
+    notes: Optional[str] = None
+
+
+class LabwareClassCreateRequest(BaseModel):
+    name: str
+    description: Optional[str] = ""
+
+
+class LabwareClassUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
 
 
 # Device name for this robot instance
@@ -1039,6 +1152,196 @@ async def get_all_devices():
         return {"devices": devices}
     except Exception as e:
         print(f"Error getting all devices: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============== Labware API ==============
+
+@app.get("/labware/types")
+async def get_labware_types():
+    """Get all labware types from MongoDB."""
+    try:
+        labware_types = mongodb.get_all_labware_types()
+        return {"labware_types": labware_types}
+    except Exception as e:
+        print(f"Error getting labware types: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/labware/types")
+async def create_labware_type(req: LabwareTypeCreateRequest):
+    """Create a labware type (SBS plate, tube, vial)."""
+    try:
+        kind = (req.kind or "").strip()
+        if kind not in ("sbs_plate", "tube", "vial"):
+            raise HTTPException(status_code=400, detail="kind must be one of: sbs_plate, tube, vial")
+
+        name = (req.name or "").strip()
+        if not name:
+            raise HTTPException(status_code=400, detail="name is required")
+
+        if kind == "sbs_plate":
+            if req.wells not in (6, 24, 48, 96, 384, 1536):
+                raise HTTPException(status_code=400, detail="For sbs_plate, wells must be one of: 6,24,48,96,384,1536")
+            if req.plate_dimensions_mm is None:
+                raise HTTPException(status_code=400, detail="For sbs_plate, plate_dimensions_mm is required")
+
+        labware_type_id = _new_ulid_str()
+        created = mongodb.create_labware_type({
+            "labware_type_id": labware_type_id,
+            "kind": kind,
+            "name": name,
+            "vendor": (req.vendor or "").strip(),
+            "catalog_number": (req.catalog_number or "").strip(),
+            "description": (req.description or "").strip(),
+            "base_class": (req.base_class or "").strip(),
+            "labware_class_ids": req.labware_class_ids or [],
+            "plate_properties": req.plate_properties.model_dump() if req.plate_properties else None,
+            "wells": req.wells,
+            "well_type": (req.well_type or "").strip(),
+            "plate_dimensions_mm": req.plate_dimensions_mm.model_dump() if req.plate_dimensions_mm else None,
+            "well_dimensions_mm": req.well_dimensions_mm.model_dump() if req.well_dimensions_mm else None,
+            "model_3d": req.model_3d.model_dump() if req.model_3d else None,
+            "notes": req.notes or "",
+        })
+        if not created:
+            raise HTTPException(status_code=500, detail="Failed to create labware type")
+        return {"labware_type": created}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error creating labware type: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/labware/types/{labware_type_id}")
+async def delete_labware_type(labware_type_id: str):
+    """Delete a labware type by ID."""
+    try:
+        ok = mongodb.delete_labware_type(labware_type_id)
+        if not ok:
+            raise HTTPException(status_code=404, detail="Labware type not found")
+        return {"deleted": True, "labware_type_id": labware_type_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error deleting labware type: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/labware/types/{labware_type_id}")
+async def get_labware_type(labware_type_id: str):
+    """Get one labware type by id."""
+    try:
+        doc = mongodb.get_labware_type_by_id(labware_type_id)
+        if not doc:
+            raise HTTPException(status_code=404, detail="Labware type not found")
+        return {"labware_type": doc}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error getting labware type: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.patch("/labware/types/{labware_type_id}")
+async def patch_labware_type(labware_type_id: str, req: LabwareTypeUpdateRequest):
+    """Update labware type fields (used by modern Labware UI)."""
+    try:
+        updates: Dict[str, Any] = {}
+        for k in ("name", "vendor", "catalog_number", "description", "base_class", "wells", "well_type", "notes"):
+            v = getattr(req, k)
+            if v is not None:
+                updates[k] = v
+
+        if req.labware_class_ids is not None:
+            updates["labware_class_ids"] = list(req.labware_class_ids)
+
+        if req.plate_dimensions_mm is not None:
+            updates["plate_dimensions_mm"] = req.plate_dimensions_mm.model_dump()
+        if req.well_dimensions_mm is not None:
+            updates["well_dimensions_mm"] = req.well_dimensions_mm.model_dump()
+        if req.model_3d is not None:
+            updates["model_3d"] = req.model_3d.model_dump()
+        if req.plate_properties is not None:
+            updates["plate_properties"] = req.plate_properties.model_dump()
+
+        updated = mongodb.update_labware_type(labware_type_id, updates)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Labware type not found")
+        return {"labware_type": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error updating labware type: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/labware/classes")
+async def get_labware_classes():
+    """Get all labware classes."""
+    try:
+        classes = mongodb.get_all_labware_classes()
+        return {"labware_classes": classes}
+    except Exception as e:
+        print(f"Error getting labware classes: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/labware/classes")
+async def create_labware_class(req: LabwareClassCreateRequest):
+    """Create a labware class."""
+    try:
+        name = (req.name or "").strip()
+        if not name:
+            raise HTTPException(status_code=400, detail="name is required")
+        created = mongodb.create_labware_class({
+            "labware_class_id": _new_ulid_str(),
+            "name": name,
+            "description": (req.description or "").strip(),
+        })
+        if not created:
+            raise HTTPException(status_code=500, detail="Failed to create labware class")
+        return {"labware_class": created}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error creating labware class: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.patch("/labware/classes/{labware_class_id}")
+async def patch_labware_class(labware_class_id: str, req: LabwareClassUpdateRequest):
+    """Update labware class fields (rename, description)."""
+    try:
+        updates: Dict[str, Any] = {}
+        if req.name is not None:
+            updates["name"] = (req.name or "").strip()
+        if req.description is not None:
+            updates["description"] = req.description or ""
+        updated = mongodb.update_labware_class(labware_class_id, updates)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Labware class not found")
+        return {"labware_class": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error updating labware class: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/labware/classes/{labware_class_id}")
+async def delete_labware_class(labware_class_id: str):
+    """Delete a labware class."""
+    try:
+        ok = mongodb.delete_labware_class(labware_class_id)
+        if not ok:
+            raise HTTPException(status_code=404, detail="Labware class not found")
+        return {"deleted": True, "labware_class_id": labware_class_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error deleting labware class: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

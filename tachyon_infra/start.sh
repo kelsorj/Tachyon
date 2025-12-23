@@ -20,3 +20,4 @@ echo "  MinIO:  http://localhost:9000 (S3)  /  http://localhost:9001 (console)"
 
 
 
+
