@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import RobotViewer from './RobotViewer'
 
@@ -27,6 +27,7 @@ function PF400Diagnostics() {
   // Teachpoints
   const [teachpoints, setTeachpoints] = useState([])
   const [newTpName, setNewTpName] = useState('')
+  // Selected teachpoint for controls (dropdown)
   const [selectedTeachpointId, setSelectedTeachpointId] = useState('')
   const [tpFeatures, setTpFeatures] = useState({
     regrip_station: false,
@@ -130,14 +131,18 @@ function PF400Diagnostics() {
     try {
       const res = await fetch(`${API_URL}/teachpoints`)
       const data = await res.json()
-      setTeachpoints(data.teachpoints || [])
+      const tps = data.teachpoints || []
+      setTeachpoints(tps)
+      // Default selection for dropdown
+      if (!selectedTeachpointId && tps.length) {
+        setSelectedTeachpointId(tps[0].id)
+      }
     } catch (e) {
       console.error('Failed to fetch teachpoints:', e)
     }
   }
 
-  const openTeachpointFeatures = (tp) => {
-    setSelectedTeachpointId(tp?.id || '')
+  const loadTeachpointFeaturesIntoForm = (tp) => {
     const f = tp?.features || {}
     setTpFeatures({
       regrip_station: !!f.regrip_station,
@@ -177,6 +182,18 @@ function PF400Diagnostics() {
     } catch (e) {
       log(`✗ Failed to save features: ${e.message}`)
     }
+  }
+
+  const selectedTeachpoint = teachpoints.find(tp => tp.id === selectedTeachpointId) || null
+
+  // Keep form in sync when switching the teachpoint dropdown
+  useEffect(() => {
+    if (selectedTeachpoint) loadTeachpointFeaturesIntoForm(selectedTeachpoint)
+  }, [selectedTeachpointId])
+
+  const startLinkingSelectedTeachpoint = () => {
+    if (!selectedTeachpoint) return
+    startLinking(selectedTeachpoint)
   }
 
   // Fetch reachable devices and their teachpoints
@@ -496,34 +513,149 @@ function PF400Diagnostics() {
 
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 14)])
 
-  const formatTeachpointFeaturesSummary = (features) => {
-    if (!features) return ''
-    const f = features || {}
-    const parts = []
+  const HoverPopover = ({ children, content, width = 520 }) => {
+    const anchorRef = useRef(null)
+    const [open, setOpen] = useState(false)
+    const [pos, setPos] = useState({ top: 0, left: 0 })
 
-    if (f.grip_orientation) parts.push(String(f.grip_orientation).toLowerCase())
-    if (f.access) parts.push(String(f.access).toLowerCase())
+    const place = () => {
+      const el = anchorRef.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const desiredLeft = r.right + 12
+      const desiredTop = r.top + r.height / 2
 
-    const fmtMm = (v) => (v === null || v === undefined || v === '') ? null : Number(v)
-
-    const tangent = fmtMm(f.tangent_approach_mm)
-    if (Number.isFinite(tangent)) parts.push(`tangent ${tangent.toFixed(1)}mm`)
-
-    const zAbove = fmtMm(f.z_above_mm)
-    if (Number.isFinite(zAbove)) parts.push(`zAbove ${zAbove.toFixed(1)}mm`)
-
-    const zMin = fmtMm(f.z_grasp_offset_min_mm)
-    const zMax = fmtMm(f.z_grasp_offset_max_mm)
-    if (Number.isFinite(zMin) || Number.isFinite(zMax)) {
-      const a = Number.isFinite(zMin) ? zMin.toFixed(1) : '—'
-      const b = Number.isFinite(zMax) ? zMax.toFixed(1) : '—'
-      parts.push(`zOffset ${a}–${b}mm`)
+      const left = Math.min(desiredLeft, window.innerWidth - width - 12)
+      const top = Math.min(Math.max(desiredTop, 12), window.innerHeight - 12)
+      setPos({ top, left })
     }
 
-    if (f.regrip_station === true) parts.push('regrip')
-
-    return parts.join(' · ')
+    return (
+      <div
+        ref={anchorRef}
+        onMouseEnter={() => { place(); setOpen(true) }}
+        onMouseMove={() => { if (open) place() }}
+        onMouseLeave={() => setOpen(false)}
+        style={{ display: 'block' }}
+      >
+        {children}
+        {open && (
+          <div
+            style={{
+              position: 'fixed',
+              top: pos.top,
+              left: pos.left,
+              transform: 'translateY(-50%)',
+              zIndex: 9999,
+              width,
+              background: '#0e0e14',
+              border: '1px solid #333',
+              borderRadius: 10,
+              padding: 10,
+              boxShadow: '0 10px 30px rgba(0,0,0,0.65)',
+              pointerEvents: 'none',
+            }}
+          >
+            {content}
+          </div>
+        )}
+      </div>
+    )
   }
+
+  const helpStyles = {
+    svgStyle: { width: '100%', height: 'auto', display: 'block' },
+    label: { fontSize: 12, fill: '#ddd' },
+    muted: { fontSize: 11, fill: '#999' },
+    stroke: { stroke: '#69c0ff', strokeWidth: 2, fill: 'none' },
+    plate: { stroke: '#ddd', strokeWidth: 2, fill: '#222' },
+    finger: { stroke: '#faad14', strokeWidth: 2, fill: '#111' },
+    highlight: { stroke: '#52c41a', strokeWidth: 3, fill: 'none' },
+  }
+
+  const HelpGripOrientation = () => (
+    <div>
+      <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Grip Orientation: Landscape vs Portrait</div>
+      <svg viewBox="0 0 520 140" style={helpStyles.svgStyle}>
+        <text x="10" y="18" style={helpStyles.muted}>Landscape: fingers grip the long side</text>
+        <rect x="140" y="30" width="240" height="40" rx="4" style={helpStyles.plate} />
+        <rect x="95" y="35" width="35" height="30" rx="14" style={helpStyles.finger} />
+        <rect x="390" y="35" width="35" height="30" rx="14" style={helpStyles.finger} />
+        <rect x="92" y="32" width="330" height="36" rx="6" style={helpStyles.highlight} />
+
+        <text x="10" y="98" style={helpStyles.muted}>Portrait: fingers grip the short side</text>
+        <rect x="240" y="105" width="40" height="24" rx="4" style={helpStyles.plate} />
+        <rect x="220" y="100" width="22" height="34" rx="10" style={helpStyles.finger} />
+        <rect x="278" y="100" width="22" height="34" rx="10" style={helpStyles.finger} />
+        <rect x="218" y="98" width="84" height="38" rx="6" style={helpStyles.highlight} />
+      </svg>
+      <div style={{ color: '#999', fontSize: 12, marginTop: 6 }}>
+        Pick the direction the fingers squeeze: long-side grip = landscape, short-side grip = portrait.
+      </div>
+    </div>
+  )
+
+  const HelpAccess = () => (
+    <div>
+      <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Access: Vertical vs Horizontal</div>
+      <div style={{ color: '#999', fontSize: 12, marginBottom: 10 }}>
+        Vertical means you “come down” in Z onto the teachpoint. Horizontal means you approach laterally (tangent) before the final move.
+      </div>
+      <svg viewBox="0 0 520 150" style={helpStyles.svgStyle}>
+        <circle cx="380" cy="95" r="5" fill="#52c41a" />
+        <text x="392" y="99" style={helpStyles.label}>Teachpoint</text>
+
+        <path d="M120 95 L380 95" style={helpStyles.stroke} />
+        <text x="120" y="82" style={helpStyles.muted}>Horizontal (tangent) approach</text>
+
+        <path d="M380 30 L380 95" style={{ ...helpStyles.stroke, stroke: '#b37feb' }} />
+        <text x="392" y="46" style={helpStyles.muted}>Vertical approach</text>
+      </svg>
+    </div>
+  )
+
+  const HelpTangentApproach = () => (
+    <div>
+      <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Tangent Approach (mm)</div>
+      <div style={{ color: '#999', fontSize: 12, marginBottom: 6 }}>
+        The robot approaches the teachpoint from a 90° “tangent” direction and stops Tangent Approach mm away before the final move.
+      </div>
+      <svg viewBox="0 0 520 160" style={helpStyles.svgStyle}>
+        <circle cx="390" cy="90" r="5" fill="#52c41a" />
+        <text x="400" y="94" style={helpStyles.label}>Teachpoint</text>
+        <path d="M80 90 L390 90" style={helpStyles.stroke} />
+        <path d="M390 90 L390 30" style={{ ...helpStyles.stroke, stroke: '#b37feb' }} />
+        <text x="80" y="80" style={helpStyles.muted}>tangent approach path</text>
+        <text x="395" y="44" style={helpStyles.muted}>final move</text>
+        <path d="M220 105 L220 120 M390 105 L390 120 M220 112 L390 112" style={{ stroke: '#faad14', strokeWidth: 2 }} />
+        <text x="250" y="140" style={helpStyles.label}>Tangent Approach (mm)</text>
+      </svg>
+    </div>
+  )
+
+  const HelpZAboveAndOffset = () => (
+    <div>
+      <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Z Above + Z Grasp Offset</div>
+      <div style={{ color: '#999', fontSize: 12, marginBottom: 6 }}>
+        Z Above is the “safe height above” the teachpoint for vertical access. Z Grasp Offset is an allowed Z window around the teachpoint during pick/place (stored now; full math later).
+      </div>
+      <svg viewBox="0 0 520 190" style={helpStyles.svgStyle}>
+        <rect x="40" y="150" width="440" height="18" fill="#1a2e1a" stroke="#2f6f2f" />
+        <text x="50" y="145" style={helpStyles.muted}>Surface / deck</text>
+
+        <circle cx="260" cy="140" r="5" fill="#52c41a" />
+        <text x="270" y="144" style={helpStyles.label}>Teachpoint Z</text>
+
+        <path d="M260 140 L260 60" style={helpStyles.stroke} />
+        <path d="M250 60 L270 60" style={helpStyles.stroke} />
+        <text x="280" y="70" style={helpStyles.label}>Z Above</text>
+
+        <rect x="235" y="110" width="50" height="60" fill="none" stroke="#faad14" strokeWidth="2" strokeDasharray="6 4" />
+        <text x="292" y="125" style={helpStyles.label}>Z Grasp Offset</text>
+        <text x="292" y="140" style={helpStyles.muted}>(min..max)</text>
+      </svg>
+    </div>
+  )
 
   // Options for dropdowns
   const linearOpts = [{v: 0.0001, l: '0.1'}, {v: 0.001, l: '1'}, {v: 0.010, l: '10'}, {v: 0.050, l: '50'}]
@@ -605,11 +737,42 @@ function PF400Diagnostics() {
             {/* Teachpoint Linking */}
             {reachableDevices.length > 0 && (
               <div>
-                <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 4 }}>
+                <div style={{ fontSize: '0.9em', color: '#ccc', marginBottom: 6 }}>
                   {linkingTeachpoint
-                    ? `Select teachpoint to link with "${linkingTeachpoint.name}":`
-                    : 'Link Teachpoints: Click "Link" on a local teachpoint first'
+                    ? `Select target teachpoint to link with "${linkingTeachpoint.name}":`
+                    : 'Link Teachpoints: choose a local teachpoint and click "Start linking"'
                   }
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+                  <div style={{ color: '#bbb', textAlign: 'right', fontSize: '0.85em' }}>Local TP</div>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    <select
+                      value={selectedTeachpointId}
+                      onChange={(e) => setSelectedTeachpointId(e.target.value)}
+                      style={{ ...selectStyle, width: '100%' }}
+                    >
+                      {teachpoints.map(tp => (
+                        <option key={tp.id} value={tp.id}>{tp.name}</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={startLinkingSelectedTeachpoint}
+                      disabled={!teachpoints.length}
+                      style={{
+                        padding: '6px 10px',
+                        borderRadius: 4,
+                        background: teachpoints.length ? (linkingTeachpoint ? '#faad14' : '#722ed1') : '#444',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: teachpoints.length ? 'pointer' : 'not-allowed',
+                        fontWeight: 'bold',
+                      }}
+                      title="Start linking using the selected local teachpoint"
+                    >
+                      {linkingTeachpoint ? 'Change' : 'Start linking'}
+                    </button>
+                  </div>
                 </div>
                 <div style={{ maxHeight: 320, overflowY: 'auto' }}>
                   {Object.entries(deviceTeachpoints).map(([deviceName, deviceTps]) => (
@@ -699,211 +862,210 @@ function PF400Diagnostics() {
               </button>
             </div>
 
-            {/* Teachpoint Orientation/Approach Features (persistence only; math later) */}
-            {selectedTeachpointId && (
-              <div style={{ background: '#111', borderRadius: 8, padding: 10, marginBottom: 10, border: '1px solid #333' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <div style={{ fontWeight: 'bold', color: '#ddd' }}>Orientation Features</div>
-                  <button
-                    onClick={() => setSelectedTeachpointId('')}
-                    style={{ padding: '3px 8px', borderRadius: 4, background: '#444', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                    title="Close"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Teachpoint</div>
-                  <div style={{ color: '#fff', fontWeight: 'bold' }}>
-                    {(teachpoints.find(t => t.id === selectedTeachpointId)?.name) || selectedTeachpointId}
-                  </div>
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Regrip Station</div>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ddd' }}>
-                    <input
-                      type="checkbox"
-                      checked={!!tpFeatures.regrip_station}
-                      onChange={(e) => setTpFeatures(p => ({ ...p, regrip_station: e.target.checked }))}
-                    />
-                    Enabled
-                  </label>
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Grip Orientation</div>
-                  <select
-                    value={tpFeatures.grip_orientation}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, grip_orientation: e.target.value }))}
-                    style={{ ...selectStyle, width: '100%' }}
-                  >
-                    <option value="landscape">Landscape</option>
-                    <option value="portrait">Portrait</option>
-                  </select>
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Access</div>
-                  <select
-                    value={tpFeatures.access}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
-                    style={{ ...selectStyle, width: '100%' }}
-                  >
-                    <option value="vertical">Vertical</option>
-                    <option value="horizontal">Horizontal</option>
-                  </select>
-                </div>
-
-                <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Approach Values (mm)</div>
-                <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Tangent Approach</div>
-                  <input
-                    type="number"
-                    step="0.001"
-                    value={tpFeatures.tangent_approach_mm}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, tangent_approach_mm: e.target.value }))}
-                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                    placeholder="e.g. 160.0"
-                  />
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Above</div>
-                  <input
-                    type="number"
-                    step="0.001"
-                    value={tpFeatures.z_above_mm}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, z_above_mm: e.target.value }))}
-                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                    placeholder="vertical access only"
-                  />
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Grasp Offset (min)</div>
-                  <input
-                    type="number"
-                    step="0.001"
-                    value={tpFeatures.z_grasp_offset_min_mm}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_min_mm: e.target.value }))}
-                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                    placeholder="e.g. 0"
-                  />
-
-                  <div style={{ color: '#bbb', textAlign: 'right' }}>Z Grasp Offset (max)</div>
-                  <input
-                    type="number"
-                    step="0.001"
-                    value={tpFeatures.z_grasp_offset_max_mm}
-                    onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_max_mm: e.target.value }))}
-                    style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                    placeholder="e.g. 10"
-                  />
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
-                  <button
-                    onClick={saveTeachpointFeatures}
-                    style={{ padding: '6px 12px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
-                  >
-                    Save Features
-                  </button>
-                </div>
+            {/* Teachpoints dropdown + selected teachpoint details */}
+            <div style={{ background: '#111', borderRadius: 8, padding: 10, border: '1px solid #333' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+                <div style={{ color: '#bbb', textAlign: 'right' }}>Teachpoint</div>
+                <select
+                  value={selectedTeachpointId}
+                  onChange={(e) => {
+                    const id = e.target.value
+                    setSelectedTeachpointId(id)
+                  }}
+                  style={{ ...selectStyle, width: '100%' }}
+                >
+                  {teachpoints.length === 0 ? (
+                    <option value="">No teachpoints</option>
+                  ) : (
+                    teachpoints.map(tp => (
+                      <option key={tp.id} value={tp.id}>{tp.name}</option>
+                    ))
+                  )}
+                </select>
               </div>
-            )}
 
-            {/* Teachpoints list */}
-            <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
-              {teachpoints.length === 0 ? (
-                <div style={{ color: '#666', fontStyle: 'italic', textAlign: 'center', padding: 20 }}>
-                  No teachpoints saved yet
+              {!selectedTeachpoint ? (
+                <div style={{ color: '#666', fontStyle: 'italic', textAlign: 'center', padding: 10 }}>
+                  No teachpoint selected
                 </div>
               ) : (
-                teachpoints.map(tp => (
-                  <div key={tp.id} style={{
-                    background: '#222',
-                    borderRadius: 6,
-                    padding: 8,
-                    marginBottom: 6,
-                    border: tp.id === selectedTeachpointId ? '1px solid #52c41a' : '1px solid #333'
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontWeight: 'bold', color: '#fff' }}>
-                        {tp.name}
-                        {(tp.linked_to || tp.linked_from) && <span style={{ marginLeft: 4, color: '#52c41a' }}>🔗</span>}
-                      </span>
-                      <div style={{ display: 'flex', gap: 4 }}>
-                        <button
-                          onClick={() => moveToTeachpoint(tp)}
-                          title="Move to this position"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          Go
-                        </button>
-                        <button
-                          onClick={() => updateTeachpoint(tp)}
-                          title="Update with current position"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          📍
-                        </button>
-                        <button
-                          onClick={() => openTeachpointFeatures(tp)}
-                          title="Edit Orientation/Approach Features"
-                          style={{
-                            padding: '3px 8px',
-                            borderRadius: 4,
-                            background: tp.id === selectedTeachpointId ? '#237804' : '#555',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: 'pointer',
-                            fontSize: '0.85em'
-                          }}
-                        >
-                          ⚙️
-                        </button>
-                        <button
-                          onClick={() => startLinking(tp)}
-                          disabled={!reachableDevices.length}
-                          title={reachableDevices.length ? "Link this teachpoint to another device" : "No reachable devices available"}
-                          style={{
-                            padding: '3px 8px',
-                            borderRadius: 4,
-                            background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#722ed1') : '#444',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
-                            fontSize: '0.85em'
-                          }}
-                        >
-                          {linkingTeachpoint?.id === tp.id ? '🔗' : 'Link'}
-                        </button>
-                        <button
-                          onClick={() => renameTeachpoint(tp)}
-                          title="Rename teachpoint"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          onClick={() => deleteTeachpoint(tp)}
-                          title="Delete teachpoint"
-                          style={{ padding: '3px 8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.85em' }}
-                        >
-                          🗑️
-                        </button>
-                      </div>
+                <>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <div style={{ fontWeight: 'bold', color: '#fff' }}>
+                      {selectedTeachpoint.name}
+                      {(selectedTeachpoint.linked_to || selectedTeachpoint.linked_from) && <span style={{ marginLeft: 6, color: '#52c41a' }}>🔗 linked</span>}
                     </div>
-                    {/* Coordinates display */}
-                    <div style={{ fontSize: '0.7em', color: '#888', fontFamily: 'monospace' }}>
-                      {tp.cartesian && (
-                        <div>XYZ: {tp.cartesian.x?.toFixed(1)}, {tp.cartesian.y?.toFixed(1)}, {tp.cartesian.z?.toFixed(1)} mm</div>
-                      )}
-                      {tp.joints && (
-                        <div>J: [{tp.joints.slice(0, 4).map(j => j?.toFixed(1)).join(', ')}]</div>
-                      )}
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <button
+                        onClick={() => moveToTeachpoint(selectedTeachpoint)}
+                        title="Move to this position"
+                        style={{ padding: '4px 10px', borderRadius: 4, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                      >
+                        Go
+                      </button>
+                      <button
+                        onClick={() => updateTeachpoint(selectedTeachpoint)}
+                        title="Update with current position"
+                        style={{ padding: '4px 10px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={startLinkingSelectedTeachpoint}
+                        disabled={!reachableDevices.length}
+                        title={reachableDevices.length ? "Start linking this teachpoint to another device" : "No reachable devices available"}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 4,
+                          background: reachableDevices.length ? (linkingTeachpoint?.id === selectedTeachpoint.id ? '#faad14' : '#722ed1') : '#444',
+                          color: '#fff',
+                          border: 'none',
+                          cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
+                          fontWeight: 'bold'
+                        }}
+                      >
+                        {linkingTeachpoint?.id === selectedTeachpoint.id ? 'Linking…' : 'Link'}
+                      </button>
+                      <button
+                        onClick={() => renameTeachpoint(selectedTeachpoint)}
+                        title="Rename teachpoint"
+                        style={{ padding: '4px 10px', borderRadius: 4, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                      >
+                        Rename
+                      </button>
+                      <button
+                        onClick={() => deleteTeachpoint(selectedTeachpoint)}
+                        title="Delete teachpoint"
+                        style={{ padding: '4px 10px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                      >
+                        Delete
+                      </button>
                     </div>
+                  </div>
 
-                    {/* Features summary */}
-                    {tp.features && (
-                      <div style={{ fontSize: '0.75em', color: '#bbb', marginTop: 6, textAlign: 'left' }}>
-                        <span style={{ color: '#888' }}>Features:</span> {formatTeachpointFeaturesSummary(tp.features) || '—'}
-                      </div>
+                  <div style={{ fontSize: '0.8em', color: '#bbb', fontFamily: 'monospace' }}>
+                    {selectedTeachpoint.cartesian && (
+                      <div>XYZ: {selectedTeachpoint.cartesian.x?.toFixed(1)}, {selectedTeachpoint.cartesian.y?.toFixed(1)}, {selectedTeachpoint.cartesian.z?.toFixed(1)} mm</div>
+                    )}
+                    {selectedTeachpoint.joints && (
+                      <div>J: [{selectedTeachpoint.joints.slice(0, 6).map(j => j?.toFixed(1)).join(', ')}]</div>
                     )}
                   </div>
-                ))
+
+                  {/* Inline features editor (always visible) */}
+                  <div style={{ marginTop: 10, background: '#0e0e14', borderRadius: 8, padding: 10, border: '1px solid #333' }}>
+                    <div style={{ fontWeight: 'bold', color: '#ddd', marginBottom: 8 }}>Orientation Features</div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
+                      <div style={{ color: '#bbb', textAlign: 'right' }}>Regrip Station</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ddd' }}>
+                        <input
+                          type="checkbox"
+                          checked={!!tpFeatures.regrip_station}
+                          onChange={(e) => setTpFeatures(p => ({ ...p, regrip_station: e.target.checked }))}
+                        />
+                        <span>Enabled</span>
+                      </div>
+
+                      <HoverPopover content={<HelpGripOrientation />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Grip Orientation
+                        </div>
+                      </HoverPopover>
+                      <select
+                        value={tpFeatures.grip_orientation}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, grip_orientation: e.target.value }))}
+                        style={{ ...selectStyle, width: '100%' }}
+                      >
+                        <option value="landscape">Landscape</option>
+                        <option value="portrait">Portrait</option>
+                      </select>
+
+                      <HoverPopover content={<HelpAccess />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Access
+                        </div>
+                      </HoverPopover>
+                      <select
+                        value={tpFeatures.access}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
+                        style={{ ...selectStyle, width: '100%' }}
+                      >
+                        <option value="vertical">Vertical</option>
+                        <option value="horizontal">Horizontal</option>
+                      </select>
+                    </div>
+
+                    <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Approach Values (mm)</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
+                      <HoverPopover content={<HelpTangentApproach />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Tangent Approach
+                        </div>
+                      </HoverPopover>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={tpFeatures.tangent_approach_mm}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, tangent_approach_mm: e.target.value }))}
+                        style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                        placeholder="e.g. 160.0"
+                      />
+
+                      <HoverPopover content={<HelpZAboveAndOffset />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Z Above
+                        </div>
+                      </HoverPopover>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={tpFeatures.z_above_mm}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, z_above_mm: e.target.value }))}
+                        style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                        placeholder="vertical access only"
+                      />
+
+                      <HoverPopover content={<HelpZAboveAndOffset />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Z Grasp Offset (min)
+                        </div>
+                      </HoverPopover>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={tpFeatures.z_grasp_offset_min_mm}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_min_mm: e.target.value }))}
+                        style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                        placeholder="e.g. 0"
+                      />
+
+                      <HoverPopover content={<HelpZAboveAndOffset />} width={520}>
+                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                          Z Grasp Offset (max)
+                        </div>
+                      </HoverPopover>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={tpFeatures.z_grasp_offset_max_mm}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_max_mm: e.target.value }))}
+                        style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
+                        placeholder="e.g. 10"
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
+                      <button
+                        onClick={saveTeachpointFeatures}
+                        style={{ padding: '6px 12px', borderRadius: 4, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                      >
+                        Save Features
+                      </button>
+                    </div>
+                  </div>
+
+                </>
               )}
             </div>
           </div>
