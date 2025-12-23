@@ -472,6 +472,7 @@ class WellDimensionsMM(BaseModel):
     # Keep intentionally flexible; different plates specify different params
     diameter_mm: Optional[float] = None
     depth_mm: Optional[float] = None
+    volume_ul: Optional[float] = None
     spacing_x_mm: Optional[float] = None
     spacing_y_mm: Optional[float] = None
     offset_x_mm: Optional[float] = None
@@ -480,6 +481,11 @@ class WellDimensionsMM(BaseModel):
     cols: Optional[int] = None
     well_geometry: Optional[int] = None
     well_bottom_shape: Optional[int] = None
+
+    # Tip parameters (used by plate-def.PNG)
+    tip_source: Optional[str] = None  # agilent|third_party
+    disposable_tip_capacity_ul: Optional[float] = None
+    disposable_tip_length_mm: Optional[float] = None
 
 
 class LabwareTypeCreateRequest(BaseModel):

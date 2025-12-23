@@ -140,6 +140,13 @@ def _map_handling_speed(v: Optional[int]) -> Optional[str]:
     return {0: "slow", 1: "medium", 2: "fast"}.get(v, None)
 
 
+def _map_tip_source(v: Optional[int]) -> Optional[str]:
+    # Best-effort: most files seem to use TIPBOX_SOURCE="1"
+    if v is None:
+        return None
+    return "agilent" if v == 1 else "third_party"
+
+
 def pick_one_dat(subdir: Optional[str] = None, seed: Optional[int] = None) -> Path:
     if not LABWARE_ROOT.exists():
         raise SystemExit(f"Labware root not found: {LABWARE_ROOT}")
@@ -218,6 +225,17 @@ def main():
     off_y_mm = _to_float(meta, "Y_TEACHPOINT_TO_WELL")
     well_geom = _to_int(meta, "WELL_GEOMETRY")
     well_bottom = _to_int(meta, "WELL_BOTTOM_SHAPE")
+    well_volume_ul = _to_float(meta, "WELL_TIP_VOLUME")
+
+    tipbox_source = _to_int(meta, "TIPBOX_SOURCE")
+    tip_source = _map_tip_source(tipbox_source)
+    # VWorks stores both TIP_CAPACITY and 3RD_PARTY_TIP_CAPACITY; we choose based on source.
+    tip_capacity_ul = None
+    if tip_source == "third_party":
+        tip_capacity_ul = _to_float(meta, "3RD_PARTY_TIP_CAPACITY") or _to_float(meta, "TIP_CAPACITY")
+    else:
+        tip_capacity_ul = _to_float(meta, "TIP_CAPACITY") or _to_float(meta, "3RD_PARTY_TIP_CAPACITY")
+    disposable_tip_length_mm = _to_float(meta, "DISPOSABLE_TIP_LENGTH")
 
     description = (meta.get("DESCRIPTION") or "").strip()
     image_filename = (meta.get("IMAGE_FILENAME") or "").strip()
@@ -264,6 +282,7 @@ def main():
         "well_dimensions_mm": {
             "diameter_mm": well_diam_mm,
             "depth_mm": well_depth_mm,
+            "volume_ul": well_volume_ul,
             "spacing_x_mm": pitch_x_mm,
             "spacing_y_mm": pitch_y_mm,
             "offset_x_mm": off_x_mm,
@@ -272,6 +291,9 @@ def main():
             "cols": cols,
             "well_geometry": well_geom,
             "well_bottom_shape": well_bottom,
+            "tip_source": tip_source,
+            "disposable_tip_capacity_ul": tip_capacity_ul,
+            "disposable_tip_length_mm": disposable_tip_length_mm,
         },
         "model_3d": None,
         "notes": "Seeded from VWorks .dat; verify dimensions + map geometry/base class enums.",

@@ -92,6 +92,7 @@ function LabwareDashboard() {
   }), [])
 
   const label = useMemo(() => ({ fontSize: '0.85em', color: '#bbb', marginBottom: 6, fontWeight: 'bold' }), [])
+  const fieldLabel = useMemo(() => ({ color: '#bbb', textAlign: 'right' }), [])
 
   const fetchAll = async () => {
     try {
@@ -247,6 +248,89 @@ function LabwareDashboard() {
     setPpRequiresInsert(pp.requires_insert || 'None')
   }, [selectedTypeId])
 
+  // -------- Pipette/Well Definition tab state (editable) --------
+  const [wdVolumeUl, setWdVolumeUl] = useState('')
+  const [wdDepthMm, setWdDepthMm] = useState('')
+  const [wdDiameterMm, setWdDiameterMm] = useState('')
+  const [wdOffsetX, setWdOffsetX] = useState('')
+  const [wdOffsetY, setWdOffsetY] = useState('')
+  const [wdPitchX, setWdPitchX] = useState('')
+  const [wdPitchY, setWdPitchY] = useState('')
+  const [wdGeometry, setWdGeometry] = useState(1) // 1=round, 2=square
+  const [wdBottomShape, setWdBottomShape] = useState(2) // 1=rounded, 2=flat, 3=v-shaped
+
+  const [tipSource, setTipSource] = useState('agilent') // agilent | third_party
+  const [tipCapacityUl, setTipCapacityUl] = useState(10)
+  const [thirdPartyTipCapacityUl, setThirdPartyTipCapacityUl] = useState('')
+  const [disposableTipLengthMm, setDisposableTipLengthMm] = useState('')
+
+  useEffect(() => {
+    if (!selectedType) return
+    const wd = selectedType.well_dimensions_mm || {}
+    const f = (v) => (v === null || v === undefined) ? '' : String(v)
+    setWdVolumeUl(f(wd.volume_ul))
+    setWdDepthMm(f(wd.depth_mm))
+    setWdDiameterMm(f(wd.diameter_mm))
+    setWdOffsetX(f(wd.offset_x_mm))
+    setWdOffsetY(f(wd.offset_y_mm))
+    setWdPitchX(f(wd.spacing_x_mm))
+    setWdPitchY(f(wd.spacing_y_mm))
+    setWdGeometry(Number(wd.well_geometry || 1))
+    setWdBottomShape(Number(wd.well_bottom_shape || 2))
+
+    setTipSource(wd.tip_source || 'agilent')
+    const cap = wd.disposable_tip_capacity_ul
+    setTipCapacityUl(Number.isFinite(Number(cap)) ? Number(cap) : 10)
+    setThirdPartyTipCapacityUl(f(cap))
+    setDisposableTipLengthMm(f(wd.disposable_tip_length_mm))
+  }, [selectedTypeId])
+
+  const saveWellDefinition = async () => {
+    if (!selectedType) return
+    setBusy(true)
+    try {
+      const n = (s) => {
+        const t = String(s ?? '').trim()
+        if (t === '') return null
+        const v = Number(t)
+        return Number.isFinite(v) ? v : null
+      }
+
+      const capacity = tipSource === 'third_party' ? n(thirdPartyTipCapacityUl) : Number(tipCapacityUl)
+
+      const payload = {
+        well_dimensions_mm: {
+          ...(selectedType.well_dimensions_mm || {}),
+          volume_ul: n(wdVolumeUl),
+          depth_mm: n(wdDepthMm),
+          diameter_mm: n(wdDiameterMm),
+          offset_x_mm: n(wdOffsetX),
+          offset_y_mm: n(wdOffsetY),
+          spacing_x_mm: n(wdPitchX),
+          spacing_y_mm: n(wdPitchY),
+          well_geometry: Number(wdGeometry),
+          well_bottom_shape: Number(wdBottomShape),
+          tip_source: tipSource,
+          disposable_tip_capacity_ul: capacity,
+          disposable_tip_length_mm: n(disposableTipLengthMm),
+        }
+      }
+
+      const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.detail || 'Failed to save well definition')
+      await fetchAll()
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setBusy(false)
+    }
+  }
+
   const savePlateProperties = async () => {
     if (!selectedType) return
     setBusy(true)
@@ -361,27 +445,71 @@ function LabwareDashboard() {
     }
   }
 
-  // Membership editing on class screen (matches screenshot)
-  const classMembers = useMemo(() => {
+  // Membership editing on class screen (replicate classes.PNG):
+  // stage changes locally, then commit via Save changes.
+  const actualMemberIds = useMemo(() => {
     if (!selectedClass) return []
     const cid = selectedClass.labware_class_id
-    return labwareTypes.filter(t => (t.labware_class_ids || []).includes(cid)).sort(sortByName)
+    return labwareTypes
+      .filter(t => (t.labware_class_ids || []).includes(cid))
+      .map(t => t.labware_type_id)
+      .sort()
   }, [labwareTypes, selectedClass])
 
-  const classNonMembers = useMemo(() => {
-    if (!selectedClass) return labwareTypes.slice().sort(sortByName)
-    const cid = selectedClass.labware_class_id
-    return labwareTypes.filter(t => !(t.labware_class_ids || []).includes(cid)).sort(sortByName)
-  }, [labwareTypes, selectedClass])
-
+  const [stagedMemberIds, setStagedMemberIds] = useState([])
   const [pickedNonMembers, setPickedNonMembers] = useState([])
   const [pickedMembers, setPickedMembers] = useState([])
 
   useEffect(() => {
-    // reset list selections when switching class
+    // reset when switching class
     setPickedNonMembers([])
     setPickedMembers([])
-  }, [selectedClassId])
+    setStagedMemberIds(actualMemberIds)
+  }, [selectedClassId, actualMemberIds.join('|')])
+
+  const stagedMemberSet = useMemo(() => new Set(stagedMemberIds), [stagedMemberIds])
+  const hasUnsavedMembershipChanges = useMemo(() => {
+    const a = actualMemberIds.join('|')
+    const b = stagedMemberIds.slice().sort().join('|')
+    return a !== b
+  }, [actualMemberIds, stagedMemberIds])
+
+  const classMembers = useMemo(() => {
+    return labwareTypes
+      .filter(t => stagedMemberSet.has(t.labware_type_id))
+      .slice()
+      .sort(sortByName)
+  }, [labwareTypes, stagedMemberSet])
+
+  const classNonMembers = useMemo(() => {
+    return labwareTypes
+      .filter(t => !stagedMemberSet.has(t.labware_type_id))
+      .slice()
+      .sort(sortByName)
+  }, [labwareTypes, stagedMemberSet])
+
+  const addSelectedToStaged = () => {
+    if (pickedNonMembers.length === 0) return
+    setStagedMemberIds(prev => uniq([...prev, ...pickedNonMembers]))
+    setPickedNonMembers([])
+  }
+
+  const removeSelectedFromStaged = () => {
+    if (pickedMembers.length === 0) return
+    const remove = new Set(pickedMembers)
+    setStagedMemberIds(prev => prev.filter(id => !remove.has(id)))
+    setPickedMembers([])
+  }
+
+  const addAllToStaged = () => {
+    setStagedMemberIds(labwareTypes.map(t => t.labware_type_id))
+    setPickedNonMembers([])
+  }
+
+  const removeAllFromStaged = () => {
+    setStagedMemberIds([])
+    setPickedMembers([])
+  }
 
   const patchTypeClasses = async (typeId, newClassIds) => {
     const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(typeId)}`, {
@@ -394,16 +522,24 @@ function LabwareDashboard() {
     return data.labware_type
   }
 
-  const addSelectedToClass = async () => {
+  const saveClassMembership = async () => {
     if (!selectedClass) return
     const cid = selectedClass.labware_class_id
     setBusy(true)
     try {
-      for (const tid of pickedNonMembers) {
-        const t = labwareTypes.find(x => x.labware_type_id === tid)
-        const cur = t?.labware_class_ids || []
-        const next = uniq([...(cur || []), cid])
-        await patchTypeClasses(tid, next)
+      const desired = new Set(stagedMemberIds)
+      const updates = []
+      for (const t of labwareTypes) {
+        const cur = new Set(t.labware_class_ids || [])
+        const shouldHave = desired.has(t.labware_type_id)
+        const has = cur.has(cid)
+        if (shouldHave === has) continue
+        if (shouldHave) cur.add(cid)
+        else cur.delete(cid)
+        updates.push({ id: t.labware_type_id, classIds: Array.from(cur) })
+      }
+      for (const u of updates) {
+        await patchTypeClasses(u.id, u.classIds)
       }
       await fetchAll()
     } catch (e) {
@@ -413,18 +549,35 @@ function LabwareDashboard() {
     }
   }
 
-  const removeSelectedFromClass = async () => {
+  const saveClassAs = async () => {
     if (!selectedClass) return
-    const cid = selectedClass.labware_class_id
+    const nextName = prompt('Save changes as (new class name):', `${selectedClass.name}-copy`)
+    if (!nextName || !nextName.trim()) return
     setBusy(true)
     try {
-      for (const tid of pickedMembers) {
-        const t = labwareTypes.find(x => x.labware_type_id === tid)
-        const cur = t?.labware_class_ids || []
-        const next = (cur || []).filter(x => x !== cid)
-        await patchTypeClasses(tid, next)
+      // create new class
+      const res = await fetch(`${API_URL}/labware/classes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nextName.trim(), description: '' })
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.detail || 'Failed to create labware class')
+      const newCid = data?.labware_class?.labware_class_id
+      if (!newCid) throw new Error('Created labware class missing id')
+
+      // apply membership for new class to the staged members only (do not alter original class)
+      const desired = new Set(stagedMemberIds)
+      for (const t of labwareTypes) {
+        if (!desired.has(t.labware_type_id)) continue
+        const cur = new Set(t.labware_class_ids || [])
+        if (cur.has(newCid)) continue
+        cur.add(newCid)
+        await patchTypeClasses(t.labware_type_id, Array.from(cur))
       }
+
       await fetchAll()
+      setSelectedClassId(newCid)
     } catch (e) {
       setError(e.message || String(e))
     } finally {
@@ -596,43 +749,43 @@ function LabwareDashboard() {
                       <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
                         <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Plate Properties</div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 140px', gap: 10, alignItems: 'center' }}>
-                          <div style={{ color: '#bbb' }}>Robot gripper offset (mm)</div>
+                          <div style={fieldLabel}>Robot gripper offset (mm)</div>
                           <input value={ppRobotGripperOffset} onChange={(e) => setPpRobotGripperOffset(e.target.value)} style={input} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Empty check offset (mm)</div>
+                          <div style={fieldLabel}>Empty check offset (mm)</div>
                           <input value={ppEmptyCheckOffset} onChange={(e) => setPpEmptyCheckOffset(e.target.value)} style={input} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Thickness (mm)</div>
+                          <div style={fieldLabel}>Thickness (mm)</div>
                           <input value={ppThickness} onChange={(e) => setPpThickness(e.target.value)} style={input} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Stacking thickness (mm)</div>
+                          <div style={fieldLabel}>Stacking thickness (mm)</div>
                           <input value={ppStackingThickness} onChange={(e) => setPpStackingThickness(e.target.value)} style={input} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Shim/nesting thickness (mm)</div>
+                          <div style={fieldLabel}>Shim/nesting thickness (mm)</div>
                           <input value={ppShimThickness} onChange={(e) => setPpShimThickness(e.target.value)} style={input} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Can be sealed?</div>
+                          <div style={fieldLabel}>Can be sealed?</div>
                           <input type="checkbox" checked={ppCanBeSealed} onChange={(e) => setPpCanBeSealed(e.target.checked)} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Sealed thickness (mm)</div>
+                          <div style={fieldLabel}>Sealed thickness (mm)</div>
                           <input value={ppSealedThickness} onChange={(e) => setPpSealedThickness(e.target.value)} style={input} disabled={busy || !ppCanBeSealed} />
 
-                          <div style={{ color: '#bbb' }}>Sealed stacking thickness (mm)</div>
+                          <div style={fieldLabel}>Sealed stacking thickness (mm)</div>
                           <input value={ppSealedStackingThickness} onChange={(e) => setPpSealedStackingThickness(e.target.value)} style={input} disabled={busy || !ppCanBeSealed} />
 
-                          <div style={{ color: '#bbb' }}>Can have lid?</div>
+                          <div style={fieldLabel}>Can have lid?</div>
                           <input type="checkbox" checked={ppCanHaveLid} onChange={(e) => setPpCanHaveLid(e.target.checked)} disabled={busy} />
 
-                          <div style={{ color: '#bbb' }}>Lidded thickness (mm)</div>
+                          <div style={fieldLabel}>Lidded thickness (mm)</div>
                           <input value={ppLiddedThickness} onChange={(e) => setPpLiddedThickness(e.target.value)} style={input} disabled={busy || !ppCanHaveLid} />
 
-                          <div style={{ color: '#bbb' }}>Lidded stacking thickness (mm)</div>
+                          <div style={fieldLabel}>Lidded stacking thickness (mm)</div>
                           <input value={ppLiddedStackingThickness} onChange={(e) => setPpLiddedStackingThickness(e.target.value)} style={input} disabled={busy || !ppCanHaveLid} />
 
-                          <div style={{ color: '#bbb' }}>Lid resting height (mm)</div>
+                          <div style={fieldLabel}>Lid resting height (mm)</div>
                           <input value={ppLidRestingHeight} onChange={(e) => setPpLidRestingHeight(e.target.value)} style={input} disabled={busy || !ppCanHaveLid} />
 
-                          <div style={{ color: '#bbb' }}>Lid departure height (mm)</div>
+                          <div style={fieldLabel}>Lid departure height (mm)</div>
                           <input value={ppLidDepartureHeight} onChange={(e) => setPpLidDepartureHeight(e.target.value)} style={input} disabled={busy || !ppCanHaveLid} />
                         </div>
                       </div>
@@ -679,9 +832,9 @@ function LabwareDashboard() {
                         <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
                           <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Miscellaneous</div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 140px', gap: 10, alignItems: 'center' }}>
-                            <div style={{ color: '#bbb' }}>Length of filter tip/pin tool (mm)</div>
+                            <div style={fieldLabel}>Length of filter tip/pin tool (mm)</div>
                             <input value={ppFilterTipPinToolLength} onChange={(e) => setPpFilterTipPinToolLength(e.target.value)} style={input} disabled={busy} />
-                            <div style={{ color: '#bbb' }}>Filter channel resting depth (mm)</div>
+                            <div style={fieldLabel}>Filter channel resting depth (mm)</div>
                             <input value={ppFilterChannelRestingDepth} onChange={(e) => setPpFilterChannelRestingDepth(e.target.value)} style={input} disabled={busy} />
                           </div>
 
@@ -701,7 +854,105 @@ function LabwareDashboard() {
                     </div>
                   </div>
                 ) : entryTab === 'pipette' ? (
-                  <div style={{ marginTop: 14, color: '#888' }}>Next: replicate “Pipette/Well Definition”.</div>
+                  <div style={{ marginTop: 14 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                      {/* Well Dimensions */}
+                      <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                        <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Well Dimensions</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: 10, alignItems: 'center' }}>
+                          <div style={fieldLabel}>Well volume (uL)</div>
+                          <input value={wdVolumeUl} onChange={(e) => setWdVolumeUl(e.target.value)} style={input} disabled={busy} />
+                          <div style={fieldLabel}>Well depth (mm)</div>
+                          <input value={wdDepthMm} onChange={(e) => setWdDepthMm(e.target.value)} style={input} disabled={busy} />
+                          <div style={fieldLabel}>Well diameter (mm)</div>
+                          <input value={wdDiameterMm} onChange={(e) => setWdDiameterMm(e.target.value)} style={input} disabled={busy} />
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 14 }}>
+                          <div style={{ border: '1px solid #333', borderRadius: 12, padding: 12 }}>
+                            <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 8 }}>Well Geometry</div>
+                            <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd', marginBottom: 8 }}>
+                              <input type="radio" name="well_geom" checked={Number(wdGeometry) === 1} onChange={() => setWdGeometry(1)} disabled={busy} />
+                              Round
+                            </label>
+                            <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd' }}>
+                              <input type="radio" name="well_geom" checked={Number(wdGeometry) === 2} onChange={() => setWdGeometry(2)} disabled={busy} />
+                              Square
+                            </label>
+                          </div>
+
+                          <div style={{ border: '1px solid #333', borderRadius: 12, padding: 12 }}>
+                            <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 8 }}>Well-Bottom Shape</div>
+                            <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd', marginBottom: 8 }}>
+                              <input type="radio" name="well_bottom" checked={Number(wdBottomShape) === 1} onChange={() => setWdBottomShape(1)} disabled={busy} />
+                              Rounded
+                            </label>
+                            <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd', marginBottom: 8 }}>
+                              <input type="radio" name="well_bottom" checked={Number(wdBottomShape) === 2} onChange={() => setWdBottomShape(2)} disabled={busy} />
+                              Flat
+                            </label>
+                            <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd' }}>
+                              <input type="radio" name="well_bottom" checked={Number(wdBottomShape) === 3} onChange={() => setWdBottomShape(3)} disabled={busy} />
+                              V-Shaped
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Well Positions + Tip Parameters */}
+                      <div style={{ display: 'grid', gap: 14 }}>
+                        <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                          <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Well Positions</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: 10, alignItems: 'center' }}>
+                            <div style={fieldLabel}>Row-wise teachpoint to well (mm)</div>
+                            <input value={wdOffsetX} onChange={(e) => setWdOffsetX(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Column-wise teachpoint to well (mm)</div>
+                            <input value={wdOffsetY} onChange={(e) => setWdOffsetY(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Row-wise well to well (mm)</div>
+                            <input value={wdPitchX} onChange={(e) => setWdPitchX(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Column-wise well to well (mm)</div>
+                            <input value={wdPitchY} onChange={(e) => setWdPitchY(e.target.value)} style={input} disabled={busy} />
+                          </div>
+                        </div>
+
+                        <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                          <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Tip Parameters</div>
+                          <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd', marginBottom: 8 }}>
+                            <input type="radio" name="tip_source" checked={tipSource === 'agilent'} onChange={() => setTipSource('agilent')} disabled={busy} />
+                            Agilent Technologies tip box
+                          </label>
+                          {tipSource === 'agilent' && (
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+                              <div style={fieldLabel}>Disposable tip capacity (uL)</div>
+                              <select value={tipCapacityUl} onChange={(e) => setTipCapacityUl(Number(e.target.value))} style={input} disabled={busy}>
+                                {[10, 50, 60, 200, 250, 300].map(v => <option key={v} value={v}>{v} uL</option>)}
+                              </select>
+                            </div>
+                          )}
+
+                          <label style={{ display: 'flex', gap: 10, alignItems: 'center', color: '#ddd', marginBottom: 8 }}>
+                            <input type="radio" name="tip_source" checked={tipSource === 'third_party'} onChange={() => setTipSource('third_party')} disabled={busy} />
+                            3rd party tip box
+                          </label>
+                          {tipSource === 'third_party' && (
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+                              <div style={fieldLabel}>Disposable tip capacity (uL)</div>
+                              <input value={thirdPartyTipCapacityUl} onChange={(e) => setThirdPartyTipCapacityUl(e.target.value)} style={input} disabled={busy} />
+                            </div>
+                          )}
+
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: 10, alignItems: 'center' }}>
+                            <div style={fieldLabel}>Disposable tip length (mm)</div>
+                            <input value={disposableTipLengthMm} onChange={(e) => setDisposableTipLengthMm(e.target.value)} style={input} disabled={busy} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+                          <SmallButton variant="primary" disabled={busy} onClick={saveWellDefinition}>Save changes</SmallButton>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : entryTab === 'classes' ? (
                   <div style={{ marginTop: 14, color: '#888' }}>Next: replicate per-entry “Labware Classes” membership editor.</div>
                 ) : (
@@ -772,6 +1023,15 @@ function LabwareDashboard() {
                 <div style={{ color: '#888', marginTop: 6 }}>
                   Move labware entries between the lists (this controls device-fit constraints later).
                 </div>
+                <div style={{ marginTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+                  <div style={{ color: hasUnsavedMembershipChanges ? '#faad14' : '#888', fontWeight: hasUnsavedMembershipChanges ? 'bold' : 'normal' }}>
+                    {hasUnsavedMembershipChanges ? 'Unsaved changes' : 'No unsaved changes'}
+                  </div>
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <SmallButton disabled={busy || !hasUnsavedMembershipChanges} onClick={saveClassMembership}>Save changes</SmallButton>
+                    <SmallButton disabled={busy} onClick={saveClassAs}>Save changes as…</SmallButton>
+                  </div>
+                </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 80px 1fr', gap: 12, marginTop: 14 }}>
                   <div>
@@ -790,8 +1050,10 @@ function LabwareDashboard() {
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10, justifyContent: 'center' }}>
-                    <SmallButton disabled={busy || pickedNonMembers.length === 0} onClick={addSelectedToClass}>&gt;</SmallButton>
-                    <SmallButton disabled={busy || pickedMembers.length === 0} onClick={removeSelectedFromClass}>&lt;</SmallButton>
+                    <SmallButton disabled={busy || classNonMembers.length === 0} onClick={addAllToStaged}>&gt;&gt;</SmallButton>
+                    <SmallButton disabled={busy || pickedNonMembers.length === 0} onClick={addSelectedToStaged}>&gt;</SmallButton>
+                    <SmallButton disabled={busy || pickedMembers.length === 0} onClick={removeSelectedFromStaged}>&lt;</SmallButton>
+                    <SmallButton disabled={busy || classMembers.length === 0} onClick={removeAllFromStaged}>&lt;&lt;</SmallButton>
                   </div>
 
                   <div>
@@ -819,6 +1081,9 @@ function LabwareDashboard() {
 }
 
 export default LabwareDashboard
+
+
+
 
 
 
