@@ -545,6 +545,23 @@ class PF400Driver:
         target_joint_angles: [j1_mm, j2_deg, j3_deg, j4_deg, j5_mm] or [j1, j2, j3, j4, j5, j6]
         """
         target_joint_angles = list(target_joint_angles)
+
+        def _axis_move_one(axis_idx: int, dest: float, prof: int) -> str:
+            """
+            Move a single axis and wait for completion.
+            Axis numbering follows controller docs: 1..N.
+            dest is in robot native units (mm for J1/J5/J6, degrees for J2-J4).
+            """
+            try:
+                cmd = f"MoveOneAxis {int(axis_idx)} {float(dest)} {int(prof)}"
+                print(f"Sending: {cmd}")
+                resp = self.send_command(cmd)
+                print(f"Response: {resp}")
+                self.await_movement_completion()
+                return resp
+            except Exception as e:
+                print(f"Error in MoveOneAxis axis={axis_idx}: {e}")
+                return "Error"
         
         # Get current joint states in robot units to fill in missing values
         raw_response = self.send_command("wherej")
@@ -563,6 +580,41 @@ class PF400Driver:
         if len(target_joint_angles) > 4 and abs(target_joint_angles[4]) < 0.1:
             target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
         
+        # SAFETY: ensure rail (J6) completes before anything else, then ensure J1 completes
+        # before the remaining joints. This reduces collision risk for PF400 on linear rail.
+        eps_mm = 0.05  # small threshold to avoid chattering on tiny diffs
+
+        # If there is a rail joint (SXL), move it first via MoveOneAxis.
+        if num_robot_joints >= 6 and len(target_joint_angles) >= 6:
+            try:
+                cur_j6 = float(current_raw[5])
+                tgt_j6 = float(target_joint_angles[5])
+                if abs(tgt_j6 - cur_j6) > eps_mm:
+                    r = _axis_move_one(6, tgt_j6, profile)
+                    if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
+                        return r
+                    # refresh current_raw after rail move
+                    raw_response = self.send_command("wherej")
+                    raw_joints = raw_response.split(" ")[1:]
+                    current_raw = [float(x) for x in raw_joints]
+            except Exception as e:
+                print(f"Warning: rail-first sequencing failed; falling back to movej. Error: {e}")
+
+        # Always move J1 before other joints.
+        try:
+            cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
+            tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
+            if abs(tgt_j1 - cur_j1) > eps_mm:
+                r = _axis_move_one(1, tgt_j1, profile)
+                if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
+                    return r
+                # refresh current_raw after J1 move
+                raw_response = self.send_command("wherej")
+                raw_joints = raw_response.split(" ")[1:]
+                current_raw = [float(x) for x in raw_joints]
+        except Exception as e:
+            print(f"Warning: J1-first sequencing failed; falling back to movej. Error: {e}")
+
         # Build command with ALL joint values (crucial for SXL with 6 joints!)
         move_command = (
             "movej" + " " + str(profile) + " " + " ".join(map(str, target_joint_angles))

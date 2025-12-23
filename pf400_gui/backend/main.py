@@ -1674,23 +1674,45 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     if req.place_teachpoint_id not in tps:
         raise HTTPException(status_code=404, detail="Place teachpoint not found")
 
-    def _move_tp(tp_id: str, profile: int):
-        tp = tps[tp_id]
-        joints = tp.get("joints") or None
+    def _tp_features(tp: Dict[str, Any]) -> Dict[str, Any]:
+        f = tp.get("features")
+        return f if isinstance(f, dict) else {}
+
+    def _tp_access(tp: Dict[str, Any]) -> str:
+        access = str(_tp_features(tp).get("access") or "").strip().lower()
+        return access if access in ("vertical", "horizontal") else "horizontal"
+
+    def _tp_z_above_mm(tp: Dict[str, Any]) -> float:
+        z = _tp_features(tp).get("z_above_mm")
+        if z is None:
+            return 0.0
+        try:
+            return float(_normalize_mm(z))
+        except Exception:
+            return 0.0
+
+    def _move_joints_raw(joints: List[float], profile: int, gripper_mm: Optional[float] = None):
         if not joints or len(joints) < 4:
-            raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has no joint data")
+            raise HTTPException(status_code=400, detail="Teachpoint has no joint data")
         j6_mm = joints[5] if len(joints) > 5 else None
         ok = robot_client.driver.move_to_joints_raw(
             j1_mm=joints[0],
             j2_deg=joints[1],
             j3_deg=joints[2],
             j4_deg=joints[3],
-            gripper_mm=None,  # will be overridden below by explicit set_gripper calls
+            gripper_mm=gripper_mm,
             j6_mm=j6_mm,
             profile=profile,
         )
         if not ok:
-            raise HTTPException(status_code=500, detail=f"Move to teachpoint '{tp_id}' failed")
+            raise HTTPException(status_code=500, detail="Move failed")
+
+    def _move_tp(tp_id: str, profile: int):
+        tp = tps[tp_id]
+        joints = tp.get("joints") or None
+        if not joints or len(joints) < 4:
+            raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has no joint data")
+        _move_joints_raw(joints, profile, gripper_mm=None)
 
     def _set_grip(mm: float, profile: int):
         # Reuse absolute gripper set logic by calling driver with current joints.
@@ -1726,34 +1748,105 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     pause = max(0.0, float(req.pause_seconds or 0.0))
     steps: List[Dict[str, Any]] = []
 
+    pick_tp = tps[req.pick_teachpoint_id]
+    place_tp = tps[req.place_teachpoint_id]
+    pick_access = _tp_access(pick_tp)
+    place_access = _tp_access(place_tp)
+    pick_z_above = max(0.0, _tp_z_above_mm(pick_tp))
+    place_z_above = max(0.0, _tp_z_above_mm(place_tp))
+
+    def _tp_joints(tp_id: str) -> List[float]:
+        tp = tps[tp_id]
+        joints = tp.get("joints") or None
+        if not joints or len(joints) < 4:
+            raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has no joint data")
+        return list(joints)
+
+    def _joints_with_z_above(joints: List[float], z_above_mm: float) -> List[float]:
+        j = list(joints)
+        j[0] = float(j[0]) + float(z_above_mm)
+        return j
+
     # Sequence (with pauses + observed gripper values for debugging/visibility)
-    steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
-    _set_grip(float(open_mm), req.speed_no_plate)
-    time.sleep(pause)
-    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+    if pick_access == "vertical" and pick_z_above > 0:
+        pick_j = _tp_joints(req.pick_teachpoint_id)
+        pick_above = _joints_with_z_above(pick_j, pick_z_above)
 
-    steps.append({"step": "move_pick", "teachpoint_id": req.pick_teachpoint_id})
-    _move_tp(req.pick_teachpoint_id, req.speed_no_plate)
-    time.sleep(pause)
+        steps.append({"step": "move_pick_above", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above})
+        _move_joints_raw(pick_above, req.speed_no_plate, gripper_mm=None)
+        time.sleep(pause)
 
-    steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
-    _set_grip(float(closed_mm), req.speed_no_plate)
-    time.sleep(pause)
-    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+        steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(open_mm), req.speed_no_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
-    steps.append({"step": "move_place", "teachpoint_id": req.place_teachpoint_id})
-    _move_tp(req.place_teachpoint_id, req.speed_holding_plate)
-    time.sleep(pause)
+        steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id})
+        _move_joints_raw(pick_j, req.speed_no_plate, gripper_mm=None)
+        time.sleep(pause)
 
-    steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
-    _set_grip(float(open_mm), req.speed_holding_plate)
-    time.sleep(pause)
-    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+        steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(closed_mm), req.speed_no_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+        steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above})
+        _move_joints_raw(pick_above, req.speed_no_plate, gripper_mm=None)
+        time.sleep(pause)
+    else:
+        steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(open_mm), req.speed_no_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+        steps.append({"step": "move_pick", "teachpoint_id": req.pick_teachpoint_id})
+        _move_tp(req.pick_teachpoint_id, req.speed_no_plate)
+        time.sleep(pause)
+
+        steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(closed_mm), req.speed_no_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+    # Place (vertical: approach above, descend, open, retract)
+    if place_access == "vertical" and place_z_above > 0:
+        place_j = _tp_joints(req.place_teachpoint_id)
+        place_above = _joints_with_z_above(place_j, place_z_above)
+
+        steps.append({"step": "move_place_above", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above})
+        _move_joints_raw(place_above, req.speed_holding_plate, gripper_mm=None)
+        time.sleep(pause)
+
+        steps.append({"step": "descend_to_place", "teachpoint_id": req.place_teachpoint_id})
+        _move_joints_raw(place_j, req.speed_holding_plate, gripper_mm=None)
+        time.sleep(pause)
+
+        steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(open_mm), req.speed_holding_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+        steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above})
+        _move_joints_raw(place_above, req.speed_holding_plate, gripper_mm=None)
+        time.sleep(pause)
+    else:
+        steps.append({"step": "move_place", "teachpoint_id": req.place_teachpoint_id})
+        _move_tp(req.place_teachpoint_id, req.speed_holding_plate)
+        time.sleep(pause)
+
+        steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+        _set_grip(float(open_mm), req.speed_holding_plate)
+        time.sleep(pause)
+        steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     return {
         "status": "success",
         "labware_type_id": req.labware_type_id,
         "orientation": orient,
+        "pick_access": pick_access,
+        "pick_z_above_mm": pick_z_above,
+        "place_access": place_access,
+        "place_z_above_mm": place_z_above,
         "open_mm": open_mm,
         "closed_mm": closed_mm,
         "pick_teachpoint_id": req.pick_teachpoint_id,
