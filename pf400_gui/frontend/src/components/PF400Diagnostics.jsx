@@ -35,8 +35,7 @@ function PF400Diagnostics() {
     access: 'vertical', // vertical|horizontal
     tangent_approach_mm: '',
     z_above_mm: '',
-    z_grasp_offset_min_mm: '',
-    z_grasp_offset_max_mm: '',
+    z_grasp_offset_range_mm: '', // "min-max" (string)
   })
 
   // Labware + Pick/Place
@@ -142,6 +141,36 @@ function PF400Diagnostics() {
     }
   }
 
+  const parseRangeMm = (raw) => {
+    const s = String(raw || '').trim()
+    if (!s) return { min: null, max: null }
+    // allow "3-10", "3 - 10", "3–10", "3 to 10"
+    const cleaned = s.replace(/\s+/g, ' ').replace(/to/gi, '-').replace(/[–—]/g, '-')
+    const parts = cleaned.split('-').map(p => p.trim()).filter(Boolean)
+    if (parts.length === 1) {
+      const v = Number(parts[0])
+      if (!Number.isFinite(v)) return { min: null, max: null }
+      return { min: v, max: v }
+    }
+    if (parts.length >= 2) {
+      const a = Number(parts[0])
+      const b = Number(parts[1])
+      if (!Number.isFinite(a) || !Number.isFinite(b)) return { min: null, max: null }
+      return { min: a, max: b }
+    }
+    return { min: null, max: null }
+  }
+
+  const formatRangeMm = (min, max) => {
+    const a = (min === null || min === undefined || min === '') ? null : Number(min)
+    const b = (max === null || max === undefined || max === '') ? null : Number(max)
+    if (!Number.isFinite(a) && !Number.isFinite(b)) return ''
+    if (Number.isFinite(a) && Number.isFinite(b)) return `${a}-${b}`
+    if (Number.isFinite(a)) return `${a}-${a}`
+    if (Number.isFinite(b)) return `${b}-${b}`
+    return ''
+  }
+
   const loadTeachpointFeaturesIntoForm = (tp) => {
     const f = tp?.features || {}
     setTpFeatures({
@@ -150,22 +179,22 @@ function PF400Diagnostics() {
       access: (f.access || 'vertical'),
       tangent_approach_mm: (f.tangent_approach_mm ?? ''),
       z_above_mm: (f.z_above_mm ?? ''),
-      z_grasp_offset_min_mm: (f.z_grasp_offset_min_mm ?? ''),
-      z_grasp_offset_max_mm: (f.z_grasp_offset_max_mm ?? ''),
+      z_grasp_offset_range_mm: formatRangeMm(f.z_grasp_offset_min_mm, f.z_grasp_offset_max_mm),
     })
   }
 
   const saveTeachpointFeatures = async () => {
     if (!selectedTeachpointId) return
     try {
+      const zRange = parseRangeMm(tpFeatures.z_grasp_offset_range_mm)
       const payload = {
         regrip_station: !!tpFeatures.regrip_station,
         grip_orientation: tpFeatures.grip_orientation,
         access: tpFeatures.access,
         tangent_approach_mm: tpFeatures.tangent_approach_mm === '' ? null : Number(tpFeatures.tangent_approach_mm),
         z_above_mm: tpFeatures.z_above_mm === '' ? null : Number(tpFeatures.z_above_mm),
-        z_grasp_offset_min_mm: tpFeatures.z_grasp_offset_min_mm === '' ? null : Number(tpFeatures.z_grasp_offset_min_mm),
-        z_grasp_offset_max_mm: tpFeatures.z_grasp_offset_max_mm === '' ? null : Number(tpFeatures.z_grasp_offset_max_mm),
+        z_grasp_offset_min_mm: zRange.min,
+        z_grasp_offset_max_mm: zRange.max,
       }
 
       const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/features`, {
@@ -536,7 +565,7 @@ function PF400Diagnostics() {
         onMouseEnter={() => { place(); setOpen(true) }}
         onMouseMove={() => { if (open) place() }}
         onMouseLeave={() => setOpen(false)}
-        style={{ display: 'block' }}
+        style={{ display: 'inline-block' }}
       >
         {children}
         {open && (
@@ -956,44 +985,50 @@ function PF400Diagnostics() {
                   <div style={{ marginTop: 10, background: '#0e0e14', borderRadius: 8, padding: 10, border: '1px solid #333' }}>
                     <div style={{ fontWeight: 'bold', color: '#ddd', marginBottom: 8 }}>Orientation Features</div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 160px 1fr 160px 1fr', gap: 8, alignItems: 'center' }}>
-                      <div style={{ color: '#bbb', textAlign: 'right' }}>Regrip Station</div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ddd' }}>
-                        <input
-                          type="checkbox"
-                          checked={!!tpFeatures.regrip_station}
-                          onChange={(e) => setTpFeatures(p => ({ ...p, regrip_station: e.target.checked }))}
-                        />
-                        <span>Enabled</span>
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <div style={{ width: 120, color: '#bbb', textAlign: 'right' }}>Regrip Station</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ddd' }}>
+                          <input
+                            type="checkbox"
+                            checked={!!tpFeatures.regrip_station}
+                            onChange={(e) => setTpFeatures(p => ({ ...p, regrip_station: e.target.checked }))}
+                          />
+                          <span>Enabled</span>
+                        </div>
                       </div>
 
-                      <HoverPopover content={<HelpGripOrientation />} width={520}>
-                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
-                          Grip Orientation
-                        </div>
-                      </HoverPopover>
-                      <select
-                        value={tpFeatures.grip_orientation}
-                        onChange={(e) => setTpFeatures(p => ({ ...p, grip_orientation: e.target.value }))}
-                        style={{ ...selectStyle, width: '100%' }}
-                      >
-                        <option value="landscape">Landscape</option>
-                        <option value="portrait">Portrait</option>
-                      </select>
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <HoverPopover content={<HelpGripOrientation />} width={520}>
+                          <div style={{ width: 120, color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                            Grip Orientation
+                          </div>
+                        </HoverPopover>
+                        <select
+                          value={tpFeatures.grip_orientation}
+                          onChange={(e) => setTpFeatures(p => ({ ...p, grip_orientation: e.target.value }))}
+                          style={{ ...selectStyle, width: 140, minWidth: 140 }}
+                        >
+                          <option value="landscape">Landscape</option>
+                          <option value="portrait">Portrait</option>
+                        </select>
+                      </div>
 
-                      <HoverPopover content={<HelpAccess />} width={520}>
-                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
-                          Access
-                        </div>
-                      </HoverPopover>
-                      <select
-                        value={tpFeatures.access}
-                        onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
-                        style={{ ...selectStyle, width: '100%' }}
-                      >
-                        <option value="vertical">Vertical</option>
-                        <option value="horizontal">Horizontal</option>
-                      </select>
+                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                        <HoverPopover content={<HelpAccess />} width={520}>
+                          <div style={{ width: 90, color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
+                            Access
+                          </div>
+                        </HoverPopover>
+                        <select
+                          value={tpFeatures.access}
+                          onChange={(e) => setTpFeatures(p => ({ ...p, access: e.target.value }))}
+                          style={{ ...selectStyle, width: 140, minWidth: 140 }}
+                        >
+                          <option value="vertical">Vertical</option>
+                          <option value="horizontal">Horizontal</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Approach Values (mm)</div>
@@ -1028,30 +1063,15 @@ function PF400Diagnostics() {
 
                       <HoverPopover content={<HelpZAboveAndOffset />} width={520}>
                         <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
-                          Z Grasp Offset (min)
+                          Z Grasp Offset Range
                         </div>
                       </HoverPopover>
                       <input
-                        type="number"
-                        step="0.001"
-                        value={tpFeatures.z_grasp_offset_min_mm}
-                        onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_min_mm: e.target.value }))}
+                        type="text"
+                        value={tpFeatures.z_grasp_offset_range_mm}
+                        onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_range_mm: e.target.value }))}
                         style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                        placeholder="e.g. 0"
-                      />
-
-                      <HoverPopover content={<HelpZAboveAndOffset />} width={520}>
-                        <div style={{ color: '#bbb', textAlign: 'right', cursor: 'help', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}>
-                          Z Grasp Offset (max)
-                        </div>
-                      </HoverPopover>
-                      <input
-                        type="number"
-                        step="0.001"
-                        value={tpFeatures.z_grasp_offset_max_mm}
-                        onChange={(e) => setTpFeatures(p => ({ ...p, z_grasp_offset_max_mm: e.target.value }))}
-                        style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
-                        placeholder="e.g. 10"
+                        placeholder="e.g. 3-10"
                       />
                     </div>
 
