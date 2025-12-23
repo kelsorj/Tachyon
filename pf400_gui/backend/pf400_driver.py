@@ -563,6 +563,22 @@ class PF400Driver:
                 print(f"Error in MoveOneAxis axis={axis_idx}: {e}")
                 return "Error"
         
+        def _movej_direct(full_target: list, prof: int) -> str:
+            """
+            Send a raw movej without any additional sequencing logic (used internally).
+            full_target must include all joints for the connected robot (5 for PF400, 6 for SXL).
+            """
+            try:
+                cmd = "movej" + " " + str(int(prof)) + " " + " ".join(map(str, full_target))
+                print(f"Sending: {cmd}")
+                resp = self.send_command(cmd)
+                print(f"Response: {resp}")
+                self.await_movement_completion()
+                return resp
+            except Exception as e:
+                print(f"Error in movej direct: {e}")
+                return "Error"
+
         # Get current joint states in robot units to fill in missing values
         raw_response = self.send_command("wherej")
         raw_joints = raw_response.split(" ")[1:]  # Skip status code
@@ -580,40 +596,101 @@ class PF400Driver:
         if len(target_joint_angles) > 4 and abs(target_joint_angles[4]) < 0.1:
             target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
         
-        # SAFETY: ensure rail (J6) completes before anything else, then ensure J1 completes
-        # before the remaining joints. This reduces collision risk for PF400 on linear rail.
-        eps_mm = 0.05  # small threshold to avoid chattering on tiny diffs
+        # SAFETY: PF400 on a rail needs careful sequencing to reduce collision risk.
+        #
+        # If a rail move (J6) is required, we:
+        #   1) Tuck the arm (J2/J3/J4) to a known safe pose
+        #   2) Move the rail (J6) and wait for completion
+        #   3) Move vertical (J1) and wait for completion
+        #   4) Finally, move the remaining joints to the requested target
+        #
+        # If no rail move is required, we still:
+        #   - Move J1 first, then the remaining joints
+        eps_mm = 0.05   # mm threshold for J1/J5/J6
+        eps_deg = 0.05  # deg threshold for J2/J3/J4
 
-        # If there is a rail joint (SXL), move it first via MoveOneAxis.
-        if num_robot_joints >= 6 and len(target_joint_angles) >= 6:
+        def _refresh_current_raw():
+            nonlocal current_raw
+            rr = self.send_command("wherej")
+            rj = rr.split(" ")[1:]
+            current_raw = [float(x) for x in rj]
+
+        is_sxl = (num_robot_joints >= 6 and len(target_joint_angles) >= 6)
+
+        rail_move_needed = False
+        if is_sxl:
             try:
                 cur_j6 = float(current_raw[5])
                 tgt_j6 = float(target_joint_angles[5])
-                if abs(tgt_j6 - cur_j6) > eps_mm:
-                    r = _axis_move_one(6, tgt_j6, profile)
+                rail_move_needed = abs(tgt_j6 - cur_j6) > eps_mm
+            except Exception:
+                rail_move_needed = False
+
+        if is_sxl and rail_move_needed:
+            # 1) Tuck (order matters): move wrist first so it tucks under the forearm safely.
+            #    J4 first, then "blend" J2+J3 together via a single movej (simultaneous joint motion).
+            tuck_targets = {4: -188.0}
+            try:
+                for axis_idx, tuck_val in tuck_targets.items():
+                    cur = float(current_raw[axis_idx - 1])
+                    if abs(float(tuck_val) - cur) > eps_deg:
+                        r = _axis_move_one(axis_idx, float(tuck_val), profile)
+                        if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
+                            return r
+                        _refresh_current_raw()
+
+                # Now move J2 + J3 together to the tuck pose while holding other joints fixed.
+                # Note: For SXL, we must send all 6 values: [J1, J2, J3, J4, J5, J6].
+                tuck_full = list(current_raw)
+                # Ensure we keep J4 at its tucked value as well.
+                tuck_full[3] = -188.0
+                tuck_full[1] = 4.0
+                tuck_full[2] = 179.0
+
+                # Only issue the move if needed.
+                need_j2 = abs(float(tuck_full[1]) - float(current_raw[1])) > eps_deg
+                need_j3 = abs(float(tuck_full[2]) - float(current_raw[2])) > eps_deg
+                if need_j2 or need_j3:
+                    r = _movej_direct(tuck_full, profile)
                     if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                         return r
-                    # refresh current_raw after rail move
-                    raw_response = self.send_command("wherej")
-                    raw_joints = raw_response.split(" ")[1:]
-                    current_raw = [float(x) for x in raw_joints]
+                    _refresh_current_raw()
             except Exception as e:
-                print(f"Warning: rail-first sequencing failed; falling back to movej. Error: {e}")
+                print(f"Warning: tuck sequencing failed; falling back to movej. Error: {e}")
 
-        # Always move J1 before other joints.
-        try:
-            cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
-            tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
-            if abs(tgt_j1 - cur_j1) > eps_mm:
-                r = _axis_move_one(1, tgt_j1, profile)
+            # 2) Rail (J6) move and wait
+            try:
+                tgt_j6 = float(target_joint_angles[5])
+                r = _axis_move_one(6, tgt_j6, profile)
                 if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                     return r
-                # refresh current_raw after J1 move
-                raw_response = self.send_command("wherej")
-                raw_joints = raw_response.split(" ")[1:]
-                current_raw = [float(x) for x in raw_joints]
-        except Exception as e:
-            print(f"Warning: J1-first sequencing failed; falling back to movej. Error: {e}")
+                _refresh_current_raw()
+            except Exception as e:
+                print(f"Warning: rail sequencing failed; falling back to movej. Error: {e}")
+
+            # 3) J1 move and wait
+            try:
+                cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
+                tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
+                if abs(tgt_j1 - cur_j1) > eps_mm:
+                    r = _axis_move_one(1, tgt_j1, profile)
+                    if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
+                        return r
+                    _refresh_current_raw()
+            except Exception as e:
+                print(f"Warning: J1 sequencing after rail failed; falling back to movej. Error: {e}")
+        else:
+            # No rail move needed (or no rail joint): still move J1 first.
+            try:
+                cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
+                tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
+                if abs(tgt_j1 - cur_j1) > eps_mm:
+                    r = _axis_move_one(1, tgt_j1, profile)
+                    if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
+                        return r
+                    _refresh_current_raw()
+            except Exception as e:
+                print(f"Warning: J1-first sequencing failed; falling back to movej. Error: {e}")
 
         # Build command with ALL joint values (crucial for SXL with 6 joints!)
         move_command = (
