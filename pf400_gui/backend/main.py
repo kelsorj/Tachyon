@@ -435,6 +435,7 @@ class PF400PickPlaceRequest(BaseModel):
     orientation: str = "landscape"  # landscape|portrait
     speed_no_plate: int = 1
     speed_holding_plate: int = 1
+    pause_seconds: float = 0.35  # pause between steps so gripper motion is visible and joints poll catches it
 
 
 # =========================
@@ -1298,17 +1299,14 @@ async def get_labware_types():
             }
 
         labware_types = mongodb.get_all_labware_types()
-        # Backfill pf400 from vworks_raw if missing (one-time migration for older seeded DBs).
+        # Backfill pf400 from vworks_raw if missing for the API response.
+        # IMPORTANT: do NOT persist here; users may have edited PF400 values and we must not overwrite them.
         for lt in labware_types:
             if lt.get("pf400") is not None:
                 continue
             inferred = _infer_pf400_from_vworks_raw(lt.get("vworks_raw") or {})
             if inferred:
                 lt["pf400"] = inferred
-                try:
-                    mongodb.update_labware_type(lt.get("labware_type_id"), {"pf400": inferred})
-                except Exception:
-                    pass
         return {"labware_types": labware_types}
     except Exception as e:
         print(f"Error getting labware types: {e}")
@@ -1421,10 +1419,6 @@ async def get_labware_type(labware_type_id: str):
                     "grip_torque_percent": _f("BENCHBOT_GRIP_TORQUE_PERCENTAGE"),
                 }
                 doc["pf400"] = inferred
-                try:
-                    mongodb.update_labware_type(doc.get("labware_type_id"), {"pf400": inferred})
-                except Exception:
-                    pass
         return {"labware_type": doc}
     except HTTPException:
         raise
@@ -1446,6 +1440,43 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     if not labware:
         raise HTTPException(status_code=404, detail="Labware type not found")
 
+    def _infer_pf400_from_vworks_raw(vworks_raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        if not isinstance(vworks_raw, dict):
+            return None
+        def _f(key: str) -> Optional[float]:
+            v = vworks_raw.get(key)
+            if v is None:
+                return None
+            try:
+                return float(str(v).strip())
+            except Exception:
+                return None
+        def _s(key: str) -> Optional[str]:
+            v = vworks_raw.get(key)
+            if v is None:
+                return None
+            s = str(v).strip()
+            return s or None
+        has_any = any(k in vworks_raw for k in (
+            "BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH",
+            "BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH",
+            "BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH",
+            "BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH",
+        ))
+        if not has_any:
+            return None
+        return {
+            "landscape_gripping_ranges_mm": _s("BENCHBOT_LANDSCAPE_GRIPPER_OFFSET_RANGES"),
+            "landscape_open_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH"),
+            "landscape_closed_width_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH"),
+            "landscape_tolerance_mm": _f("BENCHBOT_LANDSCAPE_GRIPPER_TOLERANCE"),
+            "portrait_gripping_ranges_mm": _s("BENCHBOT_PORTRAIT_GRIPPER_OFFSET_RANGES"),
+            "portrait_open_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH"),
+            "portrait_closed_width_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH"),
+            "portrait_tolerance_mm": _f("BENCHBOT_PORTRAIT_GRIPPER_TOLERANCE"),
+            "grip_torque_percent": _f("BENCHBOT_GRIP_TORQUE_PERCENTAGE"),
+        }
+
     pf = (labware.get("pf400") or {})
     orient = (req.orientation or "landscape").lower().strip()
     if orient not in ("landscape", "portrait"):
@@ -1453,8 +1484,29 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
     open_mm = pf.get(f"{orient}_open_width_mm")
     closed_mm = pf.get(f"{orient}_closed_width_mm")
+    if (open_mm is None or closed_mm is None) and isinstance(labware.get("vworks_raw"), dict):
+        inferred = _infer_pf400_from_vworks_raw(labware.get("vworks_raw") or {})
+        if inferred:
+            open_mm = inferred.get(f"{orient}_open_width_mm")
+            closed_mm = inferred.get(f"{orient}_closed_width_mm")
     if open_mm is None or closed_mm is None:
         raise HTTPException(status_code=400, detail=f"Labware PF400 {orient} open/closed widths are not set")
+
+    def _normalize_mm(val: Any) -> float:
+        # If user entered meters (e.g. 0.132), auto-convert to mm.
+        v = float(val)
+        if 0 < abs(v) < 1.0:
+            return v * 1000.0
+        return v
+
+    open_mm = _normalize_mm(open_mm)
+    closed_mm = _normalize_mm(closed_mm)
+    if abs(open_mm) < 0.1 or abs(closed_mm) < 0.1:
+        # Driver treats <0.1mm as placeholder and will ignore gripper movement.
+        raise HTTPException(
+            status_code=400,
+            detail="PF400 open/closed widths look too small; expected millimeters (e.g. 132.5), not meters or 0.1 placeholders.",
+        )
 
     # Fetch teachpoints
     tps = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
@@ -1502,12 +1554,42 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         if not ok:
             raise HTTPException(status_code=500, detail=f"Failed to set gripper to {mm}mm")
 
-    # Sequence
+    def _get_gripper_mm() -> Optional[float]:
+        try:
+            joints_dict = robot_client.get_joint_positions() if hasattr(robot_client, "get_joint_positions") else {}
+            if "gripper" in joints_dict:
+                return float(joints_dict.get("gripper", 0)) * 1000.0
+        except Exception:
+            pass
+        return None
+
+    import time
+    pause = max(0.0, float(req.pause_seconds or 0.0))
+    steps: List[Dict[str, Any]] = []
+
+    # Sequence (with pauses + observed gripper values for debugging/visibility)
+    steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
     _set_grip(float(open_mm), req.speed_no_plate)
+    time.sleep(pause)
+    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+    steps.append({"step": "move_pick", "teachpoint_id": req.pick_teachpoint_id})
     _move_tp(req.pick_teachpoint_id, req.speed_no_plate)
+    time.sleep(pause)
+
+    steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
     _set_grip(float(closed_mm), req.speed_no_plate)
+    time.sleep(pause)
+    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+    steps.append({"step": "move_place", "teachpoint_id": req.place_teachpoint_id})
     _move_tp(req.place_teachpoint_id, req.speed_holding_plate)
+    time.sleep(pause)
+
+    steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
     _set_grip(float(open_mm), req.speed_holding_plate)
+    time.sleep(pause)
+    steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     return {
         "status": "success",
@@ -1517,6 +1599,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         "closed_mm": closed_mm,
         "pick_teachpoint_id": req.pick_teachpoint_id,
         "place_teachpoint_id": req.place_teachpoint_id,
+        "steps": steps,
     }
 
 

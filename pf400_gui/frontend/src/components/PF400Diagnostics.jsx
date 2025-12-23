@@ -242,12 +242,22 @@ function PF400Diagnostics() {
           orientation: pickPlaceOrientation,
           speed_no_plate: speedNoPlate,
           speed_holding_plate: speedHoldingPlate,
+          pause_seconds: 0.35,
         }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
         log(`✗ Pick&Place failed: ${data.detail || res.status}`)
       } else {
+        const steps = data.steps || []
+        if (steps.length) {
+          const fmt = (v) => (v === null || v === undefined) ? '—' : Number(v).toFixed(1)
+          for (const s of steps) {
+            if (s.step?.includes('open') || s.step?.includes('close')) {
+              log(`  ${s.step}: ${fmt(s.gripper_mm_before)} → ${fmt(s.gripper_mm_after)} mm (target ${fmt(s.target_gripper_mm)} mm)`)
+            }
+          }
+        }
         log('✓ Pick&Place complete')
       }
     } catch (e) {
