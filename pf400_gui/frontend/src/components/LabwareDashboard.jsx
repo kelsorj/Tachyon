@@ -1,4 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, Suspense } from 'react'
+import { Canvas, useLoader } from '@react-three/fiber'
+import { OrbitControls, Html, Bounds, useGLTF } from '@react-three/drei'
+import * as THREE from 'three'
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
 
@@ -26,6 +31,54 @@ function TabButton({ active, onClick, children }) {
     >
       {children}
     </button>
+  )
+}
+
+function ModelPreview({ url, format }) {
+  const fmt = String(format || '').toLowerCase()
+
+  if (fmt === 'glb' || fmt === 'gltf') {
+    const { scene } = useGLTF(url)
+    const cloned = useMemo(() => scene.clone(), [scene])
+
+    useEffect(() => {
+      cloned.traverse((child) => {
+        if (child?.isMesh) {
+          child.castShadow = true
+          child.receiveShadow = true
+          if (child.material) child.material.side = THREE.DoubleSide
+        }
+      })
+    }, [cloned])
+
+    return <primitive object={cloned} />
+  }
+
+  if (fmt === 'stl') {
+    const geo = useLoader(STLLoader, url)
+    const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: 0x9dcfe9, roughness: 0.55, metalness: 0.05, side: THREE.DoubleSide }), [])
+    return <mesh geometry={geo} material={mat} castShadow receiveShadow />
+  }
+
+  if (fmt === 'obj') {
+    const obj = useLoader(OBJLoader, url)
+    const cloned = useMemo(() => obj.clone(), [obj])
+    useEffect(() => {
+      cloned.traverse((child) => {
+        if (child?.isMesh) {
+          child.castShadow = true
+          child.receiveShadow = true
+          if (child.material) child.material.side = THREE.DoubleSide
+        }
+      })
+    }, [cloned])
+    return <primitive object={cloned} />
+  }
+
+  return (
+    <Html center>
+      <div style={{ color: '#ddd' }}>No preview available for: {format}</div>
+    </Html>
   )
 }
 
@@ -1082,7 +1135,10 @@ function LabwareDashboard() {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginTop: 10 }}>
                           <div style={{ color: '#888', fontSize: '0.9em' }}>
-                            Supported: <span style={{ color: '#bbb' }}>STL, OBJ, GLB</span> (and GLTF)
+                            Supported: <span style={{ color: '#bbb' }}>STL, OBJ, GLB, GLTF</span>
+                            <div style={{ marginTop: 4, color: '#666' }}>
+                              Tip: prefer <span style={{ color: '#bbb' }}>.glb</span> for uploads (single file). <span style={{ color: '#bbb' }}>.gltf</span> often needs a separate <span style={{ color: '#bbb' }}>.bin</span> + textures.
+                            </div>
                           </div>
                           <SmallButton
                             variant="primary"
@@ -1125,12 +1181,34 @@ function LabwareDashboard() {
                           <div style={{ color: '#666' }}>No image uploaded yet.</div>
                         )}
                         {selectedType?.model_3d?.url ? (
-                          <div style={{ marginTop: 12, color: '#aaa' }}>
-                            3D model: <span style={{ color: '#ccc' }}>{selectedType.model_3d.format}</span> ·{' '}
-                            <a href={`${API_URL}${selectedType.model_3d.url}`} target="_blank" rel="noreferrer" style={{ color: '#69c0ff' }}>
-                              open file
-                            </a>
-                          </div>
+                          <>
+                            <div style={{ marginTop: 12, color: '#aaa' }}>
+                              3D model: <span style={{ color: '#ccc' }}>{selectedType.model_3d.format}</span> ·{' '}
+                              <a href={`${API_URL}${selectedType.model_3d.url}`} target="_blank" rel="noreferrer" style={{ color: '#69c0ff' }}>
+                                open file
+                              </a>
+                            </div>
+                            <div style={{ marginTop: 10, height: 360, borderRadius: 10, overflow: 'hidden', border: '1px solid #222' }}>
+                              <Canvas
+                                camera={{ position: [0.7, 0.5, 0.7], fov: 45, near: 0.01, far: 200 }}
+                                shadows
+                              >
+                                <color attach="background" args={['#0b0b0f']} />
+                                <ambientLight intensity={0.65} />
+                                <directionalLight position={[3, 5, 2]} intensity={0.9} castShadow />
+                                <directionalLight position={[-3, 3, -2]} intensity={0.35} />
+                                <Suspense fallback={<Html center><div style={{ color: '#ddd' }}>Loading 3D…</div></Html>}>
+                                  <Bounds fit clip observe margin={1.2}>
+                                    <ModelPreview
+                                      url={`${API_URL}${selectedType.model_3d.url}`}
+                                      format={selectedType.model_3d.format}
+                                    />
+                                  </Bounds>
+                                </Suspense>
+                                <OrbitControls makeDefault />
+                              </Canvas>
+                            </div>
+                          </>
                         ) : null}
                       </div>
                     </div>
