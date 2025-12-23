@@ -7,6 +7,7 @@ import socket
 import time
 import math
 from threading import Lock
+from typing import Optional, Dict, Any, Tuple
 
 
 # Error codes from working module
@@ -226,6 +227,118 @@ class PF400Driver:
             except Exception as e:
                 print(f"Error sending status command '{command}': {e}")
                 raise
+
+    # =========================
+    # Parameter DB (PDB) helpers
+    # =========================
+
+    def pdb_get(self, data_id: int, unit: Optional[int] = None, subunit: int = 0, index: Optional[int] = None) -> float:
+        """
+        Read a numeric parameter database item using `pd`.
+        Manual: `pd <DataID> [unit] [subunit] [array_index]`
+        """
+        parts = ["pd", str(int(data_id))]
+        if unit is not None:
+            parts.append(str(int(unit)))
+            parts.append(str(int(subunit)))
+            if index is not None:
+                parts.append(str(int(index)))
+
+        resp = self.send_status_command(" ".join(parts))
+        # PC-mode responses: "0 <value>" or "-#### ..."
+        if not resp:
+            raise RuntimeError("Empty response from pd")
+        if resp.strip().startswith("-"):
+            raise RuntimeError(f"pd error: {resp}")
+
+        tokens = resp.split()
+        if not tokens:
+            raise RuntimeError(f"pd parse error: {resp}")
+        # If response is just "0", treat as no value
+        if tokens[0] == "0" and len(tokens) < 2:
+            raise RuntimeError(f"pd returned no value: {resp}")
+        # If it begins with "0", value is token[1]
+        if tokens[0] == "0":
+            return float(tokens[1])
+        # Otherwise assume first token is the value (some firmwares omit leading 0)
+        return float(tokens[0])
+
+    def pdb_set(self, data_id: int, value: float, unit: Optional[int] = None, subunit: int = 0, index: Optional[int] = None) -> str:
+        """
+        Write a numeric parameter database item using `pc`.
+        Manual: `pc <DataID> <value>` (2 args) or
+                `pc <DataID> <unit> <subunit> <array_index> <value>` (5 args)
+        """
+        if unit is None:
+            cmd = f"pc {int(data_id)} {value}"
+        else:
+            if index is None:
+                raise ValueError("pdb_set with unit requires index (array index)")
+            cmd = f"pc {int(data_id)} {int(unit)} {int(subunit)} {int(index)} {value}"
+
+        resp = self.send_status_command(cmd)
+        if not resp:
+            raise RuntimeError("Empty response from pc")
+        if resp.strip().startswith("-"):
+            raise RuntimeError(f"pc error: {resp}")
+        return resp
+
+    # =========================
+    # Gripper squeeze per manual
+    # =========================
+
+    @staticmethod
+    def estimate_gripper_forces_simple(rated_current_amps: float, rated_current_nominal_amps: float = 1.26) -> Dict[str, float]:
+        """
+        Manual (PF400 23N gripper):
+          squeeze ≈ 7 N + (RatedCurrent/1.26A) * 18 N
+          opening_force ≈ (RatedCurrent/1.26A) * 18 N - 9 N
+        """
+        rc = float(rated_current_amps)
+        nom = float(rated_current_nominal_amps)
+        if nom <= 0:
+            nom = 1.26
+        motor_n = (rc / nom) * 18.0
+        squeeze_n = 7.0 + motor_n
+        open_n = motor_n - 9.0
+        return {"rated_current_amps": rc, "motor_force_n": motor_n, "squeeze_n": squeeze_n, "opening_force_n": open_n}
+
+    def gripper_set_rated_current_simple(self, rated_current_amps: float, unit: int = 1, array_index: int = 5) -> Dict[str, Any]:
+        """
+        Manual: rated current is stored in the 5th field in PDB #10611.
+        We implement via `pc 10611 <unit> 0 <array_index> <amps>`.
+
+        NOTE: array index base (0 vs 1) depends on controller config; default is 5 per manual wording,
+        but we expose it so you can adjust if needed.
+        """
+        rc = float(rated_current_amps)
+        if rc <= 0:
+            raise ValueError("rated_current_amps must be > 0")
+
+        write_resp = self.pdb_set(10611, rc, unit=unit, subunit=0, index=int(array_index))
+        forces = self.estimate_gripper_forces_simple(rc)
+        return {"status": "success", "pdb": {"data_id": 10611, "unit": unit, "subunit": 0, "index": int(array_index), "value": rc, "write_resp": write_resp}, "estimate": forces}
+
+    def gripper_set_torque_limits_asymmetric(self, tcnts_pos_10351: Optional[int] = None, tcnts_neg_10352: Optional[int] = None, unit: Optional[int] = None) -> Dict[str, Any]:
+        """
+        Manual: use 10351 (positive direction) and 10352 (negative direction) to limit PID torque (tcnts).
+        If `unit` is provided we write to that unit; otherwise controller-global.
+        """
+        out: Dict[str, Any] = {"status": "success", "writes": []}
+        if tcnts_pos_10351 is not None:
+            resp = self.pdb_set(10351, float(int(tcnts_pos_10351)), unit=unit, subunit=0, index=0) if unit is not None else self.pdb_set(10351, float(int(tcnts_pos_10351)))
+            out["writes"].append({"data_id": 10351, "value": int(tcnts_pos_10351), "resp": resp})
+        if tcnts_neg_10352 is not None:
+            resp = self.pdb_set(10352, float(int(tcnts_neg_10352)), unit=unit, subunit=0, index=0) if unit is not None else self.pdb_set(10352, float(int(tcnts_neg_10352)))
+            out["writes"].append({"data_id": 10352, "value": int(tcnts_neg_10352), "resp": resp})
+        if not out["writes"]:
+            raise ValueError("Provide at least one of tcnts_pos_10351 or tcnts_neg_10352")
+        return out
+
+    def gripper_get_rated_current_simple(self, unit: int = 1, array_index: int = 5) -> Dict[str, Any]:
+        """Read the rated current (simple squeeze method) from PDB #10611 'field' index."""
+        val = self.pdb_get(10611, unit=unit, subunit=0, index=int(array_index))
+        return {"status": "success", "pdb": {"data_id": 10611, "unit": unit, "subunit": 0, "index": int(array_index), "value": val}, "estimate": self.estimate_gripper_forces_simple(val)}
     
     def get_robot_movement_state(self) -> int:
         """Get robot movement state (like working module)."""
@@ -263,6 +376,124 @@ class PF400Driver:
         except Exception as e:
             print(f"get_gripper_length error: {e}")
             return 0.0
+
+    def set_gripper_mm(self, gripper_mm: float, profile: int = 1) -> bool:
+        """
+        Set gripper opening to an absolute value in mm while keeping other joints unchanged.
+        This uses a full movej so it works on SX (5 joints) and SXL (6 joints).
+        """
+        try:
+            joints = self.get_joint_states()
+            if len(joints) < 5:
+                return False
+
+            target = list(joints)
+            target[4] = float(gripper_mm)
+            resp = self.move_joint(target, profile=profile)
+            return resp == "0" or (resp and not resp.strip().startswith("-") and resp not in ERROR_CODES)
+        except Exception as e:
+            print(f"set_gripper_mm error: {e}")
+            return False
+
+    def close_gripper_until_contact(
+        self,
+        target_closed_mm: float,
+        profile: int = 1,
+        step_mm: float = 1.0,
+        min_motion_mm: float = 0.2,
+        settle_seconds: float = 0.15,
+        max_steps: int = 200,
+    ) -> Dict[str, Any]:
+        """
+        Best-effort "force sensing" proxy using only position feedback:
+        we close the gripper in small steps until the gripper stops moving (stall/contact).
+
+        This does NOT measure force directly (no force/current telemetry is exposed in this driver),
+        but it's often sufficient for "detect contact while closing".
+
+        Returns:
+          {
+            "status": "success"|"failure",
+            "contact_detected": bool,
+            "start_gripper_mm": float,
+            "final_gripper_mm": float,
+            "target_closed_mm": float,
+            "steps": int,
+            "reason": str,
+          }
+        """
+        start_mm = float(self.get_gripper_length())
+        prev_mm = start_mm
+        target_closed_mm = float(target_closed_mm)
+        step_mm = abs(float(step_mm))
+        min_motion_mm = abs(float(min_motion_mm))
+        settle_seconds = max(0.0, float(settle_seconds))
+
+        # If already at/under target, consider contact/closed.
+        if prev_mm <= target_closed_mm:
+            return {
+                "status": "success",
+                "contact_detected": True,
+                "start_gripper_mm": start_mm,
+                "final_gripper_mm": prev_mm,
+                "target_closed_mm": target_closed_mm,
+                "steps": 0,
+                "reason": "already_at_or_below_target",
+            }
+
+        for i in range(max_steps):
+            next_mm = max(target_closed_mm, prev_mm - step_mm)
+            ok = self.set_gripper_mm(next_mm, profile=profile)
+            if not ok:
+                return {
+                    "status": "failure",
+                    "contact_detected": False,
+                    "start_gripper_mm": start_mm,
+                    "final_gripper_mm": float(self.get_gripper_length()),
+                    "target_closed_mm": target_closed_mm,
+                    "steps": i + 1,
+                    "reason": "move_failed",
+                }
+
+            if settle_seconds:
+                time.sleep(settle_seconds)
+
+            cur_mm = float(self.get_gripper_length())
+            moved = prev_mm - cur_mm
+
+            # If we commanded close but barely moved, assume contact/stall.
+            if moved < min_motion_mm and next_mm < prev_mm:
+                return {
+                    "status": "success",
+                    "contact_detected": True,
+                    "start_gripper_mm": start_mm,
+                    "final_gripper_mm": cur_mm,
+                    "target_closed_mm": target_closed_mm,
+                    "steps": i + 1,
+                    "reason": "stall_detected",
+                }
+
+            prev_mm = cur_mm
+            if prev_mm <= target_closed_mm:
+                return {
+                    "status": "success",
+                    "contact_detected": False,
+                    "start_gripper_mm": start_mm,
+                    "final_gripper_mm": prev_mm,
+                    "target_closed_mm": target_closed_mm,
+                    "steps": i + 1,
+                    "reason": "reached_target_without_stall",
+                }
+
+        return {
+            "status": "failure",
+            "contact_detected": False,
+            "start_gripper_mm": start_mm,
+            "final_gripper_mm": float(self.get_gripper_length()),
+            "target_closed_mm": target_closed_mm,
+            "steps": max_steps,
+            "reason": "max_steps_reached",
+        }
     
     def get_joint_positions(self):
         """

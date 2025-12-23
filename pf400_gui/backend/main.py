@@ -428,6 +428,29 @@ class GripperSetRequest(BaseModel):
     speed_profile: int = 1
 
 
+class GripperCloseUntilContactRequest(BaseModel):
+    target_closed_mm: float
+    speed_profile: int = 1
+    step_mm: float = 1.0
+    min_motion_mm: float = 0.2
+    settle_seconds: float = 0.15
+    max_steps: int = 200
+
+
+class PF400GripperRatedCurrentRequest(BaseModel):
+    rated_current_amps: float
+    unit: int = 1
+    array_index: int = 5  # "5th field" per manual; may need adjustment if controller uses 0-based indexing
+
+
+class PF400GripperTorqueLimitsRequest(BaseModel):
+    # Asymmetric method torque clamps in tcnts (PID torque only)
+    tcnts_pos_10351: Optional[int] = None
+    tcnts_neg_10352: Optional[int] = None
+    # If provided, write to a specific unit (robot number); if omitted, controller-global
+    unit: Optional[int] = None
+
+
 class PF400PickPlaceRequest(BaseModel):
     labware_type_id: str
     pick_teachpoint_id: str
@@ -921,6 +944,98 @@ async def set_gripper(req: GripperSetRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Gripper set error: {str(e)}")
+
+
+@app.post("/gripper/close-until-contact")
+async def gripper_close_until_contact(req: GripperCloseUntilContactRequest):
+    """
+    Close the gripper in small steps until it stalls (contact) or reaches target.
+    Note: This is a proxy for "force sensing" based on position stall detection.
+    """
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    if not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=501, detail="Gripper close-until-contact not supported by current client")
+
+    drv = robot_client.driver
+    if not hasattr(drv, "close_gripper_until_contact"):
+        raise HTTPException(status_code=501, detail="Driver does not support close-until-contact")
+
+    try:
+        result = drv.close_gripper_until_contact(
+            target_closed_mm=req.target_closed_mm,
+            profile=req.speed_profile,
+            step_mm=req.step_mm,
+            min_motion_mm=req.min_motion_mm,
+            settle_seconds=req.settle_seconds,
+            max_steps=req.max_steps,
+        )
+        if result.get("status") != "success":
+            raise HTTPException(status_code=500, detail=result.get("reason") or "close-until-contact failed")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"close-until-contact error: {str(e)}")
+
+
+@app.get("/gripper/squeeze/simple")
+async def gripper_get_squeeze_simple(unit: int = 1, array_index: int = 5):
+    """
+    Read PF400 gripper rated current (simple method) from PDB #10611 field index,
+    and return estimated squeeze/opening force per the manual.
+    """
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot driver not available")
+    drv = robot_client.driver
+    if not hasattr(drv, "gripper_get_rated_current_simple"):
+        raise HTTPException(status_code=501, detail="Driver does not support gripper squeeze settings")
+    try:
+        return drv.gripper_get_rated_current_simple(unit=unit, array_index=array_index)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/gripper/squeeze/simple")
+async def gripper_set_squeeze_simple(req: PF400GripperRatedCurrentRequest):
+    """
+    Set PF400 gripper rated current (simple method) by writing PDB #10611 field index,
+    and return estimated squeeze/opening force per the manual.
+    """
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot driver not available")
+    drv = robot_client.driver
+    if not hasattr(drv, "gripper_set_rated_current_simple"):
+        raise HTTPException(status_code=501, detail="Driver does not support gripper squeeze settings")
+    try:
+        return drv.gripper_set_rated_current_simple(
+            rated_current_amps=req.rated_current_amps,
+            unit=req.unit,
+            array_index=req.array_index,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/gripper/squeeze/asymmetric")
+async def gripper_set_squeeze_asymmetric(req: PF400GripperTorqueLimitsRequest):
+    """
+    Set asymmetric squeeze limits using PDB 10351/10352 (tcnts).
+    This limits PID torque only (feedforward/spring compensation is not limited).
+    """
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot driver not available")
+    drv = robot_client.driver
+    if not hasattr(drv, "gripper_set_torque_limits_asymmetric"):
+        raise HTTPException(status_code=501, detail="Driver does not support gripper torque limit settings")
+    try:
+        return drv.gripper_set_torque_limits_asymmetric(
+            tcnts_pos_10351=req.tcnts_pos_10351,
+            tcnts_neg_10352=req.tcnts_neg_10352,
+            unit=req.unit,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/description")
 async def get_description():
