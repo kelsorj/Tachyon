@@ -237,6 +237,19 @@ def main():
         tip_capacity_ul = _to_float(meta, "TIP_CAPACITY") or _to_float(meta, "3RD_PARTY_TIP_CAPACITY")
     disposable_tip_length_mm = _to_float(meta, "DISPOSABLE_TIP_LENGTH")
 
+    # PF400 (legacy "BenchBot") gripper parameters
+    pf400_landscape_ranges = (meta.get("BENCHBOT_LANDSCAPE_GRIPPER_OFFSET_RANGES") or "").strip() or None
+    pf400_landscape_open = _to_float(meta, "BENCHBOT_LANDSCAPE_GRIPPER_OPEN_WIDTH")
+    pf400_landscape_closed = _to_float(meta, "BENCHBOT_LANDSCAPE_GRIPPER_CLOSED_WIDTH")
+    pf400_landscape_tol = _to_float(meta, "BENCHBOT_LANDSCAPE_GRIPPER_TOLERANCE")
+
+    pf400_portrait_ranges = (meta.get("BENCHBOT_PORTRAIT_GRIPPER_OFFSET_RANGES") or "").strip() or None
+    pf400_portrait_open = _to_float(meta, "BENCHBOT_PORTRAIT_GRIPPER_OPEN_WIDTH")
+    pf400_portrait_closed = _to_float(meta, "BENCHBOT_PORTRAIT_GRIPPER_CLOSED_WIDTH")
+    pf400_portrait_tol = _to_float(meta, "BENCHBOT_PORTRAIT_GRIPPER_TOLERANCE")
+
+    pf400_torque = _to_float(meta, "BENCHBOT_GRIP_TORQUE_PERCENTAGE")
+
     description = (meta.get("DESCRIPTION") or "").strip()
     image_filename = (meta.get("IMAGE_FILENAME") or "").strip()
     base_class = _map_base_class(_to_int(meta, "BASE_CLASS"))
@@ -294,6 +307,17 @@ def main():
             "tip_source": tip_source,
             "disposable_tip_capacity_ul": tip_capacity_ul,
             "disposable_tip_length_mm": disposable_tip_length_mm,
+        },
+        "pf400": {
+            "landscape_gripping_ranges_mm": pf400_landscape_ranges,
+            "landscape_open_width_mm": pf400_landscape_open,
+            "landscape_closed_width_mm": pf400_landscape_closed,
+            "landscape_tolerance_mm": pf400_landscape_tol,
+            "portrait_gripping_ranges_mm": pf400_portrait_ranges,
+            "portrait_open_width_mm": pf400_portrait_open,
+            "portrait_closed_width_mm": pf400_portrait_closed,
+            "portrait_tolerance_mm": pf400_portrait_tol,
+            "grip_torque_percent": pf400_torque,
         },
         "model_3d": None,
         "notes": "Seeded from VWorks .dat; verify dimensions + map geometry/base class enums.",

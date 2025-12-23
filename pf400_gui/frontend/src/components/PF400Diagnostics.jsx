@@ -28,6 +28,15 @@ function PF400Diagnostics() {
   const [teachpoints, setTeachpoints] = useState([])
   const [newTpName, setNewTpName] = useState('')
 
+  // Labware + Pick/Place
+  const [labwareTypes, setLabwareTypes] = useState([])
+  const [selectedLabwareId, setSelectedLabwareId] = useState('')
+  const [pickTeachpointId, setPickTeachpointId] = useState('')
+  const [placeTeachpointId, setPlaceTeachpointId] = useState('')
+  const [pickPlaceOrientation, setPickPlaceOrientation] = useState('landscape') // landscape|portrait
+  const [speedNoPlate, setSpeedNoPlate] = useState(1)
+  const [speedHoldingPlate, setSpeedHoldingPlate] = useState(1)
+
   // Reachable devices for linking
   const [reachableDevices, setReachableDevices] = useState([])
   const [deviceTeachpoints, setDeviceTeachpoints] = useState({}) // teachpoints from other devices
@@ -155,6 +164,96 @@ function PF400Diagnostics() {
     fetchTeachpoints()
     fetchReachableDevices()
   }, [])
+
+  // Fetch labware types
+  const fetchLabwareTypes = async () => {
+    try {
+      const res = await fetch(`${API_URL}/labware/types`)
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) return
+      const types = (data.labware_types || []).slice()
+      types.sort((a, b) => String(a?.name || '').localeCompare(String(b?.name || '')))
+      setLabwareTypes(types)
+      if (!selectedLabwareId && types.length) setSelectedLabwareId(types[0].labware_type_id)
+    } catch {
+      // ignore
+    }
+  }
+
+  useEffect(() => {
+    fetchLabwareTypes()
+  }, [])
+
+  // Default pick/place teachpoints (first two) for convenience
+  useEffect(() => {
+    if (!teachpoints.length) return
+    if (!pickTeachpointId) setPickTeachpointId(teachpoints[0]?.id || '')
+    if (!placeTeachpointId) setPlaceTeachpointId(teachpoints[1]?.id || teachpoints[0]?.id || '')
+  }, [teachpoints])
+
+  const selectedLabware = labwareTypes.find(l => l.labware_type_id === selectedLabwareId) || null
+
+  const pf400Widths = () => {
+    const pf = selectedLabware?.pf400 || {}
+    const orient = String(pickPlaceOrientation || 'landscape').toLowerCase()
+    const open = orient === 'portrait' ? pf.portrait_open_width_mm : pf.landscape_open_width_mm
+    const closed = orient === 'portrait' ? pf.portrait_closed_width_mm : pf.landscape_closed_width_mm
+    return { open, closed }
+  }
+
+  const setGripperAbsolute = async (mm) => {
+    if (!Number.isFinite(Number(mm))) {
+      log('✗ Labware PF400 open/closed width not set')
+      return
+    }
+    try {
+      const res = await fetch(`${API_URL}/gripper/set`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gripper_mm: Number(mm), speed_profile: speedProfile }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        log(`✗ Gripper set failed: ${data.detail || res.status}`)
+      } else {
+        log(`✓ Gripper set: ${Number(mm).toFixed(2)}mm`)
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const runPickPlace = async () => {
+    if (!selectedLabwareId) return log('✗ Select a labware first')
+    if (!pickTeachpointId || !placeTeachpointId) return log('✗ Select pick and place teachpoints')
+    const { open, closed } = pf400Widths()
+    if (!Number.isFinite(Number(open)) || !Number.isFinite(Number(closed))) {
+      return log('✗ Labware PF400 open/closed widths are not set for this orientation')
+    }
+    log(`→ Pick&Place (${pickPlaceOrientation}) starting...`)
+    try {
+      const res = await fetch(`${API_URL}/pf400/pick-place`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          labware_type_id: selectedLabwareId,
+          pick_teachpoint_id: pickTeachpointId,
+          place_teachpoint_id: placeTeachpointId,
+          orientation: pickPlaceOrientation,
+          speed_no_plate: speedNoPlate,
+          speed_holding_plate: speedHoldingPlate,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        log(`✗ Pick&Place failed: ${data.detail || res.status}`)
+      } else {
+        log('✓ Pick&Place complete')
+      }
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
 
   // Save current position as teachpoint
   const saveCurrentPosition = async () => {
@@ -369,9 +468,20 @@ function PF400Diagnostics() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: 10, boxSizing: 'border-box' }}>
       <h1 style={{ margin: '0 0 10px 0', fontSize: '1.5em' }}>PF400 Robot Control</h1>
 
-      <div style={{ display: 'flex', flex: 1, gap: 15, minHeight: 0 }}>
+      {/* Layout: shrink 3D view column so side panels have room */}
+      <div
+        style={{
+          display: 'grid',
+          flex: 1,
+          gap: 15,
+          minHeight: 0,
+          // Left + Center + Right
+          // Center is intentionally clamped to be much smaller (≈60% shrink vs "fill remaining").
+          gridTemplateColumns: 'minmax(300px, 380px) minmax(320px, 38vw) minmax(380px, 560px)',
+        }}
+      >
         {/* LEFT SIDEBAR: device linking + logs */}
-        <div style={{ width: 360, minWidth: 320, maxWidth: 420, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
           {/* Device Linking */}
           <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10, overflow: 'hidden' }}>
             <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Device Linking</div>
@@ -464,7 +574,7 @@ function PF400Diagnostics() {
         </div>
 
         {/* CENTER: 3D viewer */}
-        <div style={{ flex: 1, minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
+        <div style={{ width: '100%', minWidth: 0, border: '2px solid #444', borderRadius: 8, overflow: 'hidden' }}>
           <RobotViewer
             joints={joints}
             cartesian={cartesian}
@@ -474,7 +584,111 @@ function PF400Diagnostics() {
         </div>
 
         {/* RIGHT SIDEBAR: speed + jogs + teachpoints */}
-        <div style={{ width: 420, minWidth: 360, maxWidth: 460, display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 10, minHeight: 0 }}>
+          {/* Labware + Motion actions */}
+          <div style={{ background: '#1a1a2e', borderRadius: 8, padding: 10 }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 8, color: '#69c0ff' }}>Labware + Motion</div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 8, alignItems: 'center' }}>
+              <div style={{ color: '#bbb', textAlign: 'right' }}>Labware</div>
+              <select
+                value={selectedLabwareId}
+                onChange={(e) => setSelectedLabwareId(e.target.value)}
+                style={{ ...selectStyle, width: '100%' }}
+              >
+                {labwareTypes.map(l => (
+                  <option key={l.labware_type_id} value={l.labware_type_id}>{l.name}</option>
+                ))}
+              </select>
+
+              <div style={{ color: '#bbb', textAlign: 'right' }}>Orientation</div>
+              <select
+                value={pickPlaceOrientation}
+                onChange={(e) => setPickPlaceOrientation(e.target.value)}
+                style={{ ...selectStyle, width: '100%' }}
+              >
+                <option value="landscape">Landscape</option>
+                <option value="portrait">Portrait</option>
+              </select>
+
+              <div style={{ color: '#bbb', textAlign: 'right' }}>Pick TP</div>
+              <select
+                value={pickTeachpointId}
+                onChange={(e) => setPickTeachpointId(e.target.value)}
+                style={{ ...selectStyle, width: '100%' }}
+              >
+                {teachpoints.map(tp => (
+                  <option key={tp.id} value={tp.id}>{tp.name}</option>
+                ))}
+              </select>
+
+              <div style={{ color: '#bbb', textAlign: 'right' }}>Place TP</div>
+              <select
+                value={placeTeachpointId}
+                onChange={(e) => setPlaceTeachpointId(e.target.value)}
+                style={{ ...selectStyle, width: '100%' }}
+              >
+                {teachpoints.map(tp => (
+                  <option key={tp.id} value={tp.id}>{tp.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 10 }}>
+              <div style={{ background: '#222', borderRadius: 6, padding: 8 }}>
+                <div style={{ fontWeight: 'bold', marginBottom: 6, color: '#ddd' }}>Speed</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 6, alignItems: 'center' }}>
+                  <div style={{ color: '#bbb', textAlign: 'right', fontSize: '0.9em' }}>No plate</div>
+                  <select value={speedNoPlate} onChange={(e) => setSpeedNoPlate(+e.target.value)} style={{ ...selectStyle, width: '100%' }}>
+                    <option value={1}>Slow</option>
+                    <option value={2}>Medium</option>
+                    <option value={3}>Fast</option>
+                  </select>
+                  <div style={{ color: '#bbb', textAlign: 'right', fontSize: '0.9em' }}>Holding plate</div>
+                  <select value={speedHoldingPlate} onChange={(e) => setSpeedHoldingPlate(+e.target.value)} style={{ ...selectStyle, width: '100%' }}>
+                    <option value={1}>Slow</option>
+                    <option value={2}>Medium</option>
+                    <option value={3}>Fast</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style={{ background: '#222', borderRadius: 6, padding: 8 }}>
+                <div style={{ fontWeight: 'bold', marginBottom: 6, color: '#ddd' }}>Gripper</div>
+                <div style={{ fontSize: '0.85em', color: '#888', marginBottom: 6 }}>
+                  {(() => {
+                    const { open, closed } = pf400Widths()
+                    if (!selectedLabware) return 'Select labware'
+                    return `Open: ${open ?? '—'} mm · Closed: ${closed ?? '—'} mm`
+                  })()}
+                </div>
+                <div style={{ display: 'flex', gap: 8, justifyContent: 'space-between' }}>
+                  <button
+                    style={{ padding: '8px 10px', borderRadius: 6, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold', flex: 1 }}
+                    onClick={() => setGripperAbsolute(pf400Widths().open)}
+                  >
+                    Open
+                  </button>
+                  <button
+                    style={{ padding: '8px 10px', borderRadius: 6, background: '#faad14', color: '#000', border: 'none', cursor: 'pointer', fontWeight: 'bold', flex: 1 }}
+                    onClick={() => setGripperAbsolute(pf400Widths().closed)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+              <button
+                style={{ padding: '10px 12px', borderRadius: 6, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold', flex: 1 }}
+                onClick={runPickPlace}
+              >
+                Pick and Place
+              </button>
+            </div>
+          </div>
+
           {/* Speed */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
             <span style={{ fontWeight: 'bold' }}>Speed:</span>

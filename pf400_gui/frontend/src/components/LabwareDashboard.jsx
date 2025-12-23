@@ -116,7 +116,7 @@ function LabwareDashboard() {
 
   const [selectedTypeId, setSelectedTypeId] = useState('')
   const [selectedClassId, setSelectedClassId] = useState('')
-  const [entryTab, setEntryTab] = useState('plate') // plate | pipette | classes | image
+  const [entryTab, setEntryTab] = useState('plate') // plate | pipette | image | pf400 | planar
 
   // Entries filtering (left list)
   const [wellsFilter, setWellsFilter] = useState('all') // 'all' | 6 | 24 | 48 | 96 | 384 | 1536
@@ -337,6 +337,23 @@ function LabwareDashboard() {
     setPpFilterTipPinToolLength(f(pp.filter_tip_pin_tool_length_mm))
     setPpFilterChannelRestingDepth(f(pp.filter_channel_resting_depth_mm))
     setPpRequiresInsert(pp.requires_insert || 'None')
+
+    // PF400 gripper (legacy "BenchBot Gripper")
+    const pf = selectedType.pf400 || {}
+    setPf400LandscapeRanges(f(pf.landscape_gripping_ranges_mm))
+    setPf400LandscapeOpen(f(pf.landscape_open_width_mm))
+    setPf400LandscapeClosed(f(pf.landscape_closed_width_mm))
+    setPf400LandscapeTol(f(pf.landscape_tolerance_mm))
+    setPf400PortraitRanges(f(pf.portrait_gripping_ranges_mm))
+    setPf400PortraitOpen(f(pf.portrait_open_width_mm))
+    setPf400PortraitClosed(f(pf.portrait_closed_width_mm))
+    setPf400PortraitTol(f(pf.portrait_tolerance_mm))
+    setPf400Torque(f(pf.grip_torque_percent))
+
+    // Planar Motor limits
+    const pm = selectedType.planar_motor || {}
+    setPlanarMaxVel(f(pm.max_velocity_m_per_s))
+    setPlanarMaxAccel(f(pm.max_acceleration_m_per_s2))
   }, [selectedTypeId])
 
   // -------- Pipette/Well Definition tab state (editable) --------
@@ -358,6 +375,21 @@ function LabwareDashboard() {
   // -------- Image tab state (upload) --------
   const [imageFile, setImageFile] = useState(null)
   const [modelFile, setModelFile] = useState(null)
+
+  // -------- PF400 tab state (gripper) --------
+  const [pf400LandscapeRanges, setPf400LandscapeRanges] = useState('')
+  const [pf400LandscapeOpen, setPf400LandscapeOpen] = useState('')
+  const [pf400LandscapeClosed, setPf400LandscapeClosed] = useState('')
+  const [pf400LandscapeTol, setPf400LandscapeTol] = useState('')
+  const [pf400PortraitRanges, setPf400PortraitRanges] = useState('')
+  const [pf400PortraitOpen, setPf400PortraitOpen] = useState('')
+  const [pf400PortraitClosed, setPf400PortraitClosed] = useState('')
+  const [pf400PortraitTol, setPf400PortraitTol] = useState('')
+  const [pf400Torque, setPf400Torque] = useState('')
+
+  // -------- Planar Motor tab state --------
+  const [planarMaxVel, setPlanarMaxVel] = useState('')
+  const [planarMaxAccel, setPlanarMaxAccel] = useState('')
 
   useEffect(() => {
     if (!selectedType) return
@@ -473,6 +505,79 @@ function LabwareDashboard() {
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) throw new Error(data.detail || 'Failed to save plate properties')
+      await fetchAll()
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const savePf400 = async () => {
+    if (!selectedType) return
+    setBusy(true)
+    try {
+      const n = (s) => {
+        const t = String(s ?? '').trim()
+        if (t === '') return null
+        const v = Number(t)
+        return Number.isFinite(v) ? v : null
+      }
+
+      const payload = {
+        pf400: {
+          landscape_gripping_ranges_mm: String(pf400LandscapeRanges || '').trim() || null,
+          landscape_open_width_mm: n(pf400LandscapeOpen),
+          landscape_closed_width_mm: n(pf400LandscapeClosed),
+          landscape_tolerance_mm: n(pf400LandscapeTol),
+          portrait_gripping_ranges_mm: String(pf400PortraitRanges || '').trim() || null,
+          portrait_open_width_mm: n(pf400PortraitOpen),
+          portrait_closed_width_mm: n(pf400PortraitClosed),
+          portrait_tolerance_mm: n(pf400PortraitTol),
+          grip_torque_percent: n(pf400Torque),
+        }
+      }
+
+      const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.detail || 'Failed to save PF400 settings')
+      await fetchAll()
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const savePlanarMotor = async () => {
+    if (!selectedType) return
+    setBusy(true)
+    try {
+      const n = (s) => {
+        const t = String(s ?? '').trim()
+        if (t === '') return null
+        const v = Number(t)
+        return Number.isFinite(v) ? v : null
+      }
+
+      const payload = {
+        planar_motor: {
+          max_velocity_m_per_s: n(planarMaxVel),
+          max_acceleration_m_per_s2: n(planarMaxAccel),
+        }
+      }
+
+      const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.detail || 'Failed to save Planar Motor settings')
       await fetchAll()
     } catch (e) {
       setError(e.message || String(e))
@@ -783,6 +888,8 @@ function LabwareDashboard() {
                   <TabButton active={entryTab === 'plate'} onClick={() => setEntryTab('plate')}>Plate Properties</TabButton>
                   <TabButton active={entryTab === 'pipette'} onClick={() => setEntryTab('pipette')}>Pipette/Well Definition</TabButton>
                   <TabButton active={entryTab === 'image'} onClick={() => setEntryTab('image')}>Image</TabButton>
+                  <TabButton active={entryTab === 'pf400'} onClick={() => setEntryTab('pf400')}>PF400</TabButton>
+                  <TabButton active={entryTab === 'planar'} onClick={() => setEntryTab('planar')}>Planar Motor</TabButton>
                 </div>
 
                 {entryTab === 'plate' ? (
@@ -1054,6 +1161,74 @@ function LabwareDashboard() {
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
                           <SmallButton variant="primary" disabled={busy} onClick={saveWellDefinition}>Save changes</SmallButton>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : entryTab === 'pf400' ? (
+                  <div style={{ marginTop: 14 }}>
+                    <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                      <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>PF400 Gripper</div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                        <div style={{ border: '1px solid #333', borderRadius: 12, padding: 12 }}>
+                          <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 8 }}>Landscape</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px', gap: 10, alignItems: 'center' }}>
+                            <div style={fieldLabel}>Orientation gripping ranges (mm)</div>
+                            <input value={pf400LandscapeRanges} onChange={(e) => setPf400LandscapeRanges(e.target.value)} style={input} disabled={busy} placeholder="e.g. 2-6" />
+                            <div style={{ gridColumn: '1 / span 2', color: '#666', fontSize: '0.85em', textAlign: 'right' }}>
+                              Examples: "0-2" or "1-3, 2.5, 4-8"
+                            </div>
+                            <div style={fieldLabel}>Open width (mm)</div>
+                            <input value={pf400LandscapeOpen} onChange={(e) => setPf400LandscapeOpen(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Closed width (mm)</div>
+                            <input value={pf400LandscapeClosed} onChange={(e) => setPf400LandscapeClosed(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Tolerance (mm)</div>
+                            <input value={pf400LandscapeTol} onChange={(e) => setPf400LandscapeTol(e.target.value)} style={input} disabled={busy} />
+                          </div>
+                        </div>
+
+                        <div style={{ border: '1px solid #333', borderRadius: 12, padding: 12 }}>
+                          <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 8 }}>Portrait</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px', gap: 10, alignItems: 'center' }}>
+                            <div style={fieldLabel}>Orientation gripping ranges (mm)</div>
+                            <input value={pf400PortraitRanges} onChange={(e) => setPf400PortraitRanges(e.target.value)} style={input} disabled={busy} placeholder="e.g. 2.5-6" />
+                            <div style={{ gridColumn: '1 / span 2', color: '#666', fontSize: '0.85em', textAlign: 'right' }}>
+                              Examples: "0-2" or "1-3, 2.5, 4-8"
+                            </div>
+                            <div style={fieldLabel}>Open width (mm)</div>
+                            <input value={pf400PortraitOpen} onChange={(e) => setPf400PortraitOpen(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Closed width (mm)</div>
+                            <input value={pf400PortraitClosed} onChange={(e) => setPf400PortraitClosed(e.target.value)} style={input} disabled={busy} />
+                            <div style={fieldLabel}>Tolerance (mm)</div>
+                            <input value={pf400PortraitTol} onChange={(e) => setPf400PortraitTol(e.target.value)} style={input} disabled={busy} />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 180px', gap: 10, alignItems: 'center' }}>
+                        <div style={fieldLabel}>Grip torque (% of maximum)</div>
+                        <input value={pf400Torque} onChange={(e) => setPf400Torque(e.target.value)} style={input} disabled={busy} />
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 14 }}>
+                        <SmallButton variant="primary" disabled={busy} onClick={savePf400}>Save changes</SmallButton>
+                      </div>
+                    </div>
+                  </div>
+                ) : entryTab === 'planar' ? (
+                  <div style={{ marginTop: 14 }}>
+                    <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                      <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Planar Motor</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 180px', gap: 10, alignItems: 'center' }}>
+                        <div style={fieldLabel}>Max velocity (m/s)</div>
+                        <input value={planarMaxVel} onChange={(e) => setPlanarMaxVel(e.target.value)} style={input} disabled={busy} />
+
+                        <div style={fieldLabel}>Max acceleration (m/s²)</div>
+                        <input value={planarMaxAccel} onChange={(e) => setPlanarMaxAccel(e.target.value)} style={input} disabled={busy} />
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 14 }}>
+                        <SmallButton variant="primary" disabled={busy} onClick={savePlanarMotor}>Save changes</SmallButton>
                       </div>
                     </div>
                   </div>

@@ -423,6 +423,20 @@ class SpeedSettingsRequest(BaseModel):
     decel: int = None    # Optional, defaults to accel
 
 
+class GripperSetRequest(BaseModel):
+    gripper_mm: float
+    speed_profile: int = 1
+
+
+class PF400PickPlaceRequest(BaseModel):
+    labware_type_id: str
+    pick_teachpoint_id: str
+    place_teachpoint_id: str
+    orientation: str = "landscape"  # landscape|portrait
+    speed_no_plate: int = 1
+    speed_holding_plate: int = 1
+
+
 # =========================
 # Labware (Types)
 # =========================
@@ -435,6 +449,27 @@ class Labware3DModel(BaseModel):
 class LabwareImageModel(BaseModel):
     url: str
     content_type: str = "image/png"
+
+
+class PF400GripperModel(BaseModel):
+    # Mirrors legacy "BenchBot Gripper" panel in pf400.PNG
+    landscape_gripping_ranges_mm: Optional[str] = None  # e.g. "2-6" or "1-3,2.5,4-8"
+    landscape_open_width_mm: Optional[float] = None
+    landscape_closed_width_mm: Optional[float] = None
+    landscape_tolerance_mm: Optional[float] = None
+
+    portrait_gripping_ranges_mm: Optional[str] = None
+    portrait_open_width_mm: Optional[float] = None
+    portrait_closed_width_mm: Optional[float] = None
+    portrait_tolerance_mm: Optional[float] = None
+
+    grip_torque_percent: Optional[float] = None  # 0-100
+
+
+class PlanarMotorModel(BaseModel):
+    # Basic motion limits for Planar Motor handling profiles (units: SI)
+    max_velocity_m_per_s: Optional[float] = None
+    max_acceleration_m_per_s2: Optional[float] = None
 
 
 class PlateDimensionsMM(BaseModel):
@@ -513,6 +548,8 @@ class LabwareTypeCreateRequest(BaseModel):
     # Optional 3D model reference (for visualization/clearance)
     model_3d: Optional[Labware3DModel] = None
     image_2d: Optional[LabwareImageModel] = None
+    pf400: Optional[PF400GripperModel] = None
+    planar_motor: Optional[PlanarMotorModel] = None
     notes: Optional[str] = ""
 
 
@@ -530,6 +567,8 @@ class LabwareTypeUpdateRequest(BaseModel):
     well_dimensions_mm: Optional[WellDimensionsMM] = None
     model_3d: Optional[Labware3DModel] = None
     image_2d: Optional[LabwareImageModel] = None
+    pf400: Optional[PF400GripperModel] = None
+    planar_motor: Optional[PlanarMotorModel] = None
     notes: Optional[str] = None
 
 
@@ -847,6 +886,41 @@ async def jog_robot(req: JogRequest):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Jog error: {str(e)}")
 
+
+@app.post("/gripper/set")
+async def set_gripper(req: GripperSetRequest):
+    """Set PF400 gripper opening to an absolute value in mm (keeps all other joints the same)."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    if not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=501, detail="Gripper set not supported by current client")
+
+    try:
+        joints_dict = robot_client.get_joint_positions() if hasattr(robot_client, "get_joint_positions") else {}
+        import math
+        j1_mm = float(joints_dict.get("j1", 0)) * 1000.0
+        j2_deg = float(joints_dict.get("j2", 0)) * 180.0 / math.pi
+        j3_deg = float(joints_dict.get("j3", 0)) * 180.0 / math.pi
+        j4_deg = float(joints_dict.get("j4", 0)) * 180.0 / math.pi
+        j6_mm = float(joints_dict.get("j6", 0)) * 1000.0 if "j6" in joints_dict else None
+
+        success = robot_client.driver.move_to_joints_raw(
+            j1_mm=j1_mm,
+            j2_deg=j2_deg,
+            j3_deg=j3_deg,
+            j4_deg=j4_deg,
+            gripper_mm=req.gripper_mm,
+            j6_mm=j6_mm,
+            profile=req.speed_profile,
+        )
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to set gripper")
+        return {"status": "success", "gripper_mm": req.gripper_mm}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gripper set error: {str(e)}")
+
 @app.get("/description")
 async def get_description():
     if not robot_client:
@@ -1103,7 +1177,7 @@ async def rename_teachpoint(teachpoint_id: str, name: str, description: str = No
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/teachpoints/move/{teachpoint_id}")
-async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1):
+async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gripper: bool = False):
     """Move the robot to a saved teachpoint."""
     if not robot_client:
         raise HTTPException(status_code=503, detail="Robot client not initialized")
@@ -1121,12 +1195,20 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1):
             # Use move_to_joints_raw which expects robot native units (mm/deg)
             if hasattr(robot_client, 'driver'):
                 j6_mm = joints[5] if len(joints) > 5 else None
+                gripper_mm = joints[4]
+                if keep_gripper:
+                    # Keep current gripper opening rather than overwriting from teachpoint
+                    try:
+                        joints_dict = robot_client.get_joint_positions() if hasattr(robot_client, "get_joint_positions") else {}
+                        gripper_mm = float(joints_dict.get("gripper", 0)) * 1000.0
+                    except Exception:
+                        pass
                 success = robot_client.driver.move_to_joints_raw(
                     j1_mm=joints[0],
                     j2_deg=joints[1],
                     j3_deg=joints[2],
                     j4_deg=joints[3],
-                    gripper_mm=joints[4],
+                    gripper_mm=gripper_mm,
                     j6_mm=j6_mm,
                     profile=speed_profile
                 )
@@ -1217,6 +1299,8 @@ async def create_labware_type(req: LabwareTypeCreateRequest):
             "well_dimensions_mm": req.well_dimensions_mm.model_dump() if req.well_dimensions_mm else None,
             "model_3d": req.model_3d.model_dump() if req.model_3d else None,
             "image_2d": req.image_2d.model_dump() if req.image_2d else None,
+            "pf400": req.pf400.model_dump() if req.pf400 else None,
+            "planar_motor": req.planar_motor.model_dump() if req.planar_motor else None,
             "notes": req.notes or "",
         })
         if not created:
@@ -1259,6 +1343,93 @@ async def get_labware_type(labware_type_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/pf400/pick-place")
+async def pf400_pick_place(req: PF400PickPlaceRequest):
+    """Minimal labware-aware pick-and-place using teachpoints + labware PF400 gripper widths."""
+    if not robot_client:
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    if not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=501, detail="Pick/place not supported by current client")
+
+    # Fetch labware
+    labware = mongodb.get_labware_type_by_id(req.labware_type_id)
+    if not labware:
+        raise HTTPException(status_code=404, detail="Labware type not found")
+
+    pf = (labware.get("pf400") or {})
+    orient = (req.orientation or "landscape").lower().strip()
+    if orient not in ("landscape", "portrait"):
+        raise HTTPException(status_code=400, detail="orientation must be 'landscape' or 'portrait'")
+
+    open_mm = pf.get(f"{orient}_open_width_mm")
+    closed_mm = pf.get(f"{orient}_closed_width_mm")
+    if open_mm is None or closed_mm is None:
+        raise HTTPException(status_code=400, detail=f"Labware PF400 {orient} open/closed widths are not set")
+
+    # Fetch teachpoints
+    tps = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
+    if req.pick_teachpoint_id not in tps:
+        raise HTTPException(status_code=404, detail="Pick teachpoint not found")
+    if req.place_teachpoint_id not in tps:
+        raise HTTPException(status_code=404, detail="Place teachpoint not found")
+
+    def _move_tp(tp_id: str, profile: int):
+        tp = tps[tp_id]
+        joints = tp.get("joints") or None
+        if not joints or len(joints) < 4:
+            raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has no joint data")
+        j6_mm = joints[5] if len(joints) > 5 else None
+        ok = robot_client.driver.move_to_joints_raw(
+            j1_mm=joints[0],
+            j2_deg=joints[1],
+            j3_deg=joints[2],
+            j4_deg=joints[3],
+            gripper_mm=None,  # will be overridden below by explicit set_gripper calls
+            j6_mm=j6_mm,
+            profile=profile,
+        )
+        if not ok:
+            raise HTTPException(status_code=500, detail=f"Move to teachpoint '{tp_id}' failed")
+
+    def _set_grip(mm: float, profile: int):
+        # Reuse absolute gripper set logic by calling driver with current joints.
+        joints_dict = robot_client.get_joint_positions() if hasattr(robot_client, "get_joint_positions") else {}
+        import math
+        j1_mm = float(joints_dict.get("j1", 0)) * 1000.0
+        j2_deg = float(joints_dict.get("j2", 0)) * 180.0 / math.pi
+        j3_deg = float(joints_dict.get("j3", 0)) * 180.0 / math.pi
+        j4_deg = float(joints_dict.get("j4", 0)) * 180.0 / math.pi
+        j6_mm = float(joints_dict.get("j6", 0)) * 1000.0 if "j6" in joints_dict else None
+        ok = robot_client.driver.move_to_joints_raw(
+            j1_mm=j1_mm,
+            j2_deg=j2_deg,
+            j3_deg=j3_deg,
+            j4_deg=j4_deg,
+            gripper_mm=float(mm),
+            j6_mm=j6_mm,
+            profile=profile,
+        )
+        if not ok:
+            raise HTTPException(status_code=500, detail=f"Failed to set gripper to {mm}mm")
+
+    # Sequence
+    _set_grip(float(open_mm), req.speed_no_plate)
+    _move_tp(req.pick_teachpoint_id, req.speed_no_plate)
+    _set_grip(float(closed_mm), req.speed_no_plate)
+    _move_tp(req.place_teachpoint_id, req.speed_holding_plate)
+    _set_grip(float(open_mm), req.speed_holding_plate)
+
+    return {
+        "status": "success",
+        "labware_type_id": req.labware_type_id,
+        "orientation": orient,
+        "open_mm": open_mm,
+        "closed_mm": closed_mm,
+        "pick_teachpoint_id": req.pick_teachpoint_id,
+        "place_teachpoint_id": req.place_teachpoint_id,
+    }
+
+
 @app.patch("/labware/types/{labware_type_id}")
 async def patch_labware_type(labware_type_id: str, req: LabwareTypeUpdateRequest):
     """Update labware type fields (used by modern Labware UI)."""
@@ -1280,6 +1451,10 @@ async def patch_labware_type(labware_type_id: str, req: LabwareTypeUpdateRequest
             updates["model_3d"] = req.model_3d.model_dump()
         if req.image_2d is not None:
             updates["image_2d"] = req.image_2d.model_dump()
+        if req.pf400 is not None:
+            updates["pf400"] = req.pf400.model_dump()
+        if req.planar_motor is not None:
+            updates["planar_motor"] = req.planar_motor.model_dump()
         if req.plate_properties is not None:
             updates["plate_properties"] = req.plate_properties.model_dump()
 
