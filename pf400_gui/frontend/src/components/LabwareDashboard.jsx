@@ -180,6 +180,27 @@ function LabwareDashboard() {
     }
   }
 
+  const renameEntry = async () => {
+    if (!selectedType) return
+    const nextName = prompt('Rename labware entry:', selectedType.name)
+    if (!nextName || !nextName.trim() || nextName.trim() === selectedType.name) return
+    setBusy(true)
+    try {
+      const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nextName.trim() }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.detail || 'Failed to rename labware entry')
+      await fetchAll()
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setBusy(false)
+    }
+  }
+
   // -------- Plate Properties tab state (editable) --------
   const [ppDescription, setPpDescription] = useState('')
   const [ppManufacturerPart, setPpManufacturerPart] = useState('')
@@ -263,6 +284,10 @@ function LabwareDashboard() {
   const [tipCapacityUl, setTipCapacityUl] = useState(10)
   const [thirdPartyTipCapacityUl, setThirdPartyTipCapacityUl] = useState('')
   const [disposableTipLengthMm, setDisposableTipLengthMm] = useState('')
+
+  // -------- Image tab state (upload) --------
+  const [imageFile, setImageFile] = useState(null)
+  const [modelFile, setModelFile] = useState(null)
 
   useEffect(() => {
     if (!selectedType) return
@@ -666,11 +691,11 @@ function LabwareDashboard() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
                   <div>
                     <div style={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2em' }}>{selectedType.name}</div>
-                    <div style={{ color: '#888', marginTop: 4 }}>
-                      id: <span style={{ fontFamily: 'monospace' }}>{selectedType.labware_type_id}</span>
-                    </div>
                   </div>
-                  <SmallButton variant="danger" disabled={busy} onClick={deleteEntry}>Delete</SmallButton>
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <SmallButton disabled={busy} onClick={renameEntry}>Rename</SmallButton>
+                    <SmallButton variant="danger" disabled={busy} onClick={deleteEntry}>Delete</SmallButton>
+                  </div>
                 </div>
 
                 {/* Entry tabs (starting with Plate Properties to match plate-props.PNG) */}
@@ -953,7 +978,136 @@ function LabwareDashboard() {
                     </div>
                   </div>
                 ) : (
-                  <div style={{ marginTop: 14, color: '#888' }}>Next: replicate “Image” tab.</div>
+                  <div style={{ marginTop: 14 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 14 }}>
+                      <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                        <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Image</div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 90px', gap: 10, alignItems: 'center' }}>
+                          <div style={{ color: '#bbb', textAlign: 'right' }}>Image filename</div>
+                          <input
+                            value={selectedType?.image_2d?.url ? `${API_URL}${selectedType.image_2d.url}` : (imageFile?.name || '')}
+                            readOnly
+                            style={input}
+                          />
+                          <label style={{ margin: 0 }}>
+                            <input
+                              type="file"
+                              accept="image/png,image/jpeg,image/webp,image/gif"
+                              style={{ display: 'none' }}
+                              onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                              disabled={busy}
+                            />
+                            <SmallButton disabled={busy} onClick={(e) => e.currentTarget.parentElement.querySelector('input[type=file]').click()}>…</SmallButton>
+                          </label>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 10 }}>
+                          <SmallButton
+                            variant="primary"
+                            disabled={busy || !selectedType || !imageFile}
+                            onClick={async () => {
+                              if (!selectedType || !imageFile) return
+                              setBusy(true)
+                              try {
+                                const fd = new FormData()
+                                fd.append('file', imageFile)
+                                const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}/assets/image`, {
+                                  method: 'POST',
+                                  body: fd,
+                                })
+                                const data = await res.json().catch(() => ({}))
+                                if (!res.ok) throw new Error(data.detail || 'Failed to upload image')
+                                setImageFile(null)
+                                await fetchAll()
+                              } catch (e) {
+                                setError(e.message || String(e))
+                              } finally {
+                                setBusy(false)
+                              }
+                            }}
+                          >
+                            Upload image
+                          </SmallButton>
+                        </div>
+                      </div>
+
+                      <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111' }}>
+                        <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>3D Model (optional)</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 90px', gap: 10, alignItems: 'center' }}>
+                          <div style={{ color: '#bbb', textAlign: 'right' }}>Model filename</div>
+                          <input
+                            value={selectedType?.model_3d?.url ? `${API_URL}${selectedType.model_3d.url}` : (modelFile?.name || '')}
+                            readOnly
+                            style={input}
+                          />
+                          <label style={{ margin: 0 }}>
+                            <input
+                              type="file"
+                              accept=".stl,.obj,.glb,.gltf,.grbl"
+                              style={{ display: 'none' }}
+                              onChange={(e) => setModelFile(e.target.files?.[0] || null)}
+                              disabled={busy}
+                            />
+                            <SmallButton disabled={busy} onClick={(e) => e.currentTarget.parentElement.querySelector('input[type=file]').click()}>…</SmallButton>
+                          </label>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginTop: 10 }}>
+                          <div style={{ color: '#888', fontSize: '0.9em' }}>
+                            Supported: <span style={{ color: '#bbb' }}>STL, OBJ, GLB</span> (and GLTF)
+                          </div>
+                          <SmallButton
+                            variant="primary"
+                            disabled={busy || !selectedType || !modelFile}
+                            onClick={async () => {
+                              if (!selectedType || !modelFile) return
+                              setBusy(true)
+                              try {
+                                const fd = new FormData()
+                                fd.append('file', modelFile)
+                                const res = await fetch(`${API_URL}/labware/types/${encodeURIComponent(selectedType.labware_type_id)}/assets/model`, {
+                                  method: 'POST',
+                                  body: fd,
+                                })
+                                const data = await res.json().catch(() => ({}))
+                                if (!res.ok) throw new Error(data.detail || 'Failed to upload model')
+                                setModelFile(null)
+                                await fetchAll()
+                              } catch (e) {
+                                setError(e.message || String(e))
+                              } finally {
+                                setBusy(false)
+                              }
+                            }}
+                          >
+                            Upload model
+                          </SmallButton>
+                        </div>
+                      </div>
+
+                      <div style={{ border: '1px solid #333', borderRadius: 12, padding: 14, background: '#111', minHeight: 420 }}>
+                        <div style={{ color: '#fff', fontWeight: 'bold', marginBottom: 10 }}>Preview</div>
+                        {selectedType?.image_2d?.url ? (
+                          <img
+                            src={`${API_URL}${selectedType.image_2d.url}`}
+                            alt="labware preview"
+                            style={{ maxWidth: '100%', maxHeight: 360, objectFit: 'contain', borderRadius: 10, border: '1px solid #222' }}
+                          />
+                        ) : (
+                          <div style={{ color: '#666' }}>No image uploaded yet.</div>
+                        )}
+                        {selectedType?.model_3d?.url ? (
+                          <div style={{ marginTop: 12, color: '#aaa' }}>
+                            3D model: <span style={{ color: '#ccc' }}>{selectedType.model_3d.format}</span> ·{' '}
+                            <a href={`${API_URL}${selectedType.model_3d.url}`} target="_blank" rel="noreferrer" style={{ color: '#69c0ff' }}>
+                              open file
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             )}
@@ -1078,6 +1232,7 @@ function LabwareDashboard() {
 }
 
 export default LabwareDashboard
+
 
 
 

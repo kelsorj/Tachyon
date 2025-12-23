@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -12,6 +12,7 @@ import os
 import argparse
 import time
 import secrets
+import shutil
 
 # Import ROS client
 from ros_client import PF400ROSClient
@@ -431,6 +432,11 @@ class Labware3DModel(BaseModel):
     format: str = "stl"  # stl|gltf|glb|obj|step|stp|etc
 
 
+class LabwareImageModel(BaseModel):
+    url: str
+    content_type: str = "image/png"
+
+
 class PlateDimensionsMM(BaseModel):
     length_mm: float
     width_mm: float
@@ -506,6 +512,7 @@ class LabwareTypeCreateRequest(BaseModel):
 
     # Optional 3D model reference (for visualization/clearance)
     model_3d: Optional[Labware3DModel] = None
+    image_2d: Optional[LabwareImageModel] = None
     notes: Optional[str] = ""
 
 
@@ -522,6 +529,7 @@ class LabwareTypeUpdateRequest(BaseModel):
     plate_dimensions_mm: Optional[PlateDimensionsMM] = None
     well_dimensions_mm: Optional[WellDimensionsMM] = None
     model_3d: Optional[Labware3DModel] = None
+    image_2d: Optional[LabwareImageModel] = None
     notes: Optional[str] = None
 
 
@@ -1208,6 +1216,7 @@ async def create_labware_type(req: LabwareTypeCreateRequest):
             "plate_dimensions_mm": req.plate_dimensions_mm.model_dump() if req.plate_dimensions_mm else None,
             "well_dimensions_mm": req.well_dimensions_mm.model_dump() if req.well_dimensions_mm else None,
             "model_3d": req.model_3d.model_dump() if req.model_3d else None,
+            "image_2d": req.image_2d.model_dump() if req.image_2d else None,
             "notes": req.notes or "",
         })
         if not created:
@@ -1269,6 +1278,8 @@ async def patch_labware_type(labware_type_id: str, req: LabwareTypeUpdateRequest
             updates["well_dimensions_mm"] = req.well_dimensions_mm.model_dump()
         if req.model_3d is not None:
             updates["model_3d"] = req.model_3d.model_dump()
+        if req.image_2d is not None:
+            updates["image_2d"] = req.image_2d.model_dump()
         if req.plate_properties is not None:
             updates["plate_properties"] = req.plate_properties.model_dump()
 
@@ -1348,6 +1359,80 @@ async def delete_labware_class(labware_class_id: str):
         raise
     except Exception as e:
         print(f"Error deleting labware class: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============== Labware Assets (Image / 3D Models) ==============
+
+def _labware_upload_root() -> str:
+    # Save under the mounted labware directory so it is served by /models/labware/*
+    return os.path.join(labware_models_dir, "uploads")
+
+
+def _safe_ext(filename: str) -> str:
+    base = os.path.basename(filename or "")
+    _, ext = os.path.splitext(base)
+    return (ext or "").lower()
+
+
+@app.post("/labware/types/{labware_type_id}/assets/image")
+async def upload_labware_image(labware_type_id: str, file: UploadFile = File(...)):
+    """Upload a 2D image for a labware type (png/jpg/webp/gif)."""
+    try:
+        ext = _safe_ext(file.filename)
+        if ext not in (".png", ".jpg", ".jpeg", ".webp", ".gif"):
+            raise HTTPException(status_code=400, detail="Unsupported image type. Use png/jpg/webp/gif.")
+
+        if not os.path.exists(labware_models_dir):
+            raise HTTPException(status_code=500, detail="Labware models directory not mounted on backend")
+
+        out_dir = os.path.join(_labware_upload_root(), labware_type_id)
+        os.makedirs(out_dir, exist_ok=True)
+        out_name = f"image{ext}"
+        out_path = os.path.join(out_dir, out_name)
+        with open(out_path, "wb") as f:
+            shutil.copyfileobj(file.file, f)
+
+        url = f"/models/labware/uploads/{labware_type_id}/{out_name}"
+        updated = mongodb.update_labware_type(labware_type_id, {"image_2d": {"url": url, "content_type": file.content_type or "image/png"}})
+        if not updated:
+            raise HTTPException(status_code=404, detail="Labware type not found")
+        return {"labware_type": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error uploading labware image: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/labware/types/{labware_type_id}/assets/model")
+async def upload_labware_model(labware_type_id: str, file: UploadFile = File(...)):
+    """Upload a 3D model for a labware type (stl/obj/glb/gltf)."""
+    try:
+        ext = _safe_ext(file.filename)
+        if ext not in (".stl", ".obj", ".glb", ".gltf", ".grbl"):
+            raise HTTPException(status_code=400, detail="Unsupported model type. Use stl/obj/glb/gltf.")
+
+        if not os.path.exists(labware_models_dir):
+            raise HTTPException(status_code=500, detail="Labware models directory not mounted on backend")
+
+        out_dir = os.path.join(_labware_upload_root(), labware_type_id)
+        os.makedirs(out_dir, exist_ok=True)
+        out_name = f"model{ext}"
+        out_path = os.path.join(out_dir, out_name)
+        with open(out_path, "wb") as f:
+            shutil.copyfileobj(file.file, f)
+
+        fmt = ext.lstrip(".")
+        url = f"/models/labware/uploads/{labware_type_id}/{out_name}"
+        updated = mongodb.update_labware_type(labware_type_id, {"model_3d": {"url": url, "format": fmt}})
+        if not updated:
+            raise HTTPException(status_code=404, detail="Labware type not found")
+        return {"labware_type": updated}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error uploading labware model: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
