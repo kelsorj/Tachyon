@@ -1991,23 +1991,20 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             if d <= 0:
                 continue
 
-            # Build per-magnitude candidates: toward-origin first, then opposite.
-            if x < 0:
-                # Away-side: prefer true cartesian X tangent (x moves toward 0 by adding +d when x<0).
-                # Using moveExtraAxis for rail during MoveC proved consistently unreachable (-1040) here.
-                cand_apps = [
-                    (x + d, y, "x", +d, None),
-                    (x - d, y, "x", -d, None),
-                ]
-            else:
-                y_toward = (y - d) if y > 0 else (y + d)
-                y_away = (y + d) if y > 0 else (y - d)
-                cand_apps = [
-                    (x, y_toward, "y", +d, None),
-                    (x, y_away, "y", -d, None),
-                ]
+            # Build per-magnitude candidates.
+            # Prefer a Y-tangent (approach along Y) so we "extend toward the teachpoint" while the rail (X/J6)
+            # blends naturally during the same MoveC. This avoids a late lateral X shift near the teachpoint.
+            y_toward = (y - d) if y > 0 else (y + d)
+            y_away = (y + d) if y > 0 else (y - d)
+            cand_apps = [
+                (x, y_toward, "y", +d, None),
+                (x, y_away, "y", -d, None),
+                # Fallback: X-tangent if Y-tangent is unreachable.
+                (x + d, y, "x", +d, None),
+                (x - d, y, "x", -d, None),
+            ]
 
-            for (x_app, y_app, axis, tan_mm, extra_axis_mm) in cand_apps[:2]:
+            for (x_app, y_app, axis, tan_mm, extra_axis_mm) in cand_apps[:4]:
                 attempt_idx += 1
                 used_x_app = float(x_app)
                 used_y_app = float(y_app)
@@ -2015,29 +2012,41 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
                 used_tangent = float(tan_mm)
                 used_extra_axis_mm = extra_axis_mm
 
-                cfg_hint = tp_cfg if tp_cfg is not None else None
-                steps.append({
-                    "step": "move_pick_tangent_above",
-                    "teachpoint_id": req.pick_teachpoint_id,
-                    "tangent_mm": used_tangent,
-                    "tangent_axis": used_axis,
-                    "attempt": attempt_idx,
-                    "target": {"x": used_x_app, "y": used_y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": None},
-                    "extra_axis_mm": extra_axis_mm,
-                    "teachpoint_config": tp_cfg,
-                    "config_sent": cfg_hint,
-                })
-                if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                    ok, resp = robot_client.driver.move_cartesian_with_resp(
-                        used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
-                        profile=req.speed_no_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
-                    )
-                else:
-                    ok = robot_client.driver.move_cartesian(
-                        used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
-                        profile=req.speed_no_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
-                    )
-                    resp = "unknown"
+                # Try tangent-above without forcing config first. If unreachable and we have a teachpoint
+                # config saved, try again with that config as a fallback (away-side often needs this).
+                cfg_candidates: List[Optional[int]] = [None]
+                if tp_cfg is not None:
+                    try:
+                        cfg_candidates.append(int(tp_cfg))
+                    except Exception:
+                        pass
+
+                for cfg_hint in cfg_candidates:
+                    steps.append({
+                        "step": "move_pick_tangent_above",
+                        "teachpoint_id": req.pick_teachpoint_id,
+                        "tangent_mm": used_tangent,
+                        "tangent_axis": used_axis,
+                        "attempt": attempt_idx,
+                        "target": {"x": used_x_app, "y": used_y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg_hint},
+                        "extra_axis_mm": extra_axis_mm,
+                        "teachpoint_config": tp_cfg,
+                        "config_sent": cfg_hint,
+                    })
+                    if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                        ok, resp = robot_client.driver.move_cartesian_with_resp(
+                            used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
+                            profile=req.speed_no_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
+                        )
+                    else:
+                        ok = robot_client.driver.move_cartesian(
+                            used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
+                            profile=req.speed_no_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
+                        )
+                        resp = "unknown"
+
+                    if ok:
+                        break
 
                 if ok:
                     try:
@@ -2264,6 +2273,14 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         _move_safe(req.speed_holding_plate)
         time.sleep(pause)
 
+        # IMPORTANT: for the place segment we're often coming from a very different rail position (J6/X).
+        # Pre-positioning rail + Z-above while tucked makes the first tangent MoveC reachable, without
+        # introducing any late lateral sweep near the teachpoint.
+        j1_above_mm = float(place_j[0]) + float(place_z_above)
+        steps.append({"step": "ensure_place_rail_and_z", "teachpoint_id": req.place_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
+        _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_holding_plate)
+        time.sleep(pause)
+
         x = place_cart["x"]
         y = place_cart["y"]
         z = place_cart["z"]
@@ -2287,20 +2304,17 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         for d in mags:
             if d <= 0:
                 continue
-            if x < 0:
-                cand_apps = [
-                    (x + d, y, "x", +d, None),
-                    (x - d, y, "x", -d, None),
-                ]
-            else:
-                y_toward = (y - d) if y > 0 else (y + d)
-                y_away = (y + d) if y > 0 else (y - d)
-                cand_apps = [
-                    (x, y_toward, "y", +d, None),
-                    (x, y_away, "y", -d, None),
-                ]
+            y_toward = (y - d) if y > 0 else (y + d)
+            y_away = (y + d) if y > 0 else (y - d)
+            cand_apps = [
+                (x, y_toward, "y", +d, None),
+                (x, y_away, "y", -d, None),
+                # Fallback: X-tangent if Y-tangent is unreachable.
+                (x + d, y, "x", +d, None),
+                (x - d, y, "x", -d, None),
+            ]
 
-            for (x_app, y_app, axis, tan_mm, extra_axis_mm) in cand_apps[:2]:
+            for (x_app, y_app, axis, tan_mm, extra_axis_mm) in cand_apps[:4]:
                 attempt_idx += 1
                 used_x_app = float(x_app)
                 used_y_app = float(y_app)
@@ -2308,29 +2322,41 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
                 used_tangent = float(tan_mm)
                 used_extra_axis_mm = extra_axis_mm
 
-                cfg_hint = tp_cfg if tp_cfg is not None else None
-                steps.append({
-                    "step": "move_place_tangent_above",
-                    "teachpoint_id": req.place_teachpoint_id,
-                    "tangent_mm": used_tangent,
-                    "tangent_axis": used_axis,
-                    "attempt": attempt_idx,
-                    "target": {"x": used_x_app, "y": used_y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": None},
-                    "extra_axis_mm": extra_axis_mm,
-                    "teachpoint_config": tp_cfg,
-                    "config_sent": cfg_hint,
-                })
-                if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                    ok, resp = robot_client.driver.move_cartesian_with_resp(
-                        used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
-                        profile=req.speed_holding_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
-                    )
-                else:
-                    ok = robot_client.driver.move_cartesian(
-                        used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
-                        profile=req.speed_holding_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
-                    )
-                    resp = "unknown"
+                # Try tangent-above without forcing config first. If unreachable and we have a teachpoint
+                # config saved, try again with that config as a fallback.
+                cfg_candidates: List[Optional[int]] = [None]
+                if tp_cfg is not None:
+                    try:
+                        cfg_candidates.append(int(tp_cfg))
+                    except Exception:
+                        pass
+
+                for cfg_hint in cfg_candidates:
+                    steps.append({
+                        "step": "move_place_tangent_above",
+                        "teachpoint_id": req.place_teachpoint_id,
+                        "tangent_mm": used_tangent,
+                        "tangent_axis": used_axis,
+                        "attempt": attempt_idx,
+                        "target": {"x": used_x_app, "y": used_y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg_hint},
+                        "extra_axis_mm": extra_axis_mm,
+                        "teachpoint_config": tp_cfg,
+                        "config_sent": cfg_hint,
+                    })
+                    if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                        ok, resp = robot_client.driver.move_cartesian_with_resp(
+                            used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
+                            profile=req.speed_holding_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
+                        )
+                    else:
+                        ok = robot_client.driver.move_cartesian(
+                            used_x_app, used_y_app, z + z_above, yaw, pitch, roll,
+                            profile=req.speed_holding_plate, config=cfg_hint, extra_axis_mm=extra_axis_mm,
+                        )
+                        resp = "unknown"
+
+                    if ok:
+                        break
 
                 if ok:
                     try:
