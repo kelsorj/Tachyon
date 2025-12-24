@@ -52,7 +52,12 @@ function PF400Diagnostics() {
   const [deviceTeachpoints, setDeviceTeachpoints] = useState({}) // teachpoints from other devices
   const [linkingTeachpoint, setLinkingTeachpoint] = useState(null)
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
+  // IMPORTANT:
+  // - When the UI is opened from another computer, "localhost" refers to the *user's* machine,
+  //   not the robot host running the backend.
+  // - Default to the current page hostname + backend port instead.
+  const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
+  const API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
 
   // Load per-device config from MongoDB via backend `/devices`
   useEffect(() => {

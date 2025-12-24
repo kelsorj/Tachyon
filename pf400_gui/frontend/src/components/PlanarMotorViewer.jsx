@@ -223,7 +223,8 @@ export default function PlanarMotorViewer({
     flywayCount = DEFAULT_FLYWAY_COUNT,
     flywayGapX = DEFAULT_FLYWAY_GAP_X
 }) {
-    const MAC_BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
+    const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
+    const MAC_BACKEND_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
     const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S3-AS-04-06-OEM-Rev0-FLYWAY-S3-AS.gltf`
     const xbotModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/M3-06-04-OEM-Rev3-XBOT.gltf`
     

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import PlanarMotorViewer from './PlanarMotorViewer'
 
-const PF400_API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091" // For fetching device info from MongoDB
+const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
+const PF400_API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL // For fetching device info from MongoDB
 
 function PlanarMotorDiagnostics() {
   const { deviceName } = useParams()

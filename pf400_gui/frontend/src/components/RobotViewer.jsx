@@ -22,7 +22,8 @@ function RobotModel({ joints, cartesian, verticalScale = DEFAULT_VERTICAL_COLUMN
         loader.loadMeshCb = (path, manager, onComplete) => {
             const stlLoader = new STLLoader(manager)
             const cleanPath = path.replace(/^\/+/, '').replace(/.*meshes\//, 'meshes/')
-            const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8091"
+            const defaultBaseUrl = `${window.location.protocol}//${window.location.hostname}:8091`
+            const baseUrl = import.meta.env.VITE_API_URL || defaultBaseUrl
             const url = `${baseUrl}/${cleanPath}`
             stlLoader.load(url, (geo) => {
                 // If this is the vertical column mesh, stretch it along its longest local axis.
@@ -73,7 +74,8 @@ function RobotModel({ joints, cartesian, verticalScale = DEFAULT_VERTICAL_COLUMN
                 onComplete(new THREE.Mesh())
             })
         }
-        const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8091"
+        const defaultBaseUrl = `${window.location.protocol}//${window.location.hostname}:8091`
+        const baseUrl = import.meta.env.VITE_API_URL || defaultBaseUrl
         const urdfUrl = `${baseUrl}/urdf/pf400Complete.urdf?t=${Date.now()}`
         loader.load(urdfUrl, (result) => {
             console.log('URDF loaded')

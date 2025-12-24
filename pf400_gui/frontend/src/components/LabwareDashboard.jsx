@@ -5,7 +5,8 @@ import * as THREE from 'three'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
+const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
+const API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
 
 function sortByName(a, b) {
   return String(a?.name || '').localeCompare(String(b?.name || ''))

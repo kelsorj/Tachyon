@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8091"
+const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
+const API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
 
 function DeviceDashboard() {
   const [devices, setDevices] = useState([])
