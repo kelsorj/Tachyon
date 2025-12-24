@@ -1903,6 +1903,59 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             pass
         return None
 
+    def _wait_for_gripper_settle(
+        *,
+        target_mm: float,
+        tol_mm: float = 0.6,
+        stable_reads: int = 3,
+        poll_s: float = 0.08,
+        timeout_s: float = 1.5,
+    ) -> Dict[str, Any]:
+        """
+        Wait until the gripper is "settled" at a target opening.
+        Uses position feedback (wherej) via `_get_gripper_mm()` and requires the reading to be within
+        tolerance for N consecutive samples.
+        """
+        import time as _time
+
+        t0 = _time.time()
+        last_mm: Optional[float] = None
+        stable = 0
+        reads = 0
+
+        while True:
+            reads += 1
+            cur = _get_gripper_mm()
+            last_mm = cur if cur is not None else last_mm
+            if cur is not None:
+                if abs(float(cur) - float(target_mm)) <= float(tol_mm):
+                    stable += 1
+                else:
+                    stable = 0
+
+                if stable >= int(stable_reads):
+                    return {
+                        "ok": True,
+                        "target_mm": float(target_mm),
+                        "tol_mm": float(tol_mm),
+                        "reads": reads,
+                        "final_mm": float(cur),
+                        "elapsed_s": float(_time.time() - t0),
+                    }
+
+            if (_time.time() - t0) >= float(timeout_s):
+                return {
+                    "ok": False,
+                    "target_mm": float(target_mm),
+                    "tol_mm": float(tol_mm),
+                    "reads": reads,
+                    "final_mm": float(last_mm) if last_mm is not None else None,
+                    "elapsed_s": float(_time.time() - t0),
+                    "reason": "timeout",
+                }
+
+            _time.sleep(float(poll_s))
+
     def _snapshot_state() -> Dict[str, Any]:
         """
         Debug snapshot of current robot state (best effort).
@@ -1988,7 +2041,14 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             raise HTTPException(status_code=500, detail=f"Safe move error: {e}")
 
     import time
-    pause = max(0.0, float(req.pause_seconds or 0.0))
+    # `pause_seconds` is intended as a settle delay for gripper operations (open/close),
+    # not a general "dead stop" between motion segments.
+    pause_gripper = max(0.0, float(req.pause_seconds or 0.0))
+    # We keep motion pauses at 0 to allow chaining moves smoothly.
+    pause_motion = 0.0
+    # Backwards-compatible alias: most of the sequence uses `time.sleep(pause)` after moves.
+    # Set that to motion pause so we don't introduce visible dead-stops between segments.
+    pause = pause_motion
     steps: List[Dict[str, Any]] = []
 
     pick_tp = tps[req.pick_teachpoint_id]
@@ -2023,13 +2083,13 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         # J6 + J1 (Z-above) while tucked (safe) before attempting the tangent MoveC.
         steps.append({"step": "safe_tuck_before_pick"})
         _move_safe(req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_motion)
 
         # Pre-position rail + Z-above while tucked to make the initial tangent MoveC reachable.
         j1_above_mm = float(pick_j[0]) + float(pick_z_above)
         steps.append({"step": "ensure_pick_rail_and_z", "teachpoint_id": req.pick_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
         _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_motion)
 
         x = pick_cart["x"]
         y = pick_cart["y"]
@@ -2165,7 +2225,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(open_mm), req.speed_no_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "fallback": True})
@@ -2174,7 +2234,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(closed_mm), req.speed_no_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above, "fallback": True})
@@ -2207,7 +2267,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(open_mm), req.speed_no_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "target": {"x": x, "y": y, "z": z, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg_vertical}, "config_used": cfg_vertical})
@@ -2222,7 +2282,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(closed_mm), req.speed_no_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": z_above, "config_used": cfg_vertical})
@@ -2310,7 +2370,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id})
@@ -2319,7 +2379,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(closed_mm), req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above})
@@ -2328,7 +2388,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     else:
         steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "move_pick", "teachpoint_id": req.pick_teachpoint_id})
@@ -2337,7 +2397,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(closed_mm), req.speed_no_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Place (vertical: approach above, descend, open, retract)
@@ -2476,7 +2536,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(open_mm), req.speed_holding_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above, "fallback": True})
@@ -2522,7 +2582,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         if not place_used_fallback:
             steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(open_mm), req.speed_holding_plate)
-            time.sleep(pause)
+            time.sleep(pause_gripper)
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         if not place_used_fallback:
@@ -2568,7 +2628,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_holding_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above})
@@ -2581,7 +2641,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_holding_plate)
-        time.sleep(pause)
+        time.sleep(pause_gripper)
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Return to safe posture at end of sequence
