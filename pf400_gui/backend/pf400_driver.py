@@ -522,8 +522,18 @@ class PF400Driver:
         try:
             response = self.send_command("whereC")
             parts = response.split(" ")
-            parts = parts[1:-1]  # Skip status and last element (like working module)
-            coords = [float(x) for x in parts]
+            parts = parts[1:]  # Skip status code
+            # Expected: X Y Z yaw pitch roll config
+            if len(parts) < 6:
+                return {}
+            coords = [float(x) for x in parts[:6]]
+            config = None
+            if len(parts) >= 7:
+                try:
+                    config = int(float(parts[6]))
+                except Exception:
+                    config = None
+
             if len(coords) >= 6:
                 return {
                     "x": coords[0],
@@ -532,6 +542,7 @@ class PF400Driver:
                     "yaw": coords[3],
                     "pitch": coords[4],
                     "roll": coords[5],
+                    "config": config,
                 }
             return {}
         except Exception as e:
@@ -776,6 +787,33 @@ class PF400Driver:
         except Exception as e:
             print(f"safe_tuck error: {e}")
             return "Error"
+
+    def move_rail_mm(self, j6_mm: float, profile: int = 1) -> str:
+        """
+        Move the linear rail (J6) to an absolute position.
+
+        Accepts mm, but also tolerates legacy meters inputs:
+          - if abs(value) < 5, treat as meters and convert to mm (e.g. -0.700 -> -700mm)
+
+        Returns controller response (e.g. "0" on success, negative code on failure).
+        """
+        try:
+            v = float(j6_mm)
+            if abs(v) < 5.0:
+                v = v * 1000.0
+            # Conservative clamp to known rail range
+            if v < -1000.0 or v > 1000.0:
+                return f"-1012"  # Joint out-of-range (existing mapping); controller may return its own code
+
+            cmd = f"MoveOneAxis 6 {float(v)} {int(profile)}"
+            print(f"Sending: {cmd}")
+            resp = self.send_command(cmd)
+            print(f"Response: {resp}")
+            self.await_movement_completion()
+            return resp
+        except Exception as e:
+            print(f"move_rail_mm error: {e}")
+            return "Error"
     
     def move_to_joints(self, j1_m, j2_rad, j3_rad, j4_rad, gripper_m=None, j6_m=None, profile=1):
         """
@@ -842,12 +880,14 @@ class PF400Driver:
         
         return self.move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, j6_m, profile)
     
-    def move_cartesian(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1):
+    def move_cartesian(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1, config: Optional[int] = None):
         """
         Move to Cartesian position (like working module).
         """
         try:
             target = [x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg]
+            if config is not None:
+                target.append(int(config))
             move_command = (
                 "MoveC" + " " + str(profile) + " " + " ".join(map(str, target))
             )
@@ -858,14 +898,36 @@ class PF400Driver:
             
             self.await_movement_completion()
             
-            if response in ERROR_CODES:
-                print(f"MoveC failed: {ERROR_CODES[response]}")
+            # Treat any negative return code as failure (even if not in ERROR_CODES mapping).
+            if isinstance(response, str) and response.strip().startswith("-"):
+                if response in ERROR_CODES:
+                    print(f"MoveC failed: {ERROR_CODES[response]}")
                 return False
             return True
             
         except Exception as e:
             print(f"Error in move_cartesian: {e}")
             return False
+
+    def move_cartesian_with_resp(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1, config: Optional[int] = None) -> Tuple[bool, str]:
+        """
+        Like move_cartesian, but returns (ok, response_string) for better diagnostics.
+        """
+        try:
+            target = [x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg]
+            if config is not None:
+                target.append(int(config))
+            move_command = "MoveC" + " " + str(profile) + " " + " ".join(map(str, target))
+            print(f"Sending: {move_command}")
+            response = self.send_command(move_command)
+            print(f"Response: {response}")
+            self.await_movement_completion()
+            s = str(response).strip()
+            if s.startswith("-"):
+                return (False, s)
+            return (True, s)
+        except Exception as e:
+            return (False, f"Error: {e}")
     
     def move_in_one_axis(self, profile: int = 1, axis_x: int = 0, axis_y: int = 0, axis_z: int = 0) -> str:
         """

@@ -1691,6 +1691,72 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         except Exception:
             return 0.0
 
+    def _tp_tangent_mm(tp: Dict[str, Any]) -> float:
+        """
+        Tangent approach distance in mm.
+        Convention:
+          - Positive value approaches from +Y (global)
+          - Negative value approaches from -Y (global)
+        """
+        v = _tp_features(tp).get("tangent_approach_mm")
+        if v is None:
+            return 0.0
+        try:
+            f = float(v)
+            f = float(_normalize_mm(f))
+            return 0.0 if abs(f) < 0.1 else f
+        except Exception:
+            return 0.0
+
+    def _tp_cartesian(tp: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        c = tp.get("cartesian")
+        if not isinstance(c, dict):
+            return None
+        try:
+            x = float(c.get("x"))
+            y = float(c.get("y"))
+            z = float(c.get("z"))
+            yaw = float(c.get("yaw"))
+            pitch = float(c.get("pitch"))
+            roll = float(c.get("roll"))
+            out: Dict[str, Any] = {"x": x, "y": y, "z": z, "yaw": yaw, "pitch": pitch, "roll": roll}
+            cfg = c.get("config")
+            if cfg is not None:
+                try:
+                    out["config"] = int(float(cfg))
+                except Exception:
+                    pass
+            return out
+        except Exception:
+            return None
+
+    def _ensure_rail_mm(j6_mm: Optional[float], profile: int):
+        """
+        Best-effort: make sure rail is at requested position before cartesian moves.
+        (MoveC does not explicitly command extra axes.)
+        """
+        if j6_mm is None:
+            return
+        if not hasattr(robot_client, "driver"):
+            return
+        try:
+            # Prefer dedicated rail move to avoid full movej sequencing edge-cases.
+            if hasattr(robot_client.driver, "move_rail_mm"):
+                resp = robot_client.driver.move_rail_mm(float(j6_mm), profile=int(profile))
+            else:
+                # Fallback: use MoveOneAxis directly if available
+                cmd = f"MoveOneAxis 6 {float(j6_mm)} {int(profile)}"
+                resp = robot_client.driver.send_command(cmd)
+                robot_client.driver.await_movement_completion()
+
+            if isinstance(resp, str) and resp.strip().startswith("-"):
+                raise HTTPException(status_code=500, detail=f"Rail pre-position failed: {resp}")
+        except HTTPException:
+            raise
+        except Exception:
+            # non-fatal: we'll try MoveC anyway
+            return
+
     def _move_joints_raw(joints: List[float], profile: int, gripper_mm: Optional[float] = None):
         if not joints or len(joints) < 4:
             raise HTTPException(status_code=400, detail="Teachpoint has no joint data")
@@ -1785,6 +1851,10 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     place_tp = tps[req.place_teachpoint_id]
     pick_z_above = max(0.0, _tp_z_above_mm(pick_tp))
     place_z_above = max(0.0, _tp_z_above_mm(place_tp))
+    pick_tangent_mm = _tp_tangent_mm(pick_tp)
+    place_tangent_mm = _tp_tangent_mm(place_tp)
+    pick_cart = _tp_cartesian(pick_tp)
+    place_cart = _tp_cartesian(place_tp)
 
     def _tp_joints(tp_id: str) -> List[float]:
         tp = tps[tp_id]
@@ -1799,7 +1869,118 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         return j
 
     # Sequence (with pauses + observed gripper values for debugging/visibility)
-    if pick_z_above > 0:
+    if pick_cart and abs(pick_tangent_mm) > 0 and pick_z_above > 0 and hasattr(robot_client.driver, "move_cartesian"):
+        # Tangent approach in Cartesian: approach from global +/-Y at Z+z_above, keeping final yaw/pitch/roll.
+        pick_j = _tp_joints(req.pick_teachpoint_id)
+        j6_mm = pick_j[5] if len(pick_j) > 5 else None
+        steps.append({"step": "safe_tuck_before_pick_rail"})
+        _move_safe(req.speed_no_plate)
+        time.sleep(pause)
+        steps.append({"step": "ensure_pick_rail", "teachpoint_id": req.pick_teachpoint_id, "j6_mm": j6_mm})
+        _ensure_rail_mm(j6_mm, req.speed_no_plate)
+        time.sleep(pause)
+
+        x = pick_cart["x"]
+        y = pick_cart["y"]
+        z = pick_cart["z"]
+        yaw = pick_cart["yaw"]
+        pitch = pick_cart["pitch"]
+        roll = pick_cart["roll"]
+        z_above = float(pick_z_above)
+        y_app = y + float(pick_tangent_mm)  # global Y tangent
+
+        cfg = pick_cart.get("config") if isinstance(pick_cart, dict) else None
+        steps.append({"step": "move_pick_tangent_above", "teachpoint_id": req.pick_teachpoint_id, "tangent_mm": pick_tangent_mm, "target": {"x": x, "y": y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+        if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+            ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+        else:
+            ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            resp = "unknown"
+        pick_used_fallback = False
+        if not ok:
+            steps.append({"step": "tangent_pick_failed_fallback_to_joints", "resp": resp})
+            pick_above = _joints_with_z_above(pick_j, pick_z_above)
+            steps.append({"step": "move_pick_above", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above, "fallback": True})
+            _move_joints_raw(pick_above, req.speed_no_plate, gripper_mm=None)
+            time.sleep(pause)
+
+            steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
+            _set_grip(float(open_mm), req.speed_no_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+            steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "fallback": True})
+            _move_joints_raw(pick_j, req.speed_no_plate, gripper_mm=None)
+            time.sleep(pause)
+
+            steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
+            _set_grip(float(closed_mm), req.speed_no_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+            steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above, "fallback": True})
+            _move_joints_raw(pick_above, req.speed_no_plate, gripper_mm=None)
+            time.sleep(pause)
+            pick_used_fallback = True
+        else:
+            time.sleep(pause)
+
+        if not pick_used_fallback:
+            steps.append({"step": "move_pick_above", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": z_above, "target": {"x": x, "y": y, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (pick above): {resp}")
+            time.sleep(pause)
+
+            steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+            _set_grip(float(open_mm), req.speed_no_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+            steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "target": {"x": x, "y": y, "z": z, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (descend to pick): {resp}")
+            time.sleep(pause)
+
+            steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
+            _set_grip(float(closed_mm), req.speed_no_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+            steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": z_above})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract from pick): {resp}")
+            time.sleep(pause)
+
+            steps.append({"step": "retract_to_pick_tangent_above", "teachpoint_id": req.pick_teachpoint_id, "tangent_mm": pick_tangent_mm})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract to pick tangent): {resp}")
+            time.sleep(pause)
+
+        # Always tuck before any subsequent rail move (e.g. going to place)
+        steps.append({"step": "safe_tuck_after_pick"})
+        _move_safe(req.speed_no_plate)
+        time.sleep(pause)
+    elif pick_z_above > 0:
         pick_j = _tp_joints(req.pick_teachpoint_id)
         pick_above = _joints_with_z_above(pick_j, pick_z_above)
 
@@ -1840,7 +2021,106 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Place (vertical: approach above, descend, open, retract)
-    if place_z_above > 0:
+    if place_cart and abs(place_tangent_mm) > 0 and place_z_above > 0 and hasattr(robot_client.driver, "move_cartesian"):
+        place_j = _tp_joints(req.place_teachpoint_id)
+        j6_mm = place_j[5] if len(place_j) > 5 else None
+        steps.append({"step": "safe_tuck_before_place_rail"})
+        _move_safe(req.speed_holding_plate)
+        time.sleep(pause)
+        steps.append({"step": "ensure_place_rail", "teachpoint_id": req.place_teachpoint_id, "j6_mm": j6_mm})
+        _ensure_rail_mm(j6_mm, req.speed_holding_plate)
+        time.sleep(pause)
+
+        x = place_cart["x"]
+        y = place_cart["y"]
+        z = place_cart["z"]
+        yaw = place_cart["yaw"]
+        pitch = place_cart["pitch"]
+        roll = place_cart["roll"]
+        z_above = float(place_z_above)
+        y_app = y + float(place_tangent_mm)
+
+        cfg = place_cart.get("config") if isinstance(place_cart, dict) else None
+        steps.append({"step": "move_place_tangent_above", "teachpoint_id": req.place_teachpoint_id, "tangent_mm": place_tangent_mm, "target": {"x": x, "y": y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+        if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+            ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+        else:
+            ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            resp = "unknown"
+        place_used_fallback = False
+        if not ok:
+            steps.append({"step": "tangent_place_failed_fallback_to_joints", "resp": resp})
+            place_above = _joints_with_z_above(place_j, place_z_above)
+            steps.append({"step": "move_place_above", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above, "fallback": True})
+            _move_joints_raw(place_above, req.speed_holding_plate, gripper_mm=None)
+            time.sleep(pause)
+
+            steps.append({"step": "descend_to_place", "teachpoint_id": req.place_teachpoint_id, "fallback": True})
+            _move_joints_raw(place_j, req.speed_holding_plate, gripper_mm=None)
+            time.sleep(pause)
+
+            steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
+            _set_grip(float(open_mm), req.speed_holding_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+            steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above, "fallback": True})
+            _move_joints_raw(place_above, req.speed_holding_plate, gripper_mm=None)
+            time.sleep(pause)
+            place_used_fallback = True
+        else:
+            time.sleep(pause)
+
+        if not place_used_fallback:
+            steps.append({"step": "move_place_above", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": z_above, "target": {"x": x, "y": y, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (place above): {resp}")
+            time.sleep(pause)
+
+        if not place_used_fallback:
+            steps.append({"step": "descend_to_place", "teachpoint_id": req.place_teachpoint_id, "target": {"x": x, "y": y, "z": z, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (descend to place): {resp}")
+            time.sleep(pause)
+
+        if not place_used_fallback:
+            steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
+            _set_grip(float(open_mm), req.speed_holding_plate)
+            time.sleep(pause)
+            steps[-1]["gripper_mm_after"] = _get_gripper_mm()
+
+        if not place_used_fallback:
+            steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": z_above})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract from place): {resp}")
+            time.sleep(pause)
+
+        if not place_used_fallback:
+            steps.append({"step": "retract_to_place_tangent_above", "teachpoint_id": req.place_teachpoint_id, "tangent_mm": place_tangent_mm})
+            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            else:
+                ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                resp = "unknown"
+            if not ok:
+                raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract to place tangent): {resp}")
+            time.sleep(pause)
+    elif place_z_above > 0:
         place_j = _tp_joints(req.place_teachpoint_id)
         place_above = _joints_with_z_above(place_j, place_z_above)
 

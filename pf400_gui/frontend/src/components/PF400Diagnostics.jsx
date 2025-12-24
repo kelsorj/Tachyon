@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import RobotViewer from './RobotViewer'
+import tangentApproachImg from '../../help/tangent-approach.png'
 
 function PF400Diagnostics() {
   const { deviceName } = useParams()
@@ -704,19 +705,17 @@ function PF400Diagnostics() {
   const HelpTangentApproach = () => (
     <div>
       <div style={{ color: '#ddd', fontWeight: 'bold', marginBottom: 6 }}>Tangent Approach (mm)</div>
-      <div style={{ color: '#999', fontSize: 12, marginBottom: 6 }}>
-        The robot approaches the teachpoint from a 90° “tangent” direction and stops Tangent Approach mm away before the final move.
+      <div style={{ color: '#999', fontSize: 12, marginBottom: 10 }}>
+        The robot approaches from a global tangent direction and “locks” the wrist orientation for the last Tangent Approach distance.
       </div>
-      <svg viewBox="0 0 520 160" style={helpStyles.svgStyle}>
-        <circle cx="390" cy="90" r="5" fill="#52c41a" />
-        <text x="400" y="94" style={helpStyles.label}>Teachpoint</text>
-        <path d="M80 90 L390 90" style={helpStyles.stroke} />
-        <path d="M390 90 L390 30" style={{ ...helpStyles.stroke, stroke: '#b37feb' }} />
-        <text x="80" y="80" style={helpStyles.muted}>tangent approach path</text>
-        <text x="395" y="44" style={helpStyles.muted}>final move</text>
-        <path d="M220 105 L220 120 M390 105 L390 120 M220 112 L390 112" style={{ stroke: '#faad14', strokeWidth: 2 }} />
-        <text x="250" y="140" style={helpStyles.label}>Tangent Approach (mm)</text>
-      </svg>
+      <img
+        src={tangentApproachImg}
+        alt="Tangent Approach diagram"
+        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8, border: '1px solid #333' }}
+      />
+      <div style={{ color: '#999', fontSize: 12, marginTop: 8 }}>
+        Tip: set Tangent Approach to 0 to disable.
+      </div>
     </div>
   )
 
