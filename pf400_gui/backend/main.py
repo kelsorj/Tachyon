@@ -1709,11 +1709,14 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
     open_mm = pf.get(f"{orient}_open_width_mm")
     closed_mm = pf.get(f"{orient}_closed_width_mm")
+    tolerance_mm = pf.get(f"{orient}_tolerance_mm")
     if (open_mm is None or closed_mm is None) and isinstance(labware.get("vworks_raw"), dict):
         inferred = _infer_pf400_from_vworks_raw(labware.get("vworks_raw") or {})
         if inferred:
             open_mm = inferred.get(f"{orient}_open_width_mm")
             closed_mm = inferred.get(f"{orient}_closed_width_mm")
+            if tolerance_mm is None:
+                tolerance_mm = inferred.get(f"{orient}_tolerance_mm")
     if open_mm is None or closed_mm is None:
         raise HTTPException(status_code=400, detail=f"Labware PF400 {orient} open/closed widths are not set")
 
@@ -1726,6 +1729,15 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
     open_mm = _normalize_mm(open_mm)
     closed_mm = _normalize_mm(closed_mm)
+    # Use labware-defined tolerance for BOTH open and close settle checks.
+    # IMPORTANT: tolerance is already in millimeters; do NOT apply the meters→mm heuristic.
+    # If missing or invalid, fall back to a conservative default.
+    try:
+        grip_tol_mm = abs(float(tolerance_mm)) if tolerance_mm is not None else 0.6
+    except Exception:
+        grip_tol_mm = 0.6
+    if grip_tol_mm <= 0:
+        grip_tol_mm = 0.6
     if abs(open_mm) < 0.1 or abs(closed_mm) < 0.1:
         # Driver treats <0.1mm as placeholder and will ignore gripper movement.
         raise HTTPException(
@@ -2225,7 +2237,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(open_mm), req.speed_no_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "fallback": True})
@@ -2234,7 +2246,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(closed_mm), req.speed_no_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(closed_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above, "fallback": True})
@@ -2267,7 +2279,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(open_mm), req.speed_no_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id, "target": {"x": x, "y": y, "z": z, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg_vertical}, "config_used": cfg_vertical})
@@ -2282,7 +2294,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(closed_mm), req.speed_no_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(closed_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": z_above, "config_used": cfg_vertical})
@@ -2370,7 +2382,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_no_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "descend_to_pick", "teachpoint_id": req.pick_teachpoint_id})
@@ -2379,7 +2391,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(closed_mm), req.speed_no_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(closed_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "retract_from_pick", "teachpoint_id": req.pick_teachpoint_id, "z_above_mm": pick_z_above})
@@ -2388,7 +2400,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
     else:
         steps.append({"step": "open_before_pick", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_no_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "move_pick", "teachpoint_id": req.pick_teachpoint_id})
@@ -2397,7 +2409,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "close_at_pick", "target_gripper_mm": closed_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(closed_mm), req.speed_no_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(closed_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Place (vertical: approach above, descend, open, retract)
@@ -2536,7 +2548,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
             steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm(), "fallback": True})
             _set_grip(float(open_mm), req.speed_holding_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
             steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above, "fallback": True})
@@ -2582,7 +2594,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         if not place_used_fallback:
             steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
             _set_grip(float(open_mm), req.speed_holding_plate)
-            time.sleep(pause_gripper)
+            steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
             steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         if not place_used_fallback:
@@ -2628,7 +2640,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_holding_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
         steps.append({"step": "retract_from_place", "teachpoint_id": req.place_teachpoint_id, "z_above_mm": place_z_above})
@@ -2641,7 +2653,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
 
         steps.append({"step": "open_at_place", "target_gripper_mm": open_mm, "gripper_mm_before": _get_gripper_mm()})
         _set_grip(float(open_mm), req.speed_holding_plate)
-        time.sleep(pause_gripper)
+        steps[-1]["settle"] = _wait_for_gripper_settle(target_mm=float(open_mm), tol_mm=float(grip_tol_mm), timeout_s=max(0.8, float(pause_gripper or 0.0)))
         steps[-1]["gripper_mm_after"] = _get_gripper_mm()
 
     # Return to safe posture at end of sequence
