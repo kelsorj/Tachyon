@@ -203,6 +203,43 @@ class PF400Driver:
                 if response != "" and response in ERROR_CODES:
                     print(f"Error response: {ERROR_CODES[response]}")
 
+                # If the controller reports power is not enabled (often after a crash / E-stop),
+                # try to enable high power and re-attach, then retry the original command once.
+                #
+                # Notes:
+                # - This is best-effort; some faults require manual intervention/reset/homing.
+                # - We avoid doing this when the caller is already issuing hp commands.
+                if str(response).strip() in ("-1046", "-1600") and not str(command).strip().lower().startswith("hp"):
+                    try:
+                        print(f"Detected {response} ({ERROR_CODES.get(str(response).strip(), 'power issue')}). Attempting power-on...")
+                        try:
+                            hp_resp = _send_once("hp 1 -1")
+                            print(f"hp 1 -1 (recovery): {hp_resp}")
+                        except Exception as e:
+                            print(f"hp 1 -1 (recovery) failed: {e}")
+
+                        # Give the controller a moment to transition to high power
+                        try:
+                            time.sleep(0.5)
+                        except Exception:
+                            pass
+
+                        # Re-attach in case power cycle detached the session
+                        try:
+                            attach_resp = _send_once("attach 1")
+                            print(f"attach 1 (post-power recovery): {attach_resp}")
+                        except Exception as e:
+                            print(f"attach 1 (post-power recovery) failed: {e}")
+
+                        # Retry original command once
+                        response2 = _send_once(command)
+                        if response2 != "" and response2 in ERROR_CODES:
+                            print(f"Error response (power retry): {ERROR_CODES[response2]}")
+                        return response2
+                    except Exception as e:
+                        print(f"Power-on recovery failed: {e}")
+                        # Fall through to normal return of original response
+
                 # If the controller reports "no robot attached" (-1009), try a lightweight
                 # re-attach and retry the original command once. This prevents sporadic
                 # session detaches from breaking Safe/Pick&Place flows.
