@@ -6,7 +6,7 @@ import os
 import socket
 import time
 import math
-from threading import Lock
+from threading import Lock, RLock
 from typing import Optional, Dict, Any, Tuple
 
 
@@ -105,6 +105,9 @@ class PF400Driver:
         # Locks for thread safety
         self.command_lock = Lock()
         self.status_lock = Lock()
+        # Connect/disconnect can be triggered from multiple endpoints (polling + actions).
+        # Serialize connect lifecycle to avoid races that can leave sockets half-initialized.
+        self.connect_lock = RLock()
         
         # Settings
         self.current_profile = 1
@@ -112,29 +115,35 @@ class PF400Driver:
         
     def connect(self, auto_initialize=True):
         """Connect to PF400 robot."""
-        try:
-            print(f"Connecting to PF400 at {self.ip}:{self.port}...")
-            
-            # Close existing connections
-            self.disconnect()
-            
-            # Connect using telnet-like socket wrapper
-            self.robot_connection = TelnetLikeSocket(self.ip, self.port, 5)
-            self.status_connection = TelnetLikeSocket(self.ip, self.status_port, 5)
-            
-            self.connected = True
-            print(f"✓ Connected to PF400 at {self.ip}:{self.port}")
-            
-            # Configure robot (like working module)
-            if auto_initialize:
-                self.configure_robot()
-            
-            return True
-            
-        except Exception as e:
-            print(f"✗ Failed to connect to PF400: {e}")
-            self.connected = False
-            return False
+        with self.connect_lock:
+            try:
+                print(f"Connecting to PF400 at {self.ip}:{self.port}...")
+
+                # Close existing connections
+                self.disconnect()
+
+                # Connect using telnet-like socket wrapper
+                self.robot_connection = TelnetLikeSocket(self.ip, self.port, 5)
+                self.status_connection = TelnetLikeSocket(self.ip, self.status_port, 5)
+
+                self.connected = True
+                print(f"✓ Connected to PF400 at {self.ip}:{self.port}")
+
+                # Configure robot (like working module)
+                if auto_initialize:
+                    self.configure_robot()
+
+                return True
+
+            except Exception as e:
+                print(f"✗ Failed to connect to PF400: {e}")
+                self.connected = False
+                # Ensure we don't leave half-open sockets around on partial failures
+                try:
+                    self.disconnect()
+                except Exception:
+                    pass
+                return False
     
     def configure_robot(self):
         """Configure robot by setting mode and selecting robot ID (like working module)."""
@@ -161,19 +170,22 @@ class PF400Driver:
     
     def disconnect(self):
         """Disconnect from robot."""
-        if self.robot_connection:
-            try:
-                self.robot_connection.close()
-            except:
-                pass
-            self.robot_connection = None
-        if self.status_connection:
-            try:
-                self.status_connection.close()
-            except:
-                pass
-            self.status_connection = None
-        self.connected = False
+        # disconnect() may be called from connect() or error handlers; keep it serialized.
+        # Use RLock so connect() can call disconnect() safely.
+        with self.connect_lock:
+            if self.robot_connection:
+                try:
+                    self.robot_connection.close()
+                except Exception:
+                    pass
+                self.robot_connection = None
+            if self.status_connection:
+                try:
+                    self.status_connection.close()
+                except Exception:
+                    pass
+                self.status_connection = None
+            self.connected = False
     
     def send_command(self, command: str) -> str:
         """

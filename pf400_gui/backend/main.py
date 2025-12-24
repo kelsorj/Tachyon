@@ -25,6 +25,21 @@ import db as mongodb
 
 app = FastAPI(title="PF400 Control API")
 
+@app.get("/version")
+async def get_version():
+    """Return backend version metadata (useful to confirm which server the GUI is talking to)."""
+    commit = None
+    try:
+        import subprocess
+        commit = (
+            subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=os.path.dirname(__file__))
+            .decode("utf-8")
+            .strip()
+        )
+    except Exception:
+        commit = None
+    return {"version": "0.1.0", "git_commit": commit}
+
 # Mount static files for STL meshes
 mesh_dir = os.path.join(os.path.dirname(__file__), "../../models/pf400_urdf/meshes")
 app.mount("/meshes", StaticFiles(directory=mesh_dir), name="meshes")
@@ -870,6 +885,53 @@ async def startup_event():
             ros_thread.start()
         except Exception as e:
             print(f"Failed to initialize ROS client: {e}")
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Best-effort cleanup so PM2 restarts release robot sockets cleanly."""
+    global robot_client
+    try:
+        if robot_client and hasattr(robot_client, "driver") and hasattr(robot_client.driver, "disconnect"):
+            try:
+                robot_client.driver.disconnect()
+            except Exception:
+                pass
+    finally:
+        pass
+
+
+@app.post("/pf400/reconnect")
+async def pf400_reconnect():
+    """
+    Force-close any existing PF400 sockets and reconnect.
+    This is a lighter-weight recovery than restarting PM2.
+    """
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+
+    d = robot_client.driver
+    ip = getattr(d, "ip", None)
+    port = getattr(d, "port", None)
+
+    try:
+        if hasattr(d, "disconnect"):
+            d.disconnect()
+    except Exception:
+        pass
+
+    import time
+    last_err = None
+    for _ in range(4):
+        try:
+            ok = bool(d.connect(auto_initialize=True))
+            if ok and getattr(d, "connected", False):
+                return {"status": "success", "ip": ip, "port": port, "connected": True}
+        except Exception as e:
+            last_err = str(e)
+        time.sleep(0.35)
+
+    raise HTTPException(status_code=503, detail=f"Reconnect failed (ip={ip}, port={port}): {last_err or 'unknown error'}")
 
 @app.get("/state")
 async def get_state():
@@ -1899,17 +1961,24 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             return s.startswith("-")
 
         try:
-            joints_raw = robot_client.driver.get_joint_states()
-            if not joints_raw or len(joints_raw) < 5:
-                raise HTTPException(status_code=500, detail="Failed to read current joints for safe move")
-            target = list(joints_raw)
-            # indices: 0=J1(mm), 1=J2(deg), 2=J3(deg), 3=J4(deg), 4=J5(mm), 5=J6(mm)
-            target[3] = -188.0
-            target[1] = 4.0
-            target[2] = 179.0
+            # Prefer the driver's `safe_tuck()` if available; it encapsulates the correct
+            # sequencing and avoids format mismatches across SX vs SXL driver variants.
             if hasattr(robot_client.driver, "safe_tuck"):
                 resp = robot_client.driver.safe_tuck(profile=int(profile))
             else:
+                joints_raw = robot_client.driver.get_joint_states()
+                # Some drivers (e.g., SXL diagnostics) may return a dict; for safe moves we need the raw list.
+                if isinstance(joints_raw, dict):
+                    # Parse from controller directly (status + joints)
+                    raw = str(robot_client.driver.send_command("wherej") or "").split()[1:]
+                    joints_raw = [float(x) for x in raw] if raw else []
+                if not joints_raw or len(joints_raw) < 5:
+                    raise HTTPException(status_code=500, detail="Failed to read current joints for safe move")
+                target = list(joints_raw)
+                # indices: 0=J1(mm), 1=J2(deg), 2=J3(deg), 3=J4(deg), 4=J5(mm), 5=J6(mm)
+                target[3] = -188.0
+                target[1] = 4.0
+                target[2] = 179.0
                 resp = robot_client.driver.move_joint(target, profile=int(profile))
             if _is_error_resp(resp):
                 raise HTTPException(status_code=500, detail=f"Safe move failed: {resp}")
@@ -1949,10 +2018,17 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         pick_j = _tp_joints(req.pick_teachpoint_id)
         j6_mm = pick_j[5] if len(pick_j) > 5 else None
         # NOTE: cartesian X tracks the rail (J6). So doing the tangent MoveC to (x_app, z+z_above)
-        # already blends rail + arm extension. Pre-positioning rail/Z via joints makes the motion feel
-        # disjointed and can be unsafe in narrow corridors.
+        # already blends rail + arm extension. However, if we're coming from a very different rail/Z
+        # neighborhood, the first tangent MoveC can be unreachable. In that case, we pre-position
+        # J6 + J1 (Z-above) while tucked (safe) before attempting the tangent MoveC.
         steps.append({"step": "safe_tuck_before_pick"})
         _move_safe(req.speed_no_plate)
+        time.sleep(pause)
+
+        # Pre-position rail + Z-above while tucked to make the initial tangent MoveC reachable.
+        j1_above_mm = float(pick_j[0]) + float(pick_z_above)
+        steps.append({"step": "ensure_pick_rail_and_z", "teachpoint_id": req.pick_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
+        _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_no_plate)
         time.sleep(pause)
 
         x = pick_cart["x"]

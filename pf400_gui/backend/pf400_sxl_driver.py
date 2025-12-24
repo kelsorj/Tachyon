@@ -47,7 +47,12 @@ class PF400SXLDriver(PF400Driver, DiagnosticsInterface):
         """
         try:
             # Get raw response from robot
-            response = self.send_command("WhereJ")
+            # PF400 command is `wherej` (lowercase). Some controllers may accept mixed-case,
+            # but others treat it as an unknown command, so always use lowercase.
+            response = self.send_command("wherej")
+            # Defensive: if controller returns unknown-command, retry once with original capitalization.
+            if str(response).strip() == "-2805":
+                response = self.send_command("WhereJ")
             
             if not response or "error" in response.lower():
                 print(f"Error getting joints: {response}")

@@ -57,7 +57,12 @@ function PF400Diagnostics() {
   //   not the robot host running the backend.
   // - Default to the current page hostname + backend port instead.
   const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
-  const API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
+  const ENV_API_URL = import.meta.env.VITE_API_URL
+  // If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+  // This prevents "GUI button not triggering backend" when the UI is opened remotely.
+  const API_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.location.hostname !== 'localhost'))
+    ? ENV_API_URL
+    : DEFAULT_API_URL
 
   // Load per-device config from MongoDB via backend `/devices`
   useEffect(() => {
@@ -334,18 +339,21 @@ function PF400Diagnostics() {
     }
     log(`→ Pick&Place (${pickPlaceOrientation}) starting...`)
     try {
+      const reqBody = {
+        labware_type_id: selectedLabwareId,
+        pick_teachpoint_id: pickTeachpointId,
+        place_teachpoint_id: placeTeachpointId,
+        orientation: pickPlaceOrientation,
+        speed_no_plate: speedNoPlate,
+        speed_holding_plate: speedHoldingPlate,
+        pause_seconds: 0.35,
+      }
+      log(`  API: ${API_URL}/pf400/pick-place`)
+      log(`  Req: pick=${pickTeachpointId}, place=${placeTeachpointId}, labware=${selectedLabwareId}, speeds=${speedNoPlate}/${speedHoldingPlate}`)
       const res = await fetch(`${API_URL}/pf400/pick-place`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          labware_type_id: selectedLabwareId,
-          pick_teachpoint_id: pickTeachpointId,
-          place_teachpoint_id: placeTeachpointId,
-          orientation: pickPlaceOrientation,
-          speed_no_plate: speedNoPlate,
-          speed_holding_plate: speedHoldingPlate,
-          pause_seconds: 0.35,
-        }),
+        body: JSON.stringify(reqBody),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -365,6 +373,13 @@ function PF400Diagnostics() {
     } catch (e) {
       log(`✗ Error: ${e.message}`)
     }
+  }
+
+  const swapPickPlaceTeachpoints = () => {
+    if (!pickTeachpointId && !placeTeachpointId) return
+    setPickTeachpointId(placeTeachpointId)
+    setPlaceTeachpointId(pickTeachpointId)
+    log('↔ Swapped Pick/Place teachpoints')
   }
 
   // Save current position as teachpoint
@@ -1189,6 +1204,16 @@ function PF400Diagnostics() {
                   <option key={tp.id} value={tp.id}>{tp.name}</option>
                 ))}
               </select>
+
+              <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+                <button
+                  style={{ padding: '6px 10px', borderRadius: 6, background: '#2f54eb', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  onClick={swapPickPlaceTeachpoints}
+                  title="Swap the selected Pick and Place teachpoints"
+                >
+                  Swap Pick/Place
+                </button>
+              </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 10 }}>
