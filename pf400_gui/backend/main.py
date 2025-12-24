@@ -440,9 +440,20 @@ class TeachpointFeaturesUpdateRequest(BaseModel):
     # Z grasp offset (mm) range; math will be done later, but we store the intent now
     z_grasp_offset_min_mm: Optional[float] = None
     z_grasp_offset_max_mm: Optional[float] = None
+    # Optional obstacle-avoidance path (ordered list of intermediate waypoints)
+    # Stored verbatim under teachpoint.features.path
+    path: Optional[Dict[str, Any]] = None
 
 class MoveToTeachpointRequest(BaseModel):
     teachpoint_id: str
+    speed_profile: int = 1
+
+
+class TeachpointPathPointCreateRequest(BaseModel):
+    name: Optional[str] = None
+
+
+class TeachpointPathPointMoveRequest(BaseModel):
     speed_profile: int = 1
 
 class SpeedSettingsRequest(BaseModel):
@@ -1391,9 +1402,37 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gr
         
         if tp.get("type") == "joints" and tp.get("joints"):
             joints = tp["joints"]
+            # If a path is defined, always go: safe tuck -> path points -> teachpoint.
+            features = tp.get("features") if isinstance(tp.get("features"), dict) else {}
+            path = features.get("path") if isinstance(features.get("path"), dict) else {}
+            pts = path.get("points") if isinstance(path.get("points"), list) else []
             # joints is [j1_mm, j2_deg, j3_deg, j4_deg, gripper_mm, j6_mm/rail]
             # Use move_to_joints_raw which expects robot native units (mm/deg)
             if hasattr(robot_client, 'driver'):
+                if pts:
+                    # Safe tuck first (keeps J1/J6/gripper)
+                    try:
+                        if hasattr(robot_client.driver, "safe_tuck"):
+                            robot_client.driver.safe_tuck(profile=int(speed_profile))
+                        else:
+                            # fall back to tuck posture via move_joint if needed
+                            cur = robot_client.driver.get_joint_states()
+                            if cur and len(cur) >= 5:
+                                target = list(cur)
+                                target[3] = -188.0
+                                target[1] = 4.0
+                                target[2] = 179.0
+                                robot_client.driver.move_joint(target, profile=int(speed_profile))
+                    except Exception:
+                        pass
+                    # Execute each path point
+                    for i, pt in enumerate(pts):
+                        if not isinstance(pt, dict):
+                            continue
+                        pj = pt.get("joints")
+                        if not isinstance(pj, list) or len(pj) < 5:
+                            continue
+                        robot_client.driver.move_joint(list(pj), profile=int(speed_profile))
                 j6_mm = joints[5] if len(joints) > 5 else None
                 gripper_mm = joints[4]
                 if keep_gripper:
@@ -1452,6 +1491,124 @@ async def patch_teachpoint_features(teachpoint_id: str, req: TeachpointFeaturesU
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+def _tp_path_points(tp: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Get a mutable list of path points from a teachpoint features dict."""
+    features = tp.get("features") if isinstance(tp.get("features"), dict) else {}
+    path = features.get("path") if isinstance(features.get("path"), dict) else {}
+    pts = path.get("points")
+    return list(pts) if isinstance(pts, list) else []
+
+
+def _tp_set_path_points(tp: Dict[str, Any], points: List[Dict[str, Any]]) -> None:
+    """Set path points on a teachpoint features dict."""
+    features = dict(tp.get("features") or {})
+    path = dict(features.get("path") or {})
+    path["points"] = list(points)
+    features["path"] = path
+    tp["features"] = features
+
+
+def _capture_current_path_point(name: Optional[str] = None) -> Dict[str, Any]:
+    """Capture current robot state (joints + cartesian) as a path point."""
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    # joints in robot-native units (mm/deg) are required for deterministic replay
+    joints_raw = robot_client.driver.get_joint_states()
+    if not joints_raw or len(joints_raw) < 5:
+        raise HTTPException(status_code=500, detail="Failed to read current joints")
+    cart = None
+    try:
+        if hasattr(robot_client.driver, "get_cartesian_position"):
+            cart = robot_client.driver.get_cartesian_position()
+    except Exception:
+        cart = None
+    import time as _time
+    return {
+        "name": name,
+        "captured_at": _time.time(),
+        "joints": list(joints_raw),
+        "cartesian": cart if isinstance(cart, dict) else None,
+    }
+
+
+@app.post("/teachpoints/{teachpoint_id}/path/points")
+async def path_add_point(teachpoint_id: str, req: TeachpointPathPointCreateRequest):
+    """Append a new path point captured from the robot's current position."""
+    teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
+    if teachpoint_id not in teachpoints:
+        raise HTTPException(status_code=404, detail=f"Teachpoint '{teachpoint_id}' not found")
+    tp = teachpoints[teachpoint_id]
+    pts = _tp_path_points(tp)
+    # Default name: P1, P2, ...
+    nm = (req.name or "").strip() or f"P{len(pts)+1}"
+    pts.append(_capture_current_path_point(nm))
+    _tp_set_path_points(tp, pts)
+    ok = mongodb.save_teachpoint(DEVICE_NAME, teachpoint_id, tp)
+    if not ok:
+        raise HTTPException(status_code=500, detail="Failed to update teachpoint path points")
+    return {"status": "success", "teachpoint_id": teachpoint_id, "path": tp["features"].get("path")}
+
+
+@app.patch("/teachpoints/{teachpoint_id}/path/points/{index}")
+async def path_update_point(teachpoint_id: str, index: int, req: TeachpointPathPointCreateRequest):
+    """Overwrite an existing path point with the robot's current position (keeps name unless provided)."""
+    teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
+    if teachpoint_id not in teachpoints:
+        raise HTTPException(status_code=404, detail=f"Teachpoint '{teachpoint_id}' not found")
+    tp = teachpoints[teachpoint_id]
+    pts = _tp_path_points(tp)
+    if index < 0 or index >= len(pts):
+        raise HTTPException(status_code=404, detail="Path point index out of range")
+    old = pts[index] if isinstance(pts[index], dict) else {}
+    nm = (req.name or "").strip() or (old.get("name") if isinstance(old, dict) else None) or f"P{index+1}"
+    pts[index] = _capture_current_path_point(nm)
+    _tp_set_path_points(tp, pts)
+    ok = mongodb.save_teachpoint(DEVICE_NAME, teachpoint_id, tp)
+    if not ok:
+        raise HTTPException(status_code=500, detail="Failed to update teachpoint path points")
+    return {"status": "success", "teachpoint_id": teachpoint_id, "path": tp["features"].get("path")}
+
+
+@app.delete("/teachpoints/{teachpoint_id}/path/points/{index}")
+async def path_delete_point(teachpoint_id: str, index: int):
+    """Delete a path point by index."""
+    teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
+    if teachpoint_id not in teachpoints:
+        raise HTTPException(status_code=404, detail=f"Teachpoint '{teachpoint_id}' not found")
+    tp = teachpoints[teachpoint_id]
+    pts = _tp_path_points(tp)
+    if index < 0 or index >= len(pts):
+        raise HTTPException(status_code=404, detail="Path point index out of range")
+    pts.pop(index)
+    _tp_set_path_points(tp, pts)
+    ok = mongodb.save_teachpoint(DEVICE_NAME, teachpoint_id, tp)
+    if not ok:
+        raise HTTPException(status_code=500, detail="Failed to update teachpoint path points")
+    return {"status": "success", "teachpoint_id": teachpoint_id, "path": tp["features"].get("path")}
+
+
+@app.post("/teachpoints/{teachpoint_id}/path/points/{index}/move")
+async def path_move_to_point(teachpoint_id: str, index: int, req: TeachpointPathPointMoveRequest):
+    """Move the robot to a specific path point (joint-space) for obstacle avoidance debugging."""
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    teachpoints = mongodb.get_device_teachpoints(DEVICE_NAME) or {}
+    if teachpoint_id not in teachpoints:
+        raise HTTPException(status_code=404, detail=f"Teachpoint '{teachpoint_id}' not found")
+    tp = teachpoints[teachpoint_id]
+    pts = _tp_path_points(tp)
+    if index < 0 or index >= len(pts):
+        raise HTTPException(status_code=404, detail="Path point index out of range")
+    pt = pts[index] if isinstance(pts[index], dict) else {}
+    joints = pt.get("joints")
+    if not joints or not isinstance(joints, list) or len(joints) < 5:
+        raise HTTPException(status_code=400, detail="Path point has no joint data")
+    resp = robot_client.driver.move_joint(list(joints), profile=int(req.speed_profile))
+    if resp is None or str(resp).strip().startswith("-"):
+        raise HTTPException(status_code=500, detail=f"Move to path point failed: {resp}")
+    return {"status": "success", "teachpoint_id": teachpoint_id, "index": index, "name": pt.get("name")}
 
 @app.get("/device")
 async def get_device_info():
@@ -1878,6 +2035,32 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         if not ok:
             raise HTTPException(status_code=500, detail="Move failed")
 
+    def _run_teachpoint_path(tp_id: str, profile: int, steps: List[Dict[str, Any]], step_prefix: str) -> bool:
+        """
+        If teachpoint has features.path.points, execute them in order (joint-space) while tucked.
+        Returns True if any points were executed.
+        """
+        tp = tps.get(tp_id) or {}
+        features = tp.get("features") if isinstance(tp.get("features"), dict) else {}
+        path = features.get("path") if isinstance(features.get("path"), dict) else {}
+        pts = path.get("points") if isinstance(path.get("points"), list) else []
+        if not pts:
+            return False
+        for i, pt in enumerate(pts):
+            if not isinstance(pt, dict):
+                continue
+            joints = pt.get("joints")
+            if not isinstance(joints, list) or len(joints) < 5:
+                continue
+            steps.append({
+                "step": f"{step_prefix}_path_point",
+                "teachpoint_id": tp_id,
+                "index": i,
+                "name": pt.get("name") or f"P{i+1}",
+            })
+            _move_joints_raw(list(joints), int(profile), gripper_mm=None)
+        return True
+
     def _move_tp(tp_id: str, profile: int):
         tp = tps[tp_id]
         joints = tp.get("joints") or None
@@ -2097,11 +2280,17 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         _move_safe(req.speed_no_plate)
         time.sleep(pause_motion)
 
+        # If pick teachpoint has an explicit obstacle-avoidance path, execute it now.
+        # In that case we do NOT add any extra pre-positioning (like ensure_pick_rail_and_z),
+        # because the path is intended to be authoritative.
+        used_pick_path = _run_teachpoint_path(req.pick_teachpoint_id, req.speed_no_plate, steps, "pick")
+
         # Pre-position rail + Z-above while tucked to make the initial tangent MoveC reachable.
         j1_above_mm = float(pick_j[0]) + float(pick_z_above)
-        steps.append({"step": "ensure_pick_rail_and_z", "teachpoint_id": req.pick_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
-        _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_no_plate)
-        time.sleep(pause_motion)
+        if not used_pick_path:
+            steps.append({"step": "ensure_pick_rail_and_z", "teachpoint_id": req.pick_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
+            _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_no_plate)
+            time.sleep(pause_motion)
 
         x = pick_cart["x"]
         y = pick_cart["y"]
@@ -2421,13 +2610,16 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         _move_safe(req.speed_holding_plate)
         time.sleep(pause)
 
+        used_place_path = _run_teachpoint_path(req.place_teachpoint_id, req.speed_holding_plate, steps, "place")
+
         # IMPORTANT: for the place segment we're often coming from a very different rail position (J6/X).
         # Pre-positioning rail + Z-above while tucked makes the first tangent MoveC reachable, without
         # introducing any late lateral sweep near the teachpoint.
         j1_above_mm = float(place_j[0]) + float(place_z_above)
-        steps.append({"step": "ensure_place_rail_and_z", "teachpoint_id": req.place_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
-        _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_holding_plate)
-        time.sleep(pause)
+        if not used_place_path:
+            steps.append({"step": "ensure_place_rail_and_z", "teachpoint_id": req.place_teachpoint_id, "j6_mm": j6_mm, "j1_mm": j1_above_mm})
+            _ensure_rail_and_z_mm(j6_mm, j1_above_mm, req.speed_holding_plate)
+            time.sleep(pause)
 
         x = place_cart["x"]
         y = place_cart["y"]

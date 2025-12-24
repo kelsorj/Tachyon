@@ -221,6 +221,89 @@ function PF400Diagnostics() {
     }
   }
 
+  const pathPoints = (() => {
+    // Avoid referencing `selectedTeachpoint` before it's initialized.
+    const tp = teachpoints.find(tp => tp.id === selectedTeachpointId) || null
+    const f = tp?.features || {}
+    const p = f.path || {}
+    return Array.isArray(p.points) ? p.points : []
+  })()
+
+  const [selectedPathIdx, setSelectedPathIdx] = useState(0)
+
+  useEffect(() => {
+    setSelectedPathIdx(0)
+  }, [selectedTeachpointId])
+
+  const pathAddPoint = async () => {
+    if (!selectedTeachpointId) return
+    try {
+      const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/path/points`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) return log(`✗ Path add failed: ${data.detail || res.status}`)
+      log('✓ Path point added (captured current position)')
+      fetchTeachpoints()
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const pathUpdatePoint = async () => {
+    if (!selectedTeachpointId) return
+    if (pathPoints.length === 0) return log('✗ No path points to update')
+    try {
+      const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/path/points/${selectedPathIdx}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) return log(`✗ Path update failed: ${data.detail || res.status}`)
+      log('✓ Path point updated (captured current position)')
+      fetchTeachpoints()
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const pathDeletePoint = async () => {
+    if (!selectedTeachpointId) return
+    if (pathPoints.length === 0) return log('✗ No path points to delete')
+    try {
+      const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/path/points/${selectedPathIdx}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) return log(`✗ Path delete failed: ${data.detail || res.status}`)
+      log('✓ Path point deleted')
+      fetchTeachpoints()
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
+  const pathMoveToPoint = async () => {
+    if (!selectedTeachpointId) return
+    if (pathPoints.length === 0) return log('✗ No path points to move to')
+    log(`→ Moving to path point #${selectedPathIdx + 1}...`)
+    try {
+      const res = await fetch(`${API_URL}/teachpoints/${encodeURIComponent(selectedTeachpointId)}/path/points/${selectedPathIdx}/move`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ speed_profile: speedProfile }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) return log(`✗ Path move failed: ${data.detail || res.status}`)
+      log(`✓ Arrived at path point #${selectedPathIdx + 1}`)
+    } catch (e) {
+      log(`✗ Error: ${e.message}`)
+    }
+  }
+
   const selectedTeachpoint = teachpoints.find(tp => tp.id === selectedTeachpointId) || null
 
   // Keep form in sync when switching the teachpoint dropdown
@@ -1137,6 +1220,55 @@ function PF400Diagnostics() {
                         style={{ padding: '6px 8px', borderRadius: 4, border: '1px solid #444', background: '#222', color: '#fff' }}
                         placeholder="e.g. 3-10"
                       />
+                    </div>
+
+                    <div style={{ fontWeight: 'bold', margin: '12px 0 8px', color: '#ddd' }}>Path (optional)</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 8, alignItems: 'center' }}>
+                      <div style={{ color: '#bbb', textAlign: 'right' }}>Points</div>
+                      <select
+                        value={Math.min(selectedPathIdx, Math.max(0, pathPoints.length - 1))}
+                        onChange={(e) => setSelectedPathIdx(+e.target.value)}
+                        style={{ ...selectStyle, width: '100%' }}
+                        disabled={!pathPoints.length}
+                      >
+                        {pathPoints.length ? pathPoints.map((p, i) => (
+                          <option key={i} value={i}>
+                            {`${i + 1}. ${p?.name || `P${i + 1}`}`}
+                          </option>
+                        )) : (
+                          <option value={0}>No path points</option>
+                        )}
+                      </select>
+
+                      <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 8 }}>
+                        <button
+                          style={{ padding: '6px 10px', borderRadius: 6, background: '#2f54eb', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                          onClick={pathAddPoint}
+                        >
+                          Add
+                        </button>
+                        <button
+                          style={{ padding: '6px 10px', borderRadius: 6, background: '#1890ff', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                          onClick={pathMoveToPoint}
+                          disabled={!pathPoints.length}
+                        >
+                          Move To
+                        </button>
+                        <button
+                          style={{ padding: '6px 10px', borderRadius: 6, background: '#52c41a', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                          onClick={pathUpdatePoint}
+                          disabled={!pathPoints.length}
+                        >
+                          Update
+                        </button>
+                        <button
+                          style={{ padding: '6px 10px', borderRadius: 6, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                          onClick={pathDeletePoint}
+                          disabled={!pathPoints.length}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
