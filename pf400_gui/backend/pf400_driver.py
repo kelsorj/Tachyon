@@ -957,11 +957,30 @@ class PF400Driver:
         
         return self.move_to_joints(j1_m, j2_rad, j3_rad, j4_rad, gripper_m, j6_m, profile)
     
-    def move_cartesian(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1, config: Optional[int] = None):
+    def move_cartesian(
+        self,
+        x_mm,
+        y_mm,
+        z_mm,
+        yaw_deg,
+        pitch_deg,
+        roll_deg,
+        profile=1,
+        config: Optional[int] = None,
+        extra_axis_mm: Optional[float] = None,
+    ):
         """
         Move to Cartesian position (like working module).
         """
         try:
+            # Optional: coordinate an "extra axis" (e.g. rail) during the next Cartesian motion.
+            # Controller command: moveExtraAxis <destExtraAxis1> [<destExtraAxis2>]
+            # This posts the extra-axis motion to be executed *during* the next MoveC.
+            if extra_axis_mm is not None:
+                ea_resp = self.send_command(f"moveExtraAxis {float(extra_axis_mm)}")
+                if isinstance(ea_resp, str) and ea_resp.strip().startswith("-"):
+                    return False
+
             target = [x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg]
             if config is not None:
                 target.append(int(config))
@@ -986,11 +1005,28 @@ class PF400Driver:
             print(f"Error in move_cartesian: {e}")
             return False
 
-    def move_cartesian_with_resp(self, x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg, profile=1, config: Optional[int] = None) -> Tuple[bool, str]:
+    def move_cartesian_with_resp(
+        self,
+        x_mm,
+        y_mm,
+        z_mm,
+        yaw_deg,
+        pitch_deg,
+        roll_deg,
+        profile=1,
+        config: Optional[int] = None,
+        extra_axis_mm: Optional[float] = None,
+    ) -> Tuple[bool, str]:
         """
         Like move_cartesian, but returns (ok, response_string) for better diagnostics.
         """
         try:
+            if extra_axis_mm is not None:
+                ea_resp = self.send_command(f"moveExtraAxis {float(extra_axis_mm)}")
+                s_ea = str(ea_resp).strip()
+                if s_ea.startswith("-"):
+                    return (False, s_ea)
+
             target = [x_mm, y_mm, z_mm, yaw_deg, pitch_deg, roll_deg]
             if config is not None:
                 target.append(int(config))
