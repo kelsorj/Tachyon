@@ -1514,10 +1514,17 @@ def _capture_current_path_point(name: Optional[str] = None) -> Dict[str, Any]:
     """Capture current robot state (joints + cartesian) as a path point."""
     if not robot_client or not hasattr(robot_client, "driver"):
         raise HTTPException(status_code=503, detail="Robot client not initialized")
-    # joints in robot-native units (mm/deg) are required for deterministic replay
-    joints_raw = robot_client.driver.get_joint_states()
+    # Joints in robot-native units (mm/deg) are required for deterministic replay.
+    # IMPORTANT: PF400SXLDriver.get_joint_states() returns a diagnostics dict (not a list),
+    # so always read raw `wherej` and parse the numeric joint list.
+    try:
+        resp = robot_client.driver.send_command("wherej")
+        parts = str(resp).strip().split()
+        joints_raw = [float(x) for x in parts[1:]]  # skip status
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to read current joints (wherej): {e}")
     if not joints_raw or len(joints_raw) < 5:
-        raise HTTPException(status_code=500, detail="Failed to read current joints")
+        raise HTTPException(status_code=500, detail="Failed to read current joints (empty wherej)")
     cart = None
     try:
         if hasattr(robot_client.driver, "get_cartesian_position"):
@@ -1605,6 +1612,11 @@ async def path_move_to_point(teachpoint_id: str, index: int, req: TeachpointPath
     joints = pt.get("joints")
     if not joints or not isinstance(joints, list) or len(joints) < 5:
         raise HTTPException(status_code=400, detail="Path point has no joint data")
+    # Validate numeric joints; older buggy captures may have stored dict keys (strings) here.
+    try:
+        joints = [float(x) for x in joints]
+    except Exception:
+        raise HTTPException(status_code=400, detail="Path point joint data is invalid; re-Add or Update this waypoint")
     resp = robot_client.driver.move_joint(list(joints), profile=int(req.speed_profile))
     if resp is None or str(resp).strip().startswith("-"):
         raise HTTPException(status_code=500, detail=f"Move to path point failed: {resp}")
@@ -2052,6 +2064,10 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             joints = pt.get("joints")
             if not isinstance(joints, list) or len(joints) < 5:
                 continue
+            try:
+                joints = [float(x) for x in joints]
+            except Exception:
+                raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has invalid path point #{i+1}; re-Add or Update it")
             steps.append({
                 "step": f"{step_prefix}_path_point",
                 "teachpoint_id": tp_id,
