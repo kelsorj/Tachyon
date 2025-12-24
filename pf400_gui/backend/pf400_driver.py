@@ -186,23 +186,63 @@ class PF400Driver:
                     self.connect(auto_initialize=False)
                     if not self.robot_connection:
                         raise ConnectionError("Not connected to robot")
-                
-                # Send command with newline (like working module: command + "\n")
-                self.robot_connection.write((command + "\n").encode("ascii"))
-                
-                # Read response until \r\n (like working module)
-                response = (
-                    self.robot_connection.read_until(b"\r\n")
-                    .decode("ascii")
-                    .rstrip("\r\n")
-                )
-                
+
+                def _send_once(cmd: str) -> str:
+                    # Send command with newline (like working module: command + "\n")
+                    self.robot_connection.write((cmd + "\n").encode("ascii"))
+                    # Read response until \r\n (like working module)
+                    return (
+                        self.robot_connection.read_until(b"\r\n")
+                        .decode("ascii")
+                        .rstrip("\r\n")
+                    )
+
+                response = _send_once(command)
+
                 # Check for errors (like working module)
                 if response != "" and response in ERROR_CODES:
                     print(f"Error response: {ERROR_CODES[response]}")
-                
+
+                # If the controller reports "no robot attached" (-1009), try a lightweight
+                # re-attach and retry the original command once. This prevents sporadic
+                # session detaches from breaking Safe/Pick&Place flows.
+                if str(response).strip() == "-1009":
+                    try:
+                        print("Detected -1009 (no robot attached). Attempting re-attach...")
+                        # Best-effort: mode/select/attach; ignore any intermediate errors.
+                        try:
+                            _send_once("mode 0")
+                        except Exception:
+                            pass
+                        try:
+                            _send_once("selectRobot 1")
+                        except Exception:
+                            pass
+                        try:
+                            attach_resp = _send_once("attach 1")
+                            print(f"attach 1 (recovery): {attach_resp}")
+                        except Exception as e:
+                            print(f"attach 1 (recovery) failed: {e}")
+
+                        # Retry original command once after attempting attach.
+                        response2 = _send_once(command)
+                        if response2 != "" and response2 in ERROR_CODES:
+                            print(f"Error response (retry): {ERROR_CODES[response2]}")
+                        return response2
+                    except Exception as e:
+                        # Fall back to a full reconnect + re-configure, then retry once.
+                        print(f"Re-attach attempt failed, reconnecting: {e}")
+                        self.disconnect()
+                        self.connect(auto_initialize=True)
+                        if not self.robot_connection:
+                            raise ConnectionError("Not connected to robot after reconnect")
+                        response2 = _send_once(command)
+                        if response2 != "" and response2 in ERROR_CODES:
+                            print(f"Error response (reconnect retry): {ERROR_CODES[response2]}")
+                        return response2
+
                 return response
-                
+
             except Exception as e:
                 print(f"Error sending command '{command}': {e}")
                 self.disconnect()
