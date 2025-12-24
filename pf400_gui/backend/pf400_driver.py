@@ -977,7 +977,10 @@ class PF400Driver:
             # Controller command: moveExtraAxis <destExtraAxis1> [<destExtraAxis2>]
             # This posts the extra-axis motion to be executed *during* the next MoveC.
             if extra_axis_mm is not None:
-                ea_resp = self.send_command(f"moveExtraAxis {float(extra_axis_mm)}")
+                # Extra axis (rail) is in SI units (meters) on this controller path.
+                # Our API passes mm to stay consistent with other PF400 GUI "mm" conventions.
+                extra_axis_m = float(extra_axis_mm) / 1000.0
+                ea_resp = self.send_command(f"moveExtraAxis {extra_axis_m}")
                 if isinstance(ea_resp, str) and ea_resp.strip().startswith("-"):
                     return False
 
@@ -1022,7 +1025,8 @@ class PF400Driver:
         """
         try:
             if extra_axis_mm is not None:
-                ea_resp = self.send_command(f"moveExtraAxis {float(extra_axis_mm)}")
+                extra_axis_m = float(extra_axis_mm) / 1000.0
+                ea_resp = self.send_command(f"moveExtraAxis {extra_axis_m}")
                 s_ea = str(ea_resp).strip()
                 if s_ea.startswith("-"):
                     return (False, s_ea)
