@@ -1889,34 +1889,44 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         z_above = float(pick_z_above)
         cfg = pick_cart.get("config") if isinstance(pick_cart, dict) else None
 
-        # Try tangent approach; if it fails with reachability error, try opposite direction
-        tangent_directions_to_try = [float(pick_tangent_mm)]
-        # If first direction fails, we'll try the opposite sign
-        if abs(pick_tangent_mm) > 0:
-            tangent_directions_to_try.append(-float(pick_tangent_mm))
+        # Compute tangent approach position based on robot geometry:
+        # Goal: approach from the direction toward the robot origin (0,0)
+        # - When X < 0 (behind column): apply tangent to X, making it less negative (closer to 0)
+        # - When X >= 0 and Y < 0: add tangent to Y (making Y closer to 0)
+        # - When X >= 0 and Y > 0: subtract tangent from Y (making Y closer to 0)
+        tangent_dist = abs(float(pick_tangent_mm))
+        if x < 0:
+            # Behind the column - tangent approach on X axis
+            x_app = x + tangent_dist  # make X less negative (closer to 0)
+            y_app = y
+            tangent_axis = "x"
+        else:
+            # Normal reach - tangent approach on Y axis
+            x_app = x
+            if y >= 0:
+                y_app = y - tangent_dist  # Y is positive, approach from smaller Y (toward 0)
+            else:
+                y_app = y + tangent_dist  # Y is negative, approach from larger Y (toward 0)
+            tangent_axis = "y"
 
-        tangent_ok = False
-        used_tangent_mm = pick_tangent_mm
-        for try_tangent in tangent_directions_to_try:
-            y_app = y + try_tangent  # global Y tangent
-            steps.append({"step": "move_pick_tangent_above", "teachpoint_id": req.pick_teachpoint_id, "tangent_mm": try_tangent, "target": {"x": x, "y": y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
-            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
-            else:
-                ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
-                resp = "unknown"
-            if ok:
-                tangent_ok = True
-                used_tangent_mm = try_tangent
-                break
-            else:
-                # If reachability error (-1040, -1012), try opposite direction
-                if resp in ("-1040", "-1012") and try_tangent == tangent_directions_to_try[0] and len(tangent_directions_to_try) > 1:
-                    steps.append({"step": "tangent_pick_unreachable_trying_opposite", "resp": resp, "tried_tangent": try_tangent})
-                    continue
-                else:
-                    steps.append({"step": "tangent_pick_failed", "resp": resp, "tried_tangent": try_tangent})
-                    break
+        steps.append({
+            "step": "move_pick_tangent_above",
+            "teachpoint_id": req.pick_teachpoint_id,
+            "tangent_mm": tangent_dist,
+            "tangent_axis": tangent_axis,
+            "target": {"x": x_app, "y": y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}
+        })
+        if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+            ok, resp = robot_client.driver.move_cartesian_with_resp(x_app, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+        else:
+            ok = robot_client.driver.move_cartesian(x_app, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+            resp = "unknown"
+
+        tangent_ok = ok
+        used_x_app = x_app
+        used_y_app = y_app
+        if not ok:
+            steps.append({"step": "tangent_pick_failed", "resp": resp, "x_app": x_app, "y_app": y_app})
 
         pick_used_fallback = False
         if not tangent_ok:
@@ -1988,12 +1998,12 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
                 raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract from pick): {resp}")
             time.sleep(pause)
 
-            y_retract = y + used_tangent_mm  # Use the tangent direction that actually worked
-            steps.append({"step": "retract_to_pick_tangent_above", "teachpoint_id": req.pick_teachpoint_id, "tangent_mm": used_tangent_mm})
+            # Retract to the same tangent approach position we used initially
+            steps.append({"step": "retract_to_pick_tangent_above", "teachpoint_id": req.pick_teachpoint_id, "target": {"x": used_x_app, "y": used_y_app}})
             if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_retract, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                ok, resp = robot_client.driver.move_cartesian_with_resp(used_x_app, used_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
             else:
-                ok = robot_client.driver.move_cartesian(x, y_retract, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
+                ok = robot_client.driver.move_cartesian(used_x_app, used_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_no_plate, config=cfg)
                 resp = "unknown"
             if not ok:
                 raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract to pick tangent): {resp}")
@@ -2063,32 +2073,44 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         z_above = float(place_z_above)
         cfg = place_cart.get("config") if isinstance(place_cart, dict) else None
 
-        # Try tangent approach; if it fails with reachability error, try opposite direction
-        place_tangent_directions = [float(place_tangent_mm)]
-        if abs(place_tangent_mm) > 0:
-            place_tangent_directions.append(-float(place_tangent_mm))
+        # Compute tangent approach position based on robot geometry:
+        # Goal: approach from the direction toward the robot origin (0,0)
+        # - When X < 0 (behind column): apply tangent to X, making it less negative (closer to 0)
+        # - When X >= 0 and Y < 0: add tangent to Y (making Y closer to 0)
+        # - When X >= 0 and Y > 0: subtract tangent from Y (making Y closer to 0)
+        place_tangent_dist = abs(float(place_tangent_mm))
+        if x < 0:
+            # Behind the column - tangent approach on X axis
+            place_x_app = x + place_tangent_dist  # make X less negative (closer to 0)
+            place_y_app = y
+            place_tangent_axis = "x"
+        else:
+            # Normal reach - tangent approach on Y axis
+            place_x_app = x
+            if y >= 0:
+                place_y_app = y - place_tangent_dist  # Y is positive, approach from smaller Y (toward 0)
+            else:
+                place_y_app = y + place_tangent_dist  # Y is negative, approach from larger Y (toward 0)
+            place_tangent_axis = "y"
 
-        place_tangent_ok = False
-        used_place_tangent_mm = place_tangent_mm
-        for try_tangent in place_tangent_directions:
-            y_app = y + try_tangent
-            steps.append({"step": "move_place_tangent_above", "teachpoint_id": req.place_teachpoint_id, "tangent_mm": try_tangent, "target": {"x": x, "y": y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}})
-            if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
-            else:
-                ok = robot_client.driver.move_cartesian(x, y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
-                resp = "unknown"
-            if ok:
-                place_tangent_ok = True
-                used_place_tangent_mm = try_tangent
-                break
-            else:
-                if resp in ("-1040", "-1012") and try_tangent == place_tangent_directions[0] and len(place_tangent_directions) > 1:
-                    steps.append({"step": "tangent_place_unreachable_trying_opposite", "resp": resp, "tried_tangent": try_tangent})
-                    continue
-                else:
-                    steps.append({"step": "tangent_place_failed", "resp": resp, "tried_tangent": try_tangent})
-                    break
+        steps.append({
+            "step": "move_place_tangent_above",
+            "teachpoint_id": req.place_teachpoint_id,
+            "tangent_mm": place_tangent_dist,
+            "tangent_axis": place_tangent_axis,
+            "target": {"x": place_x_app, "y": place_y_app, "z": z + z_above, "yaw": yaw, "pitch": pitch, "roll": roll, "config": cfg}
+        })
+        if hasattr(robot_client.driver, "move_cartesian_with_resp"):
+            ok, resp = robot_client.driver.move_cartesian_with_resp(place_x_app, place_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+        else:
+            ok = robot_client.driver.move_cartesian(place_x_app, place_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+            resp = "unknown"
+
+        place_tangent_ok = ok
+        used_place_x_app = place_x_app
+        used_place_y_app = place_y_app
+        if not ok:
+            steps.append({"step": "tangent_place_failed", "resp": resp, "x_app": place_x_app, "y_app": place_y_app})
 
         place_used_fallback = False
         if not place_tangent_ok:
@@ -2154,12 +2176,12 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
             time.sleep(pause)
 
         if not place_used_fallback:
-            y_retract = y + used_place_tangent_mm  # Use the tangent direction that actually worked
-            steps.append({"step": "retract_to_place_tangent_above", "teachpoint_id": req.place_teachpoint_id, "tangent_mm": used_place_tangent_mm})
+            # Retract to the same tangent approach position we used initially
+            steps.append({"step": "retract_to_place_tangent_above", "teachpoint_id": req.place_teachpoint_id, "target": {"x": used_place_x_app, "y": used_place_y_app}})
             if hasattr(robot_client.driver, "move_cartesian_with_resp"):
-                ok, resp = robot_client.driver.move_cartesian_with_resp(x, y_retract, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                ok, resp = robot_client.driver.move_cartesian_with_resp(used_place_x_app, used_place_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
             else:
-                ok = robot_client.driver.move_cartesian(x, y_retract, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
+                ok = robot_client.driver.move_cartesian(used_place_x_app, used_place_y_app, z + z_above, yaw, pitch, roll, profile=req.speed_holding_plate, config=cfg)
                 resp = "unknown"
             if not ok:
                 raise HTTPException(status_code=500, detail=f"Tangent approach MoveC failed (retract to place tangent): {resp}")
