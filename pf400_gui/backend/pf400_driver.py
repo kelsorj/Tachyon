@@ -638,7 +638,7 @@ class PF400Driver:
             print(f"Error getting cartesian position: {e}")
             return {}
     
-    def move_joint(self, target_joint_angles: list, profile: int = 1) -> str:
+    def move_joint(self, target_joint_angles: list, profile: int = 1, wait: bool = True) -> str:
         """
         Move to joint angles.
         For SXL models with 6 joints, ALL 6 values must be sent!
@@ -646,7 +646,7 @@ class PF400Driver:
         """
         target_joint_angles = list(target_joint_angles)
 
-        def _axis_move_one(axis_idx: int, dest: float, prof: int) -> str:
+        def _axis_move_one(axis_idx: int, dest: float, prof: int, do_wait: bool) -> str:
             """
             Move a single axis and wait for completion.
             Axis numbering follows controller docs: 1..N.
@@ -657,13 +657,14 @@ class PF400Driver:
                 print(f"Sending: {cmd}")
                 resp = self.send_command(cmd)
                 print(f"Response: {resp}")
-                self.await_movement_completion()
+                if do_wait:
+                    self.await_movement_completion()
                 return resp
             except Exception as e:
                 print(f"Error in MoveOneAxis axis={axis_idx}: {e}")
                 return "Error"
         
-        def _movej_direct(full_target: list, prof: int) -> str:
+        def _movej_direct(full_target: list, prof: int, do_wait: bool) -> str:
             """
             Send a raw movej without any additional sequencing logic (used internally).
             full_target must include all joints for the connected robot (5 for PF400, 6 for SXL).
@@ -673,7 +674,8 @@ class PF400Driver:
                 print(f"Sending: {cmd}")
                 resp = self.send_command(cmd)
                 print(f"Response: {resp}")
-                self.await_movement_completion()
+                if do_wait:
+                    self.await_movement_completion()
                 return resp
             except Exception as e:
                 print(f"Error in movej direct: {e}")
@@ -760,7 +762,7 @@ class PF400Driver:
                 for axis_idx, tuck_val in tuck_targets.items():
                     cur = float(current_raw[axis_idx - 1])
                     if abs(float(tuck_val) - cur) > eps_deg:
-                        r = _axis_move_one(axis_idx, float(tuck_val), profile)
+                        r = _axis_move_one(axis_idx, float(tuck_val), profile, True)
                         if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                             return r
                         _refresh_current_raw()
@@ -777,7 +779,7 @@ class PF400Driver:
                 need_j2 = abs(float(tuck_full[1]) - float(current_raw[1])) > eps_deg
                 need_j3 = abs(float(tuck_full[2]) - float(current_raw[2])) > eps_deg
                 if need_j2 or need_j3:
-                    r = _movej_direct(tuck_full, profile)
+                    r = _movej_direct(tuck_full, profile, True)
                     if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                         return r
                     _refresh_current_raw()
@@ -803,7 +805,7 @@ class PF400Driver:
                     j1j6_full[0] = tgt_j1
                     j1j6_full[5] = tgt_j6
 
-                    r = _movej_direct(j1j6_full, profile)
+                    r = _movej_direct(j1j6_full, profile, True)
                     if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                         return r
                     _refresh_current_raw()
@@ -815,7 +817,7 @@ class PF400Driver:
                 cur_j1 = float(current_raw[0]) if len(current_raw) > 0 else 0.0
                 tgt_j1 = float(target_joint_angles[0]) if len(target_joint_angles) > 0 else cur_j1
                 if abs(tgt_j1 - cur_j1) > eps_mm:
-                    r = _axis_move_one(1, tgt_j1, profile)
+                    r = _axis_move_one(1, tgt_j1, profile, True)
                     if r in ERROR_CODES or (isinstance(r, str) and r.strip().startswith("-")):
                         return r
                     _refresh_current_raw()
@@ -831,10 +833,122 @@ class PF400Driver:
         response = self.send_command(move_command)
         print(f"Response: {response}")
         
-        # Wait for movement to complete (like working module)
-        self.await_movement_completion()
+        # Wait for movement to complete (like working module) unless caller is streaming commands
+        if wait:
+            self.await_movement_completion()
         
         return response
+
+    def movej_raw(self, target_joint_angles: list, profile: int = 1, wait: bool = True) -> str:
+        """
+        Send a raw movej (joint-space) without extra sequencing logic.
+        This is useful for waypoint/path execution where the user has already authored
+        intermediate points for collision avoidance and we want the controller to
+        smoothly queue successive segments.
+
+        For SXL models with 6 joints, ALL 6 values must be sent.
+        """
+        target_joint_angles = list(target_joint_angles)
+
+        # Get current joint states in robot units to fill in missing values
+        raw_response = self.send_command("wherej")
+        raw_joints = raw_response.split(" ")[1:]  # Skip status code
+        current_raw = [float(x) for x in raw_joints]
+        num_robot_joints = len(current_raw)
+
+        # Fill in missing joint values from current position
+        while len(target_joint_angles) < num_robot_joints:
+            idx = len(target_joint_angles)
+            target_joint_angles.append(current_raw[idx])
+
+        # Coerce provided targets to floats (and gracefully handle None/"None"/bad strings)
+        for i in range(min(len(target_joint_angles), num_robot_joints)):
+            v = target_joint_angles[i]
+            if v is None:
+                target_joint_angles[i] = current_raw[i]
+                continue
+            if isinstance(v, str):
+                s = v.strip()
+                if s == "" or s.lower() == "none":
+                    target_joint_angles[i] = current_raw[i]
+                    continue
+                try:
+                    target_joint_angles[i] = float(s)
+                except Exception:
+                    target_joint_angles[i] = current_raw[i]
+                continue
+            try:
+                target_joint_angles[i] = float(v)
+            except Exception:
+                target_joint_angles[i] = current_raw[i]
+
+        # Use current gripper if j5 is very small (likely placeholder)
+        if len(target_joint_angles) > 4:
+            try:
+                if abs(float(target_joint_angles[4])) < 0.1:
+                    target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
+            except Exception:
+                target_joint_angles[4] = current_raw[4] if len(current_raw) > 4 else 0.0
+
+        # Trim to the robot's joint count (defensive)
+        target_joint_angles = target_joint_angles[:num_robot_joints]
+
+        move_command = "movej" + " " + str(int(profile)) + " " + " ".join(map(str, target_joint_angles))
+        print(f"Sending: {move_command}")
+        response = self.send_command(move_command)
+        print(f"Response: {response}")
+        if wait:
+            self.await_movement_completion()
+        return response
+
+    def await_inrange(
+        self,
+        target_joint_angles: list,
+        tol_mm: float = 2.0,
+        tol_deg: float = 1.0,
+        poll_s: float = 0.05,
+        timeout_s: float = 15.0,
+    ) -> bool:
+        """
+        Wait until current joints are within tolerance of the target (best-effort).
+        Useful for blending waypoint sequences by dispatching the next move slightly
+        before the previous one has fully come to rest.
+        """
+        import time as _time
+        t0 = _time.time()
+        while True:
+            try:
+                rr = self.send_command("wherej")
+                cur = [float(x) for x in rr.split(" ")[1:]]
+            except Exception:
+                cur = []
+
+            tgt = list(target_joint_angles)
+            while len(cur) and len(tgt) < len(cur):
+                tgt.append(cur[len(tgt)])
+            if len(cur):
+                tgt = tgt[: len(cur)]
+
+            ok = True if cur else False
+            for i in range(min(len(cur), len(tgt))):
+                diff = abs(float(cur[i]) - float(tgt[i]))
+                # 0=J1(mm), 1=J2(deg), 2=J3(deg), 3=J4(deg), 4=J5(mm), 5=J6(mm)
+                if i in (0, 4, 5):
+                    if diff > float(tol_mm):
+                        ok = False
+                        break
+                else:
+                    if diff > float(tol_deg):
+                        ok = False
+                        break
+
+            if ok:
+                return True
+
+            if (_time.time() - t0) >= float(timeout_s):
+                return False
+
+            _time.sleep(float(poll_s))
 
     def safe_tuck(self, profile: int = 1) -> str:
         """

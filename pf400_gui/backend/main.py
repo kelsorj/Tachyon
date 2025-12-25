@@ -1425,14 +1425,36 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gr
                                 robot_client.driver.move_joint(target, profile=int(speed_profile))
                     except Exception:
                         pass
-                    # Execute each path point
+                    # Execute each path point while tucked.
+                    # Fire-and-forget: send all waypoints back-to-back with a tiny fixed delay,
+                    # only wait on the final point. This lets the controller buffer/blend internally.
+                    queue_delay_s = float(path.get("queue_delay_s") or 0.08)
+
                     for i, pt in enumerate(pts):
                         if not isinstance(pt, dict):
                             continue
                         pj = pt.get("joints")
                         if not isinstance(pj, list) or len(pj) < 5:
                             continue
-                        robot_client.driver.move_joint(list(pj), profile=int(speed_profile))
+                        try:
+                            pj = [float(x) for x in pj]
+                        except Exception:
+                            continue
+                        # Preserve gripper during path replay
+                        try:
+                            rr = robot_client.driver.send_command("wherej")
+                            cur = [float(x) for x in str(rr).split()[1:]]
+                            if len(cur) > 4 and len(pj) > 4:
+                                pj[4] = cur[4]
+                        except Exception:
+                            pass
+                        is_last = (i == len(pts) - 1)
+                        if hasattr(robot_client.driver, "movej_raw"):
+                            robot_client.driver.movej_raw(list(pj), profile=int(speed_profile), wait=is_last)
+                        else:
+                            robot_client.driver.move_joint(list(pj), profile=int(speed_profile), wait=is_last)
+                        if not is_last:
+                            time.sleep(queue_delay_s)
                 j6_mm = joints[5] if len(joints) > 5 else None
                 gripper_mm = joints[4]
                 if keep_gripper:
@@ -2051,6 +2073,9 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         """
         If teachpoint has features.path.points, execute them in order (joint-space) while tucked.
         Returns True if any points were executed.
+
+        Fire-and-forget: send all waypoints back-to-back with a tiny fixed delay,
+        only wait on the final point. This lets the controller buffer/blend internally.
         """
         tp = tps.get(tp_id) or {}
         features = tp.get("features") if isinstance(tp.get("features"), dict) else {}
@@ -2058,6 +2083,10 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         pts = path.get("points") if isinstance(path.get("points"), list) else []
         if not pts:
             return False
+
+        queue_delay_s = float(path.get("queue_delay_s") or 0.08)
+
+        executed_any = False
         for i, pt in enumerate(pts):
             if not isinstance(pt, dict):
                 continue
@@ -2068,14 +2097,40 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
                 joints = [float(x) for x in joints]
             except Exception:
                 raise HTTPException(status_code=400, detail=f"Teachpoint '{tp_id}' has invalid path point #{i+1}; re-Add or Update it")
+
+            # Preserve current gripper value (path points are for obstacle avoidance, not gripping).
+            try:
+                wr = robot_client.driver.send_command("wherej")
+                cur = [float(x) for x in str(wr).split()[1:]]
+                if len(cur) > 4 and len(joints) > 4:
+                    joints[4] = cur[4]
+            except Exception:
+                pass
+
             steps.append({
                 "step": f"{step_prefix}_path_point",
                 "teachpoint_id": tp_id,
                 "index": i,
                 "name": pt.get("name") or f"P{i+1}",
             })
-            _move_joints_raw(list(joints), int(profile), gripper_mm=None)
-        return True
+
+            is_last = (i == len(pts) - 1)
+            if hasattr(robot_client.driver, "movej_raw"):
+                resp = robot_client.driver.movej_raw(list(joints), profile=int(profile), wait=is_last)
+                if resp is None or str(resp).strip().startswith("-"):
+                    raise HTTPException(status_code=500, detail=f"Path move failed during execution: {resp}")
+            elif hasattr(robot_client.driver, "move_joint"):
+                resp = robot_client.driver.move_joint(list(joints), profile=int(profile), wait=is_last)
+                if resp is None or str(resp).strip().startswith("-"):
+                    raise HTTPException(status_code=500, detail=f"Path move failed during execution: {resp}")
+            else:
+                _move_joints_raw(list(joints), int(profile), gripper_mm=None)
+
+            executed_any = True
+            if not is_last:
+                time.sleep(queue_delay_s)
+
+        return executed_any
 
     def _move_tp(tp_id: str, profile: int):
         tp = tps[tp_id]
