@@ -1426,9 +1426,11 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gr
                     except Exception:
                         pass
                     # Execute each path point while tucked.
-                    # Fire-and-forget: send all waypoints back-to-back with a tiny fixed delay,
-                    # only wait on the final point. This lets the controller buffer/blend internally.
-                    queue_delay_s = float(path.get("queue_delay_s") or 0.08)
+                    # Use await_inrange with tight tolerances for smooth blending between waypoints.
+                    blend_mm = float(path.get("blend_mm") or 2.0)
+                    blend_deg = float(path.get("blend_deg") or 1.0)
+                    poll_s = float(path.get("blend_poll_s") or 0.05)
+                    timeout_s = float(path.get("blend_timeout_s") or 20.0)
 
                     for i, pt in enumerate(pts):
                         if not isinstance(pt, dict):
@@ -1453,8 +1455,8 @@ async def move_to_teachpoint(teachpoint_id: str, speed_profile: int = 1, keep_gr
                             robot_client.driver.movej_raw(list(pj), profile=int(speed_profile), wait=is_last)
                         else:
                             robot_client.driver.move_joint(list(pj), profile=int(speed_profile), wait=is_last)
-                        if not is_last:
-                            time.sleep(queue_delay_s)
+                        if not is_last and hasattr(robot_client.driver, "await_inrange"):
+                            robot_client.driver.await_inrange(list(pj), tol_mm=blend_mm, tol_deg=blend_deg, poll_s=poll_s, timeout_s=timeout_s)
                 j6_mm = joints[5] if len(joints) > 5 else None
                 gripper_mm = joints[4]
                 if keep_gripper:
@@ -2074,8 +2076,7 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         If teachpoint has features.path.points, execute them in order (joint-space) while tucked.
         Returns True if any points were executed.
 
-        Fire-and-forget: send all waypoints back-to-back with a tiny fixed delay,
-        only wait on the final point. This lets the controller buffer/blend internally.
+        Use await_inrange with tight tolerances for smooth blending between waypoints.
         """
         tp = tps.get(tp_id) or {}
         features = tp.get("features") if isinstance(tp.get("features"), dict) else {}
@@ -2084,7 +2085,11 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
         if not pts:
             return False
 
-        queue_delay_s = float(path.get("queue_delay_s") or 0.08)
+        # Tight tolerances for smooth blending
+        blend_mm = float(path.get("blend_mm") or 2.0)
+        blend_deg = float(path.get("blend_deg") or 1.0)
+        poll_s = float(path.get("blend_poll_s") or 0.05)
+        timeout_s = float(path.get("blend_timeout_s") or 20.0)
 
         executed_any = False
         for i, pt in enumerate(pts):
@@ -2127,8 +2132,8 @@ async def pf400_pick_place(req: PF400PickPlaceRequest):
                 _move_joints_raw(list(joints), int(profile), gripper_mm=None)
 
             executed_any = True
-            if not is_last:
-                time.sleep(queue_delay_s)
+            if not is_last and hasattr(robot_client.driver, "await_inrange"):
+                robot_client.driver.await_inrange(list(joints), tol_mm=blend_mm, tol_deg=blend_deg, poll_s=poll_s, timeout_s=timeout_s)
 
         return executed_any
 
