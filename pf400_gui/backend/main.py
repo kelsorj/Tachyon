@@ -1809,6 +1809,30 @@ async def update_device(device_name: str, req: DeviceUpdateRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.delete("/devices/{device_name}")
+async def delete_device(device_name: str):
+    """Delete a device by name."""
+    try:
+        from bson import ObjectId
+        
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        
+        db = mongodb.get_db()
+        result = db.devices.delete_one({"_id": ObjectId(device["_id"])})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=500, detail="Failed to delete device")
+        
+        return {"status": "success", "message": f"Device '{device_name}' deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error deleting device '{device_name}': {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ============== Labware API ==============
 
 @app.get("/labware/types")

@@ -14,6 +14,8 @@ function PlatePadDiagnostics() {
   const [error, setError] = useState(null)
   const [saving, setSaving] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   
   // Editable fields
   const [deviceDisplayName, setDeviceDisplayName] = useState('')
@@ -141,6 +143,26 @@ function PlatePadDiagnostics() {
     }
   }
 
+  const handleDelete = async () => {
+    try {
+      setDeleting(true)
+      const res = await fetch(`${API_URL}/devices/${encodeURIComponent(deviceName)}`, {
+        method: 'DELETE'
+      })
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        throw new Error(errData.detail || `Failed to delete: ${res.status}`)
+      }
+      // Navigate back to devices list
+      window.location.href = '/devices'
+    } catch (e) {
+      setError(e.message)
+      setShowDeleteConfirm(false)
+    } finally {
+      setDeleting(false)
+    }
+  }
+
   const handleAddRobotLink = () => {
     if (!selectedRobot || !selectedTeachpoint) return
     
@@ -220,20 +242,28 @@ function PlatePadDiagnostics() {
               {device?._id && <span style={{ color: '#555', marginLeft: 10, fontSize: '0.85em' }}>ID: {device._id}</span>}
             </div>
           </div>
-          <div style={{ marginLeft: 'auto' }}>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 10 }}>
             {!editMode ? (
-              <button onClick={() => setEditMode(true)} style={buttonStyle}>
-                ✏️ Edit
-              </button>
+              <>
+                <button onClick={() => setEditMode(true)} style={buttonStyle}>
+                  ✏️ Edit
+                </button>
+                <button 
+                  onClick={() => setShowDeleteConfirm(true)} 
+                  style={{ ...buttonStyle, background: '#ff4d4f' }}
+                >
+                  🗑️ Delete
+                </button>
+              </>
             ) : (
-              <div style={{ display: 'flex', gap: 10 }}>
+              <>
                 <button onClick={handleSave} disabled={saving} style={{ ...buttonStyle, background: '#52c41a' }}>
                   {saving ? 'Saving...' : '💾 Save'}
                 </button>
                 <button onClick={() => { setEditMode(false); fetchDevice() }} style={{ ...buttonStyle, background: '#666' }}>
                   Cancel
                 </button>
-              </div>
+              </>
             )}
           </div>
         </div>
@@ -469,6 +499,66 @@ function PlatePadDiagnostics() {
           {JSON.stringify(device, null, 2)}
         </pre>
       </details>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: '#1e1e2e',
+            borderRadius: 12,
+            padding: 30,
+            maxWidth: 450,
+            width: '90%',
+            border: '1px solid #444',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+          }}>
+            <h2 style={{ margin: '0 0 15px 0', color: '#ff4d4f', fontSize: '1.4em' }}>
+              ⚠️ Delete Device?
+            </h2>
+            <p style={{ color: '#ccc', marginBottom: 10 }}>
+              Are you sure you want to delete <strong style={{ color: '#fff' }}>{deviceDisplayName || deviceName}</strong>?
+            </p>
+            <p style={{ color: '#888', fontSize: '0.9em', marginBottom: 25 }}>
+              This action cannot be undone. All associated data including robot links will be permanently removed.
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+                style={{
+                  ...buttonStyle,
+                  background: '#444',
+                  opacity: deleting ? 0.5 : 1
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                style={{
+                  ...buttonStyle,
+                  background: '#ff4d4f',
+                  opacity: deleting ? 0.5 : 1
+                }}
+              >
+                {deleting ? 'Deleting...' : '🗑️ Delete Device'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
