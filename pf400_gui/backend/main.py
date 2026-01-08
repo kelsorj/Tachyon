@@ -13,6 +13,7 @@ import argparse
 import time
 import secrets
 import shutil
+from datetime import datetime, timezone
 
 # Import ROS client
 from ros_client import PF400ROSClient
@@ -1711,6 +1712,100 @@ async def get_all_devices():
         return {"devices": devices}
     except Exception as e:
         print(f"Error getting all devices: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/devices/{device_name}")
+async def get_device_by_name(device_name: str):
+    """Get a single device by name."""
+    try:
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        # Convert ObjectId to string for JSON serialization
+        if "_id" in device:
+            device["_id"] = str(device["_id"])
+        return device
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error getting device '{device_name}': {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class DeviceUpdateRequest(BaseModel):
+    name: Optional[str] = None  # For renaming the device
+    description: Optional[str] = None
+    position: Optional[Dict[str, Any]] = None
+    config: Optional[Dict[str, Any]] = None
+    robot_access: Optional[List[Dict[str, Any]]] = None
+    status: Optional[str] = None
+    ui_type: Optional[str] = None  # Device UI type: "Plate Pad", "PF400 Robot", "Planar Motor"
+
+
+@app.put("/devices/{device_name}")
+async def update_device(device_name: str, req: DeviceUpdateRequest):
+    """Update a device's properties. The device's _id is immutable, but name can be changed."""
+    try:
+        from bson import ObjectId
+        
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        
+        # get_device_by_name returns _id as string, convert back to ObjectId for query
+        device_id = ObjectId(device["_id"])
+        
+        # Build update dict from provided fields
+        updates = {}
+        new_name = None
+        
+        if req.name is not None and req.name != device_name:
+            # Validate new name doesn't already exist
+            existing = mongodb.get_device_by_name(req.name)
+            if existing:
+                raise HTTPException(status_code=409, detail=f"Device with name '{req.name}' already exists")
+            updates["name"] = req.name
+            new_name = req.name
+            
+        if req.description is not None:
+            updates["description"] = req.description
+        if req.position is not None:
+            updates["position"] = req.position
+        if req.config is not None:
+            updates["config"] = req.config
+        if req.robot_access is not None:
+            updates["robot_access"] = req.robot_access
+        if req.status is not None:
+            updates["status"] = req.status
+        if req.ui_type is not None:
+            updates["ui_type"] = req.ui_type
+        
+        if not updates:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        updates["updated_at"] = datetime.now(timezone.utc)
+        
+        db = mongodb.get_db()
+        # Use _id for the query so rename works correctly
+        result = db.devices.update_one(
+            {"_id": device_id},
+            {"$set": updates}
+        )
+        
+        if result.modified_count == 0:
+            return {"status": "no_change", "message": "No changes made"}
+        
+        # Fetch and return updated device (use new name if renamed)
+        fetch_name = new_name if new_name else device_name
+        updated = mongodb.get_device_by_name(fetch_name)
+        if updated and "_id" in updated:
+            updated["_id"] = str(updated["_id"])
+        return updated
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error updating device '{device_name}': {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

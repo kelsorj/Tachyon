@@ -16,13 +16,73 @@ function DeviceDashboard() {
   // Search and filter state
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
-  const [typeFilter, setTypeFilter] = useState('all')
+  const [typeFilter, setTypeFilter] = useState('')
+  const [typeDropdownOpen, setTypeDropdownOpen] = useState(false)
   const [sortBy, setSortBy] = useState('name')
   const [sortOrder, setSortOrder] = useState('asc')
 
   useEffect(() => {
     fetchDevices()
   }, [])
+
+  // Extract unique device types from devices
+  // Priority: ui_type > device_category mapping > name pattern inference
+  const getDeviceType = (device) => {
+    // Check explicit ui_type first (user-set device UI type)
+    if (device.ui_type) {
+      return device.ui_type
+    }
+    
+    // Check device_category and map to user-friendly names
+    if (device.device_category) {
+      const categoryMap = {
+        'static_position': 'Plate Pad',
+        'plate_pad': 'Plate Pad',
+        'robot': 'PF400 Robot',
+        'pf400': 'PF400 Robot',
+        'planar_motor': 'Planar Motor',
+        'planar': 'Planar Motor'
+      }
+      if (categoryMap[device.device_category.toLowerCase()]) {
+        return categoryMap[device.device_category.toLowerCase()]
+      }
+    }
+    
+    // Infer from name patterns
+    const name = device.name?.toLowerCase() || ''
+    const nameNormalized = name.replace(/[\s\-_]/g, '')
+    
+    // Check Plate Pad first (various patterns)
+    if (nameNormalized.includes('platepad')) return 'Plate Pad'
+    if (name.includes('plate_pad') || name.includes('plate pad')) return 'Plate Pad'
+    
+    // Other device types
+    if (name.includes('pf400')) return 'PF400 Robot'
+    if (name.includes('planar')) return 'Planar Motor'
+    if (name.includes('plateloc')) return 'Plateloc'
+    if (name.includes('hotel')) return 'Plate Hotel'
+    if (name.includes('echo')) return 'Echo'
+    if (name.includes('cytomat')) return 'Cytomat'
+    if (name.includes('xpeel')) return 'XPeel'
+    if (name.includes('el406')) return 'EL406'
+    if (name.includes('carousel')) return 'Carousel'
+    if (name.includes('mms')) return 'MMS'
+    
+    // Fall back to product_name if available
+    if (device.product_name) {
+      return device.product_name
+    }
+    
+    return 'Other'
+  }
+
+  // Get unique types sorted alphabetically
+  const uniqueTypes = [...new Set(devices.map(d => getDeviceType(d)))].sort()
+
+  // Filter type suggestions based on input
+  const filteredTypeSuggestions = typeFilter
+    ? uniqueTypes.filter(t => t.toLowerCase().includes(typeFilter.toLowerCase()))
+    : uniqueTypes
 
   const fetchDevices = async () => {
     try {
@@ -47,6 +107,11 @@ function DeviceDashboard() {
     if (device.name?.toLowerCase().includes('planar') || 
         device.product_name?.toLowerCase().includes('planar')) {
       return '🔄'
+    }
+    // Plate Pad devices
+    const nameLower = device.name?.toLowerCase().replace(/[\s-_]/g, '') || ''
+    if (nameLower.includes('platepad') || device.device_category === 'static_position') {
+      return '📍'
     }
     // Default robot icon for PF400 and other robots
     return '🤖'
@@ -77,30 +142,10 @@ function DeviceDashboard() {
       // Status filter
       const matchesStatus = statusFilter === 'all' || device.status === statusFilter
 
-      // Type filter
-      let matchesType = typeFilter === 'all'
-      if (!matchesType) {
-        switch (typeFilter) {
-          case 'robot':
-            matchesType = device.name?.startsWith('PF400') ||
-                         device.device_type_id?.includes('pf400') ||
-                         device.product_name?.toLowerCase().includes('robot')
-            break
-          case 'planar':
-            matchesType = device.name?.toLowerCase().includes('planar') ||
-                         device.product_name?.toLowerCase().includes('planar') ||
-                         device.vendor?.toLowerCase().includes('planar')
-            break
-          case 'other':
-            matchesType = !device.name?.startsWith('PF400') &&
-                         !device.device_type_id?.includes('pf400') &&
-                         !device.name?.toLowerCase().includes('planar') &&
-                         !device.product_name?.toLowerCase().includes('planar') &&
-                         !device.vendor?.toLowerCase().includes('planar') &&
-                         !device.product_name?.toLowerCase().includes('robot')
-            break
-        }
-      }
+      // Type filter - match against device type (case-insensitive partial match)
+      const deviceType = getDeviceType(device)
+      const matchesType = !typeFilter || 
+        deviceType.toLowerCase().includes(typeFilter.toLowerCase())
 
       return matchesSearch && matchesStatus && matchesType
     })
@@ -121,15 +166,9 @@ function DeviceDashboard() {
           bValue = b.serial_number || ''
           break
         case 'type':
-          // Sort by device type category
-          const getTypeCategory = (device) => {
-            if (device.name?.startsWith('PF400') || device.device_type_id?.includes('pf400')) return 'robot'
-            if (device.name?.toLowerCase().includes('planar') ||
-                device.product_name?.toLowerCase().includes('planar')) return 'planar'
-            return 'other'
-          }
-          aValue = getTypeCategory(a)
-          bValue = getTypeCategory(b)
+          // Sort by device type
+          aValue = getDeviceType(a)
+          bValue = getDeviceType(b)
           break
         default:
           aValue = a.name || ''
@@ -304,37 +343,99 @@ function DeviceDashboard() {
             </select>
           </div>
 
-          {/* Type Filter */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {/* Type Filter - Combo Box with Autocomplete */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, position: 'relative' }}>
             <span style={{ color: '#ccc', fontSize: '0.9em', fontWeight: 'bold' }}>Type:</span>
-            <select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: 4,
-                border: '1px solid #555',
-                background: '#2a2a3e',
-                color: '#fff',
-                fontSize: '0.9em',
-                cursor: 'pointer',
-                outline: 'none'
-              }}
-            >
-              <option value="all">All Types</option>
-              <option value="robot">Robots</option>
-              <option value="planar">Planar Motors</option>
-              <option value="other">Other</option>
-            </select>
+            <div style={{ position: 'relative' }}>
+              <input
+                type="text"
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                onFocus={() => setTypeDropdownOpen(true)}
+                onBlur={() => setTimeout(() => setTypeDropdownOpen(false), 150)}
+                placeholder="All types..."
+                style={{
+                  padding: '8px 12px',
+                  paddingRight: 28,
+                  borderRadius: 4,
+                  border: '1px solid #555',
+                  background: '#2a2a3e',
+                  color: '#fff',
+                  fontSize: '0.9em',
+                  outline: 'none',
+                  minWidth: 150
+                }}
+              />
+              <span
+                onClick={() => setTypeDropdownOpen(!typeDropdownOpen)}
+                style={{
+                  position: 'absolute',
+                  right: 8,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  color: '#888',
+                  fontSize: '0.7em'
+                }}
+              >
+                ▼
+              </span>
+              {typeDropdownOpen && filteredTypeSuggestions.length > 0 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  marginTop: 4,
+                  background: '#2a2a3e',
+                  border: '1px solid #555',
+                  borderRadius: 4,
+                  maxHeight: 200,
+                  overflowY: 'auto',
+                  zIndex: 1000,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                }}>
+                  <div
+                    onClick={() => { setTypeFilter(''); setTypeDropdownOpen(false) }}
+                    style={{
+                      padding: '8px 12px',
+                      cursor: 'pointer',
+                      color: '#888',
+                      fontStyle: 'italic',
+                      borderBottom: '1px solid #444'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#3a3a4e'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    All types
+                  </div>
+                  {filteredTypeSuggestions.map(type => (
+                    <div
+                      key={type}
+                      onClick={() => { setTypeFilter(type); setTypeDropdownOpen(false) }}
+                      style={{
+                        padding: '8px 12px',
+                        cursor: 'pointer',
+                        color: '#fff'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#3a3a4e'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    >
+                      {type}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Clear Filters */}
-          {(searchTerm || statusFilter !== 'all' || typeFilter !== 'all') && (
+          {(searchTerm || statusFilter !== 'all' || typeFilter) && (
             <button
               onClick={() => {
                 setSearchTerm('')
                 setStatusFilter('all')
-                setTypeFilter('all')
+                setTypeFilter('')
                 setSortBy('name')
                 setSortOrder('asc')
               }}
@@ -483,7 +584,7 @@ function DeviceDashboard() {
           <strong> Active:</strong> {devices.filter(d => d.status === 'active').length} |
           <strong> Offline:</strong> {devices.filter(d => d.status === 'offline').length}
         </div>
-        {(searchTerm || statusFilter !== 'all' || typeFilter !== 'all' || sortBy !== 'name' || sortOrder !== 'asc') && (
+        {(searchTerm || statusFilter !== 'all' || typeFilter || sortBy !== 'name' || sortOrder !== 'asc') && (
           <div style={{ fontSize: '0.9em', color: '#ccc', borderTop: '1px solid #333', paddingTop: 8 }}>
             <strong>Filtered & Sorted Results:</strong> {filteredAndSortedDevices.length} |
             <strong> Active:</strong> {filteredAndSortedDevices.filter(d => d.status === 'active').length} |
