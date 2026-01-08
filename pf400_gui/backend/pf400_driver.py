@@ -145,6 +145,74 @@ class PF400Driver:
                     pass
                 return False
     
+    def is_homed(self) -> bool:
+        """
+        Check if the robot has been homed.
+        Uses PDB 2800 (home state): 1 = homed, 0 = not homed.
+        """
+        try:
+            home_resp = self.send_status_command("pd 2800")
+            # Response format: "0 <value>" where value is 0 or 1
+            parts = home_resp.split()
+            if len(parts) >= 2:
+                return parts[1] == "1"
+            return False
+        except Exception as e:
+            print(f"Error checking home status: {e}")
+            return False
+    
+    def home_robot(self, wait: bool = True) -> bool:
+        """
+        Send the home command to the robot.
+        
+        Args:
+            wait: If True, wait for homing to complete (~15-20 seconds)
+            
+        Returns:
+            True if homing command was sent successfully
+        """
+        try:
+            print("Sending home command to robot...")
+            result = self.send_command("home")
+            print(f"Home command result: {result}")
+            
+            if wait:
+                # Homing typically takes 15-20 seconds
+                print("Waiting for homing to complete (up to 25 seconds)...")
+                import time
+                for i in range(25):
+                    time.sleep(1)
+                    if self.is_homed():
+                        print(f"✓ Robot homed successfully after {i+1} seconds")
+                        return True
+                print("⚠ Homing timeout - check robot status")
+                return False
+            return True
+        except Exception as e:
+            print(f"Error during homing: {e}")
+            return False
+    
+    def ensure_homed(self, auto_home: bool = True) -> bool:
+        """
+        Check if robot is homed, and optionally home it if not.
+        
+        Args:
+            auto_home: If True and robot is not homed, automatically send home command
+            
+        Returns:
+            True if robot is homed (or successfully homed), False otherwise
+        """
+        if self.is_homed():
+            return True
+        
+        print("⚠ Robot is NOT homed!")
+        if auto_home:
+            print("Auto-homing robot...")
+            return self.home_robot(wait=True)
+        else:
+            print("Please home the robot before operating")
+            return False
+    
     def configure_robot(self):
         """Configure robot by setting mode and selecting robot ID (like working module)."""
         try:
@@ -163,6 +231,10 @@ class PF400Driver:
             # Ensure robot is attached
             attach_resp = self.send_command("attach 1")
             print(f"attach 1: {attach_resp}")
+            
+            # Check if robot is homed and auto-home if needed
+            if not self.ensure_homed(auto_home=True):
+                print("⚠ WARNING: Robot is not homed - moves may fail!")
             
             print("✓ Robot configured")
         except Exception as e:

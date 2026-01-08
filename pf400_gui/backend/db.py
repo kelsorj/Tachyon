@@ -858,3 +858,328 @@ def get_linked_teachpoints(device_name: str) -> List[Dict[str, Any]]:
         print(f"Error getting linked teachpoints: {e}")
         return []
 
+
+# ============== DEVICE COLLECTIONS (Workflow) ==============
+
+def get_all_device_collections() -> List[Dict[str, Any]]:
+    """Get all device collections."""
+    try:
+        db = get_db()
+        collections = list(db.device_collections.find({}).sort("name", 1))
+        for c in collections:
+            c["_id"] = str(c["_id"])
+        return collections
+    except Exception as e:
+        print(f"Error getting device collections: {e}")
+        return []
+
+
+def get_device_collection(collection_id: str) -> Optional[Dict[str, Any]]:
+    """Get a device collection by ID."""
+    try:
+        db = get_db()
+        doc = db.device_collections.find_one({"collection_id": collection_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error getting device collection {collection_id}: {e}")
+        return None
+
+
+def create_device_collection(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new device collection."""
+    try:
+        db = get_db()
+        data = dict(data or {})
+        if not data.get("collection_id"):
+            data["collection_id"] = _new_ulid_str()
+        data["created_at"] = datetime.utcnow()
+        data["updated_at"] = datetime.utcnow()
+        result = db.device_collections.insert_one(data)
+        if not result.inserted_id:
+            return None
+        created = db.device_collections.find_one({"_id": result.inserted_id})
+        if created:
+            created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating device collection: {e}")
+        return None
+
+
+def update_device_collection(collection_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a device collection."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.device_collections.update_one(
+            {"collection_id": collection_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        return get_device_collection(collection_id)
+    except Exception as e:
+        print(f"Error updating device collection {collection_id}: {e}")
+        return None
+
+
+def delete_device_collection(collection_id: str) -> bool:
+    """Delete a device collection."""
+    try:
+        db = get_db()
+        result = db.device_collections.delete_one({"collection_id": collection_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting device collection {collection_id}: {e}")
+        return False
+
+
+# ============== WORKFLOWS ==============
+
+def get_all_workflows() -> List[Dict[str, Any]]:
+    """Get all workflows."""
+    try:
+        db = get_db()
+        workflows = list(db.workflows.find({}).sort([("name", 1), ("created_at", -1)]))
+        for w in workflows:
+            w["_id"] = str(w["_id"])
+        return workflows
+    except Exception as e:
+        print(f"Error getting workflows: {e}")
+        return []
+
+
+def get_workflow(workflow_id: str) -> Optional[Dict[str, Any]]:
+    """Get a workflow by ID."""
+    try:
+        db = get_db()
+        doc = db.workflows.find_one({"workflow_id": workflow_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error getting workflow {workflow_id}: {e}")
+        return None
+
+
+def create_workflow(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new workflow."""
+    try:
+        db = get_db()
+        data = dict(data or {})
+        if not data.get("workflow_id"):
+            data["workflow_id"] = _new_ulid_str()
+        data["created_at"] = datetime.utcnow()
+        data["updated_at"] = datetime.utcnow()
+        # Initialize empty nodes/edges if not provided
+        if "nodes" not in data:
+            data["nodes"] = []
+        if "edges" not in data:
+            data["edges"] = []
+        result = db.workflows.insert_one(data)
+        if not result.inserted_id:
+            return None
+        created = db.workflows.find_one({"_id": result.inserted_id})
+        if created:
+            created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating workflow: {e}")
+        return None
+
+
+def update_workflow(workflow_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a workflow."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.workflows.update_one(
+            {"workflow_id": workflow_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        return get_workflow(workflow_id)
+    except Exception as e:
+        print(f"Error updating workflow {workflow_id}: {e}")
+        return None
+
+
+def delete_workflow(workflow_id: str) -> bool:
+    """Delete a workflow."""
+    try:
+        db = get_db()
+        result = db.workflows.delete_one({"workflow_id": workflow_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting workflow {workflow_id}: {e}")
+        return False
+
+
+# ============== WORKFLOW RUNS ==============
+
+def get_workflow_runs(workflow_id: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+    """Get workflow runs, optionally filtered by workflow_id."""
+    try:
+        db = get_db()
+        query = {}
+        if workflow_id:
+            query["workflow_id"] = workflow_id
+        runs = list(db.workflow_runs.find(query).sort("started_at", -1).limit(limit))
+        for r in runs:
+            r["_id"] = str(r["_id"])
+        return runs
+    except Exception as e:
+        print(f"Error getting workflow runs: {e}")
+        return []
+
+
+def get_workflow_run(run_id: str) -> Optional[Dict[str, Any]]:
+    """Get a workflow run by ID."""
+    try:
+        db = get_db()
+        doc = db.workflow_runs.find_one({"run_id": run_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error getting workflow run {run_id}: {e}")
+        return None
+
+
+def create_workflow_run(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new workflow run."""
+    try:
+        db = get_db()
+        data = dict(data or {})
+        if not data.get("run_id"):
+            data["run_id"] = _new_ulid_str()
+        data["started_at"] = datetime.utcnow()
+        data["updated_at"] = datetime.utcnow()
+        # Default state
+        if "state" not in data:
+            data["state"] = "pending"
+        if "step_states" not in data:
+            data["step_states"] = {}
+        result = db.workflow_runs.insert_one(data)
+        if not result.inserted_id:
+            return None
+        created = db.workflow_runs.find_one({"_id": result.inserted_id})
+        if created:
+            created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating workflow run: {e}")
+        return None
+
+
+def update_workflow_run(run_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a workflow run."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.workflow_runs.update_one(
+            {"run_id": run_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        return get_workflow_run(run_id)
+    except Exception as e:
+        print(f"Error updating workflow run {run_id}: {e}")
+        return None
+
+
+def delete_workflow_run(run_id: str) -> bool:
+    """Delete a workflow run."""
+    try:
+        db = get_db()
+        result = db.workflow_runs.delete_one({"run_id": run_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting workflow run {run_id}: {e}")
+        return False
+
+
+# ============== CODE MODULES ==============
+
+def get_all_code_modules() -> List[Dict[str, Any]]:
+    """Get all code modules."""
+    try:
+        db = get_db()
+        modules = list(db.code_modules.find({}).sort("name", 1))
+        for m in modules:
+            m["_id"] = str(m["_id"])
+        return modules
+    except Exception as e:
+        print(f"Error getting code modules: {e}")
+        return []
+
+
+def get_code_module(module_id: str) -> Optional[Dict[str, Any]]:
+    """Get a code module by ID."""
+    try:
+        db = get_db()
+        doc = db.code_modules.find_one({"module_id": module_id})
+        if doc:
+            doc["_id"] = str(doc["_id"])
+        return doc
+    except Exception as e:
+        print(f"Error getting code module {module_id}: {e}")
+        return None
+
+
+def create_code_module(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new code module."""
+    try:
+        db = get_db()
+        data = dict(data or {})
+        if not data.get("module_id"):
+            data["module_id"] = _new_ulid_str()
+        data["created_at"] = datetime.utcnow()
+        data["updated_at"] = datetime.utcnow()
+        result = db.code_modules.insert_one(data)
+        if not result.inserted_id:
+            return None
+        created = db.code_modules.find_one({"_id": result.inserted_id})
+        if created:
+            created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating code module: {e}")
+        return None
+
+
+def update_code_module(module_id: str, updates: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Update a code module."""
+    try:
+        db = get_db()
+        updates = dict(updates or {})
+        updates["updated_at"] = datetime.utcnow()
+        result = db.code_modules.update_one(
+            {"module_id": module_id},
+            {"$set": updates}
+        )
+        if result.matched_count == 0:
+            return None
+        return get_code_module(module_id)
+    except Exception as e:
+        print(f"Error updating code module {module_id}: {e}")
+        return None
+
+
+def delete_code_module(module_id: str) -> bool:
+    """Delete a code module."""
+    try:
+        db = get_db()
+        result = db.code_modules.delete_one({"module_id": module_id})
+        return result.deleted_count > 0
+    except Exception as e:
+        print(f"Error deleting code module {module_id}: {e}")
+        return False
+

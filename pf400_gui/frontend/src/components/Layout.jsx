@@ -20,9 +20,6 @@ function Layout({ children }) {
       }}>
         <div style={{ marginBottom: 30 }}>
           <h1 style={{ fontSize: '1.5em', margin: 0, color: '#fff' }}>Tachyon</h1>
-          <div style={{ fontSize: '0.85em', color: '#888', marginTop: 5 }}>
-            Workcell
-          </div>
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -86,6 +83,37 @@ function Layout({ children }) {
           >
             <span style={{ fontSize: '1.2em' }}>🧫</span>
             <span>Labware</span>
+          </Link>
+
+          <Link
+            to="/workflows"
+            style={{
+              padding: '12px 16px',
+              borderRadius: 6,
+              textDecoration: 'none',
+              color: isActive('/workflows') ? '#fff' : '#aaa',
+              background: isActive('/workflows') ? '#1890ff' : 'transparent',
+              fontWeight: isActive('/workflows') ? 'bold' : 'normal',
+              transition: 'all 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10
+            }}
+            onMouseEnter={(e) => {
+              if (!isActive('/workflows')) {
+                e.currentTarget.style.background = '#222'
+                e.currentTarget.style.color = '#fff'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isActive('/workflows')) {
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.color = '#aaa'
+              }
+            }}
+          >
+            <span style={{ fontSize: '1.2em' }}>⚡</span>
+            <span>Workflows</span>
           </Link>
 
           <Link

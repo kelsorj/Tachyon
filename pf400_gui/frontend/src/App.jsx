@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import DeviceDashboard from './components/DeviceDashboard'
 import LabwareDashboard from './components/LabwareDashboard'
 import ToolsDashboard from './components/ToolsDashboard'
+import WorkflowsDashboard from './components/WorkflowsDashboard'
 import PF400Diagnostics from './components/PF400Diagnostics'
 import PlanarMotorDiagnostics from './components/PlanarMotorDiagnostics'
 import './App.css'
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Navigate to="/devices" replace />} />
           <Route path="/devices" element={<DeviceDashboard />} />
           <Route path="/labware" element={<LabwareDashboard />} />
+          <Route path="/workflows" element={<WorkflowsDashboard />} />
           <Route path="/tools" element={<ToolsDashboard />} />
           <Route path="/devices/:deviceName/diagnostics" element={<DeviceDiagnosticsRouter />} />
           <Route path="*" element={<Navigate to="/devices" replace />} />
