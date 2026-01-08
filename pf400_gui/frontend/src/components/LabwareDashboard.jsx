@@ -6,7 +6,11 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
-const API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
+const ENV_API_URL = import.meta.env.VITE_API_URL
+// If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+const API_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.location.hostname !== 'localhost'))
+  ? ENV_API_URL
+  : DEFAULT_API_URL
 
 function sortByName(a, b) {
   return String(a?.name || '').localeCompare(String(b?.name || ''))
@@ -791,9 +795,6 @@ function LabwareDashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
         <div>
           <div style={{ fontSize: '2em', fontWeight: 'bold', color: '#fff' }}>Labware</div>
-          <div style={{ color: '#888', marginTop: 6 }}>
-            Replicating the legacy Labware GUI with modern controls: entries, classes, and membership editing.
-          </div>
         </div>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
           <TabButton active={mode === 'entries'} onClick={() => setMode('entries')}>Labware Entries</TabButton>

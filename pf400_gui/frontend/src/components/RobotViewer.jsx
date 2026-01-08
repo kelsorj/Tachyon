@@ -23,7 +23,11 @@ function RobotModel({ joints, cartesian, verticalScale = DEFAULT_VERTICAL_COLUMN
             const stlLoader = new STLLoader(manager)
             const cleanPath = path.replace(/^\/+/, '').replace(/.*meshes\//, 'meshes/')
             const defaultBaseUrl = `${window.location.protocol}//${window.location.hostname}:8091`
-            const baseUrl = import.meta.env.VITE_API_URL || defaultBaseUrl
+            const envApiUrl = import.meta.env.VITE_API_URL
+            // If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+            const baseUrl = (envApiUrl && !(envApiUrl.includes('localhost') && window.location.hostname !== 'localhost'))
+              ? envApiUrl
+              : defaultBaseUrl
             const url = `${baseUrl}/${cleanPath}`
             stlLoader.load(url, (geo) => {
                 // If this is the vertical column mesh, stretch it along its longest local axis.
@@ -75,7 +79,11 @@ function RobotModel({ joints, cartesian, verticalScale = DEFAULT_VERTICAL_COLUMN
             })
         }
         const defaultBaseUrl = `${window.location.protocol}//${window.location.hostname}:8091`
-        const baseUrl = import.meta.env.VITE_API_URL || defaultBaseUrl
+        const envApiUrl = import.meta.env.VITE_API_URL
+        // If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+        const baseUrl = (envApiUrl && !(envApiUrl.includes('localhost') && window.location.hostname !== 'localhost'))
+          ? envApiUrl
+          : defaultBaseUrl
         const urdfUrl = `${baseUrl}/urdf/pf400Complete.urdf?t=${Date.now()}`
         loader.load(urdfUrl, (result) => {
             console.log('URDF loaded')

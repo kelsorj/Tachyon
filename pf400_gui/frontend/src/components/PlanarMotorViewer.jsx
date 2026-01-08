@@ -219,12 +219,18 @@ function Fallback() {
 
 export default function PlanarMotorViewer({
     xbots,
-    modelBaseUrl = 'http://localhost:3062',
+    modelBaseUrl,
     flywayCount = DEFAULT_FLYWAY_COUNT,
     flywayGapX = DEFAULT_FLYWAY_GAP_X
 }) {
+    // Default to current hostname for remote access support
+    const effectiveModelBaseUrl = modelBaseUrl || `${window.location.protocol}//${window.location.hostname}:3062`
     const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
-    const MAC_BACKEND_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
+    const ENV_API_URL = import.meta.env.VITE_API_URL
+    // If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+    const MAC_BACKEND_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.location.hostname !== 'localhost'))
+      ? ENV_API_URL
+      : DEFAULT_API_URL
     const flywayModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/S3-AS-04-06-OEM-Rev0-FLYWAY-S3-AS.gltf`
     const xbotModelUrl = `${MAC_BACKEND_URL}/models/planar_motor/M3-06-04-OEM-Rev3-XBOT.gltf`
     

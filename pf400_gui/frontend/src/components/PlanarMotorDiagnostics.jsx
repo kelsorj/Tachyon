@@ -3,7 +3,12 @@ import { useParams } from 'react-router-dom'
 import PlanarMotorViewer from './PlanarMotorViewer'
 
 const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
-const PF400_API_URL = import.meta.env.VITE_API_URL || DEFAULT_API_URL // For fetching device info from MongoDB
+const DEFAULT_PLANAR_API_URL = `${window.location.protocol}//${window.location.hostname}:3062`
+const ENV_API_URL = import.meta.env.VITE_API_URL
+// If VITE_API_URL is set to localhost but we're not browsing from localhost, ignore it.
+const PF400_API_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.location.hostname !== 'localhost'))
+  ? ENV_API_URL
+  : DEFAULT_API_URL
 
 function PlanarMotorDiagnostics() {
   const { deviceName } = useParams()
@@ -67,15 +72,15 @@ function PlanarMotorDiagnostics() {
             }
           } else {
             log(`⚠ Device '${deviceName}' not found in database, using defaults`)
-            setApiUrl('http://localhost:3062')
+            setApiUrl(DEFAULT_PLANAR_API_URL)
           }
         } else {
           log(`⚠ Failed to fetch devices, using defaults`)
-          setApiUrl('http://localhost:3062')
+          setApiUrl(DEFAULT_PLANAR_API_URL)
         }
       } catch (e) {
         log(`⚠ Error fetching device info: ${e.message}, using defaults`)
-        setApiUrl('http://localhost:3062')
+        setApiUrl(DEFAULT_PLANAR_API_URL)
       } finally {
         setLoadingDevice(false)
       }
