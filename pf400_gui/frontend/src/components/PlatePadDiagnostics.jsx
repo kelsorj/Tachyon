@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
 const ENV_API_URL = import.meta.env.VITE_API_URL
@@ -9,6 +9,7 @@ const API_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.lo
 
 function PlatePadDiagnostics() {
   const { deviceName } = useParams()
+  const navigate = useNavigate()
   const [device, setDevice] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -214,9 +215,22 @@ function PlatePadDiagnostics() {
     <div style={{ padding: 20, maxWidth: 900, margin: '0 auto' }}>
       {/* Header */}
       <div style={{ marginBottom: 30 }}>
-        <Link to="/devices" style={{ color: '#1890ff', textDecoration: 'none', marginBottom: 10, display: 'inline-block' }}>
+        <button 
+          onClick={() => navigate(-1)} 
+          style={{ 
+            color: '#1890ff', 
+            textDecoration: 'none', 
+            marginBottom: 10, 
+            display: 'inline-block',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
+            fontSize: 'inherit'
+          }}
+        >
           ← Back to Devices
-        </Link>
+        </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 15, marginTop: 10 }}>
           <span style={{ fontSize: '2.5em' }}>📍</span>
           <div style={{ flex: 1 }}>

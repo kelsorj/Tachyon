@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 const DEFAULT_API_URL = `${window.location.protocol}//${window.location.hostname}:8091`
 const ENV_API_URL = import.meta.env.VITE_API_URL
@@ -9,17 +9,31 @@ const API_URL = (ENV_API_URL && !(ENV_API_URL.includes('localhost') && window.lo
   : DEFAULT_API_URL
 
 function DeviceDashboard() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  
   const [devices, setDevices] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Search and filter state
-  const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState('all')
-  const [typeFilter, setTypeFilter] = useState('')
+  // Initialize filter state from URL params
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
+  const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'all')
+  const [typeFilter, setTypeFilter] = useState(searchParams.get('type') || '')
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false)
-  const [sortBy, setSortBy] = useState('name')
-  const [sortOrder, setSortOrder] = useState('asc')
+  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || 'name')
+  const [sortOrder, setSortOrder] = useState(searchParams.get('sortOrder') || 'asc')
+
+  // Update URL params when filters change
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (searchTerm) params.set('search', searchTerm)
+    if (statusFilter && statusFilter !== 'all') params.set('status', statusFilter)
+    if (typeFilter) params.set('type', typeFilter)
+    if (sortBy && sortBy !== 'name') params.set('sortBy', sortBy)
+    if (sortOrder && sortOrder !== 'asc') params.set('sortOrder', sortOrder)
+    
+    setSearchParams(params, { replace: true })
+  }, [searchTerm, statusFilter, typeFilter, sortBy, sortOrder, setSearchParams])
 
   useEffect(() => {
     fetchDevices()
