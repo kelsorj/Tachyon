@@ -3728,6 +3728,7 @@ class WorkflowCreate(BaseModel):
     device_collection_id: Optional[str] = None
     nodes: Optional[List[Dict[str, Any]]] = []
     edges: Optional[List[Dict[str, Any]]] = []
+    labware: Optional[List[Dict[str, Any]]] = []  # Labware items in this workflow
 
 
 @app.post("/workflows")
@@ -3745,6 +3746,7 @@ class WorkflowUpdate(BaseModel):
     device_collection_id: Optional[str] = None
     nodes: Optional[List[Dict[str, Any]]] = None
     edges: Optional[List[Dict[str, Any]]] = None
+    labware: Optional[List[Dict[str, Any]]] = None  # Labware items in this workflow
 
 
 @app.put("/workflows/{workflow_id}")

@@ -46,12 +46,19 @@ function WorkflowsDashboard() {
   const [logs, setLogs] = useState([])
   const [activeRuns, setActiveRuns] = useState([])
   const [devices, setDevices] = useState([])
+  const [labwareTypes, setLabwareTypes] = useState([])
+  
+  // UI state
+  const [workflowListCollapsed, setWorkflowListCollapsed] = useState(false)
   
   // Editor state
   const [workflowName, setWorkflowName] = useState('')
   const [workflowDescription, setWorkflowDescription] = useState('')
   const [selectedCollection, setSelectedCollection] = useState('')
   const [selectedNode, setSelectedNode] = useState(null)
+  
+  // Workflow labware inventory - plates that this workflow manipulates
+  const [workflowLabware, setWorkflowLabware] = useState([])
   
   const log = (msg) => setLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 49)])
 
@@ -60,6 +67,7 @@ function WorkflowsDashboard() {
     fetchWorkflows()
     fetchCollections()
     fetchDevices()
+    fetchLabwareTypes()
     fetchActiveRuns()
     
     // Poll for active runs
@@ -100,6 +108,18 @@ function WorkflowsDashboard() {
       }
     } catch (e) {
       log(`✗ Failed to fetch devices: ${e.message}`)
+    }
+  }
+
+  const fetchLabwareTypes = async () => {
+    try {
+      const res = await fetch(`${API_URL}/labware/types`)
+      if (res.ok) {
+        const data = await res.json()
+        setLabwareTypes(data.labware_types || [])
+      }
+    } catch (e) {
+      log(`✗ Failed to fetch labware types: ${e.message}`)
     }
   }
 
@@ -160,6 +180,7 @@ function WorkflowsDashboard() {
         
         setNodes(flowNodes)
         setEdges(flowEdges)
+        setWorkflowLabware(wf.labware || [])
         setSelectedNode(null)
         log(`✓ Loaded workflow: ${wf.name}`)
       }
@@ -229,6 +250,7 @@ function WorkflowsDashboard() {
           device_collection_id: selectedCollection || null,
           nodes: wfNodes,
           edges: wfEdges,
+          labware: workflowLabware,
         }),
       })
       if (res.ok) {
@@ -330,75 +352,129 @@ function WorkflowsDashboard() {
 
   return (
     <div style={{ display: 'flex', height: '100%', background: '#0a0a0a' }}>
-      {/* Left Panel - Workflow List */}
-      <div style={{ width: 280, borderRight: '2px solid #333', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: 15, borderBottom: '1px solid #333' }}>
-          <h2 style={{ color: '#fff', margin: '0 0 15px 0', fontSize: '1.2em' }}>Workflows</h2>
-          <button
-            onClick={createWorkflow}
-            style={{
-              width: '100%',
-              padding: '10px',
-              background: '#1890ff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 6,
-              cursor: 'pointer',
-              fontWeight: 'bold',
-            }}
-          >
-            + New Workflow
-          </button>
-        </div>
-        
-        <div style={{ flex: 1, overflow: 'auto', padding: 10 }}>
-          {workflows.map(wf => (
-            <div
-              key={wf.workflow_id}
-              onClick={() => loadWorkflow(wf.workflow_id)}
+      {/* Left Panel - Workflow List (Collapsible) */}
+      <div style={{ 
+        width: workflowListCollapsed ? 40 : 280, 
+        borderRight: '2px solid #333', 
+        display: 'flex', 
+        flexDirection: 'column',
+        transition: 'width 0.2s ease',
+        overflow: 'hidden',
+      }}>
+        {/* Header with collapse toggle */}
+        <div style={{ 
+          padding: workflowListCollapsed ? '15px 8px' : 15, 
+          borderBottom: '1px solid #333',
+          display: 'flex',
+          alignItems: workflowListCollapsed ? 'center' : 'flex-start',
+          flexDirection: workflowListCollapsed ? 'column' : 'column',
+          gap: 10,
+        }}>
+          {workflowListCollapsed ? (
+            <button
+              onClick={() => setWorkflowListCollapsed(false)}
               style={{
-                padding: '12px',
-                marginBottom: 8,
-                background: selectedWorkflow?.workflow_id === wf.workflow_id ? '#1890ff' : '#1a1a2e',
-                borderRadius: 6,
+                background: 'none',
+                border: 'none',
+                color: '#888',
                 cursor: 'pointer',
-                border: '1px solid #333',
+                fontSize: '1.2em',
+                padding: 5,
               }}
+              title="Expand workflow list"
             >
-              <div style={{ color: '#fff', fontWeight: 'bold' }}>{wf.name}</div>
-              <div style={{ color: '#888', fontSize: '0.85em' }}>
-                {(wf.nodes || []).length} nodes
+              ▶
+            </button>
+          ) : (
+            <>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                <h2 style={{ color: '#fff', margin: 0, fontSize: '1.2em' }}>Workflows</h2>
+                <button
+                  onClick={() => setWorkflowListCollapsed(true)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#888',
+                    cursor: 'pointer',
+                    fontSize: '1em',
+                    padding: 5,
+                  }}
+                  title="Collapse workflow list"
+                >
+                  ◀
+                </button>
               </div>
-            </div>
-          ))}
-          {workflows.length === 0 && (
-            <div style={{ color: '#666', textAlign: 'center', padding: 20 }}>
-              No workflows yet
-            </div>
+              <button
+                onClick={createWorkflow}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  background: '#1890ff',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                }}
+              >
+                + New Workflow
+              </button>
+            </>
           )}
         </div>
-
-        {/* Active Runs */}
-        {activeRuns.length > 0 && (
-          <div style={{ borderTop: '1px solid #333', padding: 10 }}>
-            <div style={{ color: '#10b981', fontWeight: 'bold', marginBottom: 8 }}>
-              ⚡ Active Runs ({activeRuns.length})
-            </div>
-            {activeRuns.map(run => (
-              <div key={run.run_id} style={{ 
-                padding: 8, 
-                background: '#1a1a2e', 
-                borderRadius: 4, 
-                marginBottom: 4,
-                fontSize: '0.85em',
-              }}>
-                <div style={{ color: '#fff' }}>{run.run_id.slice(0, 8)}...</div>
-                <div style={{ color: run.simulate ? '#f59e0b' : '#10b981' }}>
-                  {run.state} {run.simulate && '(sim)'}
+        
+        {!workflowListCollapsed && (
+          <>
+            <div style={{ flex: 1, overflow: 'auto', padding: 10 }}>
+              {workflows.map(wf => (
+                <div
+                  key={wf.workflow_id}
+                  onClick={() => loadWorkflow(wf.workflow_id)}
+                  style={{
+                    padding: '12px',
+                    marginBottom: 8,
+                    background: selectedWorkflow?.workflow_id === wf.workflow_id ? '#1890ff' : '#1a1a2e',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    border: '1px solid #333',
+                  }}
+                >
+                  <div style={{ color: '#fff', fontWeight: 'bold' }}>{wf.name}</div>
+                  <div style={{ color: '#888', fontSize: '0.85em' }}>
+                    {(wf.nodes || []).length} nodes
+                  </div>
                 </div>
+              ))}
+              {workflows.length === 0 && (
+                <div style={{ color: '#666', textAlign: 'center', padding: 20 }}>
+                  No workflows yet
+                </div>
+              )}
+            </div>
+
+            {/* Active Runs */}
+            {activeRuns.length > 0 && (
+              <div style={{ borderTop: '1px solid #333', padding: 10 }}>
+                <div style={{ color: '#10b981', fontWeight: 'bold', marginBottom: 8 }}>
+                  ⚡ Active Runs ({activeRuns.length})
+                </div>
+                {activeRuns.map(run => (
+                  <div key={run.run_id} style={{ 
+                    padding: 8, 
+                    background: '#1a1a2e', 
+                    borderRadius: 4, 
+                    marginBottom: 4,
+                    fontSize: '0.85em',
+                  }}>
+                    <div style={{ color: '#fff' }}>{run.run_id.slice(0, 8)}...</div>
+                    <div style={{ color: run.simulate ? '#f59e0b' : '#10b981' }}>
+                      {run.state} {run.simulate && '(sim)'}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
 
@@ -583,11 +659,11 @@ function WorkflowsDashboard() {
               {selectedNode.data?.nodeType === 'device_action' && (
                 <>
                   <div style={{ marginBottom: 15 }}>
-                    <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Device</label>
+                    <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Robot</label>
                     <select
-                      value={selectedNode.data?.device || ''}
+                      value={selectedNode.data?.robot || ''}
                       onChange={(e) => {
-                        const newData = { ...selectedNode.data, device: e.target.value }
+                        const newData = { ...selectedNode.data, robot: e.target.value }
                         setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
                         setSelectedNode(prev => ({ ...prev, data: newData }))
                       }}
@@ -600,18 +676,17 @@ function WorkflowsDashboard() {
                         color: '#fff',
                       }}
                     >
-                      <option value="">Select device...</option>
-                      {devices.map(d => (
+                      <option value="">Select robot...</option>
+                      {devices.filter(d => d.name?.includes('PF400') || d.ui_type === 'PF400 Robot').map(d => (
                         <option key={d.name} value={d.name}>{d.name}</option>
                       ))}
                     </select>
                   </div>
+                  
                   <div style={{ marginBottom: 15 }}>
                     <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Action</label>
-                    <input
-                      type="text"
+                    <select
                       value={selectedNode.data?.action || ''}
-                      placeholder="e.g., pick-place"
                       onChange={(e) => {
                         const newData = { ...selectedNode.data, action: e.target.value }
                         setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
@@ -625,8 +700,125 @@ function WorkflowsDashboard() {
                         borderRadius: 4,
                         color: '#fff',
                       }}
-                    />
+                    >
+                      <option value="">Select action...</option>
+                      <option value="pick-place">Pick & Place</option>
+                      <option value="move-to">Move To</option>
+                      <option value="safe">Safe Position</option>
+                      <option value="home">Home</option>
+                    </select>
                   </div>
+
+                  {selectedNode.data?.action === 'pick-place' && (
+                    <>
+                      <div style={{ marginBottom: 15 }}>
+                        <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Labware</label>
+                        <select
+                          value={selectedNode.data?.labware_id || ''}
+                          onChange={(e) => {
+                            const newData = { ...selectedNode.data, labware_id: e.target.value }
+                            setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                            setSelectedNode(prev => ({ ...prev, data: newData }))
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            background: '#1a1a2e',
+                            border: '1px solid #333',
+                            borderRadius: 4,
+                            color: '#fff',
+                          }}
+                        >
+                          <option value="">Select labware...</option>
+                          {workflowLabware.map(lw => (
+                            <option key={lw.id} value={lw.id}>{lw.name} ({lw.type})</option>
+                          ))}
+                        </select>
+                        {workflowLabware.length === 0 && (
+                          <div style={{ color: '#f59e0b', fontSize: '0.8em', marginTop: 4 }}>
+                            Add labware in the Labware section below
+                          </div>
+                        )}
+                      </div>
+
+                      <div style={{ marginBottom: 15 }}>
+                        <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Pick From (Source)</label>
+                        <select
+                          value={selectedNode.data?.source_device || ''}
+                          onChange={(e) => {
+                            const newData = { ...selectedNode.data, source_device: e.target.value }
+                            setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                            setSelectedNode(prev => ({ ...prev, data: newData }))
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            background: '#1a1a2e',
+                            border: '1px solid #333',
+                            borderRadius: 4,
+                            color: '#fff',
+                          }}
+                        >
+                          <option value="">Select source...</option>
+                          {devices.map(d => (
+                            <option key={d.name} value={d.name}>{d.name}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div style={{ marginBottom: 15 }}>
+                        <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Place At (Target)</label>
+                        <select
+                          value={selectedNode.data?.target_device || ''}
+                          onChange={(e) => {
+                            const newData = { ...selectedNode.data, target_device: e.target.value }
+                            setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                            setSelectedNode(prev => ({ ...prev, data: newData }))
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            background: '#1a1a2e',
+                            border: '1px solid #333',
+                            borderRadius: 4,
+                            color: '#fff',
+                          }}
+                        >
+                          <option value="">Select target...</option>
+                          {devices.map(d => (
+                            <option key={d.name} value={d.name}>{d.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {selectedNode.data?.action === 'move-to' && (
+                    <div style={{ marginBottom: 15 }}>
+                      <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Target Device/Position</label>
+                      <select
+                        value={selectedNode.data?.target_device || ''}
+                        onChange={(e) => {
+                          const newData = { ...selectedNode.data, target_device: e.target.value }
+                          setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                          setSelectedNode(prev => ({ ...prev, data: newData }))
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          background: '#1a1a2e',
+                          border: '1px solid #333',
+                          borderRadius: 4,
+                          color: '#fff',
+                        }}
+                      >
+                        <option value="">Select target...</option>
+                        {devices.map(d => (
+                          <option key={d.name} value={d.name}>{d.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </>
               )}
 
@@ -703,6 +895,142 @@ function WorkflowsDashboard() {
             </div>
           )}
         </div>
+
+        {/* Workflow Labware Inventory */}
+        {selectedWorkflow && (
+          <div style={{ padding: 15, borderBottom: '1px solid #333', maxHeight: 200, overflow: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+              <h4 style={{ color: '#fff', margin: 0 }}>🧫 Labware</h4>
+              <button
+                onClick={() => {
+                  const name = prompt('Labware name (e.g., "Plate 1"):')
+                  if (!name) return
+                  const newLabware = {
+                    id: `lw-${Date.now()}`,
+                    name,
+                    type: labwareTypes[0]?.name || 'Unknown',
+                    initial_location: '',
+                  }
+                  setWorkflowLabware([...workflowLabware, newLabware])
+                  log(`+ Added labware: ${name}`)
+                }}
+                style={{
+                  padding: '4px 10px',
+                  background: '#1890ff',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 4,
+                  cursor: 'pointer',
+                  fontSize: '0.85em',
+                }}
+              >
+                + Add
+              </button>
+            </div>
+            
+            {workflowLabware.length === 0 ? (
+              <div style={{ color: '#666', fontSize: '0.85em', textAlign: 'center', padding: 10 }}>
+                No labware defined for this workflow
+              </div>
+            ) : (
+              workflowLabware.map((lw, idx) => (
+                <div key={lw.id} style={{
+                  padding: 8,
+                  background: '#1a1a2e',
+                  borderRadius: 4,
+                  marginBottom: 6,
+                  border: '1px solid #333',
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <input
+                      type="text"
+                      value={lw.name}
+                      onChange={(e) => {
+                        const updated = [...workflowLabware]
+                        updated[idx] = { ...lw, name: e.target.value }
+                        setWorkflowLabware(updated)
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '4px 8px',
+                        background: '#0a0a0a',
+                        border: '1px solid #444',
+                        borderRadius: 3,
+                        color: '#fff',
+                        fontSize: '0.9em',
+                        fontWeight: 'bold',
+                      }}
+                    />
+                    <button
+                      onClick={() => {
+                        setWorkflowLabware(workflowLabware.filter((_, i) => i !== idx))
+                        log(`- Removed labware: ${lw.name}`)
+                      }}
+                      style={{
+                        marginLeft: 8,
+                        padding: '4px 8px',
+                        background: '#ef4444',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: 3,
+                        cursor: 'pointer',
+                        fontSize: '0.8em',
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <select
+                      value={lw.type}
+                      onChange={(e) => {
+                        const updated = [...workflowLabware]
+                        updated[idx] = { ...lw, type: e.target.value }
+                        setWorkflowLabware(updated)
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '4px 8px',
+                        background: '#0a0a0a',
+                        border: '1px solid #444',
+                        borderRadius: 3,
+                        color: '#aaa',
+                        fontSize: '0.8em',
+                      }}
+                    >
+                      <option value="">Labware type...</option>
+                      {labwareTypes.map(lt => (
+                        <option key={lt._id || lt.name} value={lt.name}>{lt.name}</option>
+                      ))}
+                    </select>
+                    <select
+                      value={lw.initial_location || ''}
+                      onChange={(e) => {
+                        const updated = [...workflowLabware]
+                        updated[idx] = { ...lw, initial_location: e.target.value }
+                        setWorkflowLabware(updated)
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '4px 8px',
+                        background: '#0a0a0a',
+                        border: '1px solid #444',
+                        borderRadius: 3,
+                        color: '#aaa',
+                        fontSize: '0.8em',
+                      }}
+                    >
+                      <option value="">Start location...</option>
+                      {devices.map(d => (
+                        <option key={d.name} value={d.name}>{d.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
 
         {/* Logs */}
         <div style={{ height: 200, overflow: 'auto', padding: 10, background: '#111' }}>
