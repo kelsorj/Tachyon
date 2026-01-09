@@ -23,6 +23,17 @@ function DeviceDashboard() {
   const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || 'name')
   const [sortOrder, setSortOrder] = useState(searchParams.get('sortOrder') || 'asc')
 
+  // Add Device Modal state
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [newDevice, setNewDevice] = useState({
+    name: '',
+    ui_type: 'Plate Pad',
+    description: '',
+    status: 'active'
+  })
+  const [addingDevice, setAddingDevice] = useState(false)
+  const [addError, setAddError] = useState(null)
+
   // Update URL params when filters change
   useEffect(() => {
     const params = new URLSearchParams()
@@ -113,6 +124,37 @@ function DeviceDashboard() {
       setError(`Error: ${e.message}`)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleAddDevice = async () => {
+    if (!newDevice.name.trim()) {
+      setAddError('Device name is required')
+      return
+    }
+    
+    setAddingDevice(true)
+    setAddError(null)
+    
+    try {
+      const res = await fetch(`${API_URL}/devices`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDevice)
+      })
+      
+      if (res.ok) {
+        setShowAddModal(false)
+        setNewDevice({ name: '', ui_type: 'Plate Pad', description: '', status: 'active' })
+        fetchDevices()
+      } else {
+        const data = await res.json()
+        setAddError(data.detail || 'Failed to create device')
+      }
+    } catch (e) {
+      setAddError(`Error: ${e.message}`)
+    } finally {
+      setAddingDevice(false)
     }
   }
 
@@ -254,7 +296,27 @@ function DeviceDashboard() {
   return (
     <div style={{ padding: 20, maxWidth: 1400, margin: '0 auto' }}>
       <div style={{ marginBottom: 30 }}>
-        <h1 style={{ fontSize: '2em', marginBottom: 10 }}>Tachyon Device Dashboard</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <h1 style={{ fontSize: '2em', margin: 0 }}>Tachyon Device Dashboard</h1>
+          <button
+            onClick={() => setShowAddModal(true)}
+            style={{
+              padding: '10px 20px',
+              background: '#10b981',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '1em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8
+            }}
+          >
+            ➕ Add Device
+          </button>
+        </div>
         <p style={{ color: '#888', fontSize: '1.1em', marginBottom: 20 }}>
           Select a device to access its diagnostic interface
         </p>
@@ -606,6 +668,187 @@ function DeviceDashboard() {
           </div>
         )}
       </div>
+
+      {/* Add Device Modal */}
+      {showAddModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            background: '#1a1a2e',
+            borderRadius: 12,
+            padding: 30,
+            minWidth: 450,
+            maxWidth: 550,
+            border: '1px solid #333',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+          }}>
+            <h2 style={{ color: '#fff', marginTop: 0, marginBottom: 25 }}>Add New Device</h2>
+            
+            {addError && (
+              <div style={{ 
+                background: '#ef4444', 
+                color: '#fff', 
+                padding: 12, 
+                borderRadius: 6, 
+                marginBottom: 20 
+              }}>
+                {addError}
+              </div>
+            )}
+            
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', color: '#888', marginBottom: 6, fontWeight: 'bold' }}>
+                Device Name *
+              </label>
+              <input
+                type="text"
+                value={newDevice.name}
+                onChange={(e) => setNewDevice({ ...newDevice, name: e.target.value })}
+                placeholder="e.g., PlatePad-003"
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #444',
+                  background: '#2a2a3e',
+                  color: '#fff',
+                  fontSize: '1em',
+                  outline: 'none',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+            
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', color: '#888', marginBottom: 6, fontWeight: 'bold' }}>
+                Device Type
+              </label>
+              <select
+                value={newDevice.ui_type}
+                onChange={(e) => setNewDevice({ ...newDevice, ui_type: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #444',
+                  background: '#2a2a3e',
+                  color: '#fff',
+                  fontSize: '1em',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                <option value="Plate Pad">Plate Pad</option>
+                <option value="PF400 Robot">PF400 Robot</option>
+                <option value="Planar Motor">Planar Motor</option>
+                <option value="Plateloc">Plateloc</option>
+                <option value="Plate Hotel">Plate Hotel</option>
+                <option value="Echo">Echo</option>
+                <option value="Cytomat">Cytomat</option>
+                <option value="XPeel">XPeel</option>
+                <option value="EL406">EL406</option>
+                <option value="Carousel">Carousel</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', color: '#888', marginBottom: 6, fontWeight: 'bold' }}>
+                Description
+              </label>
+              <textarea
+                value={newDevice.description}
+                onChange={(e) => setNewDevice({ ...newDevice, description: e.target.value })}
+                placeholder="Optional description..."
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #444',
+                  background: '#2a2a3e',
+                  color: '#fff',
+                  fontSize: '1em',
+                  resize: 'vertical',
+                  outline: 'none',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+            
+            <div style={{ marginBottom: 25 }}>
+              <label style={{ display: 'block', color: '#888', marginBottom: 6, fontWeight: 'bold' }}>
+                Status
+              </label>
+              <select
+                value={newDevice.status}
+                onChange={(e) => setNewDevice({ ...newDevice, status: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: 6,
+                  border: '1px solid #444',
+                  background: '#2a2a3e',
+                  color: '#fff',
+                  fontSize: '1em',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                <option value="active">Active</option>
+                <option value="offline">Offline</option>
+              </select>
+            </div>
+            
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+              <button
+                onClick={() => {
+                  setShowAddModal(false)
+                  setAddError(null)
+                  setNewDevice({ name: '', ui_type: 'Plate Pad', description: '', status: 'active' })
+                }}
+                style={{
+                  padding: '10px 20px',
+                  background: '#555',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  fontSize: '1em'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddDevice}
+                disabled={addingDevice}
+                style={{
+                  padding: '10px 20px',
+                  background: addingDevice ? '#666' : '#10b981',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: addingDevice ? 'not-allowed' : 'pointer',
+                  fontWeight: 'bold',
+                  fontSize: '1em'
+                }}
+              >
+                {addingDevice ? 'Creating...' : '✓ Create Device'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1715,6 +1715,59 @@ async def get_all_devices():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+class DeviceCreateRequest(BaseModel):
+    name: str
+    ui_type: Optional[str] = None
+    device_category: Optional[str] = None
+    description: Optional[str] = ""
+    status: Optional[str] = "active"
+    position: Optional[Dict[str, Any]] = None
+    config: Optional[Dict[str, Any]] = None
+    robot_access: Optional[List[Dict[str, Any]]] = None
+    connection: Optional[Dict[str, Any]] = None
+
+
+@app.post("/devices")
+async def create_device(req: DeviceCreateRequest):
+    """Create a new device."""
+    try:
+        # Check if device already exists
+        existing = mongodb.get_device_by_name(req.name)
+        if existing:
+            raise HTTPException(status_code=400, detail=f"Device '{req.name}' already exists")
+        
+        device_data = {
+            "name": req.name,
+            "status": req.status or "active",
+        }
+        
+        if req.ui_type:
+            device_data["ui_type"] = req.ui_type
+        if req.device_category:
+            device_data["device_category"] = req.device_category
+        if req.description:
+            device_data["description"] = req.description
+        if req.position:
+            device_data["position"] = req.position
+        if req.config:
+            device_data["config"] = req.config
+        if req.robot_access:
+            device_data["robot_access"] = req.robot_access
+        if req.connection:
+            device_data["connection"] = req.connection
+        
+        created = mongodb.create_device(device_data)
+        if not created:
+            raise HTTPException(status_code=500, detail="Failed to create device")
+        
+        return created
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error creating device: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/devices/{device_name}")
 async def get_device_by_name(device_name: str):
     """Get a single device by name."""

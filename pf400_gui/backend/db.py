@@ -528,6 +528,33 @@ def get_device_by_name(name: str) -> Optional[Dict[str, Any]]:
         return None
 
 
+def create_device(data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Create a new device."""
+    try:
+        db = get_db()
+        
+        # Check if device with this name already exists
+        if db.devices.find_one({"name": data.get("name")}):
+            print(f"Device with name '{data.get('name')}' already exists")
+            return None
+        
+        # Add timestamps
+        data["created_at"] = datetime.utcnow()
+        data["updated_at"] = datetime.utcnow()
+        
+        result = db.devices.insert_one(data)
+        if not result.inserted_id:
+            return None
+        
+        created = db.devices.find_one({"_id": result.inserted_id})
+        if created:
+            created["_id"] = str(created["_id"])
+        return created
+    except Exception as e:
+        print(f"Error creating device: {e}")
+        return None
+
+
 def get_device_connection(name: str) -> Optional[Dict[str, Any]]:
     """Get connection info for a device."""
     device = get_device_by_name(name)
