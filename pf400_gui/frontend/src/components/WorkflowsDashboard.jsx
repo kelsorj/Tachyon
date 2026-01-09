@@ -311,6 +311,8 @@ function WorkflowsDashboard() {
   const runWorkflow = async (simulate = false) => {
     if (!selectedWorkflow) return
     
+    log(`→ Starting ${simulate ? 'simulation' : 'run'}...`)
+    
     try {
       const res = await fetch(`${API_URL}/workflows/runs/start`, {
         method: 'POST',
@@ -322,12 +324,72 @@ function WorkflowsDashboard() {
       })
       if (res.ok) {
         const data = await res.json()
-        log(`✓ Started ${simulate ? 'simulation' : 'run'}: ${data.run_id}`)
+        log(`✓ Started ${simulate ? 'simulation' : 'run'}: ${data.run_id.slice(0, 12)}...`)
         fetchActiveRuns()
+        
+        // Poll for run completion and show results
+        pollRunStatus(data.run_id, simulate)
+      } else {
+        const errData = await res.json().catch(() => ({}))
+        log(`✗ Failed: ${errData.detail || res.status}`)
       }
     } catch (e) {
       log(`✗ Failed to start workflow: ${e.message}`)
     }
+  }
+
+  // Poll for run status and log updates
+  const pollRunStatus = async (runId, simulate) => {
+    let completed = false
+    const pollInterval = setInterval(async () => {
+      if (completed) return
+      try {
+        const res = await fetch(`${API_URL}/workflows/runs/${runId}`)
+        if (res.ok) {
+          const status = await res.json()
+          
+          if (status.state === 'completed') {
+            if (completed) return
+            completed = true
+            clearInterval(pollInterval)
+            log(`✓ ${simulate ? 'Simulation' : 'Run'} completed successfully!`)
+            
+            // Log step results
+            if (status.step_results) {
+              const steps = Object.entries(status.step_results)
+              steps.forEach(([stepId, result]) => {
+                if (result.source && result.target) {
+                  log(`  📦 ${result.source} → ${result.target}`)
+                } else if (result.action) {
+                  log(`  🤖 ${result.action}`)
+                }
+              })
+            }
+            fetchActiveRuns()
+          } else if (status.state === 'error') {
+            if (completed) return
+            completed = true
+            clearInterval(pollInterval)
+            log(`✗ ${simulate ? 'Simulation' : 'Run'} failed: ${status.error || 'Unknown error'}`)
+            fetchActiveRuns()
+          } else if (status.state === 'cancelled') {
+            if (completed) return
+            completed = true
+            clearInterval(pollInterval)
+            log(`⚠ ${simulate ? 'Simulation' : 'Run'} cancelled`)
+            fetchActiveRuns()
+          }
+        }
+      } catch (e) {
+        // Ignore polling errors
+      }
+    }, 500)
+    
+    // Stop polling after 60 seconds max
+    setTimeout(() => {
+      completed = true
+      clearInterval(pollInterval)
+    }, 60000)
   }
 
   // React Flow callbacks
@@ -1041,6 +1103,7 @@ function WorkflowsDashboard() {
               color: msg.includes('✓') ? '#10b981' : msg.includes('✗') ? '#ef4444' : '#888',
               marginBottom: 4,
               fontFamily: 'monospace',
+              textAlign: 'left',
             }}>
               {msg}
             </div>

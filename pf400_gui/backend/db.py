@@ -8,6 +8,7 @@ Collections:
 """
 
 from pymongo import MongoClient
+from bson import ObjectId
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 import os
@@ -404,10 +405,17 @@ def delete_labware_type(labware_type_id: str) -> bool:
 
 
 def get_labware_type_by_id(labware_type_id: str) -> Optional[Dict[str, Any]]:
-    """Get a labware type by labware_type_id."""
+    """Get a labware type by labware_type_id or _id."""
     try:
         db = get_db()
+        # Try searching by labware_type_id field first
         doc = db.labware_types.find_one({"labware_type_id": labware_type_id})
+        # If not found, try by MongoDB _id
+        if not doc:
+            try:
+                doc = db.labware_types.find_one({"_id": ObjectId(labware_type_id)})
+            except Exception:
+                pass  # Invalid ObjectId format, ignore
         if doc:
             doc["_id"] = str(doc["_id"])
         return doc

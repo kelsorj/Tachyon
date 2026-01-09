@@ -140,6 +140,7 @@ class WorkflowEngine:
                     "state": ctx.state.value,
                     "current_step_id": ctx.current_step_id,
                     "step_states": ctx.step_states,
+                    "step_results": ctx.step_results,
                     "variables": ctx.variables,
                     "error": ctx.error,
                     "simulate": ctx.simulate,
@@ -414,24 +415,43 @@ class WorkflowEngine:
     
     async def _execute_device_action(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a device action step."""
-        device_alias = data.get("device")
-        action = data.get("action")
+        action = data.get("action", "")
+        
+        # Handle pick-place action (new format from workflow UI)
+        if action == "pick-place":
+            return await self._execute_pick_place(ctx, data)
+        elif action == "move-to":
+            return await self._execute_move_to(ctx, data)
+        elif action == "safe":
+            return await self._execute_safe(ctx, data)
+        elif action == "home":
+            return await self._execute_home(ctx, data)
+        
+        # Legacy format: device + action + params
+        device_alias = data.get("device") or data.get("robot")
         params = data.get("params", {})
         
-        # Resolve device from collection
-        devices = ctx.device_collection.get("devices", [])
-        device_info = None
-        for d in devices:
-            if d.get("alias") == device_alias or d.get("device_name") == device_alias:
-                device_info = d
-                break
+        if not device_alias:
+            raise ValueError("No device/robot specified for device action")
         
-        if not device_info:
-            raise ValueError(f"Device '{device_alias}' not found in collection")
+        # Try to find device directly in database (skip collection lookup)
+        device_doc = mongodb.get_device_by_name(device_alias)
         
-        device_name = device_info.get("device_name")
+        # If not found directly, try collection lookup
+        if not device_doc:
+            devices = ctx.device_collection.get("devices", [])
+            for d in devices:
+                if d.get("alias") == device_alias or d.get("device_name") == device_alias:
+                    device_doc = mongodb.get_device_by_name(d.get("device_name"))
+                    break
+        
+        if not device_doc:
+            raise ValueError(f"Device '{device_alias}' not found")
+        
+        device_name = device_doc.get("name")
         
         if ctx.simulate:
+            print(f"[Workflow Sim] Device action: {device_name} -> {action}")
             return {
                 "simulated": True,
                 "device": device_name,
@@ -440,10 +460,6 @@ class WorkflowEngine:
             }
         
         # Get device connection info and call its API
-        device_doc = mongodb.get_device_by_name(device_name)
-        if not device_doc:
-            raise ValueError(f"Device '{device_name}' not found in database")
-        
         connection = device_doc.get("connection", {})
         api_url = connection.get("api_url") or f"http://{connection.get('backend_host', 'localhost')}:{connection.get('api_port', 8091)}"
         
@@ -457,6 +473,187 @@ class WorkflowEngine:
                     raise RuntimeError(f"Device action failed: {resp.status} - {text}")
                 result = await resp.json()
                 return {"device": device_name, "action": action, "result": result}
+
+    async def _execute_pick_place(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a pick-and-place action using the PF400."""
+        robot_name = data.get("robot")
+        source_device = data.get("source_device")
+        target_device = data.get("target_device")
+        labware_id = data.get("labware_id")
+        
+        if not robot_name:
+            raise ValueError("No robot specified for pick-place")
+        if not source_device:
+            raise ValueError("No source device specified for pick-place")
+        if not target_device:
+            raise ValueError("No target device specified for pick-place")
+        
+        # Get labware info from workflow
+        labware_info = None
+        for lw in ctx.workflow.get("labware", []):
+            if lw.get("id") == labware_id:
+                labware_info = lw
+                break
+        
+        # Look up teachpoints from device configurations
+        source_doc = mongodb.get_device_by_name(source_device)
+        target_doc = mongodb.get_device_by_name(target_device)
+        
+        # Find teachpoint for source device
+        pick_teachpoint = source_device  # Default to device name
+        if source_doc and source_doc.get("robot_access"):
+            for access in source_doc["robot_access"]:
+                if access.get("robot_name") == robot_name or not robot_name:
+                    pick_teachpoint = access.get("teachpoint_id", source_device)
+                    break
+        
+        # Find teachpoint for target device
+        place_teachpoint = target_device  # Default to device name
+        if target_doc and target_doc.get("robot_access"):
+            for access in target_doc["robot_access"]:
+                if access.get("robot_name") == robot_name or not robot_name:
+                    place_teachpoint = access.get("teachpoint_id", target_device)
+                    break
+        
+        print(f"[Workflow] Pick-Place: {robot_name} moves labware from {source_device} ({pick_teachpoint}) to {target_device} ({place_teachpoint})")
+        
+        if ctx.simulate:
+            print(f"[Workflow Sim] Pick-Place: {source_device} → {target_device}")
+            return {
+                "simulated": True,
+                "robot": robot_name,
+                "source": source_device,
+                "target": target_device,
+                "pick_teachpoint": pick_teachpoint,
+                "place_teachpoint": place_teachpoint,
+                "labware": labware_info.get("name") if labware_info else None,
+            }
+        
+        # Call the PF400 pick-place API
+        import aiohttp
+        api_url = "http://localhost:8091"  # Default PF400 backend
+        
+        # Get labware type - could be type_id or type (name)
+        labware_type_id = None
+        if labware_info:
+            labware_type_id = labware_info.get("type_id")
+            if not labware_type_id:
+                # Look up by type name
+                labware_type_name = labware_info.get("type")
+                if labware_type_name:
+                    # Query labware types to find the ID
+                    labware_types = mongodb.get_all_labware_types()
+                    for lt in labware_types:
+                        if lt.get("name") == labware_type_name:
+                            labware_type_id = lt.get("_id")
+                            break
+        
+        if not labware_type_id:
+            raise ValueError("No labware type specified for pick-place action")
+        
+        print(f"[Workflow] Using labware_type_id: {labware_type_id}")
+        
+        async with aiohttp.ClientSession() as session:
+            # Call pick-place endpoint using resolved teachpoints
+            payload = {
+                "pick_teachpoint_id": pick_teachpoint,
+                "place_teachpoint_id": place_teachpoint,
+                "labware_type_id": labware_type_id,
+                "orientation": "landscape",
+                "pick_speed_profile": 2,
+                "place_speed_profile": 2,
+            }
+            print(f"[Workflow] Pick-place payload: {payload}")
+            
+            endpoint = f"{api_url}/pf400/pick-place"
+            async with session.post(endpoint, json=payload) as resp:
+                if resp.status >= 400:
+                    text = await resp.text()
+                    raise RuntimeError(f"Pick-place failed: {resp.status} - {text}")
+                result = await resp.json()
+                
+                # Update labware location in context
+                if labware_info:
+                    labware_info["current_location"] = target_device
+                
+                return {
+                    "robot": robot_name,
+                    "source": source_device,
+                    "target": target_device,
+                    "pick_teachpoint": pick_teachpoint,
+                    "place_teachpoint": place_teachpoint,
+                    "labware": labware_info.get("name") if labware_info else None,
+                    "result": result,
+                }
+
+    async def _execute_move_to(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a move-to action."""
+        robot_name = data.get("robot")
+        target_device = data.get("target_device")
+        
+        if not robot_name:
+            raise ValueError("No robot specified for move-to")
+        if not target_device:
+            raise ValueError("No target specified for move-to")
+        
+        print(f"[Workflow] Move-To: {robot_name} → {target_device}")
+        
+        if ctx.simulate:
+            return {"simulated": True, "robot": robot_name, "target": target_device}
+        
+        import aiohttp
+        api_url = "http://localhost:8091"
+        
+        async with aiohttp.ClientSession() as session:
+            endpoint = f"{api_url}/teachpoints/move/{target_device}"
+            async with session.post(endpoint, params={"speed_profile": 2}) as resp:
+                if resp.status >= 400:
+                    text = await resp.text()
+                    raise RuntimeError(f"Move-to failed: {resp.status} - {text}")
+                result = await resp.json()
+                return {"robot": robot_name, "target": target_device, "result": result}
+
+    async def _execute_safe(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a safe position command."""
+        robot_name = data.get("robot")
+        
+        print(f"[Workflow] Safe: {robot_name}")
+        
+        if ctx.simulate:
+            return {"simulated": True, "robot": robot_name, "action": "safe"}
+        
+        import aiohttp
+        api_url = "http://localhost:8091"
+        
+        async with aiohttp.ClientSession() as session:
+            endpoint = f"{api_url}/pf400/safe"
+            async with session.post(endpoint, params={"speed_profile": 2}) as resp:
+                if resp.status >= 400:
+                    text = await resp.text()
+                    raise RuntimeError(f"Safe failed: {resp.status} - {text}")
+                result = await resp.json()
+                return {"robot": robot_name, "action": "safe", "result": result}
+
+    async def _execute_home(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a home command."""
+        robot_name = data.get("robot")
+        
+        print(f"[Workflow] Home: {robot_name}")
+        
+        if ctx.simulate:
+            return {"simulated": True, "robot": robot_name, "action": "home"}
+        
+        import aiohttp
+        api_url = "http://localhost:8091"
+        
+        async with aiohttp.ClientSession() as session:
+            endpoint = f"{api_url}/pf400/home"
+            async with session.post(endpoint) as resp:
+                if resp.status >= 400:
+                    text = await resp.text()
+                    raise RuntimeError(f"Home failed: {resp.status} - {text}")
+                result = await resp.json()
+                return {"robot": robot_name, "action": "home", "result": result}
     
     async def _execute_code_module(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a code module step."""
