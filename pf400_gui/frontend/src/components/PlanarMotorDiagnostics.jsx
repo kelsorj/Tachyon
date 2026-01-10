@@ -424,6 +424,49 @@ function PlanarMotorDiagnostics() {
     }
   }
 
+  // Update teachpoint with current position
+  const handleUpdateTeachpoint = async (tp) => {
+    if (!confirm(`Update "${tp.name}" with current XBOT ${selectedXbot} position?`)) return
+    
+    if (!connected || !xbots[selectedXbot]) {
+      log('✗ Connect and select an XBOT first')
+      return
+    }
+    
+    const xbot = xbots[selectedXbot]
+    const position = xbot.position || {}
+    
+    log(`→ Updating teachpoint "${tp.name}"...`)
+    
+    try {
+      const res = await fetch(`${PF400_API_URL}/devices/${deviceName}/teachpoints/${tp.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: tp.name,
+          description: tp.description || `XBOT ${selectedXbot} position (updated)`,
+          position: {
+            x: position.x || 0,
+            y: position.y || 0,
+            z: position.z || 0,
+            rz: position.rz || 0
+          },
+          xbot_id: selectedXbot
+        })
+      })
+      
+      if (res.ok) {
+        log(`✓ Updated teachpoint "${tp.name}"`)
+        fetchTeachpoints()
+      } else {
+        const data = await res.json()
+        log(`✗ Failed: ${data.detail}`)
+      }
+    } catch (e) {
+      log(`✗ Error updating teachpoint: ${e.message}`)
+    }
+  }
+
   // Delete teachpoint
   const handleDeleteTeachpoint = async (tpId, tpName) => {
     if (!confirm(`Delete teachpoint "${tpName}"?`)) return
@@ -795,6 +838,7 @@ function PlanarMotorDiagnostics() {
                       <button
                         onClick={() => handleGotoTeachpoint(tp)}
                         disabled={!connected}
+                        title="Move to this teachpoint"
                         style={{
                           padding: '4px 8px',
                           borderRadius: 4,
@@ -808,13 +852,29 @@ function PlanarMotorDiagnostics() {
                         Go
                       </button>
                       <button
+                        onClick={() => handleUpdateTeachpoint(tp)}
+                        disabled={!connected}
+                        title="Update with current XBOT position"
+                        style={{
+                          padding: '4px 8px',
+                          borderRadius: 4,
+                          background: connected ? '#52c41a' : '#444',
+                          color: '#fff',
+                          border: 'none',
+                          cursor: connected ? 'pointer' : 'not-allowed',
+                          fontSize: '0.8em'
+                        }}
+                      >
+                        Update
+                      </button>
+                      <button
                         onClick={() => startLinking(tp)}
                         disabled={!reachableDevices.length}
                         title={reachableDevices.length ? "Link this teachpoint to another device" : "No reachable devices available"}
                         style={{
                           padding: '4px 8px',
                           borderRadius: 4,
-                          background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#52c41a') : '#444',
+                          background: reachableDevices.length ? (linkingTeachpoint?.id === tp.id ? '#faad14' : '#722ed1') : '#444',
                           color: '#fff',
                           border: 'none',
                           cursor: reachableDevices.length ? 'pointer' : 'not-allowed',
@@ -825,6 +885,7 @@ function PlanarMotorDiagnostics() {
                       </button>
                       <button
                         onClick={() => handleDeleteTeachpoint(tp.id, tp.name)}
+                        title="Delete this teachpoint"
                         style={{ padding: '4px 8px', borderRadius: 4, background: '#ff4d4f', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.8em' }}
                       >
                         ✕

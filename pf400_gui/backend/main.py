@@ -3530,6 +3530,14 @@ class DeviceTeachpointRequest(BaseModel):
     position: Dict[str, float] = {}  # x, y, z, rx, ry, rz in meters/radians
     xbot_id: int = 1
 
+
+class DeviceTeachpointUpdateRequest(BaseModel):
+    """Request model for updating an existing teachpoint (device_name and id come from URL)."""
+    name: str
+    description: str = ""
+    position: Dict[str, float] = {}  # x, y, z, rx, ry, rz in meters/radians
+    xbot_id: int = 1
+
 @app.get("/devices/{device_name}/teachpoints")
 async def get_device_teachpoints(device_name: str):
     """Get all teachpoints for a specific device."""
@@ -3578,6 +3586,41 @@ async def save_device_teachpoint(device_name: str, req: DeviceTeachpointRequest)
     except Exception as e:
         print(f"Error saving teachpoint for {device_name}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.put("/devices/{device_name}/teachpoints/{teachpoint_id}")
+async def update_device_teachpoint(device_name: str, teachpoint_id: str, req: DeviceTeachpointUpdateRequest):
+    """Update an existing teachpoint for a specific device."""
+    try:
+        # Get existing teachpoint to preserve link data
+        existing_teachpoints = mongodb.get_device_teachpoints(device_name)
+        existing_links = {}
+        if teachpoint_id in existing_teachpoints:
+            existing_tp = existing_teachpoints[teachpoint_id]
+            # Preserve link information
+            if "linked_to" in existing_tp:
+                existing_links["linked_to"] = existing_tp["linked_to"]
+            if "linked_from" in existing_tp:
+                existing_links["linked_from"] = existing_tp["linked_from"]
+
+        teachpoint_data = {
+            "id": teachpoint_id,  # Keep the same ID
+            "name": req.name,
+            "description": req.description,
+            "position": req.position,
+            "xbot_id": req.xbot_id,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            **existing_links  # Preserve any existing links
+        }
+        
+        success = mongodb.save_teachpoint(device_name, teachpoint_id, teachpoint_data)
+        if success:
+            return {"status": "success", "teachpoint_id": teachpoint_id, "teachpoint": teachpoint_data}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to update teachpoint")
+    except Exception as e:
+        print(f"Error updating teachpoint for {device_name}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.delete("/devices/{device_name}/teachpoints/{teachpoint_id}")
 async def delete_device_teachpoint(device_name: str, teachpoint_id: str):

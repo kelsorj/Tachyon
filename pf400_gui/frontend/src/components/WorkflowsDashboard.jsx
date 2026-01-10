@@ -25,6 +25,8 @@ const nodeStyles = {
   code_module: { background: '#8b5cf6', border: '2px solid #7c3aed', color: '#fff' },
   conditional: { background: '#f59e0b', border: '2px solid #d97706', color: '#fff' },
   delay: { background: '#6b7280', border: '2px solid #4b5563', color: '#fff' },
+  loop_start: { background: '#06b6d4', border: '2px solid #0891b2', color: '#fff' },
+  loop_end: { background: '#06b6d4', border: '2px dashed #0891b2', color: '#fff' },
 }
 
 const nodeTypeLabels = {
@@ -34,6 +36,8 @@ const nodeTypeLabels = {
   code_module: '💻 Code Module',
   conditional: '🔀 Conditional',
   delay: '⏱️ Delay',
+  loop_start: '🔄 Loop Start',
+  loop_end: '↩️ Loop End',
 }
 
 function WorkflowsDashboard() {
@@ -147,24 +151,37 @@ function WorkflowsDashboard() {
         setSelectedCollection(wf.device_collection_id || '')
         
         // Convert nodes for React Flow
-        const flowNodes = (wf.nodes || []).map(n => ({
-          id: n.id,
-          type: 'default',
-          position: n.position || { x: 100, y: 100 },
-          data: { 
-            label: n.data?.label || nodeTypeLabels[n.type] || n.type,
-            ...n.data,
-            nodeType: n.type,
-          },
-          style: {
-            ...nodeStyles[n.type],
-            padding: 10,
-            borderRadius: 8,
-            minWidth: 150,
-            textAlign: 'center',
-            fontWeight: 'bold',
-          },
-        }))
+        const flowNodes = (wf.nodes || []).map(n => {
+          // Add defaults for loop_start nodes
+          let nodeData = { ...n.data }
+          if (n.type === 'loop_start') {
+            nodeData = {
+              loop_type: 'count',
+              iterations: 3,
+              loop_variable: 'i',
+              ...nodeData, // Allow saved values to override defaults
+            }
+          }
+          
+          return {
+            id: n.id,
+            type: 'default',
+            position: n.position || { x: 100, y: 100 },
+            data: { 
+              label: nodeData.label || nodeTypeLabels[n.type] || n.type,
+              ...nodeData,
+              nodeType: n.type,
+            },
+            style: {
+              ...nodeStyles[n.type],
+              padding: 10,
+              borderRadius: 8,
+              minWidth: 150,
+              textAlign: 'center',
+              fontWeight: 'bold',
+            },
+          }
+        })
         
         // Convert edges for React Flow
         const flowEdges = (wf.edges || []).map(e => ({
@@ -224,12 +241,26 @@ function WorkflowsDashboard() {
     if (!selectedWorkflow) return
     
     // Convert React Flow nodes back to workflow format
-    const wfNodes = nodes.map(n => ({
-      id: n.id,
-      type: n.data?.nodeType || 'device_action',
-      position: n.position,
-      data: { ...n.data },
-    }))
+    const wfNodes = nodes.map(n => {
+      let nodeData = { ...n.data }
+      
+      // Ensure loop_start nodes have required fields
+      if (n.data?.nodeType === 'loop_start') {
+        nodeData = {
+          ...nodeData,
+          loop_type: nodeData.loop_type || 'count',
+          iterations: nodeData.iterations ?? 3,
+          loop_variable: nodeData.loop_variable || 'i',
+        }
+      }
+      
+      return {
+        id: n.id,
+        type: n.data?.nodeType || 'device_action',
+        position: n.position,
+        data: nodeData,
+      }
+    })
     
     const wfEdges = edges.map(e => ({
       id: e.id,
@@ -286,14 +317,27 @@ function WorkflowsDashboard() {
   // Add node
   const addNode = (type) => {
     const id = `node-${Date.now()}`
+    
+    // Set default data based on node type
+    let defaultData = {
+      label: nodeTypeLabels[type] || type,
+      nodeType: type,
+    }
+    
+    // Add type-specific defaults
+    if (type === 'loop_start') {
+      defaultData.loop_type = 'count'
+      defaultData.iterations = 3
+      defaultData.loop_variable = 'i'
+    } else if (type === 'delay') {
+      defaultData.delay_ms = 1000
+    }
+    
     const newNode = {
       id,
       type: 'default',
       position: { x: 250, y: 150 + nodes.length * 80 },
-      data: { 
-        label: nodeTypeLabels[type] || type,
-        nodeType: type,
-      },
+      data: defaultData,
       style: {
         ...nodeStyles[type],
         padding: 10,
@@ -357,11 +401,18 @@ function WorkflowsDashboard() {
             // Log step results
             if (status.step_results) {
               const steps = Object.entries(status.step_results)
+              // Sort by execution order (keys with _2, _3 etc come after base keys)
+              steps.sort((a, b) => {
+                const aExec = a[1]._exec_count || 1
+                const bExec = b[1]._exec_count || 1
+                return aExec - bExec
+              })
               steps.forEach(([stepId, result]) => {
+                const iterInfo = result._loop_iteration ? ` (iteration ${result._loop_iteration})` : ''
                 if (result.source && result.target) {
-                  log(`  📦 ${result.source} → ${result.target}`)
+                  log(`📦 ${result.source} → ${result.target}${iterInfo}`)
                 } else if (result.action) {
-                  log(`  🤖 ${result.action}`)
+                  log(`🤖 ${result.action}${iterInfo}`)
                 }
               })
             }
@@ -928,6 +979,172 @@ function WorkflowsDashboard() {
                       color: '#fff',
                     }}
                   />
+                </div>
+              )}
+
+              {selectedNode.data?.nodeType === 'loop_start' && (
+                <>
+                  <div style={{ marginBottom: 15 }}>
+                    <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Loop Type</label>
+                    <select
+                      value={selectedNode.data?.loop_type || 'count'}
+                      onChange={(e) => {
+                        const newData = { ...selectedNode.data, loop_type: e.target.value }
+                        setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                        setSelectedNode(prev => ({ ...prev, data: newData }))
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '8px 12px',
+                        background: '#1a1a2e',
+                        border: '1px solid #333',
+                        borderRadius: 4,
+                        color: '#fff',
+                      }}
+                    >
+                      <option value="count">Fixed Count</option>
+                      <option value="while">While Condition</option>
+                      <option value="for_each">For Each (Labware)</option>
+                    </select>
+                  </div>
+
+                  {(!selectedNode.data?.loop_type || selectedNode.data?.loop_type === 'count') && (
+                    <div style={{ marginBottom: 15 }}>
+                      <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Number of Iterations</label>
+                      <input
+                        type="number"
+                        min="1"
+                        value={selectedNode.data?.iterations || 3}
+                        onChange={(e) => {
+                          const newData = { ...selectedNode.data, iterations: parseInt(e.target.value) || 1, loop_type: 'count' }
+                          setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                          setSelectedNode(prev => ({ ...prev, data: newData }))
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          background: '#1a1a2e',
+                          border: '1px solid #333',
+                          borderRadius: 4,
+                          color: '#fff',
+                        }}
+                      />
+                      <div style={{ color: '#666', fontSize: '0.8em', marginTop: 4 }}>
+                        Loop will repeat {selectedNode.data?.iterations || 3} times
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedNode.data?.loop_type === 'while' && (
+                    <div style={{ marginBottom: 15 }}>
+                      <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>While Condition</label>
+                      <input
+                        type="text"
+                        value={selectedNode.data?.condition || ''}
+                        placeholder="e.g., counter < 10"
+                        onChange={(e) => {
+                          const newData = { ...selectedNode.data, condition: e.target.value }
+                          setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                          setSelectedNode(prev => ({ ...prev, data: newData }))
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          background: '#1a1a2e',
+                          border: '1px solid #333',
+                          borderRadius: 4,
+                          color: '#fff',
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  {selectedNode.data?.loop_type === 'for_each' && (
+                    <div style={{ marginBottom: 15 }}>
+                      <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Loop Over</label>
+                      <select
+                        value={selectedNode.data?.loop_collection || 'labware'}
+                        onChange={(e) => {
+                          const newData = { ...selectedNode.data, loop_collection: e.target.value }
+                          setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                          setSelectedNode(prev => ({ ...prev, data: newData }))
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          background: '#1a1a2e',
+                          border: '1px solid #333',
+                          borderRadius: 4,
+                          color: '#fff',
+                        }}
+                      >
+                        <option value="labware">Workflow Labware</option>
+                        <option value="devices">Devices</option>
+                      </select>
+                    </div>
+                  )}
+
+                  <div style={{ marginBottom: 15 }}>
+                    <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Loop Variable Name</label>
+                    <input
+                      type="text"
+                      value={selectedNode.data?.loop_variable || 'i'}
+                      placeholder="e.g., i, index, item"
+                      onChange={(e) => {
+                        const newData = { ...selectedNode.data, loop_variable: e.target.value }
+                        setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                        setSelectedNode(prev => ({ ...prev, data: newData }))
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '8px 12px',
+                        background: '#1a1a2e',
+                        border: '1px solid #333',
+                        borderRadius: 4,
+                        color: '#fff',
+                      }}
+                    />
+                    <div style={{ color: '#666', fontSize: '0.8em', marginTop: 4 }}>
+                      Access via: loop.{selectedNode.data?.loop_variable || 'i'} (0-indexed)
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {selectedNode.data?.nodeType === 'loop_end' && (
+                <div style={{ marginBottom: 15 }}>
+                  <label style={{ color: '#888', display: 'block', marginBottom: 4 }}>Paired Loop Start</label>
+                  <select
+                    value={selectedNode.data?.paired_loop_start || ''}
+                    onChange={(e) => {
+                      const newData = { ...selectedNode.data, paired_loop_start: e.target.value }
+                      setNodes(nodes.map(n => n.id === selectedNode.id ? { ...n, data: newData } : n))
+                      setSelectedNode(prev => ({ ...prev, data: newData }))
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      background: '#1a1a2e',
+                      border: '1px solid #333',
+                      borderRadius: 4,
+                      color: '#fff',
+                    }}
+                  >
+                    <option value="">Select Loop Start...</option>
+                    {nodes.filter(n => n.data?.nodeType === 'loop_start').map(n => (
+                      <option key={n.id} value={n.id}>{n.data?.label || 'Loop Start'} ({n.id.slice(-6)})</option>
+                    ))}
+                  </select>
+                  {!selectedNode.data?.paired_loop_start && (
+                    <div style={{ color: '#f59e0b', fontSize: '0.8em', marginTop: 4 }}>
+                      ⚠️ Select a Loop Start to pair with this Loop End
+                    </div>
+                  )}
+                  {selectedNode.data?.paired_loop_start && (
+                    <div style={{ color: '#10b981', fontSize: '0.8em', marginTop: 4 }}>
+                      ✓ Loop will return to the selected Loop Start
+                    </div>
+                  )}
                 </div>
               )}
 

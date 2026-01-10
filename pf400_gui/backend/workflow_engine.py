@@ -53,7 +53,9 @@ class StepType(str, Enum):
     CODE_MODULE = "code_module"   # Execute Python/JS/C# code
     CONDITIONAL = "conditional"   # Branch based on condition
     DELAY = "delay"               # Wait for time
-    LOOP = "loop"                 # Repeat steps
+    LOOP = "loop"                 # Repeat steps (legacy)
+    LOOP_START = "loop_start"     # Start of a loop
+    LOOP_END = "loop_end"         # End of a loop (returns to loop_start)
     PARALLEL = "parallel"         # Execute multiple branches
     END = "end"                   # End node
 
@@ -315,24 +317,39 @@ class WorkflowEngine:
                 ctx.current_step_id = step_id
                 ctx.step_states[step_id] = StepState.EXECUTING.value
                 self._persist_run(ctx)
+                # Track how many times each step has executed (for loop iterations)
+                if not hasattr(ctx, '_step_exec_counts'):
+                    ctx._step_exec_counts = {}
+                ctx._step_exec_counts[step_id] = ctx._step_exec_counts.get(step_id, 0) + 1
+                exec_count = ctx._step_exec_counts[step_id]
+                
+                # Get current loop iteration for logging
+                loop_iteration = ctx.variables.get("loop", {}).get("iteration", None)
+                
                 self._notify(ctx.run_id, {
                     "type": "step_started",
                     "run_id": ctx.run_id,
                     "step_id": step_id,
                     "step_type": node.get("type"),
+                    "loop_iteration": loop_iteration,
                 })
                 
                 try:
                     # Execute the step
                     result = await self._execute_step(ctx, node)
-                    ctx.step_results[step_id] = result
+                    
+                    # Store results with unique key to preserve all iterations
+                    result_key = f"{step_id}_{exec_count}" if exec_count > 1 else step_id
+                    result_with_meta = {**result, "_loop_iteration": loop_iteration, "_exec_count": exec_count}
+                    ctx.step_results[result_key] = result_with_meta
                     ctx.step_states[step_id] = StepState.COMPLETED.value
                     
                     self._notify(ctx.run_id, {
                         "type": "step_completed",
                         "run_id": ctx.run_id,
                         "step_id": step_id,
-                        "result": result,
+                        "result": result_with_meta,
+                        "loop_iteration": loop_iteration,
                     })
                     
                     # Determine next steps
@@ -341,7 +358,7 @@ class WorkflowEngine:
                     
                 except Exception as e:
                     ctx.step_states[step_id] = StepState.FAILED.value
-                    ctx.step_results[step_id] = {"error": str(e)}
+                    ctx.step_results[step_id] = {"error": str(e), "_loop_iteration": loop_iteration}
                     ctx.state = WorkflowState.ERROR
                     ctx.error = str(e)
                     
@@ -410,6 +427,12 @@ class WorkflowEngine:
         elif step_type == StepType.CONDITIONAL.value:
             return await self._execute_conditional(ctx, data)
         
+        elif step_type == StepType.LOOP_START.value:
+            return await self._execute_loop_start(ctx, node)
+        
+        elif step_type == StepType.LOOP_END.value:
+            return await self._execute_loop_end(ctx, node)
+        
         else:
             return {"unknown_type": step_type}
     
@@ -475,19 +498,47 @@ class WorkflowEngine:
                 return {"device": device_name, "action": action, "result": result}
 
     async def _execute_pick_place(self, ctx: WorkflowContext, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute a pick-and-place action using the PF400."""
-        robot_name = data.get("robot")
+        """
+        Execute a pick-and-place action.
+        
+        The robot is determined AUTOMATICALLY from the devices' robot_access configuration.
+        Each device (e.g., PlatePadHandoff) has a robot_access array that specifies:
+        - robot_name: which robot can reach this device (e.g., "PF400-021")
+        - teachpoint_id: the teachpoint on that robot (e.g., "pf400021handoff")
+        
+        This function:
+        1. Looks up both source and target devices
+        2. Finds a COMMON robot that can reach BOTH devices
+        3. Uses that robot's teachpoint_id for each device
+        4. Calls the robot's pick-place API
+        """
         source_device = data.get("source_device")
         target_device = data.get("target_device")
         labware_id = data.get("labware_id")
+        robot_name_override = data.get("robot")  # Optional: can override auto-detection
         
-        if not robot_name:
-            raise ValueError("No robot specified for pick-place")
         if not source_device:
             raise ValueError("No source device specified for pick-place")
         if not target_device:
             raise ValueError("No target device specified for pick-place")
         
+        # ============================================================================
+        # TEACHPOINT RESOLUTION HELPER
+        # ============================================================================
+        def normalize_device_name_to_teachpoint(device_name: str) -> str:
+            """
+            Convert a device name to a likely teachpoint ID.
+            Example: "PlatePadRight-001" -> "platepadright"
+            Example: "PlatePadHandoff" -> "platepadhandoff"
+            
+            ONLY used as a fallback when device has no robot_access configured!
+            """
+            import re
+            normalized = device_name.lower()
+            normalized = re.sub(r'[-_]\d+$', '', normalized)
+            normalized = re.sub(r'[^a-z0-9]', '', normalized)
+            return normalized
+
         # Get labware info from workflow
         labware_info = None
         for lw in ctx.workflow.get("labware", []):
@@ -495,25 +546,86 @@ class WorkflowEngine:
                 labware_info = lw
                 break
         
-        # Look up teachpoints from device configurations
+        # ============================================================================
+        # LOOK UP DEVICES AND THEIR ROBOT ACCESS CONFIGURATIONS
+        # ============================================================================
         source_doc = mongodb.get_device_by_name(source_device)
         target_doc = mongodb.get_device_by_name(target_device)
         
-        # Find teachpoint for source device
-        pick_teachpoint = source_device  # Default to device name
-        if source_doc and source_doc.get("robot_access"):
-            for access in source_doc["robot_access"]:
-                if access.get("robot_name") == robot_name or not robot_name:
-                    pick_teachpoint = access.get("teachpoint_id", source_device)
+        if not source_doc:
+            raise ValueError(f"Source device '{source_device}' not found in database")
+        if not target_doc:
+            raise ValueError(f"Target device '{target_device}' not found in database")
+        
+        source_robot_access = source_doc.get("robot_access", [])
+        target_robot_access = target_doc.get("robot_access", [])
+        
+        # ============================================================================
+        # FIND A COMMON ROBOT THAT CAN REACH BOTH DEVICES
+        # ============================================================================
+        # Each device's robot_access is an array like:
+        # [{"robot_name": "PF400-021", "teachpoint_id": "pf400021handoff", "access_type": "pick_place"}]
+        #
+        # We need to find a robot that appears in BOTH arrays.
+        # ============================================================================
+        
+        robot_name = None
+        pick_teachpoint = None
+        place_teachpoint = None
+        
+        # Build lookup of robots that can reach source device
+        source_robots = {}
+        for access in source_robot_access:
+            rname = access.get("robot_name")
+            if rname:
+                source_robots[rname] = access.get("teachpoint_id")
+        
+        # Find a robot that can also reach target device
+        for access in target_robot_access:
+            rname = access.get("robot_name")
+            if rname and rname in source_robots:
+                # Found a common robot!
+                robot_name = rname
+                pick_teachpoint = source_robots[rname]
+                place_teachpoint = access.get("teachpoint_id")
+                print(f"[Workflow] Auto-detected robot '{robot_name}' can reach both devices")
+                break
+        
+        # Allow manual override if specified
+        if robot_name_override:
+            robot_name = robot_name_override
+            # Re-lookup teachpoints for the overridden robot
+            pick_teachpoint = None
+            place_teachpoint = None
+            for access in source_robot_access:
+                if access.get("robot_name") == robot_name:
+                    pick_teachpoint = access.get("teachpoint_id")
+                    break
+            for access in target_robot_access:
+                if access.get("robot_name") == robot_name:
+                    place_teachpoint = access.get("teachpoint_id")
                     break
         
-        # Find teachpoint for target device
-        place_teachpoint = target_device  # Default to device name
-        if target_doc and target_doc.get("robot_access"):
-            for access in target_doc["robot_access"]:
-                if access.get("robot_name") == robot_name or not robot_name:
-                    place_teachpoint = access.get("teachpoint_id", target_device)
-                    break
+        # ============================================================================
+        # FALLBACK: If no robot_access configured, use normalized device names
+        # ============================================================================
+        if not robot_name:
+            # No common robot found - use default robot and normalized names
+            robot_name = "PF400-021"  # Default robot
+            print(f"[Workflow] WARNING: No common robot found for {source_device} and {target_device}, using default: {robot_name}")
+        
+        if not pick_teachpoint:
+            pick_teachpoint = normalize_device_name_to_teachpoint(source_device)
+            print(f"[Workflow] WARNING: No robot_access teachpoint for {source_device}, using normalized: {pick_teachpoint}")
+        
+        if not place_teachpoint:
+            place_teachpoint = normalize_device_name_to_teachpoint(target_device)
+            print(f"[Workflow] WARNING: No robot_access teachpoint for {target_device}, using normalized: {place_teachpoint}")
+        
+        # IMPORTANT: If no teachpoint found in robot_access, normalize the device name
+        if not place_teachpoint:
+            place_teachpoint = normalize_device_name_to_teachpoint(target_device)
+            print(f"[Workflow] WARNING: No robot_access found for {target_device}, using normalized name: {place_teachpoint}")
         
         print(f"[Workflow] Pick-Place: {robot_name} moves labware from {source_device} ({pick_teachpoint}) to {target_device} ({place_teachpoint})")
         
@@ -803,6 +915,122 @@ Console.WriteLine(JsonSerializer.Serialize(new {{ result, variables }}));
             return {"condition": condition, "result": bool(result)}
         except Exception as e:
             return {"condition": condition, "result": False, "error": str(e)}
+
+    async def _execute_loop_start(self, ctx: WorkflowContext, node: Dict[str, Any]) -> Dict[str, Any]:
+        """Initialize or continue a loop."""
+        node_id = node.get("id")
+        data = node.get("data", {})
+        
+        loop_type = data.get("loop_type", "count")
+        loop_variable = data.get("loop_variable", "i")
+        iterations = data.get("iterations", 1)
+        
+        # Debug: log what we're reading from node data
+        print(f"[Workflow] Loop Start data: iterations={iterations}, loop_type={loop_type}, raw_data={data}")
+        
+        # Initialize loop state if not exists
+        loop_key = f"_loop_{node_id}"
+        if loop_key not in ctx.variables:
+            ctx.variables[loop_key] = {
+                "iteration": 0,
+                "max_iterations": iterations,
+                "loop_type": loop_type,
+                "condition": data.get("condition", "true"),
+                "collection": data.get("loop_collection"),
+            }
+            print(f"[Workflow] Loop initialized with max_iterations={iterations}")
+        
+        loop_state = ctx.variables[loop_key]
+        current_iteration = loop_state["iteration"]
+        
+        # Check if loop should continue
+        should_continue = False
+        
+        if loop_type == "count":
+            should_continue = current_iteration < loop_state["max_iterations"]
+        elif loop_type == "while":
+            # Evaluate condition
+            try:
+                eval_context = dict(ctx.variables)
+                eval_context["loop"] = {loop_variable: current_iteration}
+                eval_context["True"] = True
+                eval_context["False"] = False
+                should_continue = bool(eval(loop_state["condition"], {"__builtins__": {}}, eval_context))
+            except:
+                should_continue = False
+        elif loop_type == "for_each":
+            collection = loop_state.get("collection", "labware")
+            if collection == "labware":
+                items = ctx.workflow.get("labware", [])
+            else:
+                items = []
+            should_continue = current_iteration < len(items)
+        
+        # Set loop variable for use in loop body
+        ctx.variables["loop"] = {
+            loop_variable: current_iteration,
+            "index": current_iteration,
+            "iteration": current_iteration + 1,  # 1-indexed for display
+            "first": current_iteration == 0,
+        }
+        
+        print(f"[Workflow] Loop Start: iteration {current_iteration + 1}, continue={should_continue}")
+        
+        return {
+            "loop_id": node_id,
+            "iteration": current_iteration,
+            "should_continue": should_continue,
+            "loop_variable": loop_variable,
+            # Include workflow structure for exit path calculation
+            "_nodes": ctx.workflow.get("nodes", []),
+            "_edges": ctx.workflow.get("edges", []),
+        }
+
+    async def _execute_loop_end(self, ctx: WorkflowContext, node: Dict[str, Any]) -> Dict[str, Any]:
+        """End of loop - increment counter and determine if we should loop back."""
+        data = node.get("data", {})
+        node_id = node.get("id")
+        
+        # Get the paired loop_start from node data (set via UI dropdown)
+        loop_start_id = data.get("paired_loop_start")
+        
+        # Fallback: look for edge connection if no paired_loop_start
+        if not loop_start_id:
+            edges = ctx.workflow.get("edges", [])
+            nodes = ctx.workflow.get("nodes", [])
+            
+            # Find outgoing edges from this loop_end
+            outgoing = [e for e in edges if e.get("source") == node_id]
+            
+            # Find connected loop_start node
+            for edge in outgoing:
+                target_id = edge.get("target")
+                target_node = next((n for n in nodes if n.get("id") == target_id), None)
+                if target_node:
+                    node_type = target_node.get("type") or target_node.get("data", {}).get("nodeType")
+                    if node_type == StepType.LOOP_START.value:
+                        loop_start_id = target_id
+                        break
+        
+        if not loop_start_id:
+            # No loop_start found - just continue normally
+            print(f"[Workflow] Loop End: no paired Loop Start selected, continuing normally")
+            return {"loop_complete": True, "reason": "no_loop_start_paired"}
+        
+        loop_key = f"_loop_{loop_start_id}"
+        if loop_key not in ctx.variables:
+            return {"loop_complete": True, "reason": "loop_not_initialized"}
+        
+        loop_state = ctx.variables[loop_key]
+        loop_state["iteration"] += 1
+        
+        print(f"[Workflow] Loop End: incremented to iteration {loop_state['iteration']}")
+        
+        return {
+            "loop_id": loop_start_id,
+            "iteration": loop_state["iteration"],
+            "loop_back": True,
+        }
     
     def _get_next_steps(
         self,
@@ -824,6 +1052,62 @@ Console.WriteLine(JsonSerializer.Serialize(new {{ result, variables }}));
                     next_steps.append(target_id)
                 elif not condition_result and edge_label in ("false", "no", "on_false"):
                     next_steps.append(target_id)
+        
+        elif node_type == StepType.LOOP_START.value:
+            # For loop_start: if should_continue, enter loop body; else exit loop
+            should_continue = result.get("should_continue", False)
+            
+            if should_continue:
+                # Enter the loop body - follow normal edges
+                for target_id, edge_data in edges:
+                    next_steps.append(target_id)
+            else:
+                # Loop is done - find the exit path (after loop_end)
+                # Look for the paired loop_end and find what comes after it
+                loop_start_id = node.get("id")
+                all_nodes = result.get("_nodes", [])  # Passed from context
+                all_edges_list = result.get("_edges", [])
+                
+                # Find loop_end that pairs with this loop_start
+                loop_end_node = None
+                for n in all_nodes:
+                    n_data = n.get("data", {})
+                    if n_data.get("nodeType") == StepType.LOOP_END.value:
+                        if n_data.get("paired_loop_start") == loop_start_id:
+                            loop_end_node = n
+                            break
+                
+                if loop_end_node:
+                    # Find edges from loop_end that go to non-loop_start nodes
+                    loop_end_id = loop_end_node.get("id")
+                    for e in all_edges_list:
+                        if e.get("source") == loop_end_id and e.get("target") != loop_start_id:
+                            next_steps.append(e.get("target"))
+                
+                # Fallback: if still no exit path found, try explicit exit edges
+                if not next_steps:
+                    for target_id, edge_data in edges:
+                        edge_label = edge_data.get("sourceHandle") or edge_data.get("label", "")
+                        if edge_label in ("exit", "done", "skip"):
+                            next_steps.append(target_id)
+                
+                print(f"[Workflow] Loop complete, exiting to: {next_steps}")
+        
+        elif node_type == StepType.LOOP_END.value:
+            # For loop_end: if loop_back, go back to loop_start; else continue
+            loop_back = result.get("loop_back", False)
+            loop_start_id = result.get("loop_id")
+            
+            if loop_back and loop_start_id:
+                # Go back to the loop_start node
+                next_steps.append(loop_start_id)
+            else:
+                # Loop is complete, follow normal edges
+                for target_id, edge_data in edges:
+                    # Don't go back to loop_start when loop is complete
+                    if target_id != loop_start_id:
+                        next_steps.append(target_id)
+        
         else:
             # For other nodes, follow all outgoing edges
             for target_id, edge_data in edges:
