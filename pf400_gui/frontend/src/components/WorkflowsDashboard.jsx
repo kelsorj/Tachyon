@@ -382,9 +382,11 @@ function WorkflowsDashboard() {
     }
   }
 
-  // Poll for run status and log updates
+  // Poll for run status and log updates in real-time
   const pollRunStatus = async (runId, simulate) => {
     let completed = false
+    const loggedSteps = new Set() // Track which steps we've already logged
+    
     const pollInterval = setInterval(async () => {
       if (completed) return
       try {
@@ -392,30 +394,44 @@ function WorkflowsDashboard() {
         if (res.ok) {
           const status = await res.json()
           
+          // Log each step as it completes (real-time updates)
+          if (status.step_results) {
+            const steps = Object.entries(status.step_results)
+            // Sort by execution order
+            steps.sort((a, b) => {
+              const aExec = a[1]._exec_count || 1
+              const bExec = b[1]._exec_count || 1
+              return aExec - bExec
+            })
+            
+            steps.forEach(([stepId, result]) => {
+              // Only log steps we haven't logged yet
+              if (!loggedSteps.has(stepId)) {
+                loggedSteps.add(stepId)
+                const iterInfo = result._loop_iteration ? ` (iteration ${result._loop_iteration})` : ''
+                
+                if (result.source && result.target) {
+                  log(`📦 ${result.source} → ${result.target}${iterInfo}`)
+                } else if (result.delay_ms !== undefined) {
+                  log(`⏱️ Delay ${result.delay_ms}ms${iterInfo}`)
+                } else if (result.loop_id) {
+                  // Loop start/end - only log if it's meaningful
+                  if (result.should_continue === false) {
+                    log(`🔄 Loop complete after ${result.iteration} iterations`)
+                  }
+                } else if (result.action) {
+                  log(`🤖 ${result.action}${iterInfo}`)
+                }
+                // Skip logging start/end/loop_start nodes silently
+              }
+            })
+          }
+          
           if (status.state === 'completed') {
             if (completed) return
             completed = true
             clearInterval(pollInterval)
             log(`✓ ${simulate ? 'Simulation' : 'Run'} completed successfully!`)
-            
-            // Log step results
-            if (status.step_results) {
-              const steps = Object.entries(status.step_results)
-              // Sort by execution order (keys with _2, _3 etc come after base keys)
-              steps.sort((a, b) => {
-                const aExec = a[1]._exec_count || 1
-                const bExec = b[1]._exec_count || 1
-                return aExec - bExec
-              })
-              steps.forEach(([stepId, result]) => {
-                const iterInfo = result._loop_iteration ? ` (iteration ${result._loop_iteration})` : ''
-                if (result.source && result.target) {
-                  log(`📦 ${result.source} → ${result.target}${iterInfo}`)
-                } else if (result.action) {
-                  log(`🤖 ${result.action}${iterInfo}`)
-                }
-              })
-            }
             fetchActiveRuns()
           } else if (status.state === 'error') {
             if (completed) return
@@ -430,17 +446,29 @@ function WorkflowsDashboard() {
             log(`⚠ ${simulate ? 'Simulation' : 'Run'} cancelled`)
             fetchActiveRuns()
           }
+        } else if (res.status === 404) {
+          // Run not found - might have completed and been archived
+          if (!completed) {
+            completed = true
+            clearInterval(pollInterval)
+            log(`✓ Run finished`)
+            fetchActiveRuns()
+          }
         }
       } catch (e) {
-        // Ignore polling errors
+        console.error('Polling error:', e)
       }
     }, 500)
     
-    // Stop polling after 60 seconds max
+    // Extend timeout for real runs (5 minutes instead of 60 seconds)
+    const timeoutMs = simulate ? 60000 : 300000
     setTimeout(() => {
-      completed = true
-      clearInterval(pollInterval)
-    }, 60000)
+      if (!completed) {
+        completed = true
+        clearInterval(pollInterval)
+        log(`⏱️ Polling timeout - run may still be in progress`)
+      }
+    }, timeoutMs)
   }
 
   // React Flow callbacks
