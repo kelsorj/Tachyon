@@ -672,8 +672,11 @@ class WorkflowEngine:
                 "place_teachpoint_id": place_teachpoint,
                 "labware_type_id": labware_type_id,
                 "orientation": "landscape",
-                "pick_speed_profile": 2,
-                "place_speed_profile": 2,
+                # Field names must match PF400PickPlaceRequest in main.py.
+                # The previous keys (pick_speed_profile/place_speed_profile) were
+                # silently dropped by Pydantic, leaving both phases at profile 1 (slow).
+                "speed_no_plate": 2,
+                "speed_holding_plate": 2,
             }
             print(f"[Workflow] Pick-place payload: {payload}")
             
