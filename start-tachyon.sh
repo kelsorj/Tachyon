@@ -24,20 +24,40 @@ log "Tachyon Startup Script Beginning"
 log "=========================================="
 
 # Wait for network connectivity (robot at 192.168.0.20)
+# IMPORTANT: Use -b en9 to ping via the robot network interface
+# The default routing may use the wrong interface after reboot
 log "Waiting for network connectivity..."
-MAX_WAIT=60
+MAX_WAIT=120
 WAITED=0
-while ! ping -c 1 -W 1 192.168.0.20 &>/dev/null; do
+
+# First wait for en9 interface to be up
+log "  Waiting for en9 interface..."
+while ! ifconfig en9 2>/dev/null | grep -q "inet 192.168.0"; do
     sleep 2
     WAITED=$((WAITED + 2))
     if [ $WAITED -ge $MAX_WAIT ]; then
-        log "WARNING: Network connectivity timeout after ${MAX_WAIT}s, continuing anyway..."
+        log "WARNING: en9 interface timeout after ${MAX_WAIT}s"
+        break
+    fi
+done
+
+# Now wait for robot to be pingable via en9
+log "  Waiting for robot on 192.168.0.20..."
+WAITED=0
+while ! ping -c 1 -W 2 -b en9 192.168.0.20 &>/dev/null; do
+    sleep 3
+    WAITED=$((WAITED + 3))
+    if [ $WAITED -ge $MAX_WAIT ]; then
+        log "WARNING: Robot connectivity timeout after ${MAX_WAIT}s, continuing anyway..."
         break
     fi
 done
 if [ $WAITED -lt $MAX_WAIT ]; then
-    log "Network connectivity confirmed (robot reachable)"
+    log "Network connectivity confirmed (robot reachable via en9)"
 fi
+
+# Give network stack a moment to stabilize routing tables
+sleep 2
 
 # Step 1: Aggressively kill any existing PM2 processes
 log "Step 1: Cleaning up existing PM2 processes..."
