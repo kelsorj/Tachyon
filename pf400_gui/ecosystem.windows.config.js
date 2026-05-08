@@ -10,7 +10,14 @@
 
 const path = require('path');
 const backendDir = path.join(__dirname, 'backend');
-const venvPython = path.join(backendDir, 'venv', 'Scripts', 'python.exe');
+// Use pythonw.exe (no-console variant) to suppress the Windows console flash
+// each time PM2 spawns or restarts the backend. stdout/stderr still flow into
+// PM2's pipes and end up in ./backend/logs/, so logging is unaffected.
+const venvPython = path.join(backendDir, 'venv', 'Scripts', 'pythonw.exe');
+
+// Note: the planar-motor backend runs on a separate PC (see device.connection.backend_host
+// in MongoDB — currently 192.168.0.23:3062). The browser talks to it directly, so we don't
+// host a planar-motor-backend process here.
 
 module.exports = {
   apps: [

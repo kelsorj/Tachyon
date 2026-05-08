@@ -394,3 +394,4 @@ POC/ui/src/types/workflow_types.ts
 .DS_Store
 POC/example_lab/.env
 .claude/worktrees/pedantic-volhard-81f61e/
+*.pyc
