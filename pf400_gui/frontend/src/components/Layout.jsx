@@ -1,128 +1,105 @@
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 function Layout({ children }) {
   const location = useLocation()
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const isActive = (path) => {
     return location.pathname === path || location.pathname.startsWith(path + '/')
   }
 
+  const navItems = [
+    { path: '/devices', icon: '🤖', label: 'Devices' },
+    { path: '/labware', icon: '🧫', label: 'Labware' },
+    { path: '/workflows', icon: '⚡', label: 'Workflows' },
+    { path: '/tools', icon: '🛠️', label: 'Tools' },
+  ]
+
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#0a0a0a' }}>
       {/* Sidebar Navigation */}
       <div style={{
-        width: 250,
+        width: sidebarCollapsed ? 60 : 250,
         background: '#1a1a2e',
         borderRight: '2px solid #333',
         display: 'flex',
         flexDirection: 'column',
-        padding: 20
+        transition: 'width 0.2s ease',
+        overflow: 'hidden',
       }}>
-        <div style={{ marginBottom: 30 }}>
-          <h1 style={{ fontSize: '1.5em', margin: 0, color: '#fff' }}>Tachyon</h1>
-          <div style={{ fontSize: '0.85em', color: '#888', marginTop: 5 }}>
-            Workcell
-          </div>
+        {/* Header with collapse button */}
+        <div style={{ 
+          padding: sidebarCollapsed ? '20px 10px' : 20, 
+          display: 'flex', 
+          alignItems: 'center',
+          justifyContent: sidebarCollapsed ? 'center' : 'space-between',
+          minHeight: 70,
+        }}>
+          {!sidebarCollapsed && (
+            <h1 style={{ fontSize: '1.5em', margin: 0, color: '#fff', whiteSpace: 'nowrap' }}>Tachyon</h1>
+          )}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#888',
+              cursor: 'pointer',
+              fontSize: '1.2em',
+              padding: 5,
+              borderRadius: 4,
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#fff'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#888'}
+            title={sidebarCollapsed ? 'Expand menu' : 'Collapse menu'}
+          >
+            {sidebarCollapsed ? '☰' : '◀'}
+          </button>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <Link
-            to="/devices"
-            style={{
-              padding: '12px 16px',
-              borderRadius: 6,
-              textDecoration: 'none',
-              color: isActive('/devices') ? '#fff' : '#aaa',
-              background: isActive('/devices') ? '#1890ff' : 'transparent',
-              fontWeight: isActive('/devices') ? 'bold' : 'normal',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10
-            }}
-            onMouseEnter={(e) => {
-              if (!isActive('/devices')) {
-                e.currentTarget.style.background = '#222'
-                e.currentTarget.style.color = '#fff'
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isActive('/devices')) {
-                e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#aaa'
-              }
-            }}
-          >
-            <span style={{ fontSize: '1.2em' }}>🤖</span>
-            <span>Devices</span>
-          </Link>
-
-          <Link
-            to="/labware"
-            style={{
-              padding: '12px 16px',
-              borderRadius: 6,
-              textDecoration: 'none',
-              color: isActive('/labware') ? '#fff' : '#aaa',
-              background: isActive('/labware') ? '#1890ff' : 'transparent',
-              fontWeight: isActive('/labware') ? 'bold' : 'normal',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10
-            }}
-            onMouseEnter={(e) => {
-              if (!isActive('/labware')) {
-                e.currentTarget.style.background = '#222'
-                e.currentTarget.style.color = '#fff'
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isActive('/labware')) {
-                e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#aaa'
-              }
-            }}
-          >
-            <span style={{ fontSize: '1.2em' }}>🧫</span>
-            <span>Labware</span>
-          </Link>
-
-          <Link
-            to="/tools"
-            style={{
-              padding: '12px 16px',
-              borderRadius: 6,
-              textDecoration: 'none',
-              color: isActive('/tools') ? '#fff' : '#aaa',
-              background: isActive('/tools') ? '#1890ff' : 'transparent',
-              fontWeight: isActive('/tools') ? 'bold' : 'normal',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10
-            }}
-            onMouseEnter={(e) => {
-              if (!isActive('/tools')) {
-                e.currentTarget.style.background = '#222'
-                e.currentTarget.style.color = '#fff'
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isActive('/tools')) {
-                e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#aaa'
-              }
-            }}
-          >
-            <span style={{ fontSize: '1.2em' }}>🛠️</span>
-            <span>Tools</span>
-          </Link>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: sidebarCollapsed ? '0 8px' : '0 20px' }}>
+          {navItems.map(({ path, icon, label }) => (
+            <Link
+              key={path}
+              to={path}
+              style={{
+                padding: sidebarCollapsed ? '12px 0' : '12px 16px',
+                borderRadius: 6,
+                textDecoration: 'none',
+                color: isActive(path) ? '#fff' : '#aaa',
+                background: isActive(path) ? '#1890ff' : 'transparent',
+                fontWeight: isActive(path) ? 'bold' : 'normal',
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
+                gap: 10,
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(path)) {
+                  e.currentTarget.style.background = '#222'
+                  e.currentTarget.style.color = '#fff'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(path)) {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = '#aaa'
+                }
+              }}
+              title={sidebarCollapsed ? label : undefined}
+            >
+              <span style={{ fontSize: '1.2em' }}>{icon}</span>
+              {!sidebarCollapsed && <span>{label}</span>}
+            </Link>
+          ))}
         </nav>
 
-        {location.pathname.includes('/devices/') && (
+        {!sidebarCollapsed && location.pathname.includes('/devices/') && (
           <div style={{ 
-            marginTop: 30, 
+            margin: '30px 20px 20px',
             padding: 15, 
             background: '#222', 
             borderRadius: 6,
@@ -132,7 +109,7 @@ function Layout({ children }) {
               Current Device
             </div>
             <div style={{ fontSize: '0.9em', color: '#fff', fontWeight: 'bold' }}>
-              {location.pathname.split('/')[2] || 'Device'}
+              {decodeURIComponent(location.pathname.split('/')[2] || 'Device')}
             </div>
             <Link
               to="/devices"
@@ -164,4 +141,3 @@ function Layout({ children }) {
 }
 
 export default Layout
-

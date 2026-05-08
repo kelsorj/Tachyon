@@ -13,6 +13,7 @@ import argparse
 import time
 import secrets
 import shutil
+from datetime import datetime, timezone
 
 # Import ROS client
 from ros_client import PF400ROSClient
@@ -944,6 +945,50 @@ async def pf400_reconnect():
 
     raise HTTPException(status_code=503, detail=f"Reconnect failed (ip={ip}, port={port}): {last_err or 'unknown error'}")
 
+
+@app.get("/pf400/home/status")
+async def pf400_home_status():
+    """Check if the robot has been homed."""
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    d = robot_client.driver
+    if not hasattr(d, "is_homed"):
+        raise HTTPException(status_code=501, detail="Home status check not supported by driver")
+    
+    try:
+        homed = d.is_homed()
+        return {"homed": homed, "status": "homed" if homed else "not_homed"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error checking home status: {str(e)}")
+
+
+@app.post("/pf400/home")
+async def pf400_home():
+    """
+    Send the home command to the robot.
+    This will move all axes to their home positions and calibrate encoders.
+    Takes approximately 15-25 seconds to complete.
+    """
+    if not robot_client or not hasattr(robot_client, "driver"):
+        raise HTTPException(status_code=503, detail="Robot client not initialized")
+    
+    d = robot_client.driver
+    if not hasattr(d, "home_robot"):
+        raise HTTPException(status_code=501, detail="Home command not supported by driver")
+    
+    try:
+        success = d.home_robot(wait=True)
+        if success:
+            return {"status": "success", "message": "Robot homed successfully"}
+        else:
+            raise HTTPException(status_code=500, detail="Homing failed or timed out")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Homing error: {str(e)}")
+
+
 @app.get("/state")
 async def get_state():
     if not robot_client:
@@ -1667,6 +1712,177 @@ async def get_all_devices():
         return {"devices": devices}
     except Exception as e:
         print(f"Error getting all devices: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class DeviceCreateRequest(BaseModel):
+    name: str
+    ui_type: Optional[str] = None
+    device_category: Optional[str] = None
+    description: Optional[str] = ""
+    status: Optional[str] = "active"
+    position: Optional[Dict[str, Any]] = None
+    config: Optional[Dict[str, Any]] = None
+    robot_access: Optional[List[Dict[str, Any]]] = None
+    connection: Optional[Dict[str, Any]] = None
+
+
+@app.post("/devices")
+async def create_device(req: DeviceCreateRequest):
+    """Create a new device."""
+    try:
+        # Check if device already exists
+        existing = mongodb.get_device_by_name(req.name)
+        if existing:
+            raise HTTPException(status_code=400, detail=f"Device '{req.name}' already exists")
+        
+        device_data = {
+            "name": req.name,
+            "status": req.status or "active",
+        }
+        
+        if req.ui_type:
+            device_data["ui_type"] = req.ui_type
+        if req.device_category:
+            device_data["device_category"] = req.device_category
+        if req.description:
+            device_data["description"] = req.description
+        if req.position:
+            device_data["position"] = req.position
+        if req.config:
+            device_data["config"] = req.config
+        if req.robot_access:
+            device_data["robot_access"] = req.robot_access
+        if req.connection:
+            device_data["connection"] = req.connection
+        
+        created = mongodb.create_device(device_data)
+        if not created:
+            raise HTTPException(status_code=500, detail="Failed to create device")
+        
+        return created
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error creating device: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/devices/{device_name}")
+async def get_device_by_name(device_name: str):
+    """Get a single device by name."""
+    try:
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        # Convert ObjectId to string for JSON serialization
+        if "_id" in device:
+            device["_id"] = str(device["_id"])
+        return device
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error getting device '{device_name}': {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class DeviceUpdateRequest(BaseModel):
+    name: Optional[str] = None  # For renaming the device
+    description: Optional[str] = None
+    position: Optional[Dict[str, Any]] = None
+    config: Optional[Dict[str, Any]] = None
+    robot_access: Optional[List[Dict[str, Any]]] = None
+    status: Optional[str] = None
+    ui_type: Optional[str] = None  # Device UI type: "Plate Pad", "PF400 Robot", "Planar Motor"
+
+
+@app.put("/devices/{device_name}")
+async def update_device(device_name: str, req: DeviceUpdateRequest):
+    """Update a device's properties. The device's _id is immutable, but name can be changed."""
+    try:
+        from bson import ObjectId
+        
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        
+        # get_device_by_name returns _id as string, convert back to ObjectId for query
+        device_id = ObjectId(device["_id"])
+        
+        # Build update dict from provided fields
+        updates = {}
+        new_name = None
+        
+        if req.name is not None and req.name != device_name:
+            # Validate new name doesn't already exist
+            existing = mongodb.get_device_by_name(req.name)
+            if existing:
+                raise HTTPException(status_code=409, detail=f"Device with name '{req.name}' already exists")
+            updates["name"] = req.name
+            new_name = req.name
+            
+        if req.description is not None:
+            updates["description"] = req.description
+        if req.position is not None:
+            updates["position"] = req.position
+        if req.config is not None:
+            updates["config"] = req.config
+        if req.robot_access is not None:
+            updates["robot_access"] = req.robot_access
+        if req.status is not None:
+            updates["status"] = req.status
+        if req.ui_type is not None:
+            updates["ui_type"] = req.ui_type
+        
+        if not updates:
+            raise HTTPException(status_code=400, detail="No fields to update")
+        
+        updates["updated_at"] = datetime.now(timezone.utc)
+        
+        db = mongodb.get_db()
+        # Use _id for the query so rename works correctly
+        result = db.devices.update_one(
+            {"_id": device_id},
+            {"$set": updates}
+        )
+        
+        if result.modified_count == 0:
+            return {"status": "no_change", "message": "No changes made"}
+        
+        # Fetch and return updated device (use new name if renamed)
+        fetch_name = new_name if new_name else device_name
+        updated = mongodb.get_device_by_name(fetch_name)
+        if updated and "_id" in updated:
+            updated["_id"] = str(updated["_id"])
+        return updated
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error updating device '{device_name}': {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/devices/{device_name}")
+async def delete_device(device_name: str):
+    """Delete a device by name."""
+    try:
+        from bson import ObjectId
+        
+        device = mongodb.get_device_by_name(device_name)
+        if not device:
+            raise HTTPException(status_code=404, detail=f"Device '{device_name}' not found")
+        
+        db = mongodb.get_db()
+        result = db.devices.delete_one({"_id": ObjectId(device["_id"])})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=500, detail="Failed to delete device")
+        
+        return {"status": "success", "message": f"Device '{device_name}' deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error deleting device '{device_name}': {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -3314,6 +3530,14 @@ class DeviceTeachpointRequest(BaseModel):
     position: Dict[str, float] = {}  # x, y, z, rx, ry, rz in meters/radians
     xbot_id: int = 1
 
+
+class DeviceTeachpointUpdateRequest(BaseModel):
+    """Request model for updating an existing teachpoint (device_name and id come from URL)."""
+    name: str
+    description: str = ""
+    position: Dict[str, float] = {}  # x, y, z, rx, ry, rz in meters/radians
+    xbot_id: int = 1
+
 @app.get("/devices/{device_name}/teachpoints")
 async def get_device_teachpoints(device_name: str):
     """Get all teachpoints for a specific device."""
@@ -3362,6 +3586,41 @@ async def save_device_teachpoint(device_name: str, req: DeviceTeachpointRequest)
     except Exception as e:
         print(f"Error saving teachpoint for {device_name}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.put("/devices/{device_name}/teachpoints/{teachpoint_id}")
+async def update_device_teachpoint(device_name: str, teachpoint_id: str, req: DeviceTeachpointUpdateRequest):
+    """Update an existing teachpoint for a specific device."""
+    try:
+        # Get existing teachpoint to preserve link data
+        existing_teachpoints = mongodb.get_device_teachpoints(device_name)
+        existing_links = {}
+        if teachpoint_id in existing_teachpoints:
+            existing_tp = existing_teachpoints[teachpoint_id]
+            # Preserve link information
+            if "linked_to" in existing_tp:
+                existing_links["linked_to"] = existing_tp["linked_to"]
+            if "linked_from" in existing_tp:
+                existing_links["linked_from"] = existing_tp["linked_from"]
+
+        teachpoint_data = {
+            "id": teachpoint_id,  # Keep the same ID
+            "name": req.name,
+            "description": req.description,
+            "position": req.position,
+            "xbot_id": req.xbot_id,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            **existing_links  # Preserve any existing links
+        }
+        
+        success = mongodb.save_teachpoint(device_name, teachpoint_id, teachpoint_data)
+        if success:
+            return {"status": "success", "teachpoint_id": teachpoint_id, "teachpoint": teachpoint_data}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to update teachpoint")
+    except Exception as e:
+        print(f"Error updating teachpoint for {device_name}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.delete("/devices/{device_name}/teachpoints/{teachpoint_id}")
 async def delete_device_teachpoint(device_name: str, teachpoint_id: str):
@@ -3476,6 +3735,331 @@ async def get_linked_teachpoints(device_name: str):
         return {"device": device_name, "linked_teachpoints": linked}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============== WORKFLOW API ==============
+# Device Collections, Workflows, Workflow Runs, Code Modules
+
+from workflow_engine import get_engine, WorkflowState
+
+# --- Device Collections ---
+
+@app.get("/workflows/collections")
+async def list_device_collections():
+    """List all device collections."""
+    collections = mongodb.get_all_device_collections()
+    return {"collections": collections}
+
+
+@app.get("/workflows/collections/{collection_id}")
+async def get_device_collection(collection_id: str):
+    """Get a device collection by ID."""
+    collection = mongodb.get_device_collection(collection_id)
+    if not collection:
+        raise HTTPException(status_code=404, detail="Collection not found")
+    return collection
+
+
+class DeviceCollectionCreate(BaseModel):
+    name: str
+    description: Optional[str] = ""
+    devices: Optional[List[Dict[str, Any]]] = []  # [{device_name, alias, ...}]
+
+
+@app.post("/workflows/collections")
+async def create_device_collection(data: DeviceCollectionCreate):
+    """Create a new device collection."""
+    collection = mongodb.create_device_collection(data.model_dump())
+    if not collection:
+        raise HTTPException(status_code=500, detail="Failed to create collection")
+    return collection
+
+
+class DeviceCollectionUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    devices: Optional[List[Dict[str, Any]]] = None
+
+
+@app.put("/workflows/collections/{collection_id}")
+async def update_device_collection(collection_id: str, data: DeviceCollectionUpdate):
+    """Update a device collection."""
+    updates = {k: v for k, v in data.model_dump().items() if v is not None}
+    collection = mongodb.update_device_collection(collection_id, updates)
+    if not collection:
+        raise HTTPException(status_code=404, detail="Collection not found")
+    return collection
+
+
+@app.delete("/workflows/collections/{collection_id}")
+async def delete_device_collection(collection_id: str):
+    """Delete a device collection."""
+    success = mongodb.delete_device_collection(collection_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Collection not found")
+    return {"status": "deleted", "collection_id": collection_id}
+
+
+# --- Workflows ---
+
+@app.get("/workflows")
+async def list_workflows():
+    """List all workflows."""
+    workflows = mongodb.get_all_workflows()
+    return {"workflows": workflows}
+
+
+@app.get("/workflows/{workflow_id}")
+async def get_workflow(workflow_id: str):
+    """Get a workflow by ID."""
+    workflow = mongodb.get_workflow(workflow_id)
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+    return workflow
+
+
+class WorkflowCreate(BaseModel):
+    name: str
+    description: Optional[str] = ""
+    device_collection_id: Optional[str] = None
+    nodes: Optional[List[Dict[str, Any]]] = []
+    edges: Optional[List[Dict[str, Any]]] = []
+    labware: Optional[List[Dict[str, Any]]] = []  # Labware items in this workflow
+
+
+@app.post("/workflows")
+async def create_workflow(data: WorkflowCreate):
+    """Create a new workflow."""
+    workflow = mongodb.create_workflow(data.model_dump())
+    if not workflow:
+        raise HTTPException(status_code=500, detail="Failed to create workflow")
+    return workflow
+
+
+class WorkflowUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    device_collection_id: Optional[str] = None
+    nodes: Optional[List[Dict[str, Any]]] = None
+    edges: Optional[List[Dict[str, Any]]] = None
+    labware: Optional[List[Dict[str, Any]]] = None  # Labware items in this workflow
+
+
+@app.put("/workflows/{workflow_id}")
+async def update_workflow(workflow_id: str, data: WorkflowUpdate):
+    """Update a workflow."""
+    updates = {k: v for k, v in data.model_dump().items() if v is not None}
+    workflow = mongodb.update_workflow(workflow_id, updates)
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+    return workflow
+
+
+@app.delete("/workflows/{workflow_id}")
+async def delete_workflow(workflow_id: str):
+    """Delete a workflow."""
+    success = mongodb.delete_workflow(workflow_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+    return {"status": "deleted", "workflow_id": workflow_id}
+
+
+# --- Workflow Runs ---
+
+@app.get("/workflows/runs")
+async def list_workflow_runs(workflow_id: Optional[str] = None, limit: int = 50):
+    """List workflow runs, optionally filtered by workflow_id."""
+    runs = mongodb.get_workflow_runs(workflow_id, limit)
+    return {"runs": runs}
+
+
+@app.get("/workflows/runs/active")
+async def list_active_runs():
+    """List currently active workflow runs."""
+    engine = get_engine()
+    return {"active_runs": engine.get_active_runs()}
+
+
+@app.get("/workflows/runs/{run_id}")
+async def get_workflow_run(run_id: str):
+    """Get a workflow run by ID."""
+    engine = get_engine()
+    status = engine.get_run_status(run_id)
+    if not status:
+        raise HTTPException(status_code=404, detail="Run not found")
+    return status
+
+
+class WorkflowRunStart(BaseModel):
+    workflow_id: str
+    collection_id: Optional[str] = None
+    variables: Optional[Dict[str, Any]] = {}
+    simulate: bool = False
+
+
+@app.post("/workflows/runs/start")
+async def start_workflow_run(data: WorkflowRunStart):
+    """Start a new workflow run."""
+    engine = get_engine()
+    try:
+        run_id = await engine.start_workflow(
+            workflow_id=data.workflow_id,
+            collection_id=data.collection_id,
+            variables=data.variables,
+            simulate=data.simulate,
+        )
+        return {"run_id": run_id, "status": "started"}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/workflows/runs/{run_id}/pause")
+async def pause_workflow_run(run_id: str):
+    """Pause a running workflow."""
+    engine = get_engine()
+    success = await engine.pause_workflow(run_id)
+    if not success:
+        raise HTTPException(status_code=400, detail="Cannot pause this run")
+    return {"run_id": run_id, "status": "paused"}
+
+
+@app.post("/workflows/runs/{run_id}/resume")
+async def resume_workflow_run(run_id: str):
+    """Resume a paused workflow."""
+    engine = get_engine()
+    success = await engine.resume_workflow(run_id)
+    if not success:
+        raise HTTPException(status_code=400, detail="Cannot resume this run")
+    return {"run_id": run_id, "status": "resumed"}
+
+
+@app.post("/workflows/runs/{run_id}/cancel")
+async def cancel_workflow_run(run_id: str):
+    """Cancel a workflow run."""
+    engine = get_engine()
+    success = await engine.cancel_workflow(run_id)
+    if not success:
+        raise HTTPException(status_code=400, detail="Cannot cancel this run")
+    return {"run_id": run_id, "status": "cancelled"}
+
+
+# --- Code Modules ---
+
+@app.get("/workflows/modules")
+async def list_code_modules():
+    """List all code modules."""
+    modules = mongodb.get_all_code_modules()
+    return {"modules": modules}
+
+
+@app.get("/workflows/modules/{module_id}")
+async def get_code_module(module_id: str):
+    """Get a code module by ID."""
+    module = mongodb.get_code_module(module_id)
+    if not module:
+        raise HTTPException(status_code=404, detail="Module not found")
+    return module
+
+
+class CodeModuleCreate(BaseModel):
+    name: str
+    description: Optional[str] = ""
+    language: str = "python"  # python, javascript, csharp
+    code: str = ""
+    inputs: Optional[List[Dict[str, Any]]] = []  # [{name, type, default}]
+    outputs: Optional[List[Dict[str, Any]]] = []  # [{name, type}]
+
+
+@app.post("/workflows/modules")
+async def create_code_module(data: CodeModuleCreate):
+    """Create a new code module."""
+    module = mongodb.create_code_module(data.model_dump())
+    if not module:
+        raise HTTPException(status_code=500, detail="Failed to create module")
+    return module
+
+
+class CodeModuleUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    language: Optional[str] = None
+    code: Optional[str] = None
+    inputs: Optional[List[Dict[str, Any]]] = None
+    outputs: Optional[List[Dict[str, Any]]] = None
+
+
+@app.put("/workflows/modules/{module_id}")
+async def update_code_module(module_id: str, data: CodeModuleUpdate):
+    """Update a code module."""
+    updates = {k: v for k, v in data.model_dump().items() if v is not None}
+    module = mongodb.update_code_module(module_id, updates)
+    if not module:
+        raise HTTPException(status_code=404, detail="Module not found")
+    return module
+
+
+@app.delete("/workflows/modules/{module_id}")
+async def delete_code_module(module_id: str):
+    """Delete a code module."""
+    success = mongodb.delete_code_module(module_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Module not found")
+    return {"status": "deleted", "module_id": module_id}
+
+
+# --- WebSocket for real-time workflow updates ---
+
+from fastapi import WebSocket, WebSocketDisconnect
+
+# WebSocket connection manager
+class WorkflowWSManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+    
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+        # Register as engine listener
+        engine = get_engine()
+        engine.add_listener(self._on_engine_event)
+    
+    def disconnect(self, websocket: WebSocket):
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
+    
+    async def broadcast(self, message: dict):
+        for connection in self.active_connections:
+            try:
+                await connection.send_json(message)
+            except Exception:
+                pass
+    
+    def _on_engine_event(self, run_id: str, event: dict):
+        # Schedule broadcast in the event loop
+        import asyncio
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(self.broadcast(event))
+        except RuntimeError:
+            pass  # No running loop
+
+
+workflow_ws_manager = WorkflowWSManager()
+
+
+@app.websocket("/workflows/ws")
+async def workflow_websocket(websocket: WebSocket):
+    """WebSocket endpoint for real-time workflow updates."""
+    await workflow_ws_manager.connect(websocket)
+    try:
+        while True:
+            # Keep connection alive, receive any client messages
+            data = await websocket.receive_text()
+            # Could handle client commands here (e.g., subscribe to specific runs)
+    except WebSocketDisconnect:
+        workflow_ws_manager.disconnect(websocket)
 
 
 if __name__ == "__main__":

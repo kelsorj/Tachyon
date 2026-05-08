@@ -18,6 +18,7 @@ export ROBOT_MODEL=${ROBOT_MODEL:-400SXL}
 PORT=${PF400_PORT:-3061}
 
 # Get robot IP from environment or use default
+# PF400-021 is at 192.168.0.20
 export PF400_IP=${PF400_IP:-192.168.0.20}
 export PF400_ROBOT_PORT=${PF400_ROBOT_PORT:-10100}
 
@@ -33,4 +34,3 @@ if [ -f "venv/bin/python3" ]; then
 else
     exec python3 start_server.py --real --port $PORT
 fi
-
