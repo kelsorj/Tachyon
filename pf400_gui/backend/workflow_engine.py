@@ -675,7 +675,9 @@ class WorkflowEngine:
                 # Field names must match PF400PickPlaceRequest in main.py.
                 # The previous keys (pick_speed_profile/place_speed_profile) were
                 # silently dropped by Pydantic, leaving both phases at profile 1 (slow).
-                "speed_no_plate": 2,
+                # Profile 2 = vendor-max speed, standard ramps (safe with a plate).
+                # Profile 3 = vendor-max speed, sharper ramps (used when empty).
+                "speed_no_plate": 3,
                 "speed_holding_plate": 2,
             }
             print(f"[Workflow] Pick-place payload: {payload}")

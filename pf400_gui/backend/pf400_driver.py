@@ -221,12 +221,18 @@ class PF400Driver:
             self.send_command("selectRobot 1")
             self.send_status_command("selectRobot 1")
             
-            # Set up motion profiles (like working module)
+            # Set up motion profiles
             # Profile format: Profile <id> speed speed2 accel decel accelramp decelramp inrange straight
-            profile1 = "Profile 1 30 0 50 50 0.1 0.1 0 0"  # Slow profile
-            profile2 = "Profile 2 120 0 100 100 0.1 0.1 0 0"  # Fast profile
+            # Vendor cap on the speed parameter is 150 (per pf400_module-main constants).
+            #   1 = slow / cautious (jog, manual, paths near obstacles)
+            #   2 = full-speed but standard ramps; used when the gripper is holding a plate
+            #   3 = full-speed with sharper accel ramps; used for empty travel
+            profile1 = "Profile 1 30 0 50 50 0.1 0.1 0 0"
+            profile2 = "Profile 2 150 0 100 100 0.1 0.1 0 0"
+            profile3 = "Profile 3 150 0 100 100 0.05 0.05 0 0"
             self.send_command(profile1)
             self.send_command(profile2)
+            self.send_command(profile3)
             
             # Ensure robot is attached
             attach_resp = self.send_command("attach 1")
